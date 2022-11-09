@@ -5,6 +5,14 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Version>0.0.1</Version>
+    <Authors>Sodium Launcher Dev Team</Authors>
+    <Product>Sodium Launcher</Product>
+    <Description>Sodium Launcher 启动器</Description>
+    <Copyright>Copyright © 2022 Sodium Launcher Dev Team，All Rights Reserved.</Copyright>
+    <RepositoryUrl>https://github.com/Sodium-Launcher/Sodium_Launcher</RepositoryUrl>
+    <AssemblyName>Sodium Launcher</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
