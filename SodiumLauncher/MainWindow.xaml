@@ -14,6 +14,7 @@
             <StackPanel Background="#B7E3E3E4" Margin="200,15,200,400" />
 
         </Border>
+        <Button x:Name="Exit_Button" Content="X" Margin="752,15,10,400" Width="20" Background="#00DDDDDD" Foreground="White" Click="Exit_Button_Click" Height="26"/>
 
     </Grid>
 </Window>
