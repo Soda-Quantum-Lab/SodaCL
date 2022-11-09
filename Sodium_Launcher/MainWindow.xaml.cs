@@ -24,15 +24,16 @@ namespace Sodium_Launcher
         {
             InitializeComponent();
         }
-
+        #region 自定义标题栏
         private void Exit_Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+        #endregion
     }
 }
