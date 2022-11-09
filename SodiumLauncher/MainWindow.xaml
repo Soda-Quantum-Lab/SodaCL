@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SodiumLauncher"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="SodiumLauncher" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White">
     <Grid>
+        <Border BorderThickness="1" BorderBrush="Gray"  CornerRadius="15,15,15,15" MouseLeftButtonDown="Border_MouseLeftButtonDown"  >
+            <Border.Background>
+                <ImageBrush ImageSource=".\Resources\Launcher-Home.png"/>
+            </Border.Background>
+            <StackPanel Background="#B7E3E3E4" Margin="200,15,200,400" />
+
+        </Border>
 
     </Grid>
 </Window>

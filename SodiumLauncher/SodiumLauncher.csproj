@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\Launcher-Home.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Launcher-Home.png" />
+  </ItemGroup>
+
 </Project>
