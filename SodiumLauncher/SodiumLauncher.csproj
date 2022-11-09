@@ -15,4 +15,8 @@
     <Resource Include="Resources\Launcher-Home.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+
 </Project>
