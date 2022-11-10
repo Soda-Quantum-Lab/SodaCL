@@ -14,13 +14,15 @@
         </Border>
         <Grid Margin="0,0,0,390" Height="50">
             <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Background="Transparent" Width="800" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Width="190" Text="Sodium Launcher" Foreground="White" FontSize="20" TextAlignment="Center" Padding="0,12,0,0" FontFamily="Impact"/>
-                <Button Content="启动" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
-                <Button Content="下载" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
-                <Button Content="档案" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
-                <Button Content="设置" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
-                <Button Content="本地账户" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
-
+                <Border Margin="180,0,0,0" CornerRadius="25,25,25,25" Background="#59FFFFFF">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="启动" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
+                        <Button Content="下载" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
+                        <Button Content="档案" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
+                        <Button Content="设置" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
+                        <Button Content="本地账户" Margin="5,0,0,0" Width="78" Height="34"  HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Border>
             </StackPanel>
             <Button x:Name="Exit_Button" Content="X" Margin="757,10,21,10" Width="20" Background="#00DDDDDD" Foreground="White" Click="Exit_Button_Click" BorderBrush="#00707070"/>
 
