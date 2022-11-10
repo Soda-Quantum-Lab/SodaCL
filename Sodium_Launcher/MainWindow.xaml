@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sodium_Launcher"
         mc:Ignorable="d"
-        Title="Sodium_Launcher" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White">
+        Title="Sodium_Launcher" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
     <Grid>
-        <Border BorderThickness="1" BorderBrush="Gray"  CornerRadius="15,15,15,15" Padding="0,7,0,0" Margin="0,1,0,0" >
+        <Border BorderThickness="1" BorderBrush="Gray"  CornerRadius="15,15,15,15" Padding="0,7,0,0" Margin="10,-28,-10,29" >
             <Border.Background>
-                <ImageBrush ImageSource=".\Resources\Launcher-Home.png"/>
+                <ImageBrush ImageSource=".\Resources\Images\Launcher-Home.png"/>
             </Border.Background>
+            <Button Content="Test Button!" Margin="256,144,256,160" Click="Button_Click"></Button>
         </Border>
         <Grid Margin="0,0,0,390" Height="50">
             <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Background="Transparent" Width="800" Orientation="Horizontal" HorizontalAlignment="Center">

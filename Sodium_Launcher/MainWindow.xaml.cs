@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Sodium_Launcher.Main.Minecraft;
 
 namespace Sodium_Launcher
 {
@@ -35,5 +38,28 @@ namespace Sodium_Launcher
             this.DragMove();
         }
         #endregion
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            string _SDLDir = @".\SDL";
+            string _MCDir = @".\.minecraft";
+            try
+            {
+                if (!Directory.Exists(_SDLDir) || !Directory.Exists(_MCDir))
+                {
+                    Directory.CreateDirectory(_SDLDir);
+                    Directory.CreateDirectory(_MCDir);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MCDownload.GetManifest();
+        }
     }
 }
