@@ -6,29 +6,38 @@
         xmlns:MyNamespace="clr-namespace:Sodium_Launcher.Controls"
         xmlns:local="clr-namespace:Sodium_Launcher"
         mc:Ignorable="d"
-        Title="Sodium_Launcher" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
+        Title="Sodium_Launcher" Height="500" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
+    <Window.Resources>
+        <Style x:Key="TopRadioButton" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5,0,5,0"/>
+            <Setter Property="Width" Value="65"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Border BorderThickness="1" BorderBrush="Gray"  CornerRadius="15,15,15,15" Padding="0,7,0,0" Height="452" VerticalAlignment="Top" >
+        <Border BorderThickness="1" BorderBrush="Gray"  CornerRadius="15,15,15,15" Padding="0,7,0,0" Height="499" VerticalAlignment="Center" >
             <Border.Background>
                 <ImageBrush ImageSource=".\Resources\Images\Launcher-Home.png"/>
             </Border.Background>
         </Border>
-        <StackPanel Margin="0,0,0,375" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Background="Transparent">
-            <Border Height="45" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center" Margin="200,28,0,0" Background="#4CFFFFFF" CornerRadius="20,20,20,20">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <RadioButton Content="启动" GroupName="TopRadioButtons" Foreground="White" Margin="5,0,5,0" Width="65" Height="30" IsChecked="true" FontSize="22"/>
-                    <RadioButton Content="下载" GroupName="TopRadioButtons" Foreground="White" Margin="5,0,5,0" Width="65" Height="30" FontSize="22"/>
-                    <RadioButton Content="设置" GroupName="TopRadioButtons" Foreground="White" Margin="5,0,5,0" Width="65" Height="30" FontSize="22"/>
-                    <RadioButton Content="档案" GroupName="TopRadioButtons" Foreground="White" Margin="5,0,5,0" Width="65" Height="30" FontSize="22"/>
+        <StackPanel Margin="0,0,-1,434" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Background="Transparent">
+            <Border Height="35" Width="426" VerticalAlignment="Center" Margin="200,29,0,0" Background="#4CFFFFFF" CornerRadius="15,15,15,15">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="35" Width="426">
+                    <RadioButton Content="启动" GroupName="TopRadioButtons" Style="{StaticResource TopRadioButton}" IsChecked="true"/>
+                    <RadioButton Content="下载" GroupName="TopRadioButtons" Style="{StaticResource TopRadioButton}"/>
+                    <RadioButton Content="设置" GroupName="TopRadioButtons" Style="{StaticResource TopRadioButton}"/>
+                    <RadioButton Content="档案" GroupName="TopRadioButtons" Style="{StaticResource TopRadioButton}"/>
                     <TextBlock Height="30" Width="3" Foreground="White" FontSize="24" Margin="0,-3,0,0">|</TextBlock>
-                    <RadioButton Content="本地账户" GroupName="TopRadioButtons" Foreground="White" Margin="5,0,5,0" Width="65" Height="30" FontSize="22"/>
+                    <RadioButton Content="本地账户" GroupName="TopRadioButtons" Style="{StaticResource ResourceKey=TopRadioButton}" Width="100"/>
                 </StackPanel>
             </Border>
-            <Button x:Name="Exit_Button" Content="C" Width="42.5" Background="#00DDDDDD" Foreground="White" Click="Exit_Button_Click" BorderBrush="#00707070" Height="42.5" Margin="135,30,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Symbol"/>
+            <Button x:Name="Exit_Button" Content="C" Width="30" Background="#00DDDDDD" Foreground="White" Click="Exit_Button_Click" BorderBrush="#00707070" Height="30" FontSize="22" FontFamily="Symbol" HorizontalAlignment="Right" Margin="120,30,0,0"/>
         </StackPanel>
         <Grid Width="750" Height="100">
-            <Border Margin="0,140,0,-140" Background="#99FFFFFF" CornerRadius="15,20,15,20">
-                
+            <Border Margin="0,165,0,-165" Background="#99FFFFFF" CornerRadius="15,20,15,20">
+
             </Border>
         </Grid>
     </Grid>
