@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Sodium_Launcher.Main.Minecraft;
+using Sodium_Launcher.Main.Downloader;
 
 namespace Sodium_Launcher
 {
