@@ -9,7 +9,6 @@ on:
       
 env:
   DOTNET_VERSION: '6.0.x' # The .NET SDK version to use
-  PublishFilePath: C:\PublishFiles
   
 jobs:
   publish:
@@ -34,7 +33,7 @@ jobs:
     - name: Build
       run: |
         dotnet build --configuration Release --no-restore
-        dotnet publish -c Release -r win-x86 --sc false /p:PublishSingleFile=True /p:PublishProfile=${{ env.PublishFilePath }}
+        dotnet publish -c Release -r win-x86 --sc false /p:PublishSingleFile=True
         
     - name: Test
       run: |
@@ -51,7 +50,7 @@ jobs:
         name: ${{ steps.tag.outputs.tag }}
         prerelease: false
         draft: true
-        artifacts: ${{ env.PublishFilePath }}\*.exe
+        artifacts: D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\*.exe
         body: |
           ## 版本亮点
           * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新。
