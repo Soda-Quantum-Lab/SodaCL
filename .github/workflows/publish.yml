@@ -52,7 +52,8 @@ jobs:
           body: |
             ## 版本亮点
             * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新。
+            
             ${{steps.build_changelog.outputs.changelog}}
           files: |
-            D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\Sodium Launcher.exe
+            D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\SDL.exe
 

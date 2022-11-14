@@ -13,6 +13,7 @@
     <Copyright>Copyright © 2022 Sodium Launcher Dev Team，All Rights Reserved.</Copyright>
     <RepositoryUrl>https://github.com/Sodium-Launcher/Sodium_Launcher</RepositoryUrl>
     <AssemblyName>Sodium Launcher</AssemblyName>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
