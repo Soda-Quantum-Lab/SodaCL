@@ -3,7 +3,8 @@
 <img src = 'https://tuchuangs.com/imgs/2022/11/14/d9ebdb3f9b3e3808.gif' />
 
 # Sodium Launcher
-一个优雅的Minecraft启动器
+#### 一个优雅的Minecraft启动器
+
 </div>
 
 
