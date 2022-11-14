@@ -16,6 +16,7 @@
 ![Github stars](https://img.shields.io/github/stars/Sodium-Launcher/Sodium_Launcher?style=flat-square)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/publish?label=Publish&style=flat-square)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/build-and-test?label=build%20and%20test&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/CodeQL?label=CodeQL&style=flat-square)
 
 </div>
 
