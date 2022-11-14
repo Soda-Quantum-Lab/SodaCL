@@ -50,7 +50,7 @@ jobs:
         name: ${{ steps.tag.outputs.tag }}
         prerelease: false
         draft: true
-        artifacts: D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\Sodium Launcher.exe
+        artifacts: D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\*.exe
         body: |
           ## 版本亮点
           * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新。
