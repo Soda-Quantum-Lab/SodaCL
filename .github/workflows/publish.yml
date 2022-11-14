@@ -34,7 +34,7 @@ jobs:
     - name: Build
       run: |
         dotnet build --configuration Release --no-restore
-        dotnet publish -c Release -r win-x86 --sc false /p:PublishSingleFile=True /p:PublishProfile=FolderProfile
+        dotnet publish -c Release -r win-x86 --sc false /p:PublishSingleFile=True /p:PublishProfile=${{ env.PublishFilePath }}
         
     - name: Test
       run: |
