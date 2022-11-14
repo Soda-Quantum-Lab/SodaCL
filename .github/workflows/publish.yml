@@ -38,9 +38,11 @@ jobs:
     - name: Test
       run: |
         dotnet test --no-restore --verbosity normal
-    - name: Changelog
-      uses: glennawatson/ChangeLog@v1
-      id: changelog
+    - name: "Build Changelog"
+      id: build_changelog
+      uses: mikepenz/release-changelog-builder-action@{latest-release}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       
     - name: Release
       uses: softprops/action-gh-release@v1
@@ -50,7 +52,7 @@ jobs:
           body: |
             ## 版本亮点
             * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新。
-            ${{ steps.changelog.outputs.commitLog }}
+            ${{steps.build_changelog.outputs.changelog}}
           files: |
             D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\Sodium Launcher.exe
 
