@@ -14,8 +14,8 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/Sodium-Launcher/Sodium_Launcher/latest/total?style=flat-square)
 ![LICENSE](https://img.shields.io/github/license/Sodium-Launcher/Sodium_Launcher?style=flat-square)
 ![Github stars](https://img.shields.io/github/stars/Sodium-Launcher/Sodium_Launcher?style=flat-square)
-[![Publish](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/publish?style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/actions/workflows/publish.yml)
-[![build and test](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/build-and-test?style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/actions/workflows/build-and-test.yml)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/publish?label=Publish&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/build-and-test?label=build%20and%20test&style=flat-square)
 
 </div>
 
