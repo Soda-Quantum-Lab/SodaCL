@@ -18,7 +18,7 @@ namespace Sodium_Launcher.Main.Minecraft
             this.version = "0.0.1";
         }
         public void addLaunchTime()
-        {
+        { 
             this.launchTime += 1;
         }
     }
