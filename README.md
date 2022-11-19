@@ -11,12 +11,13 @@
 <div align="center">
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Sodium-Launcher/Sodium_Launcher?style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/release/latest)
-[![GitHub release (latest by date)](https://img.shields.io/github/downloads/Sodium-Launcher/Sodium_Launcher/latest/total?style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/release/latest/download/SL.exe)
+[![GitHub release (latest by date)](https://img.shields.io/github/downloads/Sodium-Launcher/Sodium_Launcher/latest/total?style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/releases/latest/download/SL.exe)
 [![LICENSE](https://img.shields.io/github/license/Sodium-Launcher/Sodium_Launcher?style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/blob/master/LICENSE.txt)
 [![Github stars](https://img.shields.io/github/stars/Sodium-Launcher/Sodium_Launcher?style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/sodium-launcher/sodium_launcher?style=flat-square)](https://www.codefactor.io/repository/github/sodium-launcher/sodium_launcher)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/CodeQL?label=CodeQL&style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/actions/workflows/CodeQL.yml)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/publish?label=Publish&style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/actions/workflows/publish.yml)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/build-and-test?label=build%20and%20test&style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/actions/workflows/build-and-test.yml)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Sodium-Launcher/Sodium_Launcher/CodeQL?label=CodeQL&style=flat-square)](https://github.com/Sodium-Launcher/Sodium_Launcher/actions/workflows/CodeQL.yml)
 
 </div>
 
