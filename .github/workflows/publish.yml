@@ -37,7 +37,7 @@ jobs:
     - name: Test
       run: |
         dotnet test --no-restore --verbosity normal
-
+        
     - name: Changelog
       uses: glennawatson/ChangeLog@v1
       id: changelog
@@ -50,7 +50,7 @@ jobs:
           body: |
             ## 版本亮点
             * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新
-            
+
             ${{ steps.changelog.outputs.commitLog }}
           files: |
             D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\SL.exe
