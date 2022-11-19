@@ -54,5 +54,5 @@ jobs:
             
             ${{ steps.changelog.outputs.commitLog }}
           files: |
-            D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\SDL.exe
+            D:\a\Sodium_Launcher\Sodium_Launcher\bin\Release\net6.0-windows\win-x86\publish\SL.exe
 
