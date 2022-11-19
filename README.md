@@ -1,6 +1,6 @@
 <div id="top" align="center">
 
-<img src = 'https://tuchuangs.com/imgs/2022/11/14/d9ebdb3f9b3e3808.gif' />
+![](https://tuchuangs.com/imgs/2022/11/19/faa923aac69d2e0d.png)
 
 # Sodium Launcher
 #### 一个优雅的Minecraft启动器

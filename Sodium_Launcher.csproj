@@ -12,9 +12,10 @@
     <Description>Sodium Launcher 启动器</Description>
     <Copyright>Copyright © 2022 Sodium Launcher Dev Team，All Rights Reserved.</Copyright>
     <RepositoryUrl>https://github.com/Sodium-Launcher/Sodium_Launcher</RepositoryUrl>
-    <AssemblyName>SDL</AssemblyName>
+    <AssemblyName>SL</AssemblyName>
     <AssemblyVersion>0.0.1</AssemblyVersion>
     <FileVersion>Dev-0.0.1</FileVersion>
+    <ApplicationIcon>Resources\Images\Dev-Version.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
