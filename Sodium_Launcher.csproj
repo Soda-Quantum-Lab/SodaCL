@@ -19,7 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Dev-Version.ico" />
     <None Remove="Resources\Launcher-Home.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Dev-Version.ico" />
   </ItemGroup>
 
   <ItemGroup>

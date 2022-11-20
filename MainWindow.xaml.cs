@@ -26,7 +26,7 @@ namespace Sodium_Launcher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<MCClient> clients = new List<MCClient>();
+        private List<MCClient> clients = new();
         private string _versionListSavePath = @".\SDL\versions.json";
         private string _launcherInfoSavePath = @".\SDL\launcher.json";
         LauncherInfo launcherInf;
@@ -35,27 +35,28 @@ namespace Sodium_Launcher
             InitializeComponent();
         }
         #region 自定义标题栏
-        private void Exit_Button_Click(object sender, RoutedEventArgs e)
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(!File.Exists(_versionListSavePath))
+            this.DragMove();
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!File.Exists(_versionListSavePath))
             {
-                FileStream fileStream = new FileStream(_versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(_versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
             File.WriteAllText(_versionListSavePath, JsonConvert.SerializeObject(clients));
 
-            if(!File.Exists(_launcherInfoSavePath))
+            if (!File.Exists(_launcherInfoSavePath))
             {
-                FileStream fileStream = new FileStream(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
             File.WriteAllText(_launcherInfoSavePath, JsonConvert.SerializeObject(launcherInf));
             this.Close();
-        }
-
-        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
         }
         #endregion
 
@@ -77,7 +78,7 @@ namespace Sodium_Launcher
 
                 if (!File.Exists(_versionListSavePath))
                 {
-                    FileStream fileStream = new FileStream(_versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(_versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                 }
                 else
@@ -87,7 +88,7 @@ namespace Sodium_Launcher
 
                 if (!File.Exists(_launcherInfoSavePath))
                 {
-                    FileStream fileStream = new FileStream(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                     this.launcherInf = new LauncherInfo();
                 }
@@ -97,7 +98,7 @@ namespace Sodium_Launcher
                 }
                 this.launcherInf.addLaunchTime(); // 启动器启动次数统计
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
