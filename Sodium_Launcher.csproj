@@ -16,7 +16,12 @@
     <AssemblyVersion>0.0.1</AssemblyVersion>
     <FileVersion>Dev-0.0.1</FileVersion>
     <ApplicationIcon>Resources\Images\Dev-Version.ico</ApplicationIcon>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\Settings.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Resources\Images\Dev-Version.ico" />

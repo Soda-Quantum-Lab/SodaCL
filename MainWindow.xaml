@@ -6,12 +6,11 @@
         xmlns:MyNamespace="clr-namespace:Sodium_Launcher.Controls" 
         xmlns:local="clr-namespace:Sodium_Launcher" 
         mc:Ignorable="d" Title="Sodium_Launcher" Height="500" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
-    <Grid>
-        <Border CornerRadius="20,20,20,20" Background="White" Grid.ColumnSpan="2">
-            <!--<Border.Effect>
-                <BlurEffect></BlurEffect>
-            </Border.Effect>-->
-        </Border>
+    <Grid Margin="10">
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
+        </Grid.Effect>
+        <Border CornerRadius="20,20,20,20" Background="White"></Border>
         <Border Height="45" Background="White" CornerRadius="20,20,0,0" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown" Grid.ColumnSpan="2">
             <StackPanel Height="45" VerticalAlignment="Top" Orientation="Horizontal">
                 <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="11,5,0,0" Source="/Resources/Images/Dev-Version.ico" />
