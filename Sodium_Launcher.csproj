@@ -21,6 +21,7 @@
   <ItemGroup>
     <None Remove="Resources\Images\Dev-Version.ico" />
     <None Remove="Resources\Launcher-Home.png" />
+    <None Remove="Resources\icons\Close.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\Launcher-Home.png" />
+    <Resource Include="Resources\icons\Close.svg" />
   </ItemGroup>
 
   <ItemGroup>

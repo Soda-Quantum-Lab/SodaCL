@@ -71,7 +71,7 @@ namespace Sodium_Launcher
                     Directory.CreateDirectory(_SDLDir);
                 }
 
-                if (!!Directory.Exists(_MCDir))
+                if (!Directory.Exists(_MCDir))
                 {
                     Directory.CreateDirectory(_MCDir);
                 }
