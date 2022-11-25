@@ -7,16 +7,17 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>disable</ImplicitUsings>
     <Version>0.0.1</Version>
-    <Authors>Sodium Launcher Dev Team</Authors>
-    <Product>Sodium Launcher</Product>
-    <Description>Sodium Launcher 启动器</Description>
-    <Copyright>Copyright © 2022 Sodium Launcher Dev Team，All Rights Reserved.</Copyright>
-    <RepositoryUrl>https://github.com/Sodium-Launcher/Sodium_Launcher</RepositoryUrl>
-    <AssemblyName>SL</AssemblyName>
+    <Authors>SodaCL Dev Team</Authors>
+    <Product>Soda Craft Launcher</Product>
+    <Description>Soda Craft Launcher 启动器</Description>
+    <Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
+    <RepositoryUrl></RepositoryUrl>
+    <AssemblyName>SodaCL</AssemblyName>
     <AssemblyVersion>0.0.1</AssemblyVersion>
     <FileVersion>Dev-0.0.1</FileVersion>
     <ApplicationIcon>Resources\Images\Dev-Version.ico</ApplicationIcon>
     <SignAssembly>False</SignAssembly>
+    <RootNamespace>SodaCL</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

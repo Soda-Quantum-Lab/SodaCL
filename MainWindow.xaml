@@ -1,11 +1,11 @@
-﻿<Window x:Class="Sodium_Launcher.MainWindow" 
+﻿<Window x:Class="SodaCL.MainWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:MyNamespace="clr-namespace:Sodium_Launcher.Controls" 
-        xmlns:local="clr-namespace:Sodium_Launcher" 
-        mc:Ignorable="d" Title="Sodium_Launcher" Height="500" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
+        xmlns:MyNamespace="clr-namespace:SodaCL.Controls" 
+        xmlns:local="clr-namespace:SodaCL" 
+        mc:Ignorable="d" Title="SodaCL" Height="500" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
     <Grid Margin="10">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>

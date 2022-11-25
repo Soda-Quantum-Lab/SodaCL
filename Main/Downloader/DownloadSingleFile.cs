@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sodium_Launcher.Main.Downloader
+namespace SodaCL.Main.Downloader
 {
     public class MultiDownload
     {

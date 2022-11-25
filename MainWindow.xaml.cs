@@ -16,10 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
-using Sodium_Launcher.Main.Minecraft;
-using Sodium_Launcher.Main.Downloader;
+using SodaCL.Main.Minecraft;
+using SodaCL.Main.Downloader;
 
-namespace Sodium_Launcher
+namespace SodaCL
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
