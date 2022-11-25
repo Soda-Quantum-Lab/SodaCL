@@ -15,7 +15,7 @@
             <StackPanel Height="45" VerticalAlignment="Top" Orientation="Horizontal">
                 <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="11,5,0,0" Source="/Resources/Images/Dev-Version.ico" />
                 <Label Content="Soda Craft Launcher" Height="30" Margin="5,3,0,0" FontSize="18" />
-                <Label Content="  X"   FontSize="16" MouseDown="Label_MouseDown" Width="39" Height="30" Margin="534,0,0,-4" >
+                <Label Content="  X"   FontSize="16" MouseDown="Label_MouseDown" Width="39" Height="30" Margin="500,0,0,0" >
                     <Label.Background>
                         <ImageBrush/>
                     </Label.Background>
