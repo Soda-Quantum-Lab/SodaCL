@@ -35,3 +35,10 @@ jobs:
 
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+
+    - name: sync-gitee-mirror
+      uses: abersheeran/sync-gitee-mirror@v1-beta
+      with:
+        repository: abersheeran/sync-gitee-mirror
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}

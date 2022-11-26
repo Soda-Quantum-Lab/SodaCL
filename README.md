@@ -10,10 +10,9 @@
 <div align="center">
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/SodaCL-Launcher/SodaCL?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/release/latest)
-[![GitHub release (latest by date)](https://img.shields.io/github/downloads/SodaCL-Launcher/SodaCL/latest/total?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/releases/latest/download/SL.exe)
+[![GitHub release (latest by date)](https://img.shields.io/github/downloads/SodaCL-Launcher/SodaCL/latest/total?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/releases/latest/download/SodaCL.exe)
 [![LICENSE](https://img.shields.io/github/license/SodaCL-Launcher/SodaCL?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/blob/master/LICENSE.txt)
 [![Github stars](https://img.shields.io/github/stars/SodaCL-Launcher/SodaCL?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/SodaCL-Launcher/SodaCL?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/commits)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/SodaCL-Launcher/SodaCL?style=flat-square)](https://www.codefactor.io/repository/github/SodaCL-Launcher/SodaCL)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SodaCL-Launcher/SodaCL/CodeQL?label=CodeQL&style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/actions/workflows/CodeQL.yml)
 
@@ -28,3 +27,6 @@
 </div>
 
 ---
+## 🚀 下载渠道
+- [GitHub Releases](https://github.com/SodaCL-Launcher/SodaCL/releases/latest/download/SodaCL.exe)
+- [Gitee Releases](https://gitee.com/SodaQuantumLab/SodaCL/releases)
