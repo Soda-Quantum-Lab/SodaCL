@@ -40,7 +40,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-          token: ${{ secrets.GH_TOKEN }}
           fail_on_unmatched_files: true
           body: |
             ## 版本亮点
