@@ -19,6 +19,11 @@ using Newtonsoft.Json;
 using SodaCL.Main.Minecraft;
 using SodaCL.Main.Downloader;
 
+/*
+1>C:\Users\lu_yu\SDL\20221126\SodaCL-master\MainWindow.xaml(18,44,18,110): error CS0123: “Label1_MouseEnter”没有与委托“MouseEventHandler”匹配的重载
+1>C:\Users\lu_yu\SDL\20221126\SodaCL-master\MainWindow.xaml(18,44,18,110): error CS0123: “Label1_MouseLeave”没有与委托“MouseEventHandler”匹配的重载
+ */
+
 namespace SodaCL
 {
     /// <summary>
@@ -27,9 +32,11 @@ namespace SodaCL
     public partial class MainWindow : Window
     {
         private List<MCClient> clients = new();
-        private string _versionListSavePath = @".\SDL\versions.json";
-        private string _launcherInfoSavePath = @".\SDL\launcher.json";
-        LauncherInfo launcherInf;
+        static private string _SodaCLBasePath = @".\SodaCL";
+        static private string _versionListSavePath = _SodaCLBasePath + @"\versions.json";
+        static private string _launcherInfoSavePath = _SodaCLBasePath + @".\launcher.json";
+        static private string _MCDir = @".\.minecraft";
+        LauncherInfo launcherInfo;
         public MainWindow()
         {
             InitializeComponent();
@@ -55,20 +62,28 @@ namespace SodaCL
                 FileStream fileStream = new(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            File.WriteAllText(_launcherInfoSavePath, JsonConvert.SerializeObject(launcherInf));
+            File.WriteAllText(_launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
+        }
+
+        private void Label1_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ButtonClose.Background = System.Windows.Media.Brushes.SlateGray;
+        }
+
+        private void Label1_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ButtonClose.Background = System.Windows.Media.Brushes.Transparent;
         }
         #endregion
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            string _SDLDir = @".\SDL";
-            string _MCDir = @".\.minecraft";
             try
             {
-                if (!Directory.Exists(_SDLDir))
+                if (!Directory.Exists(_SodaCLBasePath))
                 {
-                    Directory.CreateDirectory(_SDLDir);
+                    Directory.CreateDirectory(_SodaCLBasePath);
                 }
 
                 if (!Directory.Exists(_MCDir))
@@ -90,13 +105,13 @@ namespace SodaCL
                 {
                     FileStream fileStream = new(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
-                    this.launcherInf = new LauncherInfo();
+                    this.launcherInfo = new LauncherInfo();
                 }
                 else
                 {
-                    this.launcherInf = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(_launcherInfoSavePath));
+                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(_launcherInfoSavePath));
                 }
-                this.launcherInf.addLaunchTime(); // 启动器启动次数统计
+                this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
             }
             catch (Exception ex)
             {
