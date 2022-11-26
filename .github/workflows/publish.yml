@@ -43,7 +43,7 @@ jobs:
 
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/Release-*.*.*')
       with:
           token: ${{ secrets.GH_TOKEN }}
           body: |
@@ -52,4 +52,18 @@ jobs:
 
             ${{ steps.changelog.outputs.commitLog }}
           files: |
-            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\SodaCL.exe
+            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish\SodaCL.exe
+
+    - name: Pre Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/Dev-*.*.*')
+      with:
+          token: ${{ secrets.GH_TOKEN }}
+          prerelease: true
+          body: |
+            ## 版本亮点
+            * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新
+
+            ${{ steps.changelog.outputs.commitLog }}
+          files: |
+            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish\SodaCL.exe
