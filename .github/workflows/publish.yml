@@ -52,5 +52,4 @@ jobs:
 
             ${{ steps.changelog.outputs.commitLog }}
           files: |
-            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish\SodaCL.exe
-
+            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\SodaCL.exe
