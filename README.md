@@ -1,6 +1,6 @@
 <div id="top" align="center">
 
-<img src="https://tuchuangs.com/imgs/2022/11/19/faa923aac69d2e0d.png" width="35%">
+<img src="https://s2.loli.net/2022/11/26/SXpmuMk9zGQfVCR.png" width="35%">
 
 # Soda Craft Launcher
 #### 一个清爽的Minecraft启动器
