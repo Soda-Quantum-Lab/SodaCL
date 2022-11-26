@@ -23,11 +23,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
-    - name: Get tag
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      id: tag
-      uses: dawidd6/action-get-tag@v1
-
     - name: Build
       run: |
         dotnet build --configuration Release --no-restore
@@ -52,4 +47,4 @@ jobs:
           * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新
 
           ${{ steps.changelog.outputs.commitLog }}
-        files: D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish\*.exe
+        files: D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\publish\win-x86\SodaCL.exe
