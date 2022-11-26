@@ -32,7 +32,6 @@ jobs:
       run: |
         dotnet build --configuration Release --no-restore
         dotnet publish -c Release -r win-x86 --sc false /p:PublishSingleFile=True
-        ls
 
     - name: Test
       run: |
@@ -46,11 +45,11 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-          token: ${{ secrets.GH_TOKEN }}
-          body: |
-            ## 版本亮点
-            * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新
+        token: ${{ secrets.GH_TOKEN }}
+        fail_on_unmatched_files: true
+        body: |
+          ## 版本亮点
+          * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新
 
-            ${{ steps.changelog.outputs.commitLog }}
-          files: |
-            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish\SodaCL.exe
+          ${{ steps.changelog.outputs.commitLog }}
+        files: D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish\SodaCL.exe
