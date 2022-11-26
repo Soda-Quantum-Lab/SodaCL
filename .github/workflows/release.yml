@@ -27,6 +27,8 @@ jobs:
       run: |
         dotnet build --configuration Release --no-restore
         dotnet publish -c Release -r win-x86 --sc false /p:PublishSingleFile=True
+        ls D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\
+        ls D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish
 
     - name: Test
       run: |
@@ -47,4 +49,4 @@ jobs:
           * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新
 
           ${{ steps.changelog.outputs.commitLog }}
-        files: D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\publish\win-x86\SodaCL.exe
+        files: D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\SodaCL.exe
