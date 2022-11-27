@@ -3,7 +3,7 @@
 <img src="https://s2.loli.net/2022/11/27/nOb8QHZdeBgV5yC.png" width="35%">
 
 # Soda Craft Launcher
-#### 一個清爽的Minecraft啟動器
+**一個清爽的Minecraft啟動器**
 
 </div>
 
