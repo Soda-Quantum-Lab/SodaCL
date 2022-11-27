@@ -8,15 +8,18 @@
         mc:Ignorable="d" Title="SodaCL" Height="520" Width="820" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
     <Grid Margin="10">
         <Grid.Effect>
-            <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
+            <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
         </Grid.Effect>
         <Border CornerRadius="10,10,10,10" Background="White"></Border>
         <Border Height="45" Background="White" CornerRadius="10,10,0,0" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown" Grid.ColumnSpan="2">
             <StackPanel Height="45" VerticalAlignment="Top" Orientation="Horizontal">
                 <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,5,0,0" Source="/Resources/Images/Dev.ico" />
                 <Label Content="Soda Craft Launcher" Height="32" Margin="5,5,0,0" FontSize="14" Padding="5,8,5,5" />
-                <Border x:Name="ExitBorder" Width="32" Height="32" Margin="560,5,0,0" CornerRadius="25,25,25,25">
-                    <Label x:Name ="ButtonClose" Content="×"   FontSize="16" MouseDown="Label_MouseDown" Width="15" Height="32" MouseEnter="Label1_MouseEnter" MouseLeave="Label1_MouseLeave" ToolTip="关闭" Foreground="Black" Padding="0,0,0,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                <Border x:Name="MinBorder" Width="32" Height="32" Margin="525,5,0,0" CornerRadius="25,25,25,25">
+                    <Label x:Name ="ButtonMin" Content="-" FontSize="22" MouseDown="LabelMin_MouseDown" Width="20" Height="32" MouseEnter="LabelMin_MouseEnter" MouseLeave="LabelMin_MouseLeave" Foreground="Black" Padding="0,0,0,3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{x:Null}"></Label>
+                </Border>
+                <Border x:Name="ExitBorder" Width="32" Height="32" Margin="0,5,0,0" CornerRadius="25,25,25,25">
+                    <Label x:Name ="ButtonClose" Content="×" FontSize="16" MouseDown="LabelClose_MouseDown" Width="15" Height="32" MouseEnter="LabelClose_MouseEnter" MouseLeave="LabelClose_MouseLeave" Foreground="Black" Padding="0,0,0,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                 </Border>
             </StackPanel>
         </Border>

@@ -19,11 +19,6 @@ using Newtonsoft.Json;
 using SodaCL.Main.Minecraft;
 using SodaCL.Main.Downloader;
 
-/*
-1>C:\Users\lu_yu\SDL\20221126\SodaCL-master\MainWindow.xaml(18,44,18,110): error CS0123: “Label1_MouseEnter”没有与委托“MouseEventHandler”匹配的重载
-1>C:\Users\lu_yu\SDL\20221126\SodaCL-master\MainWindow.xaml(18,44,18,110): error CS0123: “Label1_MouseLeave”没有与委托“MouseEventHandler”匹配的重载
- */
-
 namespace SodaCL
 {
     /// <summary>
@@ -42,13 +37,13 @@ namespace SodaCL
             InitializeComponent();
         }
         #region 自定义标题栏
-
+        // 退出按钮
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
 
-        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        private void LabelClose_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!File.Exists(_versionListSavePath))
             {
@@ -66,14 +61,30 @@ namespace SodaCL
             this.Close();
         }
 
-        private void Label1_MouseEnter(object sender, MouseEventArgs e)
+        private void LabelClose_MouseEnter(object sender, MouseEventArgs e)
         {
-            ExitBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));  
+            ExitBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));
         }
 
-        private void Label1_MouseLeave(object sender, MouseEventArgs e)
+        private void LabelClose_MouseLeave(object sender, MouseEventArgs e)
         {
             ExitBorder.Background = Brushes.Transparent;
+        }
+
+        // 最小化按钮
+        private void LabelMin_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Minimized;
+        }
+
+        private void LabelMin_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MinBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));
+        }
+
+        private void LabelMin_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MinBorder.Background = Brushes.Transparent;
         }
         #endregion
 
@@ -123,5 +134,6 @@ namespace SodaCL
         {
             //MCDownload.GetManifest();
         }
+
     }
 }
