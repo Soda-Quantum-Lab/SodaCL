@@ -15,7 +15,7 @@
     <AssemblyName>SodaCL</AssemblyName>
     <AssemblyVersion>0.0.1</AssemblyVersion>
     <FileVersion>Dev-0.0.1</FileVersion>
-    <ApplicationIcon>Resources\Images\Dev-Version.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
     <SignAssembly>False</SignAssembly>
     <RootNamespace>SodaCL</RootNamespace>
   </PropertyGroup>
@@ -25,22 +25,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\Dev-Version.ico" />
+    <None Remove="Resources\Images\Dev.ico" />
+    <None Remove="Resources\Images\Release.ico" />
     <None Remove="Resources\Launcher-Home.png" />
     <None Remove="Resources\icons\Close.svg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\Dev-Version.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Resource Include="Resources\Images\Dev.ico" />
     <Resource Include="Resources\Images\Launcher-Home.png" />
     <Resource Include="Resources\icons\Close.svg" />
+    <Resource Include="Resources\Images\Release.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include=".github\workflows\" />
     <Folder Include="Controls\" />
   </ItemGroup>
 
