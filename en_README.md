@@ -1,9 +1,9 @@
 <div id="top" align="center">
 
-<img src="https://s2.loli.net/2022/11/26/SXpmuMk9zGQfVCR.png" width="35%">
+<img src="https://s2.loli.net/2022/11/27/nOb8QHZdeBgV5yC.png" width="35%">
 
 # Soda Craft Launcher
-#### 一個清爽的Minecraft啟動器
+#### A brand new Minecraft Launcher
 
 </div>
 
@@ -27,6 +27,6 @@
 </div>
 
 ---
-## 🚀 下載渠道
+## 🚀 Download Links
 - [GitHub Releases](https://github.com/SodaCL-Launcher/SodaCL/releases/latest/download/SodaCL.exe)
 - [Gitee Releases](https://gitee.com/SodaQuantumLab/SodaCL/releases)

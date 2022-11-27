@@ -1,6 +1,6 @@
 <div id="top" align="center">
 
-<img src="https://s2.loli.net/2022/11/26/SXpmuMk9zGQfVCR.png" width="35%">
+<img src="https://s2.loli.net/2022/11/27/nOb8QHZdeBgV5yC.png" width="35%">
 
 # Soda Craft Launcher
 #### 一个清爽的Minecraft启动器
@@ -23,6 +23,14 @@
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SodaCL-Launcher/SodaCL/release?label=Release&style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/actions/workflows/release.yml)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SodaCL-Launcher/SodaCL/build-and-test?label=build%20and%20test&style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/actions/workflows/build-and-test.yml)
+
+</div>
+
+---
+<div align="center">
+
+[English](https://github.com/SodaCL-Launcher/SodaCL/blob/master/en_README.md)
+[繁體中文](https://github.com/SodaCL-Launcher/SodaCL/blob/master/hk_README.md)
 
 </div>
 
