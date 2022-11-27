@@ -5,21 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:MyNamespace="clr-namespace:SodaCL.Controls" 
         xmlns:local="clr-namespace:SodaCL" 
-        mc:Ignorable="d" Title="SodaCL" Height="500" Width="800" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
+        mc:Ignorable="d" Title="SodaCL" Height="520" Width="820" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized">
     <Grid Margin="10">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
         </Grid.Effect>
-        <Border CornerRadius="20,20,20,20" Background="White"></Border>
-        <Border Height="45" Background="White" CornerRadius="20,20,0,0" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown" Grid.ColumnSpan="2">
+        <Border CornerRadius="10,10,10,10" Background="White"></Border>
+        <Border Height="45" Background="White" CornerRadius="10,10,0,0" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown" Grid.ColumnSpan="2">
             <StackPanel Height="45" VerticalAlignment="Top" Orientation="Horizontal">
-                <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="11,5,0,0" Source="/Resources/Images/Dev-Version.ico" />
-                <Label Content="Soda Craft Launcher" Height="30" Margin="5,3,0,0" FontSize="18" />
-                <Label Name ="ButtonClose" Content="  ×"   FontSize="16" MouseDown="Label_MouseDown" Width="39" Height="30" Margin="500,0,0,0" MouseEnter="Label1_MouseEnter" MouseLeave="Label1_MouseLeave" ToolTip="关闭" Foreground="White">
-                    <Label.Background>
-                        <ImageBrush/>
-                    </Label.Background>
-                </Label>
+                <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,5,0,0" Source="/Resources/Images/Dev.ico" />
+                <Label Content="Soda Craft Launcher" Height="32" Margin="5,5,0,0" FontSize="14" Padding="5,8,5,5" />
+                <Border x:Name="ExitBorder" Width="32" Height="32" Margin="560,5,0,0" CornerRadius="25,25,25,25">
+                    <Label x:Name ="ButtonClose" Content="×"   FontSize="16" MouseDown="Label_MouseDown" Width="15" Height="32" MouseEnter="Label1_MouseEnter" MouseLeave="Label1_MouseLeave" ToolTip="关闭" Foreground="Black" Padding="0,0,0,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                </Border>
             </StackPanel>
         </Border>
     </Grid>

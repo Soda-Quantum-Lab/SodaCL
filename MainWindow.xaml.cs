@@ -68,12 +68,12 @@ namespace SodaCL
 
         private void Label1_MouseEnter(object sender, MouseEventArgs e)
         {
-            ButtonClose.Background = System.Windows.Media.Brushes.SlateGray;
+            ExitBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));  
         }
 
         private void Label1_MouseLeave(object sender, MouseEventArgs e)
         {
-            ButtonClose.Background = System.Windows.Media.Brushes.Transparent;
+            ExitBorder.Background = Brushes.Transparent;
         }
         #endregion
 
