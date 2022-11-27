@@ -13,6 +13,7 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/downloads/SodaCL-Launcher/SodaCL/latest/total?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/releases/latest/download/SodaCL.exe)
 [![LICENSE](https://img.shields.io/github/license/SodaCL-Launcher/SodaCL?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/blob/master/LICENSE.txt)
 [![Github stars](https://img.shields.io/github/stars/SodaCL-Launcher/SodaCL?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/SodaCL-Launcher/SodaCL?style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/commits)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/SodaCL-Launcher/SodaCL?style=flat-square)](https://www.codefactor.io/repository/github/SodaCL-Launcher/SodaCL)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SodaCL-Launcher/SodaCL/CodeQL?label=CodeQL&style=flat-square)](https://github.com/SodaCL-Launcher/SodaCL/actions/workflows/CodeQL.yml)
 
