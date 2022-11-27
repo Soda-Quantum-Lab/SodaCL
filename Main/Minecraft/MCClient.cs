@@ -13,11 +13,16 @@ namespace SodaCL.Main.Minecraft
         List<string> author;
         List<string> depend;
         string platf;// forge/fabric/...
+        string gamePath = ".minecraft";//ÓÎÏ·Â·¾¶
     }
     class MCClient
     {
         public string version;
         public int addition;// forge, fabric, opti, ...
+        public bool forgeInCore = false;
+        public bool fabricInCore = false;
+        public bool quiltInCore = false;
+        public bool optifineInCore = false;
         public bool apart;
 
         public List<MCMod> modList;
