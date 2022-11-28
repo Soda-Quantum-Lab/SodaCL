@@ -1,52 +1,56 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>disable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Version>0.0.1</Version>
-    <Authors>SodaCL Dev Team</Authors>
-    <Product>Soda Craft Launcher</Product>
-    <Description>Soda Craft Launcher 启动器</Description>
-    <Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
-    <RepositoryUrl></RepositoryUrl>
-    <AssemblyName>SodaCL</AssemblyName>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
-    <FileVersion>Dev-0.0.1</FileVersion>
-    <ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
-    <SignAssembly>False</SignAssembly>
-    <RootNamespace>SodaCL</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>disable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Authors>SodaCL Dev Team</Authors>
+		<Product>Soda Craft Launcher</Product>
+		<Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
+		<AssemblyName>SodaCL</AssemblyName>
+		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
+		<RootNamespace>SodaCL</RootNamespace>
+		<FileVersion>0.0.1.1</FileVersion>
+		<Version>0.0.1.1</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Properties\Settings.Designer.cs" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\icons\Min.svg" />
-    <None Remove="Resources\Images\Dev.ico" />
-    <None Remove="Resources\Images\Release.ico" />
-    <None Remove="Resources\Launcher-Home.png" />
-    <None Remove="Resources\icons\Close.svg" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Resource Include="Resources\icons\Min.svg" />
-    <Resource Include="Resources\Images\Dev.ico" />
-    <Resource Include="Resources\Images\Launcher-Home.png" />
-    <Resource Include="Resources\icons\Close.svg" />
-    <Resource Include="Resources\Images\Release.ico" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Properties\Settings.Designer.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Resources\icons\Min.svg" />
+		<None Remove="Resources\Images\Dev.ico" />
+		<None Remove="Resources\Images\Release.ico" />
+		<None Remove="Resources\Launcher-Home.png" />
+		<None Remove="Resources\icons\Close.svg" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
-    <PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\icons\Min.svg" />
+		<Resource Include="Resources\Images\Dev.ico" />
+		<Resource Include="Resources\Images\Launcher-Home.png" />
+		<Resource Include="Resources\icons\Close.svg" />
+		<Resource Include="Resources\Images\Release.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Controls\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
+		<PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
+	</ItemGroup>
 
 </Project>

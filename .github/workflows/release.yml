@@ -43,7 +43,7 @@ jobs:
           fail_on_unmatched_files: true
           body: |
             ## 版本亮点
-            * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新
+            * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新,长时间不更新那就是咕咕咕啦~
 
             ${{ steps.changelog.outputs.commitLog }}
           files: |
