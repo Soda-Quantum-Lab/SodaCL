@@ -9,6 +9,10 @@ namespace SodaCL.Main.Minecraft
 {
     public class LauncherInfo
     {
+        static public string _SodaCLBasePath = @".\SodaCL";
+        static public string _versionListSavePath = _SodaCLBasePath + @".\versions.json";
+        static public string _launcherInfoSavePath = _SodaCLBasePath + @".\launcher.json";
+        static public string _MCDir = @".\.minecraft";
         public int launchTime;
         string version;
 

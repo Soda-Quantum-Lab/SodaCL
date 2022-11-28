@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SodaCL.Main.Minecraft;
 
 namespace SodaCL
 {
@@ -18,7 +19,7 @@ namespace SodaCL
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true);
             base.OnStartup(e);
-
         }
+
     }
 }

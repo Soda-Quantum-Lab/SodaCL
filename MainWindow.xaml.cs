@@ -27,10 +27,6 @@ namespace SodaCL
     public partial class MainWindow : Window
     {
         private List<MCClient> clients = new();
-        static private string _SodaCLBasePath = @".\SodaCL";
-        static private string _versionListSavePath = _SodaCLBasePath + @"\versions.json";
-        static private string _launcherInfoSavePath = _SodaCLBasePath + @".\launcher.json";
-        static private string _MCDir = @".\.minecraft";
         LauncherInfo launcherInfo;
         public MainWindow()
         {
@@ -46,19 +42,19 @@ namespace SodaCL
 
         private void LabelClose_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!File.Exists(_versionListSavePath))
+            if (!File.Exists(LauncherInfo._versionListSavePath))
             {
-                FileStream fileStream = new(_versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            File.WriteAllText(_versionListSavePath, JsonConvert.SerializeObject(clients));
+            File.WriteAllText(LauncherInfo._versionListSavePath, JsonConvert.SerializeObject(clients));
 
-            if (!File.Exists(_launcherInfoSavePath))
+            if (!File.Exists(LauncherInfo._launcherInfoSavePath))
             {
-                FileStream fileStream = new(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            File.WriteAllText(_launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
+            File.WriteAllText(LauncherInfo._launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
         }
 
@@ -93,35 +89,35 @@ namespace SodaCL
         {
             try
             {
-                if (!Directory.Exists(_SodaCLBasePath))
+                if (!Directory.Exists(Main.Minecraft.LauncherInfo._SodaCLBasePath))
                 {
-                    Directory.CreateDirectory(_SodaCLBasePath);
+                    Directory.CreateDirectory(LauncherInfo._SodaCLBasePath);
                 }
 
-                if (!Directory.Exists(_MCDir))
+                if (!Directory.Exists(LauncherInfo._MCDir))
                 {
-                    Directory.CreateDirectory(_MCDir);
+                    Directory.CreateDirectory(LauncherInfo._MCDir);
                 }
 
-                if (!File.Exists(_versionListSavePath))
+                if (!File.Exists(LauncherInfo._versionListSavePath))
                 {
-                    FileStream fileStream = new(_versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                 }
                 else
                 {
-                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(_versionListSavePath));
+                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo._versionListSavePath));
                 }
 
-                if (!File.Exists(_launcherInfoSavePath))
+                if (!File.Exists(LauncherInfo._launcherInfoSavePath))
                 {
-                    FileStream fileStream = new(_launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                     this.launcherInfo = new LauncherInfo();
                 }
                 else
                 {
-                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(_launcherInfoSavePath));
+                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo._launcherInfoSavePath));
                 }
                 this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
             }
