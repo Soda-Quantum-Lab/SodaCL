@@ -89,7 +89,7 @@ namespace SodaCL
         {
             try
             {
-                if (!Directory.Exists(Main.Minecraft.LauncherInfo._SodaCLBasePath))
+                if (!Directory.Exists(LauncherInfo._SodaCLBasePath))
                 {
                     Directory.CreateDirectory(LauncherInfo._SodaCLBasePath);
                 }
