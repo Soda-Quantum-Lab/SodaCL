@@ -17,11 +17,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="1*" MaxWidth="79px"/>
+                    <ColumnDefinition Width="2*" MaxWidth="79px"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,5,0,0" Source="/Resources/Images/Dev.ico" />
-                    <Label Content="Soda Craft Launcher" Height="32" Margin="5,5,0,0" FontSize="14" Padding="5,8,5,5" />
+                    <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
+                    <Label Content="Soda Craft Launcher" Height="32" Margin="5,0,0,0" FontSize="14" Padding="5,8,5,5" />
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Height="32">
                     <Border x:Name="MinBorder" Width="32" Height="32" CornerRadius="25,25,25,25" MouseEnter="LabelMin_MouseEnter" MouseLeave="LabelMin_MouseLeave" MouseDown="LabelMin_MouseDown" >

@@ -14,6 +14,7 @@
 		<RootNamespace>SodaCL</RootNamespace>
 		<FileVersion>0.0.1.1</FileVersion>
 		<Version>0.0.1.1</Version>
+		<OutputPath>C:\SodaCL</OutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
