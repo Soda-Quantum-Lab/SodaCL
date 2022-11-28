@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\icons\Min.svg" />
     <None Remove="Resources\Images\Dev.ico" />
     <None Remove="Resources\Images\Release.ico" />
     <None Remove="Resources\Launcher-Home.png" />
@@ -32,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\icons\Min.svg" />
     <Resource Include="Resources\Images\Dev.ico" />
     <Resource Include="Resources\Images\Launcher-Home.png" />
     <Resource Include="Resources\icons\Close.svg" />
@@ -44,6 +46,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
+    <PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
   </ItemGroup>
 
 </Project>

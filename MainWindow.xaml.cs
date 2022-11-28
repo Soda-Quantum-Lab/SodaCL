@@ -35,6 +35,7 @@ namespace SodaCL
         public MainWindow()
         {
             InitializeComponent();
+            this.ResizeMode = ResizeMode.NoResize;
         }
         #region 自定义标题栏
         // 退出按钮
