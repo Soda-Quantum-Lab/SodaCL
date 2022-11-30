@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SodaCL.Main.Downloader
+namespace SodaCL.Core.Downloader
 {
     public class MultiDownload
     {

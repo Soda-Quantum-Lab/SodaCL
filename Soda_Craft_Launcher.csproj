@@ -39,6 +39,7 @@
 
 	<ItemGroup>
 		<Folder Include="Controls\" />
+		<Folder Include="Pages\" />
 	</ItemGroup>
 
 	<ItemGroup>

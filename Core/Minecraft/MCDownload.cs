@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SodaCL.Main.Minecraft
+namespace SodaCL.Core.Minecraft
 {
     class MCDownload
     {

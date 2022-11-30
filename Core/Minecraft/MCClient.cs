@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SodaCL.Main.Minecraft
+namespace SodaCL.Core.Minecraft
 {
     class MCMod
     {

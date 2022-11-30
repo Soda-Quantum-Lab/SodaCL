@@ -1,12 +1,11 @@
-<Window x:Class="SodaCL.MainWindow" 
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:MyNamespace="clr-namespace:SodaCL.Controls" 
-        xmlns:local="clr-namespace:SodaCL" 
-        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
-        mc:Ignorable="d" Title="SodaCL" Height="504" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen">
+<Window x:Class="SodaCL.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:MyNamespace="clr-namespace:SodaCL.Controls"
+    xmlns:local="clr-namespace:SodaCL"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="504" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen">
     <Grid Margin="2">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
@@ -24,11 +23,11 @@
                     <Label Content="Soda Craft Launcher" Height="32" Margin="5,0,0,0" FontSize="14" Padding="5,8,5,5" />
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Height="32">
-                    <Border x:Name="MinBorder" Width="32" Height="32" CornerRadius="25,25,25,25" MouseEnter="LabelMin_MouseEnter" MouseLeave="LabelMin_MouseLeave" MouseDown="LabelMin_MouseDown" >
+                    <Border x:Name="MinBorder" Width="32" Height="32" CornerRadius="25,25,25,25" MouseEnter="LabelMin_MouseEnter" MouseLeave="LabelMin_MouseLeave" MouseDown="LabelMin_MouseDown">
                         <svgc:SvgViewbox Height="12" Width="12" Source="/Resources/icons/Min.svg"/>
                     </Border>
-                    <Border x:Name="ExitBorder" Width="32" Height="32" CornerRadius="25,25,25,25" MouseDown="LabelClose_MouseDown" MouseEnter="LabelClose_MouseEnter" MouseLeave="LabelClose_MouseLeave"  >
-                        <svgc:SvgViewbox Height="16"  Width="16" Source="/Resources/icons/Close.svg"/>
+                    <Border x:Name="ExitBorder" Width="32" Height="32" CornerRadius="25,25,25,25" MouseDown="LabelClose_MouseDown" MouseEnter="LabelClose_MouseEnter" MouseLeave="LabelClose_MouseLeave">
+                        <svgc:SvgViewbox Height="16" Width="16" Source="/Resources/icons/Close.svg"/>
                     </Border>
                 </StackPanel>
             </Grid>

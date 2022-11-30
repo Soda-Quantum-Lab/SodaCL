@@ -1,28 +1,16 @@
+using Newtonsoft.Json;
+using SodaCL.Core.Minecraft;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Newtonsoft.Json;
-using SodaCL.Main.Minecraft;
-using SodaCL.Main.Downloader;
 
 namespace SodaCL
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CoreWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -71,7 +59,7 @@ namespace SodaCL
         // 最小化按钮
         private void LabelMin_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.WindowState = System.Windows.WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
         }
 
         private void LabelMin_MouseEnter(object sender, MouseEventArgs e)
