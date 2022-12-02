@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using SodaCL.Core.Minecraft;
+using SodaCL.Launcher;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -108,6 +109,38 @@ namespace SodaCL
                     this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo._launcherInfoSavePath));
                 }
                 this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            try
+            {
+                SayHelloUsername.Text = Environment.UserName;
+
+                int hour = DateTime.Now.Hour;
+                switch (hour)
+                {
+                    case int n when (n >= 5 && n < 11):
+                        SayHelloTime.Text = "清晨好!";
+                        break;
+                    case int n when (n >= 11 && n < 13):
+                        SayHelloTime.Text = "中午好!";
+                        break;
+                    case int n when (n >= 13 && n < 17):
+                        SayHelloTime.Text = "下午好!";
+                        break;
+                    case int n when (n >= 17 && n < 19):
+                        SayHelloTime.Text = "傍晚好!";
+                        break;
+                    case int n when (n >= 5 && n <= 10):
+                        SayHelloTime.Text = "清晨好!";
+                        break;
+                    case int n when (n >= 0 && n < 5 || n < 0 && n >= 19):
+                        SayHelloTime.Text = "晚上好!";
+                        break;
+                }
             }
             catch (Exception ex)
             {

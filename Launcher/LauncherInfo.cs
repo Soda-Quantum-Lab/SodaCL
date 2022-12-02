@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 
-namespace SodaCL.Core.Minecraft
+namespace SodaCL.Launcher
 {
     public class LauncherInfo
     {
@@ -15,15 +15,17 @@ namespace SodaCL.Core.Minecraft
         static public string _MCDir = @".\.minecraft";
         public int launchTime;
         string version;
-        
+
         public LauncherInfo()
         {
-            this.launchTime = 0;
-            this.version = "0.0.1";
+            launchTime = 0;
+            version = "0.0.1";
         }
         public void addLaunchTime()
-        { 
-            this.launchTime += 1;
+        {
+            launchTime += 1;
         }
+
     }
+
 }
