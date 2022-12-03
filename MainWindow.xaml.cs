@@ -1,12 +1,12 @@
-using Newtonsoft.Json;
-using SodaCL.Core.Minecraft;
-using SodaCL.Launcher;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using Newtonsoft.Json;
+using SodaCL.Core.Minecraft;
+using SodaCL.Launcher;
 
 namespace SodaCL
 {
@@ -122,6 +122,9 @@ namespace SodaCL
                 int hour = DateTime.Now.Hour;
                 switch (hour)
                 {
+                    case int n when (n >= 0 && n < 5):
+                        SayHelloTime.Text = "凌晨好!";
+                        break;
                     case int n when (n >= 5 && n < 11):
                         SayHelloTime.Text = "清晨好!";
                         break;
@@ -137,7 +140,7 @@ namespace SodaCL
                     case int n when (n >= 5 && n <= 10):
                         SayHelloTime.Text = "清晨好!";
                         break;
-                    case int n when (n >= 0 && n < 5 || n < 0 && n >= 19):
+                    case int n when (n < 0 && n >= 19):
                         SayHelloTime.Text = "晚上好!";
                         break;
                 }

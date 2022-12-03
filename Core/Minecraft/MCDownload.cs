@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
+﻿using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace SodaCL.Core.Minecraft
 {
@@ -30,7 +24,7 @@ namespace SodaCL.Core.Minecraft
         public static async Task GetManifest(string _targetPath)
         {
             HttpClient client = new();
-            string response = await client.GetStringAsync(_BMCLapiUrl+ "mc/game/version_manifest.json");
+            string response = await client.GetStringAsync(_BMCLapiUrl + "mc/game/version_manifest.json");
             File.WriteAllText(_targetPath, response);
         }
     }
