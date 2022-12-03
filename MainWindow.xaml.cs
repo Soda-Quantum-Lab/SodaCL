@@ -76,6 +76,13 @@ namespace SodaCL
 
         private void Window_Initialized(object sender, EventArgs e)
         {
+            InitNewFloder();
+            SayHello();
+            
+        }
+
+        private void InitNewFloder()
+        {
             try
             {
                 if (!Directory.Exists(LauncherInfo._SodaCLBasePath))
@@ -115,6 +122,9 @@ namespace SodaCL
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void SayHello()
+        {
             try
             {
                 SayHelloUsername.Text = Environment.UserName;
@@ -149,6 +159,11 @@ namespace SodaCL
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void GetYiyan()
+        {
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
