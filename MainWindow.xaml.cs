@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SodaCL.Core.Minecraft;
 using SodaCL.Launcher;
 
@@ -76,12 +79,13 @@ namespace SodaCL
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            InitNewFloder();
+            InitNewFolder();
             SayHello();
-            
+            GetYiyanAsync();
+
         }
 
-        private void InitNewFloder()
+        private void InitNewFolder()
         {
             try
             {
@@ -161,8 +165,14 @@ namespace SodaCL
             }
         }
 
-        private void GetYiyan()
+        private async void GetYiyanAsync()
         {
+            string yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&encode=json&charset=utf-8";
+            HttpClient client = new();
+            client.Timeout = TimeSpan.FromSeconds(5);
+            string jsonResponse = await Task.Run(() => client.GetStringAsync(yiYanAPIAdd));
+            JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
+            YiYan.Text = $"{(string)jObj["hitokoto"]}——{(string)jObj["from"]}";
 
         }
 
