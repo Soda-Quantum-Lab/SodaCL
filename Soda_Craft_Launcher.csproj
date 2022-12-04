@@ -14,7 +14,6 @@
 		<RootNamespace>SodaCL</RootNamespace>
 		<FileVersion>0.0.1.1</FileVersion>
 		<Version>0.0.1.1</Version>
-		<OutputPath>C:\SodaCL</OutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +31,7 @@
 	<ItemGroup>
 		<None Remove="Resources\icons\Min.svg" />
 		<None Remove="Resources\Images\Dev.ico" />
+		<None Remove="Resources\Images\Launcher-Bg.jpg" />
 		<None Remove="Resources\Images\Release.ico" />
 		<None Remove="Resources\Launcher-Home.png" />
 		<None Remove="Resources\icons\Close.svg" />
@@ -40,8 +40,8 @@
 	<ItemGroup>
 		<Resource Include="Resources\icons\Min.svg" />
 		<Resource Include="Resources\Images\Dev.ico" />
-		<Resource Include="Resources\Images\Launcher-Home.png" />
 		<Resource Include="Resources\icons\Close.svg" />
+		<Resource Include="Resources\Images\Launcher-Bg.jpg" />
 		<Resource Include="Resources\Images\Release.ico" />
 	</ItemGroup>
 

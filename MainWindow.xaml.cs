@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Media3D;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Minecraft;
@@ -50,34 +49,28 @@ namespace SodaCL
             File.WriteAllText(LauncherInfo._launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
         }
-
         private void LabelClose_MouseEnter(object sender, MouseEventArgs e)
         {
             ExitBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));
         }
-
         private void LabelClose_MouseLeave(object sender, MouseEventArgs e)
         {
             ExitBorder.Background = Brushes.Transparent;
         }
-
         // 最小化按钮
         private void LabelMin_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
-
         private void LabelMin_MouseEnter(object sender, MouseEventArgs e)
         {
             MinBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));
         }
-
         private void LabelMin_MouseLeave(object sender, MouseEventArgs e)
         {
             MinBorder.Background = Brushes.Transparent;
         }
         #endregion
-
         private void Window_Initialized(object sender, EventArgs e)
         {
             InitNewFolder();
@@ -85,7 +78,6 @@ namespace SodaCL
             GetYiyanAsync();
 
         }
-
         private void InitNewFolder()
         {
             try
@@ -165,28 +157,26 @@ namespace SodaCL
                 MessageBox.Show(ex.Message);
             }
         }
-
         private async void GetYiyanAsync()
         {
-            try {
+            try
+            {
                 string yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&encode=json&charset=utf-8";
                 HttpClient client = new();
                 client.Timeout = TimeSpan.FromSeconds(5);
                 string jsonResponse = await Task.Run(() => client.GetStringAsync(yiYanAPIAdd));
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
                 YiYan.Text = $"{(string)jObj["hitokoto"]}——{(string)jObj["from"]}";
-            
-                }
+
+            }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //MCDownload.GetManifest();
         }
-
     }
 }

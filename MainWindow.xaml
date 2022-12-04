@@ -14,10 +14,20 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid Margin="2">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Images/Launcher-Bg.jpg"/>
+        </Grid.Background>
         <Grid.Effect>
             <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
         </Grid.Effect>
-        <Border CornerRadius="10,10,10,10" Background="White">
+        <Border CornerRadius="10,10,10,10" >
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Offset="0" Color="white"/>
+                    <GradientStop Offset="0.4" Color="white"/>
+                    <GradientStop Offset="1.3" Color="Transparent"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -70,7 +80,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="15"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="1" Background="#FFE5E5E5" CornerRadius="12,12,12,12">
+                    <Border Grid.Column="1" Background="White" CornerRadius="12,12,12,12">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
