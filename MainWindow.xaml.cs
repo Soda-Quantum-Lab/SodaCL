@@ -18,6 +18,7 @@ namespace SodaCL
     /// </summary>
     public partial class MainWindow : Window
     {
+        static public string currentDir = Environment.CurrentDirectory;
         private List<MCClient> clients = new();
         LauncherInfo launcherInfo;
         public MainWindow()
@@ -34,19 +35,19 @@ namespace SodaCL
 
         private void LabelClose_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!File.Exists(LauncherInfo._versionListSavePath))
+            if (!File.Exists(LauncherInfo.versionListSavePath))
             {
-                FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            File.WriteAllText(LauncherInfo._versionListSavePath, JsonConvert.SerializeObject(clients));
+            File.WriteAllText(LauncherInfo.versionListSavePath, JsonConvert.SerializeObject(clients));
 
-            if (!File.Exists(LauncherInfo._launcherInfoSavePath))
+            if (!File.Exists(LauncherInfo.launcherInfoSavePath))
             {
-                FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            File.WriteAllText(LauncherInfo._launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
+            File.WriteAllText(LauncherInfo.launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
         }
         private void LabelClose_MouseEnter(object sender, MouseEventArgs e)
@@ -82,35 +83,35 @@ namespace SodaCL
         {
             try
             {
-                if (!Directory.Exists(LauncherInfo._SodaCLBasePath))
+                if (!Directory.Exists(LauncherInfo.SodaCLBasePath))
                 {
-                    Directory.CreateDirectory(LauncherInfo._SodaCLBasePath);
+                    Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
                 }
 
-                if (!Directory.Exists(LauncherInfo._MCDir))
+                if (!Directory.Exists(LauncherInfo.MCDir))
                 {
-                    Directory.CreateDirectory(LauncherInfo._MCDir);
+                    Directory.CreateDirectory(LauncherInfo.MCDir);
                 }
 
-                if (!File.Exists(LauncherInfo._versionListSavePath))
+                if (!File.Exists(LauncherInfo.versionListSavePath))
                 {
-                    FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                 }
                 else
                 {
-                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo._versionListSavePath));
+                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
                 }
 
-                if (!File.Exists(LauncherInfo._launcherInfoSavePath))
+                if (!File.Exists(LauncherInfo.launcherInfoSavePath))
                 {
-                    FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                     this.launcherInfo = new LauncherInfo();
                 }
                 else
                 {
-                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo._launcherInfoSavePath));
+                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
                 }
                 this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
             }
@@ -119,7 +120,7 @@ namespace SodaCL
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        }//TODO: 判断程序运行路径
         private void SayHello()
         {
             try
@@ -166,7 +167,7 @@ namespace SodaCL
                 client.Timeout = TimeSpan.FromSeconds(5);
                 string jsonResponse = await Task.Run(() => client.GetStringAsync(yiYanAPIAdd));
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
-                YiYan.Text = $"{(string)jObj["hitokoto"]}——{(string)jObj["from"]}";
+                YiYan.Text = $"{(string)jObj["hitokoto"]}  ——{(string)jObj["from"]}";
 
             }
             catch (HttpRequestException ex)

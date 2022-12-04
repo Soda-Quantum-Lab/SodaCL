@@ -1,12 +1,13 @@
-﻿namespace SodaCL.Launcher
+﻿using SodaCL;
+namespace SodaCL.Launcher
 {
     public class LauncherInfo
     {
-        static public string _SodaCLBasePath = @".\SodaCL";
-        static public string _versionListSavePath = _SodaCLBasePath + @".\versions.json";
-        static public string _launcherInfoSavePath = _SodaCLBasePath + @".\launcher.json";
-        static public string _MCDir = @".\.minecraft";
-        public int launchTime;
+        static public string SodaCLBasePath = MainWindow.currentDir + @"\SodaCL";
+        static public string versionListSavePath = SodaCLBasePath + @"\versions.json";
+        static public string launcherInfoSavePath = SodaCLBasePath + @"\launcher.json";
+        static public string MCDir = MainWindow.currentDir + @"\.minecraft";
+        static public int launchTime;
         string version;
 
         public LauncherInfo()
