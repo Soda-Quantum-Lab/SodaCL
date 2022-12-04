@@ -1,5 +1,4 @@
-﻿using SodaCL;
-namespace SodaCL.Launcher
+﻿namespace SodaCL.Launcher
 {
     public class LauncherInfo
     {

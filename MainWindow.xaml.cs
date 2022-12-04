@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -18,7 +17,7 @@ namespace SodaCL
     /// </summary>
     public partial class MainWindow : Window
     {
-        static public string currentDir = Environment.CurrentDirectory;
+        static public string currentDir = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
         private List<MCClient> clients = new();
         LauncherInfo launcherInfo;
         public MainWindow()
@@ -83,16 +82,6 @@ namespace SodaCL
         {
             try
             {
-                if (!Directory.Exists(LauncherInfo.SodaCLBasePath))
-                {
-                    Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
-                }
-
-                if (!Directory.Exists(LauncherInfo.MCDir))
-                {
-                    Directory.CreateDirectory(LauncherInfo.MCDir);
-                }
-
                 if (!File.Exists(LauncherInfo.versionListSavePath))
                 {
                     FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
@@ -162,12 +151,12 @@ namespace SodaCL
         {
             try
             {
-                string yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&encode=json&charset=utf-8";
+                string yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&max_length=20";
                 HttpClient client = new();
                 client.Timeout = TimeSpan.FromSeconds(5);
-                string jsonResponse = await Task.Run(() => client.GetStringAsync(yiYanAPIAdd));
+                string jsonResponse = await client.GetStringAsync(yiYanAPIAdd);
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
-                YiYan.Text = $"{(string)jObj["hitokoto"]}  ——{(string)jObj["from"]}";
+                YiYan.Text = $"{(string)jObj["hitokoto"]} —{(string)jObj["from"]}";
 
             }
             catch (HttpRequestException ex)
