@@ -30,7 +30,7 @@
                     <RowDefinition Height="100px"/>
                     <RowDefinition Height="10"/>
                 </Grid.RowDefinitions>
-                <Border Height="45" Grid.Row="0" Background="White" CornerRadius="10,10,0,0" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Border Height="45" Grid.Row="0" CornerRadius="10,10,0,0" Background="Transparent"  VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                     <Grid>
                         <Grid Height="45" VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
@@ -70,9 +70,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="15"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="1" Background="Gray" CornerRadius="12,12,12,12">
+                    <Border Grid.Column="1" Background="#FFE5E5E5" CornerRadius="12,12,12,12">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="290"/>
                             </Grid.ColumnDefinitions>
@@ -81,10 +82,14 @@
                                 <RowDefinition Height="42"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,0,20,0">
+                            <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+                                <TextBlock Text="当前启动的核心" Margin="20,25,0,0" FontSize="18" FontWeight="Bold" Height="25"/>
+                                <TextBlock Text="Minecraft 11.45.14" Margin="20,10,0,0" FontSize="14"  Height="20"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Margin="0,0,20,0">
                                 <Button Width="40" Margin="0,0,15,0"></Button>
                                 <Button Width="80" Margin="0,0,15,0"/>
-                                <Button Style="{DynamicResource StartButton}" Width="120" Content="开始游戏" Background="#FF3D7DFC" Foreground="White" FontSize="16" BorderThickness="0"></Button>
+                                <Button Style="{DynamicResource StartButton}" Width="120" Content="开始游戏"  Foreground="White" FontSize="16"></Button>
                             </StackPanel>
                         </Grid>
                     </Border>
