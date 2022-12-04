@@ -6,6 +6,13 @@
     xmlns:MyNamespace="clr-namespace:SodaCL.Controls"
     xmlns:local="clr-namespace:SodaCL"
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="504" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ControlDirctronary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="2">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
@@ -20,7 +27,7 @@
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="4*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="100px"/>
                     <RowDefinition Height="10"/>
                 </Grid.RowDefinitions>
                 <Border Height="45" Grid.Row="0" Background="White" CornerRadius="10,10,0,0" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown">
@@ -55,7 +62,32 @@
                         <TextBlock x:Name="SayHelloTime" Text="N/A" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
                         <TextBlock x:Name="SayHelloUsername" Text="N/A"  FontSize="36" VerticalAlignment="Center" Block.TextAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
                     </StackPanel>
-                    <TextBlock x:Name="YiYan" Grid.Row="1" Text="今天心情怎么样" Block.TextAlignment="Center" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
+                    <TextBlock x:Name="YiYan" Grid.Row="1" Text="正在获取一言" Block.TextAlignment="Center" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="15"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" Background="Gray" CornerRadius="12,12,12,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="290"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="42"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,0,20,0">
+                                <Button Width="40" Margin="0,0,15,0"></Button>
+                                <Button Width="80" Margin="0,0,15,0"/>
+                                <Button Style="{DynamicResource StartButton}" Width="120" Content="开始游戏" Background="#FF3D7DFC" Foreground="White" FontSize="16" BorderThickness="0"></Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                 </Grid>
             </Grid>
         </Border>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Minecraft;
@@ -167,13 +168,19 @@ namespace SodaCL
 
         private async void GetYiyanAsync()
         {
-            string yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&encode=json&charset=utf-8";
-            HttpClient client = new();
-            client.Timeout = TimeSpan.FromSeconds(5);
-            string jsonResponse = await Task.Run(() => client.GetStringAsync(yiYanAPIAdd));
-            JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
-            YiYan.Text = $"{(string)jObj["hitokoto"]}——{(string)jObj["from"]}";
-
+            try {
+                string yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&encode=json&charset=utf-8";
+                HttpClient client = new();
+                client.Timeout = TimeSpan.FromSeconds(5);
+                string jsonResponse = await Task.Run(() => client.GetStringAsync(yiYanAPIAdd));
+                JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
+                YiYan.Text = $"{(string)jObj["hitokoto"]}——{(string)jObj["from"]}";
+            
+                }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

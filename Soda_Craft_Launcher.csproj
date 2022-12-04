@@ -17,6 +17,14 @@
 		<OutputPath>C:\SodaCL</OutputPath>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <NoWarn>1701;1702;SYSLIB0014</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <NoWarn>1701;1702;SYSLIB0014</NoWarn>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Compile Remove="Properties\Settings.Designer.cs" />
 	</ItemGroup>
@@ -38,7 +46,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controls\" />
 		<Folder Include="Pages\" />
 	</ItemGroup>
 
