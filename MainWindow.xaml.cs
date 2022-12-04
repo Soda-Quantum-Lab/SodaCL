@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Minecraft;
 using SodaCL.Launcher;
+using SodaCL.Pages;
 
 namespace SodaCL
 {
@@ -166,7 +167,8 @@ namespace SodaCL
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            MSLogin MSLogin = new();
+            MSLogin.Show();
         }
     }
 }
