@@ -119,7 +119,7 @@ namespace SodaCL
                 int hour = DateTime.Now.Hour;
                 switch (hour)
                 {
-                    case int n when (n >= 0 && n < 5):
+                    case int n when (n >= 3 && n < 5):
                         SayHelloTime.Text = "凌晨好!";
                         break;
                     case int n when (n >= 5 && n < 11):
@@ -134,11 +134,11 @@ namespace SodaCL
                     case int n when (n >= 17 && n < 19):
                         SayHelloTime.Text = "傍晚好!";
                         break;
-                    case int n when (n >= 5 && n <= 10):
-                        SayHelloTime.Text = "清晨好!";
-                        break;
-                    case int n when (n < 0 && n >= 19):
+                    case int n when (n <= 23 && n >= 19 || n > 23):
                         SayHelloTime.Text = "晚上好!";
+                        break;
+                    case int n when (n >= 0 && n < 3):
+                        SayHelloTime.Text = "午夜好!";
                         break;
                 }
             }
@@ -156,7 +156,7 @@ namespace SodaCL
                 client.Timeout = TimeSpan.FromSeconds(5);
                 string _jsonResponse = await client.GetStringAsync(_yiYanAPIAdd);
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(_jsonResponse);
-                YiYan.Text = $"{(string)jObj["hitokoto"]} —{(string)jObj["from"]}";
+                YiYan.Text = $"{(string)jObj["hitokoto"]} — {(string)jObj["from"]}";
 
             }
             catch (HttpRequestException ex)
@@ -166,7 +166,7 @@ namespace SodaCL
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //MCDownload.GetManifest();
+
         }
     }
 }

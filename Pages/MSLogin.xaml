@@ -1,0 +1,13 @@
+﻿<Window x:Class="SodaCL.Pages.MSLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SodaCL.Pages"
+        xmlns:wv="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="MSLogin" Height="640" Width="360">
+    <Grid>
+        <wv:WebView2 Name="MicrosoftLogin" Source="https://login.live.com/oauth20_authorize.srf?client_id=00000000402b5328&amp;response_type=code&amp;scope=service%3A%3Auser.auth.xboxlive.com%3A%3AMBI_SSL&amp;redirect_uri=https%3A%2F%2Flogin.live.com%2Foauth20_desktop.srf"></wv:WebView2>
+    </Grid>
+</Window>
