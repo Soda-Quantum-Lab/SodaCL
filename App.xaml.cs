@@ -13,8 +13,8 @@ namespace SodaCL
         {
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true);
-            Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
-            Directory.CreateDirectory(LauncherInfo.MCDir);
+            Directory.CreateDirectory(LauncherInfo._SodaCLBasePath);
+            Directory.CreateDirectory(LauncherInfo._MCDir);
             base.OnStartup(e);
         }
 

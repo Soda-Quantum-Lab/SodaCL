@@ -2,10 +2,10 @@
 {
     public class LauncherInfo
     {
-        static public string SodaCLBasePath = MainWindow.currentDir + @"\SodaCL";
-        static public string versionListSavePath = SodaCLBasePath + @"\versions.json";
-        static public string launcherInfoSavePath = SodaCLBasePath + @"\launcher.json";
-        static public string MCDir = MainWindow.currentDir + @"\.minecraft";
+        static public string _SodaCLBasePath = MainWindow.currentDir + @"\SodaCL";
+        static public string _versionListSavePath = _SodaCLBasePath + @"\versions.json";
+        static public string _launcherInfoSavePath = _SodaCLBasePath + @"\launcher.json";
+        static public string _MCDir = MainWindow.currentDir + @"\.minecraft";
         static public int launchTime;
         string version;
 

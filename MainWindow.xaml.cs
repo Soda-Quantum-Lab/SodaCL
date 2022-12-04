@@ -34,19 +34,19 @@ namespace SodaCL
 
         private void LabelClose_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!File.Exists(LauncherInfo.versionListSavePath))
+            if (!File.Exists(LauncherInfo._versionListSavePath))
             {
-                FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            File.WriteAllText(LauncherInfo.versionListSavePath, JsonConvert.SerializeObject(clients));
+            File.WriteAllText(LauncherInfo._versionListSavePath, JsonConvert.SerializeObject(clients));
 
-            if (!File.Exists(LauncherInfo.launcherInfoSavePath))
+            if (!File.Exists(LauncherInfo._launcherInfoSavePath))
             {
-                FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            File.WriteAllText(LauncherInfo.launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
+            File.WriteAllText(LauncherInfo._launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
         }
         private void LabelClose_MouseEnter(object sender, MouseEventArgs e)
@@ -82,25 +82,25 @@ namespace SodaCL
         {
             try
             {
-                if (!File.Exists(LauncherInfo.versionListSavePath))
+                if (!File.Exists(LauncherInfo._versionListSavePath))
                 {
-                    FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                 }
                 else
                 {
-                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
+                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo._versionListSavePath));
                 }
 
-                if (!File.Exists(LauncherInfo.launcherInfoSavePath))
+                if (!File.Exists(LauncherInfo._launcherInfoSavePath))
                 {
-                    FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                    FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                     this.launcherInfo = new LauncherInfo();
                 }
                 else
                 {
-                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
+                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo._launcherInfoSavePath));
                 }
                 this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
             }
@@ -151,11 +151,11 @@ namespace SodaCL
         {
             try
             {
-                string yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&max_length=20";
+                string _yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&max_length=20";
                 HttpClient client = new();
                 client.Timeout = TimeSpan.FromSeconds(5);
-                string jsonResponse = await client.GetStringAsync(yiYanAPIAdd);
-                JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
+                string _jsonResponse = await client.GetStringAsync(_yiYanAPIAdd);
+                JObject jObj = JsonConvert.DeserializeObject<JObject>(_jsonResponse);
                 YiYan.Text = $"{(string)jObj["hitokoto"]} —{(string)jObj["from"]}";
 
             }
