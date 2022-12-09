@@ -1,5 +1,7 @@
+using static SodaCL.Launcher.LauncherLogging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Windows;
@@ -47,8 +49,8 @@ namespace SodaCL
                 FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
-            LauncherLogging.Log("-------- SodaCL 程序日志记录结束 --------");
             File.WriteAllText(LauncherInfo._launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
+            Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------");
             this.Close();
         }
         private void LabelClose_MouseEnter(object sender, MouseEventArgs e)
@@ -75,6 +77,7 @@ namespace SodaCL
         #endregion
         private void Window_Initialized(object sender, EventArgs e)
         {
+            Log(moduleList.Main,logInfo.Info,"主窗体加载完毕");
             InitNewFolder();
             SayHello();
             GetYiyanAsync();
@@ -88,6 +91,7 @@ namespace SodaCL
                 {
                     FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
+                    Log(moduleList.IO, logInfo.Info, "新建版本文件");
                 }
                 else
                 {
@@ -98,6 +102,7 @@ namespace SodaCL
                 {
                     FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
+                    Log(moduleList.IO, logInfo.Info, "新建启动器文件");
                     this.launcherInfo = new LauncherInfo();
                 }
                 else
@@ -105,18 +110,14 @@ namespace SodaCL
                     this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo._launcherInfoSavePath));
                 }
                 this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
-
-                if (!File.Exists(LauncherInfo._SodaCLBasePath))
-                {
-                    LauncherLogging.Log("-------- SodaCL 程序日志记录开始 --------");
-                }
             }
 
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Log(moduleList.IO, logInfo.Error, ex.Message);
             }
-        }//TODO: 判断程序运行路径
+        }
         private void SayHello()
         {
             try
@@ -152,10 +153,12 @@ namespace SodaCL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Log(moduleList.IO, logInfo.Error, ex.Message);
             }
         }
         private async void GetYiyanAsync()
         {
+            Log(moduleList.Network, logInfo.Info, "正在获取一言");
             try
             {
                 string _yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&max_length=20";
@@ -164,11 +167,13 @@ namespace SodaCL
                 string _jsonResponse = await client.GetStringAsync(_yiYanAPIAdd);
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(_jsonResponse);
                 YiYan.Text = $"{(string)jObj["hitokoto"]} — {(string)jObj["from"]}";
+                Log(moduleList.Network, logInfo.Info, "一言获取成功");
 
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show(ex.Message);
+                Log(moduleList.Network, logInfo.Error, ex.Message);
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
