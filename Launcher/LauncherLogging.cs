@@ -56,12 +56,12 @@ namespace SodaCL.Launcher
             Trace.WriteLine($"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}");
         }
         /// <summary>
-        /// 以MM-DD-HH_MM的格式返回字符串格式的当前时间
+        /// 以MM.DD-HH_MM的格式返回字符串格式的当前时间
         /// </summary>
         /// <returns>返回的字符串时间</returns>
         public static string LogTime()
         {
-            string _stringTime = $"{DateTime.Now.Month.ToString()}-{DateTime.Now.Day.ToString()}-{DateTime.Now.Hour.ToString()}_{DateTime.Now.Minute.ToString()}";
+            string _stringTime = $"{DateTime.Now.Month.ToString()}.{DateTime.Now.Day.ToString()}-{DateTime.Now.Hour.ToString()}_{DateTime.Now.Minute.ToString()}";
             return _stringTime;
         }
     }
