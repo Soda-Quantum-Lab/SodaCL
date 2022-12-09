@@ -47,6 +47,7 @@ namespace SodaCL
                 FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                 fileStream.Close();
             }
+            LauncherLogging.Log("-------- SodaCL 程序日志记录结束 --------");
             File.WriteAllText(LauncherInfo._launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
         }
@@ -104,6 +105,11 @@ namespace SodaCL
                     this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo._launcherInfoSavePath));
                 }
                 this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
+
+                if (!File.Exists(LauncherInfo._SodaCLBasePath))
+                {
+                    LauncherLogging.Log("-------- SodaCL 程序日志记录开始 --------");
+                }
             }
 
             catch (Exception ex)
