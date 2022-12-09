@@ -6,5 +6,10 @@
         private string _XBoxApiAdd = "https://user.auth.xboxlive.com/user/authenticate";
         private string _XSTSApiAdd = "https://xsts.auth.xboxlive.com/xsts/authorize";
         private string _MCApiAdd = "https://api.minecraftservices.com/authentication/login_with_xbox";
+        public void SetClientID()
+        {
+
+        }
     }
+
 }
