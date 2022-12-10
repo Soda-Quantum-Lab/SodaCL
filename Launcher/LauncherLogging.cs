@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
-using System.Windows;
-using System.Windows.Shapes;
-using SodaCL.Launcher;
 namespace SodaCL.Launcher
 {
     public class LauncherLogging

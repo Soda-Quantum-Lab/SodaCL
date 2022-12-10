@@ -1,4 +1,3 @@
-using static SodaCL.Launcher.LauncherLogging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using SodaCL.Core.Minecraft;
 using SodaCL.Launcher;
 using SodaCL.Pages;
+using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL
 {
