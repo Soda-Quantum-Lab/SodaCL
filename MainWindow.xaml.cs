@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SodaCL.Core.Downloader;
 using SodaCL.Core.Minecraft;
 using SodaCL.Launcher;
 using SodaCL.Pages;
@@ -185,6 +186,11 @@ namespace SodaCL
         {
             MSLogin MSLogin = new();
             MSLogin.Show();
+        }
+
+        private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
+        {
+            MultiDownload multiDownload = new(1, "https://cdn.azul.com/zulu/bin/zulu17.38.21-ca-jre17.0.5-win_x64.msi", ".\\");
         }
         private void Window_Closed(object sender, EventArgs e)
         {
