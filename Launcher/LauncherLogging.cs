@@ -40,13 +40,13 @@ namespace SodaCL.Launcher
             switch (_module)
             {
                 case moduleList.Main:
-                    _moduleText = "主程序";
+                    _moduleText = "Main";
                     break;
                 case moduleList.Animation:
-                    _moduleText = "动画";
+                    _moduleText = "Animation";
                     break;
                 case moduleList.Network:
-                    _moduleText = "网络";
+                    _moduleText = "Network";
                     break;
                 case moduleList.IO:
                     _moduleText = "IO";
@@ -54,6 +54,7 @@ namespace SodaCL.Launcher
             }
 
             Trace.WriteLine($"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}");
+
         }
         /// <summary>
         /// 以MM.DD-HH_MM的格式返回字符串格式的当前时间
