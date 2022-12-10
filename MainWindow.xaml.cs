@@ -188,7 +188,8 @@ namespace SodaCL
         }
         private void Window_Closed(object sender, EventArgs e)
         {
-            Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------");
+            Log(moduleList.Main, logInfo.Info, "程序退出");
+            Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
 
         }
     }
