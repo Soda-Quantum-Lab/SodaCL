@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:MyNamespace="clr-namespace:SodaCL.Controls"
     xmlns:local="clr-namespace:SodaCL"
-    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="504" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen">
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="504" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

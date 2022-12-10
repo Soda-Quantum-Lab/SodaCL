@@ -50,7 +50,6 @@ namespace SodaCL
                 fileStream.Close();
             }
             File.WriteAllText(LauncherInfo._launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
-            Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------");
             this.Close();
         }
         private void LabelClose_MouseEnter(object sender, MouseEventArgs e)
@@ -77,12 +76,15 @@ namespace SodaCL
         #endregion
         private void Window_Initialized(object sender, EventArgs e)
         {
-            Log(moduleList.Main,logInfo.Info,"主窗体加载完毕");
+            Log(moduleList.Main, logInfo.Info, "主窗体加载完毕");
             InitNewFolder();
             SayHello();
             GetYiyanAsync();
 
         }
+        /// <summary>
+        /// 新建MC及启动器文件
+        /// </summary>
         private void InitNewFolder()
         {
             try
@@ -156,6 +158,9 @@ namespace SodaCL
                 Log(moduleList.IO, logInfo.Error, ex.Message);
             }
         }
+        /// <summary>
+        /// 向Api接口获取一言
+        /// </summary>
         private async void GetYiyanAsync()
         {
             Log(moduleList.Network, logInfo.Info, "正在获取一言");
@@ -180,6 +185,11 @@ namespace SodaCL
         {
             MSLogin MSLogin = new();
             MSLogin.Show();
+        }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------");
+
         }
     }
 }

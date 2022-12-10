@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using SodaCL.Launcher;
 using static SodaCL.Launcher.LauncherLogging;
 
@@ -15,6 +16,17 @@ namespace SodaCL
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            int _fileNum = GetFileNum();
+            SortAsFileCreationTime(ref _logFiles);
+            if (_fileNum == 5)
+            {
+                File.Delete(_logFiles[4].ToString());
+            }
+            if (_fileNum > 5)
+            {
+                for (int i; _fileNum >= 5;_fileNum--)
+                    File.Delete(_logFiles[_fileNum-1].ToString());
+            }
             try
             {
                 Trace.Listeners.Add(new TextWriterTraceListener(LauncherInfo._SodaCLLogPath + "\\log-" + LogTime() + ".txt"));

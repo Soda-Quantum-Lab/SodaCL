@@ -3,18 +3,24 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Shapes;
 using SodaCL.Launcher;
 namespace SodaCL.Launcher
 {
     public class LauncherLogging
     {
+        /// <summary>
+        /// 日志级别枚举
+        /// </summary>
         public enum logInfo
         {
             Info,
             Warning,
             Error
         }
-
+        /// <summary>
+        /// 模块位置枚举
+        /// </summary>
         public enum moduleList
         {
             Main,
@@ -22,8 +28,14 @@ namespace SodaCL.Launcher
             Network,
             IO
         }
-
-        public static int _logNum = 0;
+        /// <summary>
+        /// Log文件夹
+        /// </summary>
+        public static DirectoryInfo _logDir = new(LauncherInfo._SodaCLLogPath);
+        /// <summary>
+        /// Log目录下的所有文件
+        /// </summary>
+        public static FileInfo[] _logFiles = _logDir.GetFiles();
         /// <summary>
         /// 写入Log
         /// </summary>
@@ -56,13 +68,29 @@ namespace SodaCL.Launcher
             Trace.WriteLine($"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}");
         }
         /// <summary>
-        /// 以MM.DD-HH_MM的格式返回字符串格式的当前时间
+        /// 以MM.DD-HHhMMm的格式返回字符串格式的当前时间
         /// </summary>
-        /// <returns>返回的字符串时间</returns>
+        /// <returns>返回的字符串格式时间</returns>
         public static string LogTime()
         {
-            string _stringTime = $"{DateTime.Now.Month.ToString()}.{DateTime.Now.Day.ToString()}-{DateTime.Now.Hour.ToString()}_{DateTime.Now.Minute.ToString()}";
+            string _stringTime = $"{DateTime.Now.Month.ToString()}.{DateTime.Now.Day.ToString()}-{DateTime.Now.Hour.ToString()}h{DateTime.Now.Minute.ToString()}m";
             return _stringTime;
         }
+
+        public static int GetFileNum()
+        {
+            int _fileNum = 0;
+            foreach (FileInfo f in _logDir.GetFiles()) _fileNum++;
+            return _fileNum;
+        }
+        public static void SortAsFileCreationTime(ref FileInfo[] _logFiles)
+        {
+            Array.Sort(_logFiles, delegate (FileInfo x, FileInfo y)
+            {
+                return y.CreationTime.CompareTo(x.CreationTime);
+            });
+        }
     }
+
 }
+
