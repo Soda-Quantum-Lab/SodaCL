@@ -52,20 +52,38 @@ namespace SodaCL.Launcher
             switch (_module)
             {
                 case moduleList.Main:
-                    _moduleText = "主程序";
+                    _moduleText = "Main";
                     break;
                 case moduleList.Animation:
-                    _moduleText = "动画";
+                    _moduleText = "Animation";
                     break;
                 case moduleList.Network:
-                    _moduleText = "网络";
+                    _moduleText = "Network";
                     break;
                 case moduleList.IO:
                     _moduleText = "IO";
                     break;
             }
 
-            Trace.WriteLine($"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}");
+            string _stringDate = $"{DateTime.Now.Month.ToString()}.{DateTime.Now.Day.ToString()}";
+            string _logFilePath = ".\\SodaCL\\[" + _stringDate + "]SodaCL_Log.txt";
+            string _logOutput = $"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}";
+            FileStream fs;
+            StreamWriter sw;
+            if (File.Exists(_logFilePath))
+            {
+                fs = new FileStream(_logFilePath, FileMode.Append, FileAccess.Write);
+            }
+            else
+            {
+                fs = new FileStream(_logFilePath, FileMode.Create, FileAccess.Write);
+            }
+            sw = new StreamWriter(fs);
+            sw.WriteLine(_logOutput);
+            sw.Close();
+            fs.Close();
+            Trace.WriteLine(_logOutput);
+
         }
         /// <summary>
         /// 以MM.DD-HHhMMm的格式返回字符串格式的当前时间
