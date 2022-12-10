@@ -53,7 +53,24 @@ namespace SodaCL.Launcher
                     break;
             }
 
-            Trace.WriteLine($"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}");
+            string _stringDate = $"{DateTime.Now.Month.ToString()}.{DateTime.Now.Day.ToString()}";
+            string _logFilePath = ".\\SodaCL\\" + _stringDate + "Log.txt";
+            string _logOutput = $"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}";
+            FileStream fs;
+            StreamWriter sw;
+            if (File.Exists(_logFilePath))
+            {
+                fs = new FileStream(_logFilePath, FileMode.Append, FileAccess.Write);
+            }
+            else
+            {
+                fs = new FileStream(_logFilePath, FileMode.Create, FileAccess.Write);
+            }
+            sw = new StreamWriter(fs);
+            sw.WriteLine(_logOutput);
+            sw.Close();
+            fs.Close();
+            Trace.WriteLine(_logOutput);
 
         }
         /// <summary>
