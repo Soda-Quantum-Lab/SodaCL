@@ -46,7 +46,7 @@ namespace SodaCL
                 MessageBox.Show(ex.Message);
             }
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
-            splashScreen.Show(true);
+            splashScreen.Show(true,true);
             Log(moduleList.Main, logInfo.Info, "显示启动画面");
             base.OnStartup(e);
             Log(moduleList.Main, logInfo.Info, "开始加载主窗体");
