@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:SodaCL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictronaries\langs\en-US.xaml"/>
+                <ResourceDictionary Source="Dictronaries\langs\zh-CN.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
