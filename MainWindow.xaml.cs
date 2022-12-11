@@ -172,7 +172,7 @@ namespace SodaCL
                 client.Timeout = TimeSpan.FromSeconds(5);
                 string _jsonResponse = await client.GetStringAsync(_yiYanAPIAdd);
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(_jsonResponse);
-                YiYan.Text = $"「 {(string)jObj["hitokoto"]}」—  {(string)jObj["from"]}";
+                YiYan.Text = $"「{(string)jObj["hitokoto"]}」—  {(string)jObj["from"]}";
                 Log(moduleList.Network, logInfo.Info, "一言获取成功");
 
             }
@@ -196,6 +196,21 @@ namespace SodaCL
         {
             Log(moduleList.Main, logInfo.Info, "程序退出");
             Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
+
+        }
+
+        private void HelpBorder_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void HelpBorder_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void HelpBorder_MouseLeave(object sender, MouseEventArgs e)
+        {
 
         }
     }
