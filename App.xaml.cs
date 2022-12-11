@@ -14,13 +14,22 @@ namespace SodaCL
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            for (int i = 0; i < e.Args.Length; i++)
+            {
+                if (e.Args[i] == "--langs")
+                {
+                    //留个接口先
+                    MessageBox.Show("您正处于翻译人员模式");
+                    //bool isTranslator = true;
+                }
+            }
             try
             {
                 Directory.CreateDirectory(LauncherInfo._SodaCLBasePath);
                 Directory.CreateDirectory(LauncherInfo._MCDir);
                 Directory.CreateDirectory(LauncherInfo._SodaCLLogPath);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -46,12 +55,13 @@ namespace SodaCL
                 MessageBox.Show(ex.Message);
             }
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
-            splashScreen.Show(true,true);
+            splashScreen.Show(true, true);
             Log(moduleList.Main, logInfo.Info, "显示启动画面");
-            SodaCL.Launcher.Languages.MultiLanguages();
-            Log(moduleList.Main, logInfo.Info, "加载语言文件");
             base.OnStartup(e);
             Log(moduleList.Main, logInfo.Info, "开始加载主窗体");
+            Languages.MultiLanguages();
+            Log(moduleList.Main, logInfo.Info, "加载语言文件");
+
         }
 
     }

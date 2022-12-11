@@ -172,7 +172,7 @@ namespace SodaCL
                 client.Timeout = TimeSpan.FromSeconds(5);
                 string _jsonResponse = await client.GetStringAsync(_yiYanAPIAdd);
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(_jsonResponse);
-                YiYan.Text = $"「{(string)jObj["hitokoto"]}」—  {(string)jObj["from"]}";
+                YiYan.Text = $"「 {(string)jObj["hitokoto"]}」—  {(string)jObj["from"]}";
                 Log(moduleList.Network, logInfo.Info, "一言获取成功");
 
             }
