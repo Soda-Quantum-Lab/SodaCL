@@ -9,7 +9,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ControlDirctronary.xaml"/>
+                <ResourceDictionary Source="./Dirctronaries/ControlDirctronary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -70,7 +70,7 @@
                             <TextBlock x:Name="SayHelloTime" Text="N/A" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
                             <TextBlock x:Name="SayHelloUsername" Text="N/A"  FontSize="36" VerticalAlignment="Center" Block.TextAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
                         </StackPanel>
-                        <TextBlock x:Name="YiYan" Grid.Row="1" Text="正在获取一言" Block.TextAlignment="Center" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
+                        <TextBlock x:Name="YiYan" Grid.Row="1" Text="正在获取一言" Block.TextAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
                     </Grid>
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
