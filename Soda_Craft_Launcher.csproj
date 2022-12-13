@@ -6,14 +6,15 @@
 		<Nullable>disable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>disable</ImplicitUsings>
-		<Authors>SodaCL Dev Team</Authors>
 		<Product>Soda Craft Launcher</Product>
-		<Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
 		<AssemblyName>SodaCL</AssemblyName>
+		<AssemblyTitle>Soda Craft Launcher 启动器</AssemblyTitle>
+		<Description>一个清爽的 Minecraft 启动器</Description>
+		<Version>0.0.3.3</Version>
+		<FileVersion>0.0.3.3</FileVersion>
+		<Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
 		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
 		<RootNamespace>SodaCL</RootNamespace>
-		<FileVersion>0.0.2.0</FileVersion>
-		<Version>0.0.2.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

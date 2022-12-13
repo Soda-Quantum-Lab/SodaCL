@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22"
-  viewBox="0 0 22 22" fill="none">
-  <defs>
-    <rect id="path_0" x="0" y="0" width="22" height="22" />
-  </defs>
-  <g opacity="1" transform="translate(0 0)  rotate(0 11 11)">
-    <mask id="bg-mask-0" fill="white">
-      <use xlink:href="#path_0"></use>
-    </mask>
-    <g mask="url(#bg-mask-0)">
-      <path id="路径 3" fill-rule="evenodd" style="fill:#3D7DFC"
-        transform="translate(9.854166666666666 14.953033333333332)  rotate(0 1.1458333333333333 1.1458333333333333)"
-        opacity="1"
-        d="M2.29,1.15C2.29,0.51 1.78,0 1.15,0C0.51,0 0,0.51 0,1.15C0,1.78 0.51,2.29 1.15,2.29C1.78,2.29 2.29,1.78 2.29,1.15Z " />
-    </g>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" viewBox="0 0 22 22" fill="none"><defs><rect id="path_0" x="0" y="0" width="22" height="22" /></defs><g opacity="1" transform="translate(0 0)  rotate(0 11 11)"><mask id="bg-mask-0" fill="white"><use xlink:href="#path_0"></use></mask><g mask="url(#bg-mask-0)" ><path id="路径 3" fill-rule="evenodd" style="fill:#3D7DFC" transform="translate(9.854166666666666 14.953033333333332)  rotate(0 1.1458333333333333 1.1458333333333333)" opacity="1" d="M2.29,1.15C2.29,0.51 1.78,0 1.15,0C0.51,0 0,0.51 0,1.15C0,1.78 0.51,2.29 1.15,2.29C1.78,2.29 2.29,1.78 2.29,1.15Z " /></g></g></svg>
