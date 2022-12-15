@@ -77,7 +77,7 @@ namespace SodaCL
         #endregion
         private void Window_Initialized(object sender, EventArgs e)
         {
-            Log(moduleList.Main, logInfo.Info, "主窗体加载完毕");
+            Log(ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
             InitNewFolder();
             SayHello();
             GetYiyanAsync();
@@ -94,7 +94,7 @@ namespace SodaCL
                 {
                     FileStream fileStream = new(LauncherInfo._versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
-                    Log(moduleList.IO, logInfo.Info, "新建版本文件");
+                    Log(ModuleList.IO, LogInfo.Info, "新建版本文件");
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace SodaCL
                 {
                     FileStream fileStream = new(LauncherInfo._launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
-                    Log(moduleList.IO, logInfo.Info, "新建启动器文件");
+                    Log(ModuleList.IO, LogInfo.Info, "新建启动器文件");
                     this.launcherInfo = new LauncherInfo();
                 }
                 else
@@ -118,7 +118,7 @@ namespace SodaCL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(moduleList.IO, logInfo.Error, ex.Message);
+                Log(ModuleList.IO, LogInfo.Error, ex.Message);
             }
         }
         private void SayHello()
@@ -156,7 +156,7 @@ namespace SodaCL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(moduleList.IO, logInfo.Error, ex.Message);
+                Log(ModuleList.IO, LogInfo.Error, ex.Message);
             }
         }
         /// <summary>
@@ -164,7 +164,7 @@ namespace SodaCL
         /// </summary>
         private async void GetYiyanAsync()
         {
-            Log(moduleList.Network, logInfo.Info, "正在获取一言");
+            Log(ModuleList.Network, LogInfo.Info, "正在获取一言");
             try
             {
                 string _yiYanAPIAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&max_length=20";
@@ -173,13 +173,13 @@ namespace SodaCL
                 string _jsonResponse = await client.GetStringAsync(_yiYanAPIAdd);
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(_jsonResponse);
                 YiYan.Text = $"「{(string)jObj["hitokoto"]}」—  {(string)jObj["from"]}";
-                Log(moduleList.Network, logInfo.Info, "一言获取成功");
+                Log(ModuleList.Network, LogInfo.Info, "一言获取成功");
 
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(moduleList.Network, logInfo.Error, ex.Message);
+                Log(ModuleList.Network, LogInfo.Error, ex.Message);
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -194,7 +194,7 @@ namespace SodaCL
         }
         private void Window_Closed(object sender, EventArgs e)
         {
-            Log(moduleList.Main, logInfo.Info, "程序退出");
+            Log(ModuleList.Main, LogInfo.Info, "程序退出");
             Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
 
         }

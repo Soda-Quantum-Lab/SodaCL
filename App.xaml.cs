@@ -56,11 +56,11 @@ namespace SodaCL
             }
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true, true);
-            Log(moduleList.Main, logInfo.Info, "显示启动画面");
+            Log(ModuleList.Main, LogInfo.Info, "显示启动画面");
             base.OnStartup(e);
-            Log(moduleList.Main, logInfo.Info, "开始加载主窗体");
+            Log(ModuleList.Main, LogInfo.Info, "开始加载主窗体");
             Languages.MultiLanguages();
-            Log(moduleList.Main, logInfo.Info, "加载语言文件");
+            Log(ModuleList.Main, LogInfo.Info, "加载语言文件");
 
         }
 

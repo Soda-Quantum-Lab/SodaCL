@@ -36,12 +36,12 @@ namespace SodaCL.Launcher
         /// 写入Log
         /// </summary>
         /// <param name="_module">写入Log的模块位置</param>
-        /// <param name="_loginfo">Log级别</param>
+        /// <param name="_LogInfo">Log级别</param>
         /// <param name="_logContent">需要写入的Log信息,如果写入为错误信息请直接传入ex.Message</param>
-        public static void Log(ModuleList _module, LogInfo _loginfo, string _logContent)
+        public static void Log(ModuleList _module, LogInfo _LogInfo, string _logContent)
         {
             string _moduleText = "";
-            if (_loginfo == LogInfo.Error)
+            if (_LogInfo == LogInfo.Error)
             {
                 _logContent = "出现错误:" + _logContent;
             }
@@ -61,7 +61,7 @@ namespace SodaCL.Launcher
                     break;
             }
 
-            Trace.WriteLine($"[{DateTime.Now}] [{_moduleText}] [{_loginfo}] {_logContent}");
+            Trace.WriteLine($"[{DateTime.Now}] [{_moduleText}] [{_LogInfo}] {_logContent}");
         }
         public static int GetFileNum()
         {
