@@ -8,7 +8,7 @@ namespace SodaCL.Launcher
         /// <summary>
         /// 日志级别枚举
         /// </summary>
-        public enum logInfo
+        public enum LogInfo
         {
             Info,
             Warning,
@@ -17,7 +17,7 @@ namespace SodaCL.Launcher
         /// <summary>
         /// 模块位置枚举
         /// </summary>
-        public enum moduleList
+        public enum ModuleList
         {
             Main,
             Animation,
@@ -38,30 +38,30 @@ namespace SodaCL.Launcher
         /// <param name="_module">写入Log的模块位置</param>
         /// <param name="_loginfo">Log级别</param>
         /// <param name="_logContent">需要写入的Log信息,如果写入为错误信息请直接传入ex.Message</param>
-        public static void Log(moduleList _module, logInfo _loginfo, string _logContent)
+        public static void Log(ModuleList _module, LogInfo _loginfo, string _logContent)
         {
             string _moduleText = "";
-            if (_loginfo == logInfo.Error)
+            if (_loginfo == LogInfo.Error)
             {
                 _logContent = "出现错误:" + _logContent;
             }
             switch (_module)
             {
-                case moduleList.Main:
+                case ModuleList.Main:
                     _moduleText = "Main";
                     break;
-                case moduleList.Animation:
+                case ModuleList.Animation:
                     _moduleText = "Animation";
                     break;
-                case moduleList.Network:
+                case ModuleList.Network:
                     _moduleText = "Network";
                     break;
-                case moduleList.IO:
+                case ModuleList.IO:
                     _moduleText = "IO";
                     break;
             }
 
-            Trace.WriteLine($"[{DateTime.Now.ToString()}] [{_moduleText}] [{_loginfo}] {_logContent}");
+            Trace.WriteLine($"[{DateTime.Now}] [{_moduleText}] [{_loginfo}] {_logContent}");
         }
         public static int GetFileNum()
         {
