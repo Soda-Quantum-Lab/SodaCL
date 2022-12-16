@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
+
 namespace SodaCL.Launcher
 {
     public class LauncherLogging
@@ -38,6 +40,30 @@ namespace SodaCL.Launcher
         /// <param name="_module">写入Log的模块位置</param>
         /// <param name="_LogInfo">Log级别</param>
         /// <param name="_logContent">需要写入的Log信息,如果写入为错误信息请直接传入ex.Message</param>
+        public static void LogStart()
+        {
+            int _fileNum = GetFileNum();
+            SortAsFileCreationTime(ref _logFiles);
+            if (_fileNum == 5)
+            {
+                File.Delete(_logFiles[4].ToString());
+            }
+            if (_fileNum > 5)
+            {
+                for (; _fileNum >= 5; _fileNum--)
+                    File.Delete(_logFiles[_fileNum - 1].ToString());
+            }
+            try
+            {
+                Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo._SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+                Trace.AutoFlush = true;
+                Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         public static void Log(ModuleList _module, LogInfo _LogInfo, string _logContent)
         {
             string _moduleText = "";
@@ -66,7 +92,8 @@ namespace SodaCL.Launcher
         public static int GetFileNum()
         {
             int _fileNum = 0;
-            foreach (FileInfo f in _logDir.GetFiles()) _fileNum++;
+            foreach (FileInfo f in _logDir.GetFiles())
+                _fileNum++;
             return _fileNum;
         }
         public static void SortAsFileCreationTime(ref FileInfo[] _logFiles)

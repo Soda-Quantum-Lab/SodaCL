@@ -37,6 +37,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="0qyknttf.wmj~" />
 		<None Remove="Resources\icons\Help.svg" />
 		<None Remove="Resources\icons\Min.svg" />
 		<None Remove="Resources\Images\Dev.ico" />
