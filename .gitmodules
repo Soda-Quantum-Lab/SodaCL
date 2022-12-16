@@ -1,0 +1,3 @@
+[submodule "SodaCL.Core"]
+	path = SodaCL.Core
+	url = https://github.com/SodaCL-Launcher/SodaCL.Core
