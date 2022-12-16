@@ -190,7 +190,8 @@ namespace SodaCL
 
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
         {
-            MultiDownload multiDownload = new(1, "https://cdn.azul.com/zulu/bin/zulu17.38.21-ca-jre17.0.5-win_x64.msi", ".\\");
+            MultiDownload multiDownload = new(1, "http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe", ".\\");
+            MessageBox.Show("Download Started");
         }
         private void Window_Closed(object sender, EventArgs e)
         {
