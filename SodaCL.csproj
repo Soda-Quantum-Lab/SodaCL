@@ -26,6 +26,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="SodaCL.Core\**" />
+	  <EmbeddedResource Remove="SodaCL.Core\**" />
+	  <None Remove="SodaCL.Core\**" />
+	  <Page Remove="SodaCL.Core\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Remove="Properties\Settings.Designer.cs" />
 	</ItemGroup>
 
