@@ -8,6 +8,6 @@
         mc:Ignorable="d"
         Title="{DynamicResource MicrosoftLogin}" Height="650" Width="450" WindowStartupLocation="CenterScreen">
     <Grid>
-        <wv:WebView2 x:Name="login" Source="https://login.live.com/oauth20_authorize.srf?client_id=00000000402b5328&amp;response_type=code&amp;scope=service%3A%3Auser.auth.xboxlive.com%3A%3AMBI_SSL&amp;redirect_uri=https%3A%2F%2Flogin.live.com%2Foauth20_desktop.srf"></wv:WebView2>
+        <wv:WebView2 x:Name="login" Source="https://login.live.com/oauth20_authorize.srf?client_id=00000000402b5328&amp;response_type=code&amp;scope=service%3A%3Auser.auth.xboxlive.com%3A%3AMBI_SSL&amp;redirect_uri=https%3A%2F%2Flogin.live.com%2Foauth20_desktop.srf" SourceChanged="login_SourceChanged"></wv:WebView2>
     </Grid>
 </Window>

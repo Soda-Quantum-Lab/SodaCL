@@ -184,8 +184,8 @@ namespace SodaCL
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MSLogin MSLogin = new();
-            MSLogin.Show();
+            MSLogin msLogin = new();
+            msLogin.Show();
         }
 
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)

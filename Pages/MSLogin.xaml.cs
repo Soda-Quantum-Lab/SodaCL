@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-
+using SodaCL.Core.Minecraft;
 namespace SodaCL.Pages
 {
     /// <summary>
@@ -10,6 +10,14 @@ namespace SodaCL.Pages
         public MSLogin()
         {
             InitializeComponent();
+        }
+
+        private void login_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e)
+        {
+            MClogin._clientID = this.login.Source.ToString();
+            //TODO:错误处理
+            MessageBox.Show(MClogin._clientID);
+            this.Close();
         }
     }
 }
