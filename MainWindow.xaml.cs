@@ -157,7 +157,7 @@ namespace SodaCL
                 string yiYan = (string)jObj["hitokoto"];
                 string space;
                 string endSpace;
-                if (yiYan.EndsWith("。") || yiYan.EndsWith("？"))
+                if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！"))
                 {
                     space = "  ";
                     endSpace = "";
@@ -197,6 +197,10 @@ namespace SodaCL
         {
             Log(ModuleList.Main, LogInfo.Info, "程序退出");
             Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
+
+        }
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
