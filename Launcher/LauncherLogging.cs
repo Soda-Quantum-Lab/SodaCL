@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -53,15 +54,39 @@ namespace SodaCL.Launcher
                 for (; fileNum >= 5; fileNum--)
                     File.Delete(logFiles[fileNum - 1].ToString());
             }
-            try
+            if (File.Exists(LauncherInfo.SodaCLLogPath))
             {
-                Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
-                Trace.AutoFlush = true;
-                Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
+                try
+                {
+                    Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+                    Trace.AutoFlush = true;
+                    Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                try
+                {
+                    Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+                    Trace.AutoFlush = true;
+                    Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
         public static void Log(ModuleList module, LogInfo LogInfo, string logContent)

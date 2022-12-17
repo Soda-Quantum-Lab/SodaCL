@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -184,9 +185,20 @@ namespace SodaCL
         }
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
         {
-            MultiDownload multiDownload = new(16, "https://contents.baka.zone/Release/BakaXL_Public_Ver_3.2.2.1.exe", ".\\SodaCL\\BakaXL.exe");
+            MultiDownload multiDownload = new(8, "https://contents.baka.zone/Release/BakaXL_Public_Ver_3.2.3.2.exe", ".\\SodaCL\\BakaXL.exe");
             multiDownload.Start();
-            MessageBox.Show("Download Started");
+            MessageBox.Show("下载开始，请等待大约 30s 后点击启动按钮\n若启动器崩溃请重新打开启动器并执行下载");
+            Log(ModuleList.Network, LogInfo.Info, "下载线程已启动");
+            for (int i = 0; i < 1; i--)
+            {
+                if (multiDownload.IsComplete)
+                {
+                    MessageBox.Show("下载完成");
+                    Log(ModuleList.Network, LogInfo.Info, "下载已完成");
+                    break;
+                }
+            }
+            
         }
         private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
         {
@@ -194,7 +206,16 @@ namespace SodaCL
         }
         private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
+            try
+            {
+                System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
+                Log(ModuleList.Main, LogInfo.Info, "BakaXL 已启动");
+            }
+            catch (Exception)
+            {
+                Log(ModuleList.Main, LogInfo.Error, "BakaXL 未能正常启动，可能是下载的文件不完整");
+                throw;
+            }
         }
         private void Window_Closed(object sender, EventArgs e)
         {
