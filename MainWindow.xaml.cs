@@ -199,5 +199,10 @@ namespace SodaCL
         {
 
         }
+
+        private void IssuesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer","https://github.com/SodaCL-Launcher/SodaCL/issues");
+        }
     }
 }

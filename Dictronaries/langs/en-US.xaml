@@ -4,5 +4,6 @@
     <s:String x:Key="GetYiyan">  Getting Yiyan</s:String>
     <s:String x:Key="CurrentCore">Current Core</s:String>
     <s:String x:Key="GameStart">▷ Start</s:String>
-    <s:String x:Key="MicrosoftLogin">微软登录</s:String>
+    <s:String x:Key="MicrosoftLogin">Login with Microsoft Account</s:String>
+    <s:String x:Key="IssuesBtnTip">打开SodaCL的Issues页面以反馈Bug</s:String>
 </ResourceDictionary>
