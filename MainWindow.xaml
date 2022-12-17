@@ -63,16 +63,16 @@
                             </Grid>
                         </Grid>
                     </Border>
-                    <Grid x:Name="Hello" Grid.Row="2">
+                    <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Orientation="Horizontal">
-                            <TextBlock x:Name="SayHelloTime" Text="N/A" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
-                            <TextBlock x:Name="SayHelloUsername" Text="N/A"  FontSize="36" VerticalAlignment="Center" Block.TextAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
+                            <TextBlock x:Name="SayHelloTimeTxb" Text="N/A" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
+                            <TextBlock x:Name="SayHelloUsernameTxb" Text="N/A"  FontSize="36" VerticalAlignment="Center" Block.TextAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
                         </StackPanel>
-                        <TextBlock x:Name="YiYan" Grid.Row="1" Text="{DynamicResource GetYiyan}" Block.TextAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
+                        <TextBlock x:Name="YiYanTxb" Grid.Row="1" Text="{DynamicResource GetYiyan}" Block.TextAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
                     </Grid>
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>

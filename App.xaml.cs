@@ -26,9 +26,9 @@ namespace SodaCL
             LogStart();
             try
             {
-                Directory.CreateDirectory(LauncherInfo._SodaCLBasePath);
-                Directory.CreateDirectory(LauncherInfo._MCDir);
-                Directory.CreateDirectory(LauncherInfo._SodaCLLogPath);
+                Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
+                Directory.CreateDirectory(LauncherInfo.MCDir);
+                Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
             }
             catch (Exception ex)
             {

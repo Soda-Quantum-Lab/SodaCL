@@ -12,11 +12,11 @@ namespace SodaCL.Pages
             InitializeComponent();
         }
 
-        private void login_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e)
+        private void loginSourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e)
         {
-            MClogin._clientID = this.login.Source.ToString();
+            MClogin.clientID = this.login.Source.ToString();
             //TODO:错误处理
-            MessageBox.Show(MClogin._clientID);
+            MessageBox.Show(MClogin.clientID);
             this.Close();
         }
     }
