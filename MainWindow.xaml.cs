@@ -182,16 +182,19 @@ namespace SodaCL
             MSLogin msLogin = new();
             msLogin.Show();
         }
-
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
         {
-            MultiDownload multiDownload = new(1, "https://cdn.azul.com/zulu/bin/zulu17.38.21-ca-jre17.0.5-win_x64.msi", ".\\SodaCL");
+            MultiDownload multiDownload = new(16, "https://contents.baka.zone/Release/BakaXL_Public_Ver_3.2.2.1.exe", ".\\SodaCL\\BakaXL.exe");
             multiDownload.Start();
             MessageBox.Show("Download Started");
         }
         private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("explorer.exe", ".\\SodaCL\\logs");
+        }
+        private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
         }
         private void Window_Closed(object sender, EventArgs e)
         {
