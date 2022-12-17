@@ -189,6 +189,10 @@ namespace SodaCL
             multiDownload.Start();
             MessageBox.Show("Download Started");
         }
+        private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", ".\\SodaCL\\logs");
+        }
         private void Window_Closed(object sender, EventArgs e)
         {
             Log(ModuleList.Main, LogInfo.Info, "程序退出");
