@@ -40,6 +40,7 @@
 		<None Remove="0qyknttf.wmj~" />
 		<None Remove="Resources\icons\Help.svg" />
 		<None Remove="Resources\icons\Min.svg" />
+		<None Remove="Resources\icons\Settings.svg" />
 		<None Remove="Resources\Images\Dev.ico" />
 		<None Remove="Resources\Images\Launcher-Bg.jpg" />
 		<None Remove="Resources\Images\Release.ico" />
@@ -50,6 +51,7 @@
 	<ItemGroup>
 		<Resource Include="Resources\icons\Help.svg" />
 		<Resource Include="Resources\icons\Min.svg" />
+		<Resource Include="Resources\icons\Settings.svg" />
 		<Resource Include="Resources\Images\Dev.ico" />
 		<Resource Include="Resources\icons\Close.svg" />
 		<Resource Include="Resources\Images\Launcher-Bg.jpg" />

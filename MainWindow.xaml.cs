@@ -35,8 +35,7 @@ namespace SodaCL
         {
             this.DragMove();
         }
-
-        private void LabelClose_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(LauncherInfo.versionListSavePath))
             {
@@ -53,26 +52,9 @@ namespace SodaCL
             File.WriteAllText(LauncherInfo.launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
         }
-        private void LabelClose_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ExitBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));
-        }
-        private void LabelClose_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ExitBorder.Background = Brushes.Transparent;
-        }
-        // 最小化按钮
-        private void LabelMin_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MiniSizeBtn_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
-        private void LabelMin_MouseEnter(object sender, MouseEventArgs e)
-        {
-            MinBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD2C9C9"));
-        }
-        private void LabelMin_MouseLeave(object sender, MouseEventArgs e)
-        {
-            MinBorder.Background = Brushes.Transparent;
         }
         #endregion
         private void Window_Initialized(object sender, EventArgs e)
@@ -174,15 +156,18 @@ namespace SodaCL
                 JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
                 string yiYan = (string)jObj["hitokoto"];
                 string space;
-                if (yiYan.EndsWith("。"))
+                string endSpace;
+                if (yiYan.EndsWith("。") || yiYan.EndsWith("？"))
                 {
                     space = "  ";
+                    endSpace = "";
                 }
                 else
                 {
                     space = "";
+                    endSpace = "";
                 }
-                YiYanTxb.Text = $"「{space + yiYan}」—  {(string)jObj["from"]}";
+                YiYanTxb.Text = $"「{space + yiYan}」—  {(string)jObj["from"] + endSpace}";
                 Log(ModuleList.Network, LogInfo.Info, "一言获取成功");
 
             }
@@ -207,21 +192,6 @@ namespace SodaCL
         {
             Log(ModuleList.Main, LogInfo.Info, "程序退出");
             Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
-
-        }
-
-        private void HelpBorder_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void HelpBorder_MouseEnter(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void HelpBorder_MouseLeave(object sender, MouseEventArgs e)
-        {
 
         }
     }
