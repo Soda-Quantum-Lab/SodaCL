@@ -157,7 +157,7 @@ namespace SodaCL
                 string yiYan = (string)jObj["hitokoto"];
                 string space;
                 string endSpace;
-                if (yiYan.EndsWith("。") || yiYan.EndsWith("？"))
+                if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！"))
                 {
                     space = "  ";
                     endSpace = "";
@@ -186,12 +186,17 @@ namespace SodaCL
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
         {
             MultiDownload multiDownload = new(1, "http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXLPublic/bin/Jenkins%20Release/BakaXLSecure/BakaXL.exe", ".\\SodaCL");
+            multiDownload.Start();
             MessageBox.Show("Download Started");
         }
         private void Window_Closed(object sender, EventArgs e)
         {
             Log(ModuleList.Main, LogInfo.Info, "程序退出");
             Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
+
+        }
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

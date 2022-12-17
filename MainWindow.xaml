@@ -43,7 +43,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="10*"/>
                                     <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="2*" MaxWidth="124"/>
+                                    <ColumnDefinition Width="3*" MaxWidth="176"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,10,0,0">
                                     <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
@@ -55,21 +55,17 @@
                                             <svgc:SvgViewbox Height="22" Width="22" Source="/Resources/icons/Help.svg"/>
                                         </WrapPanel>
                                     </Button>
-                                    <!--<Border x:Name="HelpBorder" Margin="0,0,5,0" Width="32" Height="32" Background="#E8EEFB" CornerRadius="6,6,6,6" MouseDown="HelpBorder_MouseDown" MouseEnter="HelpBorder_MouseEnter" MouseLeave="HelpBorder_MouseLeave">
-                                        <svgc:SvgViewbox Height="22" Width="22" Source="/Resources/icons/Help.svg"/>
-                                    </Border>-->
-                                    <!--<Border x:Name="MinBorder" Width="32" Height="32" CornerRadius="25,25,25,25" MouseEnter="LabelMin_MouseEnter" MouseLeave="LabelMin_MouseLeave" MouseDown="LabelMin_MouseDown">
-                                        <svgc:SvgViewbox Height="12" Width="12" Source="/Resources/icons/Min.svg"/>
-                                    </Border>
-                                    <Border x:Name="ExitBorder" Width="32" Height="32" CornerRadius="25,25,25,25" MouseDown="LabelClose_MouseDown" MouseEnter="LabelClose_MouseEnter" MouseLeave="LabelClose_MouseLeave">
-                                        <svgc:SvgViewbox Height="16" Width="16" Source="/Resources/icons/Close.svg"/>
-                                    </Border>-->
+                                    <Button Style="{DynamicResource NormalBtn}" x:Name="SettingsBtn" Width="32" Height="32" Margin="0,0,23,0" Click="SettingsBtn_Click">
+                                        <WrapPanel>
+                                            <svgc:SvgViewbox Height="20" Width="20" Source="/Resources/icons/Settings.svg"/>
+                                        </WrapPanel>
+                                    </Button>
                                     <Button Style="{DynamicResource TitleBarRightBtn}" x:Name="MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="MiniSizeBtn_Click">
                                         <WrapPanel>
                                             <svgc:SvgViewbox Height="12" Width="12" Source="/Resources/icons/Min.svg"/>
                                         </WrapPanel>
                                     </Button>
-                                    <Button Style="{DynamicResource TitleBarRightBtn}" x:Name="ExitBtn" Width="32" Height="32" Click="ExitBtn_Click">
+                                    <Button Style="{DynamicResource TitleBarRightBtn}" x:Name="ExitBtn" Width="32" Height="32" Margin="0,0,10,0" Click="ExitBtn_Click">
                                         <WrapPanel>
                                             <svgc:SvgViewbox Height="16" Width="16" Source="/Resources/icons/Close.svg"/>
                                         </WrapPanel>
