@@ -22,7 +22,7 @@ namespace SodaCL
     public partial class MainWindow : Window
     {
         static public string currentDir = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-        private List<MCClient> clients = new();
+        private List<MC_Client> clients = new();
         LauncherInfo launcherInfo;
         public MainWindow()
         {
@@ -80,7 +80,7 @@ namespace SodaCL
                 }
                 else
                 {
-                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
+                    clients = JsonConvert.DeserializeObject<List<MC_Client>>(File.ReadAllText(LauncherInfo.versionListSavePath));
                 }
 
                 if (!File.Exists(LauncherInfo.launcherInfoSavePath))
