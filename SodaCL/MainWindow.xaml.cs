@@ -198,7 +198,7 @@ namespace SodaCL
                     break;
                 }
             }
-            
+
         }
         private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
         {
@@ -230,7 +230,7 @@ namespace SodaCL
 
         private void IssuesBtn_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer","https://github.com/SodaCL-Launcher/SodaCL/issues");
+            Process.Start("explorer", "https://github.com/SodaCL-Launcher/SodaCL/issues");
         }
     }
 }
