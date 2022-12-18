@@ -10,8 +10,8 @@
 		<AssemblyName>SodaCL</AssemblyName>
 		<AssemblyTitle>Soda Craft Launcher 启动器</AssemblyTitle>
 		<Description>一个清爽的 Minecraft 启动器</Description>
-		<Version>0.0.3.3</Version>
-		<FileVersion>0.0.3.3</FileVersion>
+		<Version>0.0.3.5</Version>
+		<FileVersion>0.0.3.5</FileVersion>
 		<Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
 		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
 		<RootNamespace>SodaCL</RootNamespace>

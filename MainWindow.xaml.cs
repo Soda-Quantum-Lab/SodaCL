@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SodaCL.Core.Downloader;
+using SodaCL.Core.Download;
 using SodaCL.Core.Minecraft;
 using SodaCL.Launcher;
 using SodaCL.Pages;
@@ -194,7 +194,14 @@ namespace SodaCL
         }
         private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
+            try
+            {
+                System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("您还没有使用SodaCL下载BakaXL");
+            }
         }
         private void Window_Closed(object sender, EventArgs e)
         {
