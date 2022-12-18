@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 using SodaCL.Launcher;
-using static SodaCL.Launcher.Launcher_Logging;
+using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL
 {
@@ -25,9 +25,9 @@ namespace SodaCL
             LogStart();
             try
             {
-                Directory.CreateDirectory(Launcher_Info.SodaCLBasePath);
-                Directory.CreateDirectory(Launcher_Info.MCDir);
-                Directory.CreateDirectory(Launcher_Info.SodaCLLogPath);
+                Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
+                Directory.CreateDirectory(LauncherInfo.MCDir);
+                Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
             }
             catch (Exception ex)
             {
