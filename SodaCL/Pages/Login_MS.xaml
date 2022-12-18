@@ -1,4 +1,4 @@
-﻿<Window x:Class="SodaCL.Pages.MSLogin"
+﻿<Window x:Class="SodaCL.Pages.Login_MS"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:SodaCL.Pages"
         xmlns:wv="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="{DynamicResource MicrosoftLogin}" Height="650" Width="450" WindowStartupLocation="CenterScreen">
+        Title="{DynamicResource Login_MS}" Height="650" Width="450" WindowStartupLocation="CenterScreen">
     <Grid>
-        <wv:WebView2 x:Name="login" Source="https://login.live.com/oauth20authorize.srf?clientid=00000000402b5328&amp;responsetype=code&amp;scope=service%3A%3Auser.auth.xboxlive.com%3A%3AMBISSL&amp;redirecturi=https%3A%2F%2Flogin.live.com%2Foauth20desktop.srf" SourceChanged="loginSourceChanged"></wv:WebView2>
+        <wv:WebView2 x:Name="LoginWV" Source="https://login.live.com/oauth20authorize.srf?clientid=00000000402b5328&amp;responsetype=code&amp;scope=service%3A%3Auser.auth.xboxlive.com%3A%3AMBISSL&amp;redirecturi=https%3A%2F%2Flogin.live.com%2Foauth20desktop.srf" SourceChanged="loginSourceChanged"></wv:WebView2>
     </Grid>
 </Window>

@@ -8,7 +8,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./Dictronaries/ControlDictronary.xaml"/>
+                <ResourceDictionary Source="./Dictronaries/Control_Dictronary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
