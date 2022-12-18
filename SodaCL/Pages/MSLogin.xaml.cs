@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using SodaCL.Core.Minecraft;
 namespace SodaCL.Pages
 {
     /// <summary>
