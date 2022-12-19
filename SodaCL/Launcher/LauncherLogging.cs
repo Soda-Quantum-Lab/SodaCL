@@ -61,15 +61,15 @@ namespace SodaCL.Launcher
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
         }
-        public static void Log(ModuleList module, LogInfo LogInfo, string logContent)
+        public static void Log(ModuleList module, LogInfo LogInfo, string logContent, string exStack = "")
         {
             string moduleText = "";
             if (LogInfo == LogInfo.Error)
             {
-                logContent = "出现错误:" + logContent;
+                logContent = "出现错误:" + logContent + exStack;
             }
             switch (module)
             {

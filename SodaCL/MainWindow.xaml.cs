@@ -99,7 +99,7 @@ namespace SodaCL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(ModuleList.IO, LogInfo.Error, ex.Message);
+                Log(ModuleList.IO, LogInfo.Error, ex.Message,ex.StackTrace);
             }
         }
         private void SayHello()
@@ -137,7 +137,7 @@ namespace SodaCL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(ModuleList.IO, LogInfo.Error, ex.Message);
+                Log(ModuleList.IO, LogInfo.Error, ex.Message,ex.StackTrace);
             }
         }
         /// <summary>
@@ -173,7 +173,7 @@ namespace SodaCL
             catch (HttpRequestException ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(ModuleList.Network, LogInfo.Error, ex.Message);
+                Log(ModuleList.Network, LogInfo.Error, ex.Message,ex.StackTrace);
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
