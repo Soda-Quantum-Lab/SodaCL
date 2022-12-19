@@ -27,3 +27,8 @@
 ## 🚀 Download Links
 - [GitHub Releases](https://github.com/SodaCL-Launcher/SodaCL/releases/latest/download/SodaCL.exe)
 - [Gitee Releases](https://gitee.com/SodaQuantumLab/SodaCL/releases)
+
+## 📦仓库详细信息
+<div class="members" align="center">
+  <img align ="center" src="https://repobeats.axiom.co/api/embed/96d7c79af8216e2e747a61992d73a658b1c44040.svg">
+</div>
