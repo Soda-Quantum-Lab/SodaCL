@@ -7,8 +7,6 @@ using System.Windows.Input;
 using Newtonsoft.Json;
 using SodaCL.Core.Minecraft;
 using SodaCL.Launcher;
-using SodaCL.Pages;
-using SodaCL.Pages.Settings;
 using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL
@@ -106,7 +104,7 @@ namespace SodaCL
         }
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainFram.Source = new Uri("\\Pages\\Settings\\Set_About.xaml",UriKind.Relative);
+            MainFram.Source = new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative);
         }
 
         private void IssuesBtn_Click(object sender, RoutedEventArgs e)

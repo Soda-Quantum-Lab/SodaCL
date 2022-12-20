@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
-using SodaCL.Core.Download;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SodaCL.Core.Download;
 using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL.Pages

@@ -54,42 +54,20 @@ namespace SodaCL.Launcher
                 for (; fileNum >= 5; fileNum--)
                     File.Delete(logFiles[fileNum - 1].ToString());
             }
-            if (File.Exists(LauncherInfo.SodaCLLogPath))
+            //不需要目录处理，C#自动处理，别加了。
+            try
             {
-                try
-                {
-                    Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
-                    Trace.AutoFlush = true;
-                    Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
-                }
-                catch (Exception LauncherLoggingFailedException)
-                {
-                    MessageBox.Show(LauncherLoggingFailedException.Message);
-                }
+                Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+                Trace.AutoFlush = true;
+                Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
             }
-            else
+            catch (Exception LauncherLoggingFailedException)
             {
-                try
-                {
-                    Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-                try
-                {
-                    Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
-                    Trace.AutoFlush = true;
-                    Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
-                }
-                catch (Exception LauncherLoggingFailedException)
-                {
-                    MessageBox.Show(LauncherLoggingFailedException.Message);
-                }
+                Log(ModuleList.IO, LogInfo.Error, LauncherLoggingFailedException.Message, LauncherLoggingFailedException.StackTrace);
+                MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
             }
         }
-        public static void Log(ModuleList module, LogInfo LogInfo, string logContent)
+        public static void Log(ModuleList module, LogInfo LogInfo, string logContent, string exStack = "")
         {
             string moduleText = "";
             if (LogInfo == LogInfo.Error)
