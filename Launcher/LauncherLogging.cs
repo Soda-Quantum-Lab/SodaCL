@@ -15,7 +15,8 @@ namespace SodaCL.Launcher
         {
             Info,
             Warning,
-            Error
+            Error,
+            Debug
         }
         /// <summary>
         /// 模块位置枚举
@@ -62,9 +63,9 @@ namespace SodaCL.Launcher
                     Trace.AutoFlush = true;
                     Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
                 }
-                catch (Exception ex)
+                catch (Exception LauncherLoggingFailedException)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(LauncherLoggingFailedException.Message);
                 }
             }
             else
@@ -83,9 +84,9 @@ namespace SodaCL.Launcher
                     Trace.AutoFlush = true;
                     Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
                 }
-                catch (Exception ex)
+                catch (Exception LauncherLoggingFailedException)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(LauncherLoggingFailedException.Message);
                 }
             }
         }

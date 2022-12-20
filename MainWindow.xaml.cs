@@ -187,7 +187,7 @@ namespace SodaCL
         {
             MultiDownload multiDownload = new(8, "https://contents.baka.zone/Release/BakaXL_Public_Ver_3.2.3.2.exe", ".\\SodaCL\\BakaXL.exe");
             multiDownload.Start();
-            MessageBox.Show("下载开始，请等待大约 30s 后点击启动按钮\n若启动器崩溃请重新打开启动器并执行下载");
+            MessageBox.Show("下载开始");
             Log(ModuleList.Network, LogInfo.Info, "下载线程已启动");
             for (int i = 0; i < 1; i--)
             {
@@ -203,6 +203,7 @@ namespace SodaCL
         private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("explorer.exe", ".\\SodaCL\\logs");
+            SodaCL.Launcher.LauncherLogging.Log(ModuleList.Main, LogInfo.Info, "打开 Logs 文件夹");
         }
         private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
         {
