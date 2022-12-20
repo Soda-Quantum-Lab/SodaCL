@@ -1,13 +1,12 @@
 ﻿using System.Windows;
-using SodaCL.Core.Minecraft;
 namespace SodaCL.Pages
 {
     /// <summary>
     /// MSLogin.xaml 的交互逻辑
     /// </summary>
-    public partial class MSLogin : Window
+    public partial class Login_MS : Window
     {
-        public MSLogin()
+        public Login_MS()
         {
             InitializeComponent();
         }

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SodaCL.Core.Downloader;
+using SodaCL.Core.Download;
 using SodaCL.Core.Minecraft;
 using SodaCL.Launcher;
 using SodaCL.Pages;
@@ -18,7 +16,7 @@ using static SodaCL.Launcher.LauncherLogging;
 namespace SodaCL
 {
     /// <summary>
-    /// Interaction logic for CoreWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -101,7 +99,7 @@ namespace SodaCL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(ModuleList.IO, LogInfo.Error, ex.Message);
+                Log(ModuleList.IO, LogInfo.Error, ex.Message,ex.StackTrace);
             }
         }
         private void SayHello()
@@ -139,7 +137,7 @@ namespace SodaCL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(ModuleList.IO, LogInfo.Error, ex.Message);
+                Log(ModuleList.IO, LogInfo.Error, ex.Message,ex.StackTrace);
             }
         }
         /// <summary>
@@ -175,12 +173,12 @@ namespace SodaCL
             catch (HttpRequestException ex)
             {
                 MessageBox.Show(ex.Message);
-                Log(ModuleList.Network, LogInfo.Error, ex.Message);
+                Log(ModuleList.Network, LogInfo.Error, ex.Message,ex.StackTrace);
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MSLogin msLogin = new();
+            Login_MS msLogin = new();
             msLogin.Show();
         }
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
@@ -198,7 +196,7 @@ namespace SodaCL
                     break;
                 }
             }
-            
+
         }
         private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
         {
@@ -231,7 +229,7 @@ namespace SodaCL
 
         private void IssuesBtn_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer","https://github.com/SodaCL-Launcher/SodaCL/issues");
+            Process.Start("explorer", "https://github.com/SodaCL-Launcher/SodaCL/issues");
         }
     }
 }

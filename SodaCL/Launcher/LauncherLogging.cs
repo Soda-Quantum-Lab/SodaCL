@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -95,7 +94,7 @@ namespace SodaCL.Launcher
             string moduleText = "";
             if (LogInfo == LogInfo.Error)
             {
-                logContent = "出现错误:" + logContent;
+                logContent = "出现错误:" + logContent + exStack;
             }
             switch (module)
             {
