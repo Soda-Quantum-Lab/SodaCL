@@ -14,7 +14,8 @@ namespace SodaCL.Launcher
         {
             Info,
             Warning,
-            Error
+            Error,
+            Debug
         }
         /// <summary>
         /// 模块位置枚举
@@ -53,18 +54,42 @@ namespace SodaCL.Launcher
                 for (; fileNum >= 5; fileNum--)
                     File.Delete(logFiles[fileNum - 1].ToString());
             }
-            try
+            if (File.Exists(LauncherInfo.SodaCLLogPath))
             {
-                Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
-                Trace.AutoFlush = true;
-                Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
+                try
+                {
+                    Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+                    Trace.AutoFlush = true;
+                    Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
+                }
+                catch (Exception LauncherLoggingFailedException)
+                {
+                    MessageBox.Show(LauncherLoggingFailedException.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+                try
+                {
+                    Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                try
+                {
+                    Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+                    Trace.AutoFlush = true;
+                    Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
+                }
+                catch (Exception LauncherLoggingFailedException)
+                {
+                    MessageBox.Show(LauncherLoggingFailedException.Message);
+                }
             }
         }
-        public static void Log(ModuleList module, LogInfo LogInfo, string logContent, string exStack = "")
+        public static void Log(ModuleList module, LogInfo LogInfo, string logContent)
         {
             string moduleText = "";
             if (LogInfo == LogInfo.Error)
