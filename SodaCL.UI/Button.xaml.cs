@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +21,37 @@ namespace SodaCL.UI
     /// </summary>
     public partial class Button : UserControl
     {
+        public ButtonTypes ButtonType { get; set; }
+        public string Text
+        {
+            get
+            {
+                return this.ButtonTxb.Text;
+            }
+            set { this.ButtonTxb.Text = value; }
+        }
+        public enum ButtonTypes
+        {
+            Normal = 0,
+            Main = 1,
+        }
+
         public Button()
         {
             InitializeComponent();
+        }
+
+        private void ButtonBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            switch (ButtonType)
+            {
+                case ButtonTypes.Normal:
+                    ButtonBorder.Background = (Brush)Application.Current.FindResource("Color6");
+                    break;
+                case ButtonTypes.Main:
+                    ButtonBorder.Background = (Brush)Application.Current.FindResource("Color1");
+                    break;
+            }
         }
     }
 }

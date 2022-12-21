@@ -22,7 +22,6 @@ namespace SodaCL
                     //bool isTranslator = true;
                 }
             }
-            LogStart();
             try
             {
                 Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
@@ -33,7 +32,7 @@ namespace SodaCL
             {
                 MessageBox.Show(ex.Message);
             }
-
+            LogStart();
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true, true);
             Log(ModuleList.Main, LogInfo.Info, "显示启动画面");
