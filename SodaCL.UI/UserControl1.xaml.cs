@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SodaCL.Pages.Settings
+namespace SodaCL.UI
 {
     /// <summary>
-    /// Set_About.xaml 的交互逻辑
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class Set_About : Page
+    public partial class UserControl1 : UserControl
     {
-        public Set_About()
+        public UserControl1()
         {
             InitializeComponent();
         }

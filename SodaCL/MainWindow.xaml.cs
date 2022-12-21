@@ -22,14 +22,14 @@ namespace SodaCL
         public MainWindow()
         {
             InitializeComponent();
-            this.ResizeMode = ResizeMode.NoResize;
         }
         #region 自定义标题栏
-        // 退出按钮
+
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+        // 退出按钮
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(LauncherInfo.versionListSavePath))
@@ -47,11 +47,13 @@ namespace SodaCL
             File.WriteAllText(LauncherInfo.launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
             this.Close();
         }
+        //最小化按钮
         private void MiniSizeBtn_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
         #endregion
+        #region 窗体初始化
         private void Window_Initialized(object sender, EventArgs e)
         {
             Log(ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
@@ -96,12 +98,8 @@ namespace SodaCL
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Log(ModuleList.Main, LogInfo.Info, "程序退出");
-            Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
-
-        }
+        #endregion
+        #region 事件
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
             MainFram.Source = new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative);
@@ -111,5 +109,14 @@ namespace SodaCL
         {
             Process.Start("explorer", "https://github.com/SodaCL-Launcher/SodaCL/issues");
         }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Log(ModuleList.Main, LogInfo.Info, "程序退出");
+            Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
+
+        }
+
+        #endregion
+
     }
 }

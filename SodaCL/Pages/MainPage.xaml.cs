@@ -18,7 +18,11 @@ namespace SodaCL.Pages
         {
             InitializeComponent();
         }
-
+        private void Page_Initialized(object sender, EventArgs e)
+        {
+            SayHello();
+            GetYiyanAsync();
+        }
         private void SayHello()
         {
             try
@@ -95,6 +99,7 @@ namespace SodaCL.Pages
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
         }
@@ -133,10 +138,6 @@ namespace SodaCL.Pages
             }
         }
 
-        private void Page_Initialized(object sender, EventArgs e)
-        {
-            SayHello();
-            GetYiyanAsync();
-        }
+
     }
 }
