@@ -23,16 +23,6 @@ namespace SodaCL
                 }
             }
             LogStart();
-            try
-            {
-                Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
-                Directory.CreateDirectory(LauncherInfo.MCDir);
-                Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
 
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true, true);

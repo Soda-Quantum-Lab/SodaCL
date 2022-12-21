@@ -22,25 +22,36 @@ namespace SodaCL.Launcher
         {
             try
             {
-                if (!File.Exists(LauncherInfo.versionListSavePath))
+                Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
+                Directory.CreateDirectory(LauncherInfo.MCDir);
+                Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            try
+            {
+            if (!File.Exists(LauncherInfo.versionListSavePath))
                 {
                     FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                     Log(ModuleList.IO, LogInfo.Info, "新建版本文件");
                 }
-                else
+            else
                 {
                    clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
                 }
 
-                if (!File.Exists(LauncherInfo.launcherInfoSavePath))
+            if (!File.Exists(LauncherInfo.launcherInfoSavePath))
                 {
                     FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                     Log(ModuleList.IO, LogInfo.Info, "新建启动器文件");
                     this.launcherInfo = new LauncherInfo();
                 }
-                else
+            else
                 {
                     this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
                 }
