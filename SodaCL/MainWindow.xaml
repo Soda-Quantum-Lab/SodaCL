@@ -5,13 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:SodaCL"
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="504" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./Dictronaries/ControlDictronary.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid Margin="2">
         <Border CornerRadius="10,10,10,10" >
             <Border.Background>

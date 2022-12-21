@@ -1,24 +1,23 @@
-﻿using Newtonsoft.Json;
-using SodaCL.Core.Minecraft;
-using System;
+﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.IO;
+using SodaCL.Core.Minecraft;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static SodaCL.Launcher.LauncherLogging;
-using static SodaCL.Launcher.LauncherInfo;
-using static SodaCL.MainWindow;
-using System.Windows;
+
 
 namespace SodaCL.Launcher
 {
-    class LauncherInit
+    static class LauncherInit
     {
-        public LauncherInfo launcherInfo;
-
-        public List<MCClient> clients = new();
-        public void InitNewFolder()
+        /// <summary>
+        /// 新建MC及启动器文件
+        /// </summary>
+        public static void InitNewFolder()
         {
             try
             {
@@ -41,7 +40,7 @@ namespace SodaCL.Launcher
                 }
             else
                 {
-                   clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
+                    MainWindow.clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
                 }
 
             if (!File.Exists(LauncherInfo.launcherInfoSavePath))
@@ -49,13 +48,13 @@ namespace SodaCL.Launcher
                     FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
                     fileStream.Close();
                     Log(ModuleList.IO, LogInfo.Info, "新建启动器文件");
-                    this.launcherInfo = new LauncherInfo();
+                    MainWindow.launcherInfo = new LauncherInfo();
                 }
             else
                 {
-                    this.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
+                    MainWindow.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
                 }
-                this.launcherInfo.addLaunchTime(); // 启动器启动次数统计
+                MainWindow.launcherInfo.addLaunchTime(); // 启动器启动次数统计
             }
 
             catch (Exception ex)
@@ -65,5 +64,4 @@ namespace SodaCL.Launcher
             }
         }
     }
-
 }

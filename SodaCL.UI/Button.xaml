@@ -6,7 +6,13 @@
              xmlns:local="clr-namespace:SodaCL.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <Border CornerRadius="3" x:Name="ButtonBorder" BorderThickness="0" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="ButtonBorder_MouseLeftButtonDown" >
+        <Border.RenderTransform>
+            <ScaleTransform />
+        </Border.RenderTransform>
+        <TextBlock x:Name="ButtonTxb" TextOptions.TextFormattingMode="Display" SnapsToDevicePixels="True" TextTrimming="None" Text="Button" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Foreground="{Binding Parent.BorderBrush, RelativeSource={RelativeSource Self}}" FontSize="13" IsHitTestVisible="False">
+            <TextBlock.RenderTransform>
+                <ScaleTransform />
+            </TextBlock.RenderTransform></TextBlock>
+    </Border>
 </UserControl>
