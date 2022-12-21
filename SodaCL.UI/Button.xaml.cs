@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SodaCL.UI
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Button.xaml 的交互逻辑
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class Button : UserControl
     {
-        public UserControl1()
+        public Button()
         {
             InitializeComponent();
         }
