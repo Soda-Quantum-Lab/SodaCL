@@ -94,10 +94,18 @@ namespace SodaCL.Launcher
         }
         public static int GetFileNum()
         {
-            int fileNum = 0;
-            foreach (FileInfo f in logDir.GetFiles())
-                fileNum++;
-            return fileNum;
+            try
+            {
+                int fileNum = 0;
+                foreach (FileInfo f in logDir.GetFiles())
+                    fileNum++;
+                return fileNum;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Log 文件夹或文件异常");
+                throw;
+            }
         }
         public static void SortAsFileCreationTime(ref FileInfo[] logFiles)
         {
