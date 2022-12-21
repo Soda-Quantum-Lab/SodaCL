@@ -46,22 +46,22 @@
                                     <TextBlock Text="Soda Craft Launcher" Height="32" Margin="5,0,0,0" FontSize="14" Padding="5,8,5,5"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" Height="32" Margin="0,10,0,10" HorizontalAlignment="Right">
-                                    <Button x:Name="IssuesBtn" Style="{DynamicResource TitleBarLeftBtn}" Width="32" Height="32" Margin="0,0,5,0" Click="IssuesBtn_Click" ToolTip="{DynamicResource IssuesBtnTip}">
+                                    <Button x:Name="IssuesBtn" Style="{DynamicResource NoBakBtn}" Width="32" Height="32" Margin="0,0,5,0" Click="IssuesBtn_Click" ToolTip="{DynamicResource IssuesBtnTip}">
                                         <WrapPanel>
                                             <svgc:SvgViewbox Height="22" Width="22" Source="/Resources/icons/Help.svg"/>
                                         </WrapPanel>
                                     </Button>
-                                    <Button Style="{DynamicResource TitleBarLeftBtn}" x:Name="SettingsBtn" Width="32" Height="32" Margin="0,0,5,0" Click="SettingsBtn_Click">
+                                    <Button Style="{DynamicResource NoBakBtn}" x:Name="SettingsBtn" Width="32" Height="32" Margin="0,0,5,0" Click="SettingsBtn_Click">
                                         <WrapPanel>
                                             <svgc:SvgViewbox Height="20" Width="20" Source="/Resources/icons/Settings.svg"/>
                                         </WrapPanel>
                                     </Button>
-                                    <Button Style="{DynamicResource TitleBarRightBtn}" x:Name="MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="MiniSizeBtn_Click">
+                                    <Button Style="{DynamicResource NoBakBtn}" x:Name="MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="MiniSizeBtn_Click">
                                         <WrapPanel>
                                             <svgc:SvgViewbox Height="12" Width="12" Source="/Resources/icons/Min.svg"/>
                                         </WrapPanel>
                                     </Button>
-                                    <Button Style="{DynamicResource TitleBarRightBtn}" x:Name="ExitBtn" Width="32" Height="32" Margin="0,0,20,0" Click="ExitBtn_Click">
+                                    <Button Style="{DynamicResource NoBakBtn}" x:Name="ExitBtn" Width="32" Height="32" Margin="0,0,20,0" Click="ExitBtn_Click">
                                         <WrapPanel>
                                             <svgc:SvgViewbox Height="16" Width="16" Source="/Resources/icons/Close.svg"/>
                                         </WrapPanel>
