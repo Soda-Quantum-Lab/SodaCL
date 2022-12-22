@@ -18,7 +18,7 @@ namespace SodaCL
                 if (e.Args[i] == "--langs")
                 {
                     //留个接口先
-                    MessageBox.Show("您正处于翻译人员模式");
+                    HandyControl.Controls.MessageBox.Show("您正处于翻译人员模式");
                     //bool isTranslator = true;
                 }
             }
@@ -30,7 +30,7 @@ namespace SodaCL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                HandyControl.Controls.MessageBox.Show(ex.Message);
             }
             LogStart();
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");

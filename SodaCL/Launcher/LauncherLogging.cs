@@ -25,7 +25,8 @@ namespace SodaCL.Launcher
             Main,
             Animation,
             Network,
-            IO
+            IO,
+            Login
         }
         /// <summary>
         /// Log文件夹
@@ -64,7 +65,7 @@ namespace SodaCL.Launcher
             catch (Exception LauncherLoggingFailedException)
             {
                 Log(ModuleList.IO, LogInfo.Error, LauncherLoggingFailedException.Message, LauncherLoggingFailedException.StackTrace);
-                MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
+                HandyControl.Controls.MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
             }
         }
         public static void Log(ModuleList module, LogInfo LogInfo, string logContent, string exStack = "")
@@ -88,6 +89,9 @@ namespace SodaCL.Launcher
                 case ModuleList.IO:
                     moduleText = "IO";
                     break;
+                case ModuleList.Login:
+                    moduleText = "Login";
+                    break;
             }
 
             Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [{LogInfo}] {logContent}");
@@ -103,7 +107,7 @@ namespace SodaCL.Launcher
             }
             catch (Exception)
             {
-                MessageBox.Show("Log 文件夹或文件异常");
+                HandyControl.Controls.MessageBox.Show("Log 文件夹或文件异常");
                 throw;
             }
         }
