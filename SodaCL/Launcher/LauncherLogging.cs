@@ -65,7 +65,7 @@ namespace SodaCL.Launcher
             catch (Exception LauncherLoggingFailedException)
             {
                 Log(ModuleList.IO, LogInfo.Error, LauncherLoggingFailedException.Message, LauncherLoggingFailedException.StackTrace);
-                HandyControl.Controls.MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
+                HandyControl.Controls.MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息:\n{LauncherLoggingFailedException.Message}");
             }
         }
         public static void Log(ModuleList module, LogInfo LogInfo, string logContent, string exStack = "")

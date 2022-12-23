@@ -65,9 +65,6 @@ namespace SodaCL
         }
 
         #endregion
-        #region 窗体初始化
-
-        #endregion
         #region 事件
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
