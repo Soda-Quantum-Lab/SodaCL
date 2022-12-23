@@ -2,9 +2,13 @@
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
+using HandyControl.Controls;
+using HandyControl.Tools.Extension;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Download;
+using SodaCL.Core.Minecraft.Login;
+using SodaCL.Windows.Login;
 using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL.Pages
@@ -57,7 +61,7 @@ namespace SodaCL.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                HandyControl.Controls.MessageBox.Show(ex.Message);
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
@@ -95,25 +99,28 @@ namespace SodaCL.Pages
             }
             catch (HttpRequestException ex)
             {
-                MessageBox.Show(ex.Message);
+                HandyControl.Controls.MessageBox.Show(ex.Message);
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
+        #region 事件
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            GetDeviceCode getDeviceCode = new();
+            getDeviceCode.ShowDialog();
         }
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
         {
             MultiDownload multiDownload = new(8, "https://contents.baka.zone/Release/BakaXL_Public_Ver_3.2.3.2.exe", ".\\SodaCL\\BakaXL.exe");
             multiDownload.Start();
-            MessageBox.Show("下载开始，请等待大约 30s 后点击启动按钮\n若启动器崩溃请重新打开启动器并执行下载");
+            HandyControl.Controls.MessageBox.Show("下载开始，请等待大约 30s 后点击启动按钮\n若启动器崩溃请重新打开启动器并执行下载");
             Log(ModuleList.Network, LogInfo.Info, "下载线程已启动");
             for (int i = 0; i < 1; i--)
             {
                 if (multiDownload.IsComplete)
                 {
-                    MessageBox.Show("下载完成");
+                    HandyControl.Controls.MessageBox.Show("下载完成");
                     Log(ModuleList.Network, LogInfo.Info, "下载已完成");
                     break;
                 }
@@ -137,7 +144,7 @@ namespace SodaCL.Pages
                 throw;
             }
         }
-
+        #endregion
 
     }
 }

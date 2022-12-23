@@ -18,9 +18,19 @@ namespace SodaCL
                 if (e.Args[i] == "--langs")
                 {
                     //留个接口先
-                    MessageBox.Show("您正处于翻译人员模式");
+                    HandyControl.Controls.MessageBox.Show("您正处于翻译人员模式");
                     //bool isTranslator = true;
                 }
+            }
+            try
+            {
+                Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
+                Directory.CreateDirectory(LauncherInfo.MCDir);
+                Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
+            }
+            catch (Exception ex)
+            {
+                HandyControl.Controls.MessageBox.Show(ex.Message);
             }
             LogStart();
 

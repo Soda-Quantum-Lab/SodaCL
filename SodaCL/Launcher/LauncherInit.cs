@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Windows;
 using System.Collections.Generic;
 using System.IO;
-using SodaCL.Core.Minecraft;
+using System.Windows;
 using Newtonsoft.Json;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SodaCL.Core.Minecraft;
 using static SodaCL.Launcher.LauncherLogging;
 
 
@@ -59,7 +56,7 @@ namespace SodaCL.Launcher
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                HandyControl.Controls.MessageBox.Show(ex.Message);
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }

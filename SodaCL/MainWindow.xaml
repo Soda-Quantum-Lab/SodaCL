@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:SodaCL"
-    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="504" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="534" Width="804" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
     <Grid Margin="2">
         <Border CornerRadius="10,10,10,10" >
             <Border.Background>
@@ -63,7 +63,7 @@
                             </Grid>
                         </Grid>
                     </Border>
-                    <Frame x:Name="MainFram" Grid.Row="1" Source="/Pages/MainPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+                    <Frame x:Name="MainFram" Grid.Row="1" Source="/Pages/MainPage.xaml" NavigationUIVisibility="Hidden" Style="{x:Null}"></Frame>
                 </Grid>
             </Border>
         </Border>

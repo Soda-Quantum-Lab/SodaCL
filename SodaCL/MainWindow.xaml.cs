@@ -57,7 +57,7 @@ namespace SodaCL
         }
         #endregion
         #region 初次启动        
-        
+
         private void Window_Initialized(object sender, EventArgs e)
         {
             Log(ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
