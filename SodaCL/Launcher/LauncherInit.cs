@@ -29,28 +29,28 @@ namespace SodaCL.Launcher
 
             try
             {
-            if (!File.Exists(LauncherInfo.versionListSavePath))
-                {
-                    FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
-                    fileStream.Close();
-                    Log(ModuleList.IO, LogInfo.Info, "新建版本文件");
-                }
-            else
-                {
-                    MainWindow.clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
-                }
+                if (!File.Exists(LauncherInfo.versionListSavePath))
+                    {
+                        FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
+                        fileStream.Close();
+                        Log(ModuleList.IO, LogInfo.Info, "新建版本文件");
+                    }
+                else
+                    {
+                        MainWindow.clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
+                    }
 
-            if (!File.Exists(LauncherInfo.launcherInfoSavePath))
-                {
-                    FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
-                    fileStream.Close();
-                    Log(ModuleList.IO, LogInfo.Info, "新建启动器文件");
-                    MainWindow.launcherInfo = new LauncherInfo();
-                }
-            else
-                {
-                    MainWindow.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
-                }
+                if (!File.Exists(LauncherInfo.launcherInfoSavePath))
+                    {
+                        FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
+                        fileStream.Close();
+                        Log(ModuleList.IO, LogInfo.Info, "新建启动器文件");
+                        MainWindow.launcherInfo = new LauncherInfo();
+                    }
+                else
+                    {
+                        MainWindow.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
+                    }
                 MainWindow.launcherInfo.addLaunchTime(); // 启动器启动次数统计
             }
 

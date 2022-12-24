@@ -7,7 +7,7 @@ using HandyControl.Tools.Extension;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Download;
-using SodaCL.Core.Minecraft.Login;
+using SodaCL.Core.Minecraft;
 using SodaCL.Windows.Login;
 using static SodaCL.Launcher.LauncherLogging;
 

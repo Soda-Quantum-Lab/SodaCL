@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SodaCL.Core.Minecraft.Login;
+using SodaCL.Core.Minecraft;
 using static SodaCL.Launcher.LauncherLogging;
 namespace SodaCL.Windows.Login
 {
