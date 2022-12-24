@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -106,8 +107,10 @@ namespace SodaCL.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            StartBtn.IsEnabled = false;
             MsLogin msLogin = new();
             msLogin.DeviceFlowAuthAsync();
+            StartBtn.IsEnabled = true;
 
         }
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)

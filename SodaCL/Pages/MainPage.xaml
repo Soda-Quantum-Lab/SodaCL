@@ -53,7 +53,7 @@
                             <Button Style="{DynamicResource NormalBtn}" Width="80" Margin="0,0,15,0" Content="启动BakaXL" Click="BakaXLStartUpBtnClick"/>
                             <Button Style="{DynamicResource NormalBtn}" Width="40" Margin="0,0,15,0" Content="Log" Click="LogFolderOpenerButtonClick"/>
                             <Button Style="{DynamicResource NormalBtn}" Width="80" Margin="0,0,15,0" Content="下载测试" Click="DownloadTestButtonClick"/>
-                            <Button Style="{DynamicResource StartBtn}" Width="120" Content="{DynamicResource GameStart}"  Foreground="White" FontSize="16" Click="Button_Click"/>
+                            <Button Style="{DynamicResource StartBtn}" x:Name="StartBtn" Width="120" Content="{DynamicResource GameStart}"  Foreground="White" FontSize="16" Click="Button_Click"/>
                         </StackPanel>
                     </Grid>
                 </Border>
