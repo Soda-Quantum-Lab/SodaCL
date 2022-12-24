@@ -30,7 +30,7 @@ namespace SodaCL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
             }
             LogStart();
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");

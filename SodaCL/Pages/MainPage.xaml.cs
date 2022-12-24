@@ -58,7 +58,7 @@ namespace SodaCL.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
@@ -98,7 +98,7 @@ namespace SodaCL.Pages
             }
             catch (HttpRequestException ex)
             {
-                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
