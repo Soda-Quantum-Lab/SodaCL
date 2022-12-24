@@ -11,25 +11,25 @@
 		<Description>一个清爽的 Minecraft 启动器</Description>
 		<Version>0.0.4.2</Version>
 		<FileVersion>0.0.4.2</FileVersion>
-		<Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
+		<Copyright>Copyright © 2022 Soda Quantum Laboratory，All Rights Reserved.</Copyright>
 		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
 		<RootNamespace>SodaCL</RootNamespace>
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <NoWarn>1701;1702;SYSLIB0014</NoWarn>
+		<NoWarn>1701;1702;SYSLIB0014</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <NoWarn>1701;1702;SYSLIB0014</NoWarn>
+		<NoWarn>1701;1702;SYSLIB0014</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="SodaCL.Core\**" />
-	  <EmbeddedResource Remove="SodaCL.Core\**" />
-	  <None Remove="SodaCL.Core\**" />
-	  <Page Remove="SodaCL.Core\**" />
+		<Compile Remove="SodaCL.Core\**" />
+		<EmbeddedResource Remove="SodaCL.Core\**" />
+		<None Remove="SodaCL.Core\**" />
+		<Page Remove="SodaCL.Core\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -64,18 +64,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\SodaCL.Core\SodaCL.Core.csproj" />
+		<ProjectReference Include="..\SodaCL.Core\SodaCL.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Windows\Login\" />
+		<Folder Include="Windows\Login\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Properties\Resources.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>
