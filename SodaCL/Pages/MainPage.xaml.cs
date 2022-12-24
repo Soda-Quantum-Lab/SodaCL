@@ -106,8 +106,8 @@ namespace SodaCL.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            McLogin mcLogin = new();
-            mcLogin.DeviceFlowAuthAsync();
+            MsLogin msLogin = new();
+            msLogin.DeviceFlowAuthAsync();
 
         }
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
