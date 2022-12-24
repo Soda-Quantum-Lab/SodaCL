@@ -18,19 +18,19 @@ namespace SodaCL
                 if (e.Args[i] == "--langs")
                 {
                     //留个接口先
-                    HandyControl.Controls.MessageBox.Show("您正处于翻译人员模式");
+                    MessageBox.Show("您正处于翻译人员模式");
                     //bool isTranslator = true;
                 }
             }
             try
             {
-                Directory.CreateDirectory(LauncherInfo.SodaCLBasePath);
-                Directory.CreateDirectory(LauncherInfo.MCDir);
-                Directory.CreateDirectory(LauncherInfo.SodaCLLogPath);
+                Directory.CreateDirectory(LauncherInfo.sodaCLBasePath);
+                Directory.CreateDirectory(LauncherInfo.mcDir);
+                Directory.CreateDirectory(LauncherInfo.sodaCLLogPath);
             }
             catch (Exception ex)
             {
-                HandyControl.Controls.MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
             LogStart();
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");

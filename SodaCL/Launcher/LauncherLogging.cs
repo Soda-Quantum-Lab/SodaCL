@@ -31,17 +31,11 @@ namespace SodaCL.Launcher
         /// <summary>
         /// Log文件夹
         /// </summary>
-        public static DirectoryInfo logDir = new(LauncherInfo.SodaCLLogPath);
+        public static DirectoryInfo logDir = new(LauncherInfo.sodaCLLogPath);
         /// <summary>
         /// Log目录下的所有文件
         /// </summary>
         public static FileInfo[] logFiles = logDir.GetFiles();
-        /// <summary>
-        /// 写入Log
-        /// </summary>
-        /// <param name="module">写入Log的模块位置</param>
-        /// <param name="LogInfo">Log级别</param>
-        /// <param name="logContent">需要写入的Log信息,如果写入为错误信息请直接传入ex.Message</param>
         public static void LogStart()
         {
             int fileNum = GetFileNum();
@@ -58,16 +52,22 @@ namespace SodaCL.Launcher
             //不需要目录处理，C#自动处理，别加了。
             try
             {
-                Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+                Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.sodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
                 Trace.AutoFlush = true;
                 Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
             }
             catch (Exception LauncherLoggingFailedException)
             {
                 Log(ModuleList.IO, LogInfo.Error, LauncherLoggingFailedException.Message, LauncherLoggingFailedException.StackTrace);
-                HandyControl.Controls.MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
+                MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
             }
         }
+        /// <summary>
+        /// 写入Log
+        /// </summary>
+        /// <param name="module">写入Log的模块位置</param>
+        /// <param name="LogInfo">Log级别</param>
+        /// <param name="logContent">需要写入的Log信息,如果写入为错误信息请直接传入ex.Message</param>
         public static void Log(ModuleList module, LogInfo LogInfo, string logContent, string exStack = "")
         {
             string moduleText = "";
@@ -107,7 +107,7 @@ namespace SodaCL.Launcher
             }
             catch (Exception)
             {
-                HandyControl.Controls.MessageBox.Show("Log 文件夹或文件异常");
+                MessageBox.Show("Log 文件夹或文件异常");
                 throw;
             }
         }

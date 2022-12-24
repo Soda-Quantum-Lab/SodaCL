@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
-		<Nullable>disable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Product>Soda Craft Launcher</Product>
@@ -15,6 +14,7 @@
 		<Copyright>Copyright © 2022 SodaCL Dev Team，All Rights Reserved.</Copyright>
 		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
 		<RootNamespace>SodaCL</RootNamespace>
+		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -58,13 +58,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HandyControl" Version="3.4.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
 		<PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
 		<PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\SodaCL.Core\SodaCL.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Windows\Login\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

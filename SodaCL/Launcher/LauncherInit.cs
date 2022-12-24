@@ -45,7 +45,7 @@ namespace SodaCL.Launcher
 
             catch (Exception ex)
             {
-                HandyControl.Controls.MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
