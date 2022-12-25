@@ -18,7 +18,7 @@
                         <GradientStop Offset="1.3" Color="Transparent"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <Grid>
+                <Grid x:Name="MainGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>

@@ -9,10 +9,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Dictronaries\langs\en-US.xaml"/>
                 <ResourceDictionary Source="Dictronaries\langs\zh-CN.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--主题色-->
             <!-- 主按钮普通 -->
@@ -62,7 +58,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="NormalBtn" TargetType="{x:Type Button}">
+            <Style TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="#E8EEFB"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Template">

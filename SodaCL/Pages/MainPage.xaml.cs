@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
-using System.Security.Cryptography;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -105,14 +107,6 @@ namespace SodaCL.Pages
         }
         #region 事件
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            StartBtn.IsEnabled = false;
-            MsLogin msLogin = new();
-            msLogin.DeviceFlowAuthAsync();
-            StartBtn.IsEnabled = true;
-
-        }
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
         {
             MultiDownload multiDownload = new(8, "https://contents.baka.zone/Release/BakaXL_Public_Ver_3.2.3.2.exe", ".\\SodaCL\\BakaXL.exe");
@@ -149,5 +143,35 @@ namespace SodaCL.Pages
         }
         #endregion
 
+        private async void StartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FrontGrid.Visibility = Visibility.Visible;
+            DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
+            DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
+            MsLogin msLogin = new();
+            await msLogin.GetDeviceCode();
+            DialogStackPan.Children.Clear();
+            Button NormalBtn = new() { Width = 70, Height = 30, Content = "继续"};
+            NormalBtn.Click += async (_, e) =>
+            {
+                Process.Start("explorer", "https://www.microsoft.com/link");
+                Log(ModuleList.Login, LogInfo.Info, "在浏览器中打开https://www.microsoft.com/link");
+                Clipboard.SetText(msLogin.userCode);
+                Log(ModuleList.Login, LogInfo.Info, "将UserID复制到剪切板");
+                await msLogin.GetOAuthToken();
+            };
+            DialogStackPan.Children.Add(new TextBlock() { Text = "SodaCL即将为您打开登录网页", FontSize = 18, TextAlignment = TextAlignment.Center });
+            DialogStackPan.Children.Add(NormalBtn);
+        }
+
+
+
+
+        private void Rectangle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            FrontGrid.Visibility = Visibility.Hidden;
+            DialogStackPan.Children.Clear();
+
+        }
     }
 }
