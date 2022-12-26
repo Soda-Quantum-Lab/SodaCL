@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Download;
-using SodaCL.Core.Minecraft.Login;
+using SodaCL.Core.Minecraft.Auth;
 using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL.Pages
@@ -145,23 +145,48 @@ namespace SodaCL.Pages
 
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            FrontGrid.Visibility = Visibility.Visible;
-            DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
-            DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
-            MsLogin msLogin = new();
-            await msLogin.GetDeviceCode();
-            DialogStackPan.Children.Clear();
-            Button NormalBtn = new() { Width = 70, Height = 30, Content = "继续"};
-            NormalBtn.Click += async (_, e) =>
+            try
             {
-                Process.Start("explorer", "https://www.microsoft.com/link");
-                Log(ModuleList.Login, LogInfo.Info, "在浏览器中打开https://www.microsoft.com/link");
-                Clipboard.SetText(msLogin.userCode);
-                Log(ModuleList.Login, LogInfo.Info, "将UserID复制到剪切板");
-                await msLogin.GetOAuthToken();
-            };
-            DialogStackPan.Children.Add(new TextBlock() { Text = "SodaCL即将为您打开登录网页", FontSize = 18, TextAlignment = TextAlignment.Center });
-            DialogStackPan.Children.Add(NormalBtn);
+                FrontGrid.Visibility = Visibility.Visible;
+                DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
+                DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
+                MsOAuth msOAuth = new();
+                await msOAuth.GetDeviceCode();
+                DialogStackPan.Children.Clear();
+                Button NormalBtn = new() { Width = 70, Height = 30, Content = "继续" };
+                NormalBtn.Click += async (_, e) =>
+                {
+                    Process.Start("explorer", "https://www.microsoft.com/link");
+                    Log(ModuleList.Login, LogInfo.Info, "在浏览器中打开https://www.microsoft.com/link");
+                    Clipboard.SetText(msOAuth.UserCode);
+                    Log(ModuleList.Login, LogInfo.Info, "将UserID复制到剪切板");
+                    await msOAuth.GetAccessToken();
+                    if (msOAuth.IsGetAccessTokenSuccess)
+                    {
+                        XboxAuth xboxAuth = new();
+                        await xboxAuth.GetXboxXBLToken(msOAuth.AccessToken);
+                        await xboxAuth.GetXboxXSTSToken();
+                    }
+                    else
+                    {
+                        switch (msOAuth.AccessTokenErrorMsg)
+                        {
+                            case string errorMsg when (errorMsg.Equals("最终用户拒绝了授权请求")):
+                                MessageBox.Show(errorMsg);
+                                break;
+                        }
+                        //TODO:错误处理
+                    }
+                };
+                DialogStackPan.Children.Add(new TextBlock() { Text = "SodaCL即将为您打开登录网页", FontSize = 18, TextAlignment = TextAlignment.Center });
+                DialogStackPan.Children.Add(NormalBtn);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
+                Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
+            }
+
         }
 
 
