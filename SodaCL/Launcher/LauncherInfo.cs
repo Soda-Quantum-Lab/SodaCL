@@ -1,7 +1,6 @@
 ﻿using System;
 
 namespace SodaCL.Launcher
-
 {
     public class LauncherInfo
     {

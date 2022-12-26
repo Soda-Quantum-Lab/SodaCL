@@ -16,7 +16,6 @@ namespace SodaCL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-
     {
         public static LauncherInfo launcherInfo;
         public static List<MCClient> clients = new();
