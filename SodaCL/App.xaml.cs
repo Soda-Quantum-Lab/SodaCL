@@ -40,8 +40,6 @@ namespace SodaCL
             Log(ModuleList.Main, LogInfo.Info, "开始加载主窗体");
             Languages.MultiLanguages();
             Log(ModuleList.Main, LogInfo.Info, "加载语言文件");
-
         }
-
     }
 }

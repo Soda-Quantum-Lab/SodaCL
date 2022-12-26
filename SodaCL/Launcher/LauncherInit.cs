@@ -6,10 +6,9 @@ using Newtonsoft.Json;
 using SodaCL.Core.Minecraft;
 using static SodaCL.Launcher.LauncherLogging;
 
-
 namespace SodaCL.Launcher
 {
-    static class LauncherInit
+    internal static class LauncherInit
     {
         /// <summary>
         /// 新建MC及启动器文件
@@ -53,7 +52,6 @@ namespace SodaCL.Launcher
                 }
                 MainWindow.launcherInfo.addLaunchTime(); // 启动器启动次数统计
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);

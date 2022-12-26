@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -22,11 +20,13 @@ namespace SodaCL.Pages
         {
             InitializeComponent();
         }
+
         private void Page_Initialized(object sender, EventArgs e)
         {
             SayHello();
             GetYiyanAsync();
         }
+
         private void SayHello()
         {
             try
@@ -39,21 +39,27 @@ namespace SodaCL.Pages
                     case int n when (n >= 3 && n < 5):
                         SayHelloTimeTxb.Text = "凌晨好!";
                         break;
+
                     case int n when (n >= 5 && n < 11):
                         SayHelloTimeTxb.Text = "清晨好!";
                         break;
+
                     case int n when (n >= 11 && n < 13):
                         SayHelloTimeTxb.Text = "中午好!";
                         break;
+
                     case int n when (n >= 13 && n < 17):
                         SayHelloTimeTxb.Text = "下午好!";
                         break;
+
                     case int n when (n >= 17 && n < 19):
                         SayHelloTimeTxb.Text = "傍晚好!";
                         break;
+
                     case int n when (n <= 23 && n >= 19 || n > 23):
                         SayHelloTimeTxb.Text = "晚上好!";
                         break;
+
                     case int n when (n >= 0 && n < 3):
                         SayHelloTimeTxb.Text = "午夜好!";
                         break;
@@ -65,6 +71,7 @@ namespace SodaCL.Pages
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
+
         /// <summary>
         /// 向Api接口获取一言并做出处理
         /// </summary>
@@ -96,8 +103,6 @@ namespace SodaCL.Pages
                     YiYanTxb.Text = $"「{space + yiYan + endSpace}」—  {(string)jObj["from"]}";
                     Log(ModuleList.Network, LogInfo.Info, "一言获取成功");
                 }
-
-
             }
             catch (HttpRequestException ex)
             {
@@ -105,6 +110,7 @@ namespace SodaCL.Pages
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
+
         #region 事件
 
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
@@ -122,12 +128,13 @@ namespace SodaCL.Pages
                     break;
                 }
             }
-
         }
+
         private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("explorer.exe", ".\\SodaCL\\logs");
         }
+
         private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -141,7 +148,8 @@ namespace SodaCL.Pages
                 throw;
             }
         }
-        #endregion
+
+        #endregion 事件
 
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -186,17 +194,12 @@ namespace SodaCL.Pages
                 MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
-
         }
-
-
-
 
         private void Rectangle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             FrontGrid.Visibility = Visibility.Hidden;
             DialogStackPan.Children.Clear();
-
         }
     }
 }

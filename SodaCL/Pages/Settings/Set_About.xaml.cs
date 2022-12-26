@@ -10,8 +10,8 @@ namespace SodaCL.Pages.Settings
         public Set_About()
         {
             InitializeComponent();
-
         }
+
         //private void BackBtn_Click(object sender, RoutedEventArgs e)
         //{
         //MainFram.Source = new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative);

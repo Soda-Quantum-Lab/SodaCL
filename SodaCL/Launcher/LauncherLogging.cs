@@ -17,6 +17,7 @@ namespace SodaCL.Launcher
             Error,
             Debug
         }
+
         /// <summary>
         /// 模块位置枚举
         /// </summary>
@@ -28,14 +29,17 @@ namespace SodaCL.Launcher
             IO,
             Login
         }
+
         /// <summary>
         /// Log文件夹
         /// </summary>
         public static DirectoryInfo logDir = new(LauncherInfo.sodaCLLogPath);
+
         /// <summary>
         /// Log目录下的所有文件
         /// </summary>
         public static FileInfo[] logFiles = logDir.GetFiles();
+
         public static void LogStart()
         {
             int fileNum = GetFileNum();
@@ -62,6 +66,7 @@ namespace SodaCL.Launcher
                 MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
             }
         }
+
         /// <summary>
         /// 写入Log
         /// </summary>
@@ -80,15 +85,19 @@ namespace SodaCL.Launcher
                 case ModuleList.Main:
                     moduleText = "Main";
                     break;
+
                 case ModuleList.Animation:
                     moduleText = "Animation";
                     break;
+
                 case ModuleList.Network:
                     moduleText = "Network";
                     break;
+
                 case ModuleList.IO:
                     moduleText = "IO";
                     break;
+
                 case ModuleList.Login:
                     moduleText = "Login";
                     break;
@@ -96,6 +105,7 @@ namespace SodaCL.Launcher
 
             Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [{LogInfo}] {logContent}");
         }
+
         public static int GetFileNum()
         {
             try
@@ -111,6 +121,7 @@ namespace SodaCL.Launcher
                 throw;
             }
         }
+
         public static void SortAsFileCreationTime(ref FileInfo[] logFiles)
         {
             Array.Sort(logFiles, delegate (FileInfo x, FileInfo y)
@@ -119,6 +130,4 @@ namespace SodaCL.Launcher
             });
         }
     }
-
 }
-
