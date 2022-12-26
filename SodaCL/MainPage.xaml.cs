@@ -56,7 +56,7 @@ namespace SodaCL.Pages
                         SayHelloTimeTxb.Text = "傍晚好!";
                         break;
 
-                    case int n when (n <= 23 && n >= 19 || n > 23):
+                    case int n when ((n <= 23 && n >= 19 )|| n > 23):
                         SayHelloTimeTxb.Text = "晚上好!";
                         break;
 

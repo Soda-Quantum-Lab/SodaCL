@@ -63,7 +63,7 @@
                             </Grid>
                         </Grid>
                     </Border>
-                    <Frame x:Name="MainFram" Grid.Row="1" Source="/Pages/MainPage.xaml" NavigationUIVisibility="Hidden" Style="{x:Null}"></Frame>
+                    <Frame x:Name="MainFram" Grid.Row="1" Source="./MainPage.xaml" NavigationUIVisibility="Hidden" Style="{x:Null}"></Frame>
                 </Grid>
             </Border>
         </Border>
