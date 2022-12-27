@@ -56,11 +56,11 @@
                 </Grid>
             </Border>
         </Grid>
-        <Grid x:Name="FrontGrid" x:FieldModifier="public" Grid.Row="0" Grid.RowSpan="4" Visibility="Visible">
+        <Grid x:Name="FrontGrid" x:FieldModifier="public" Grid.Row="0" Grid.RowSpan="4" Visibility="Hidden">
             <Rectangle Fill="#AD000000" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" ></Rectangle>
             <Border Width="400" Height="250" Background="White" CornerRadius="12">
                 <StackPanel x:Name="DialogStackPan" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,35,0,0">
-                    <TextBlock Margin="10,0,0,1" FontSize="20" Text="SodaCL 即将为您打开登录页面" />
+                    <!--<TextBlock Margin="10,0,0,1" FontSize="20" Text="SodaCL 即将为您打开登录页面" />
                     <TextBlock Margin="10,10,10,1" FontSize="12" TextWrapping="Wrap" Text="请在打开的页面中粘贴登录代码，SodaCL已将登录代码粘贴入您的剪切板" />
                     <StackPanel Margin="0,0,6,0" HorizontalAlignment="Left" Orientation="Horizontal">
                         <TextBlock Margin="10,0,0,1" FontSize="12" TextWrapping="Wrap" Text="登陆代码为" />
@@ -70,7 +70,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="30" Margin="10,30,0,0">
                         <Button Content="取消" Width=" 150" Margin="0,0,31,0" />
                         <Button Content="继续"  Width=" 150" />
-                    </StackPanel>
+                    </StackPanel>-->
                 </StackPanel>
             </Border>
         </Grid>

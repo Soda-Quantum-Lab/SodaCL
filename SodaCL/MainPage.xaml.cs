@@ -174,6 +174,7 @@ namespace SodaCL.Pages
                         XboxAuth xboxAuth = new();
                         await xboxAuth.GetXboxXBLToken(msOAuth.AccessToken);
                         await xboxAuth.GetXboxXSTSToken();
+                        MessageBox.Show(xboxAuth.XboxXSTSToken);
                     }
                     else
                     {
