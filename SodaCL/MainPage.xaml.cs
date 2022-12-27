@@ -5,8 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SodaCL.Core.Auth;
 using SodaCL.Core.Download;
-using SodaCL.Core.Minecraft.Auth;
 using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL.Pages
@@ -56,7 +56,7 @@ namespace SodaCL.Pages
                         SayHelloTimeTxb.Text = "傍晚好!";
                         break;
 
-                    case int n when ((n <= 23 && n >= 19 )|| n > 23):
+                    case int n when ((n <= 23 && n >= 19) || n > 23):
                         SayHelloTimeTxb.Text = "晚上好!";
                         break;
 
@@ -158,7 +158,7 @@ namespace SodaCL.Pages
                 FrontGrid.Visibility = Visibility.Visible;
                 DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
                 DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
-                MsOAuth msOAuth = new();
+                MSAuth msOAuth = new();
                 await msOAuth.GetDeviceCode();
                 DialogStackPan.Children.Clear();
                 Button NormalBtn = new() { Width = 70, Height = 30, Content = "继续" };

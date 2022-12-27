@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using Newtonsoft.Json;
-using SodaCL.Core.Minecraft;
+using SodaCL.Core;
 using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL.Launcher

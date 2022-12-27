@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Newtonsoft.Json;
-using SodaCL.Core.Minecraft;
+using SodaCL.Core;
 using SodaCL.Launcher;
 using static SodaCL.Launcher.LauncherLogging;
 
