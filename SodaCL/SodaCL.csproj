@@ -26,10 +26,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="Controls\**" />
 		<Compile Remove="SodaCL.Core\**" />
+		<Compile Remove="Windows\**" />
+		<EmbeddedResource Remove="Controls\**" />
 		<EmbeddedResource Remove="SodaCL.Core\**" />
+		<EmbeddedResource Remove="Windows\**" />
+		<None Remove="Controls\**" />
 		<None Remove="SodaCL.Core\**" />
+		<None Remove="Windows\**" />
+		<Page Remove="Controls\**" />
 		<Page Remove="SodaCL.Core\**" />
+		<Page Remove="Windows\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -60,15 +68,6 @@
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
 		<PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\SodaCL.Core\SodaCL.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Controls\" />
-		<Folder Include="Windows\Login\" />
 	</ItemGroup>
 
 	<ItemGroup>

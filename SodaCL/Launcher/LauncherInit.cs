@@ -5,7 +5,6 @@ using System.Windows;
 using Newtonsoft.Json;
 using SodaCL.Core;
 using static SodaCL.Launcher.LauncherLogging;
-using static SodaCL.Core.Minecraft.MCDirInit;
 
 namespace SodaCL.Launcher
 {
@@ -16,7 +15,6 @@ namespace SodaCL.Launcher
         /// </summary>
         public static void InitNewFolder()
         {
-            SodaCL.Core.Minecraft.MCDirInit.InitDir();
             try
             {
                 Directory.CreateDirectory(LauncherInfo.sodaCLBasePath);
