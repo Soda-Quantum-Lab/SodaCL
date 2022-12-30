@@ -25,12 +25,12 @@ jobs:
 
     - name: Build
       run: |
-        dotnet build --configuration Release --no-restore
-        dotnet publish -c Release -r win-x86 --sc false /p:PublishSingleFile=True
+        dotnet build Soda_Craft_Launcher.sln --configuration Release --no-restore
+        dotnet publish Soda_Craft_Launcher.sln -c Release -r win-x86 --sc false /p:PublishSingleFile=True
 
     - name: Test
       run: |
-        dotnet test --no-restore --verbosity normal
+        dotnet test Soda_Craft_Launcher.sln --no-restore --verbosity normal
 
     - name: Changelog
       uses: glennawatson/ChangeLog@v1
