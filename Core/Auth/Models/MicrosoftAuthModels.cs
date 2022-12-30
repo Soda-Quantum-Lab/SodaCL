@@ -10,6 +10,7 @@ namespace SodaCL.Core.Auth.Models
         [JsonProperty("xui")]
         public List<JObject> Xui { get; set; }
     }
+
     public class MicrosoftOAuth2ResModel
     {
         [JsonProperty("device_code")]
@@ -30,27 +31,32 @@ namespace SodaCL.Core.Auth.Models
         [JsonProperty("message")]
         public string Message { get; set; }
     }
+
     public class PollingPostResModel
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }
+
         [JsonProperty("error")]
         public string Error { get; set; }
     }
+
     public class XboxXBLResModel
     {
         [JsonProperty("Token")]
         public string XboxXBLToken { get; set; }
+
         [JsonProperty("DisplayClaims")]
         public DisplayClaimsModel DisplayClaims { get; set; }
     }
+
     public class XboxXSTSResModel
     {
         [JsonProperty("Token")]
         public string XboxXSTSToken { get; set; }
+
         [JsonProperty("DisplayClaims")]
         public DisplayClaimsModel DisplayClaims { get; set; }
-
     }
 
     public class XboxXSTSErrModel
@@ -67,6 +73,7 @@ namespace SodaCL.Core.Auth.Models
         [JsonProperty("Redirect")]
         public string Redirect { get; set; }
     }
+
     public class MinecraftProfileResModel
     {
         [JsonProperty("id")]
@@ -81,6 +88,7 @@ namespace SodaCL.Core.Auth.Models
         [JsonProperty("capes")]
         public JArray Capes { get; set; }
     }
+
     public class SkinModel
     {
         [JsonProperty("id")]

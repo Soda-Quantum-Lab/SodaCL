@@ -4,6 +4,7 @@
     {
         public System.Guid Uuid { get; set; }
     }
+
     public class MicrosoftAccount : Account
     {
         public string UserName { get; set; }

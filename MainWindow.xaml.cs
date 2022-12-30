@@ -57,7 +57,7 @@ namespace SodaCL
             this.WindowState = WindowState.Minimized;
         }
 
-        #endregion
+        #endregion 自定义标题栏
 
         #region 初次启动
 
@@ -67,7 +67,7 @@ namespace SodaCL
             LauncherInit.InitNewFolder();
         }
 
-        #endregion
+        #endregion 初次启动
 
         #region 事件
 
@@ -88,6 +88,6 @@ namespace SodaCL
             Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
         }
 
-        #endregion
+        #endregion 事件
     }
 }

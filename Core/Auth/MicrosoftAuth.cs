@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth.Models;
-using static SodaCL.Core.Toolkits.Logger;
 using static SodaCL.Core.Toolkits.I18N;
+using static SodaCL.Core.Toolkits.Logger;
 
 namespace SodaCL.Core.Auth
 {
@@ -78,7 +78,6 @@ namespace SodaCL.Core.Auth
                     OAuth2AccessToken = pollingPostResModel.AccessToken;
                     break;
                 }
-
             }
             stopwatch.Stop();
             AccessTokenClient.Dispose();
@@ -162,6 +161,7 @@ namespace SodaCL.Core.Auth
             #endregion 获取 Minecraft Access Token
 
             #region 获取 User Profile
+
             OpenWindows?.Invoke(this, WindowsTypes.GettingXboxXSTSToken);
             var userProfileClient = new HttpClient();
             userProfileClient.Timeout = TimeSpan.FromSeconds(10);
@@ -180,7 +180,9 @@ namespace SodaCL.Core.Auth
                     ErrorMessage = GetI18NText("Login_NoGame")
                 };
             }
-            #endregion
+
+            #endregion 获取 User Profile
+
             return new MicrosoftAccount
             {
                 AccessToken = mcAccessToken,

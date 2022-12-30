@@ -154,10 +154,9 @@ namespace SodaCL.Pages
         {
             try
             {
-
                 MSAuth msOAuth = new();
                 msOAuth.OpenWindows += MsOAuth_OpenWindows;
-                var msAccount= await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
+                var msAccount = await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
             }
             catch (Exception ex)
             {
