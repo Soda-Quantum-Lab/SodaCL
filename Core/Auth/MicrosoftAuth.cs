@@ -93,6 +93,7 @@ namespace SodaCL.Core.Auth
             var xblPostContent = new StringContent(xblJsonContent, Encoding.UTF8, "application/json");
             var xblResponse = await xboxXBLClient.PostAsync("https://user.auth.xboxlive.com/user/authenticate", xblPostContent);
             xblResponse.EnsureSuccessStatusCode();
+            Log(ModuleList.Login, LogInfo.Info, "成功获取XBLToken");
             var xboxXBLResModel = JsonConvert.DeserializeObject<XboxXBLResModel>(await xblResponse.Content.ReadAsStringAsync());
             xboxXBLClient.Dispose();
 
@@ -109,6 +110,7 @@ namespace SodaCL.Core.Auth
             if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)200)
             {
                 xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
+                Log(ModuleList.Login, LogInfo.Info, "成功获取XstsToken");
             }
             else if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)401)
             {
@@ -156,6 +158,8 @@ namespace SodaCL.Core.Auth
             var mcJsonContent = $"{{ \"identityToken\": \"XBL3.0 x={xboxXSTSResModel.DisplayClaims.Xui[0]["uhs"]};{xboxXSTSResModel.XboxXSTSToken}\"}}";
             var mcPostContent = new StringContent(mcJsonContent, Encoding.UTF8, "application/json");
             var mcResponse = await mcClient.PostAsync("https://api.minecraftservices.com/authentication/login_with_xbox", mcPostContent);
+            mcResponse.EnsureSuccessStatusCode();
+            Log(ModuleList.Login, LogInfo.Info, "成功获取MCToken");
             string mcAccessToken = (string)JObject.Parse(await mcResponse.Content.ReadAsStringAsync())["access_token"];
 
             #endregion 获取 Minecraft Access Token
@@ -171,6 +175,7 @@ namespace SodaCL.Core.Auth
             {
                 minecraftProfileResModel = JsonConvert.DeserializeObject<MinecraftProfileResModel>(await userProfileRes.Content.ReadAsStringAsync());
                 IsSuccess = true;
+                Log(ModuleList.Login, LogInfo.Info, "成功获取MCToken");
             }
             else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
@@ -192,23 +197,3 @@ namespace SodaCL.Core.Auth
         }
     }
 }
-
-//public class MCAuth
-//{
-//    public async Task GetMcToken()
-//    {
-//        using (var client = new HttpClient())
-//        {
-//            client.Timeout = TimeSpan.FromSeconds(10);
-//            var jsonContent = "{ \"identityToken\": \"XBL3.0 x={uhs};{XSTSToken}\"}";
-//            var postContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-//            try
-//            {
-//                var response = await client.PostAsync("https://api.minecraftservices.com/authentication/login_with_xbox", postContent);
-//            }
-//            catch (Exception ex)
-//            {
-//            }
-//        }
-//    }
-//}

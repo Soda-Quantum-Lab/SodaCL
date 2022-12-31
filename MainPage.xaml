@@ -40,7 +40,7 @@
             </Border>
         </Grid>
         <Grid x:Name="FrontGrid" x:FieldModifier="public" Grid.Row="0" Grid.RowSpan="4" Visibility="Hidden">
-            <Rectangle Fill="#AD000000" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" ></Rectangle>
+            <Rectangle Fill="#AD000000" ></Rectangle>
             <Border Width="400" Height="250" Background="White" CornerRadius="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <StackPanel x:Name="DialogStackPan" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="250"></StackPanel>
             </Border>
