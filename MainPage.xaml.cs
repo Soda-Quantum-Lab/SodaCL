@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -172,7 +173,7 @@ namespace SodaCL.Pages
         {
             if (e.Item1.Equals(WindowsTypes.OpenInBrowser))
             {
-                MSOAuth_OpenInBrowser(e.Item2);
+                MSOAuth_OpenInBrowserWindow(e.Item2);
             }
             switch (e)
             {
@@ -189,7 +190,7 @@ namespace SodaCL.Pages
         /// 打开一个登录说明界面
         /// </summary>
         /// <param name="deviceCode">显示的登陆代码</param>
-        private void MSOAuth_OpenInBrowser(string deviceCode)
+        private void MSOAuth_OpenInBrowserWindow(string deviceCode)
         {
             var StackPan = new StackPanel { Margin = new Thickness(10, 10, 10, 0), Orientation = Orientation.Horizontal };
             var iconBor = new Border
@@ -267,6 +268,10 @@ namespace SodaCL.Pages
                 FontSize = 24,
             });
             DialogStackPan.Children.Add(okButton);
+        }
+        private void MSOAuth_WaitingWindow()
+        {
+
         }
     }
 }
