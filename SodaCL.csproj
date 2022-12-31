@@ -11,7 +11,7 @@
 		<Description>一个清爽的 Minecraft 启动器</Description>
 		<Version>0.0.4.2</Version>
 		<FileVersion>0.0.4.2</FileVersion>
-		<Copyright>Copyright © 2022 Soda Quantum Laboratory，All Rights Reserved.</Copyright>
+		<Copyright>Copyright © 2022-2023 Soda Quantum Laboratory，All Rights Reserved.</Copyright>
 		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
 		<RootNamespace>SodaCL</RootNamespace>
 		<Nullable>disable</Nullable>
