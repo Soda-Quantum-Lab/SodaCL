@@ -6,7 +6,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
 using SodaCL.Core.Download;
+using SharpVectors;
+using static SodaCL.Core.Auth.MSAuth;
 using static SodaCL.Launcher.LauncherLogging;
+using static SodaCL.Toolkits.GetResources;
+using SharpVectors.Converters;
+using System.Diagnostics;
 
 namespace SodaCL.Pages
 {
@@ -99,7 +104,7 @@ namespace SodaCL.Pages
                         endSpace = "  ";
                     }
                     YiYanTxb.Margin = new Thickness(10, 0, 0, 0);
-                    YiYanTxb.Text = $"「{space + yiYan + endSpace}」—  {(string)jObj["from"]}";
+                    YiYanTxb.Text = $"「{space + yiYan + endSpace}」 ——  {(string)jObj["from"]}";
                     Log(ModuleList.Network, LogInfo.Info, "一言获取成功");
                 }
             }
@@ -155,7 +160,7 @@ namespace SodaCL.Pages
             try
             {
                 MSAuth msOAuth = new();
-                msOAuth.OpenWindows += MsOAuth_OpenWindows;
+                msOAuth.OpenWindows += MSOAuth_OpenWindows;
                 var msAccount = await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
             }
             catch (Exception ex)
@@ -165,11 +170,36 @@ namespace SodaCL.Pages
             }
         }
 
-        private void MsOAuth_OpenWindows(object sender, MSAuth.WindowsTypes e)
+        private void MSOAuth_OpenWindows(object sender, (MSAuth.WindowsTypes, string)e)
         {
+            if (e.Item1.Equals(WindowsTypes.OpenInBrowser))
+            {
+                var dockPan = new DockPanel { Margin = new Thickness(10, 10, 10, 0), LastChildFill = false, Height = 32 };
+                var informationBod = new Border { Height = 32, Width = 32, Background = GetBrush("color1"), CornerRadius = new CornerRadius(16), Child = new SvgViewbox { Width = 20, Height = 20, Source = new Uri("/Resources/Icons/Information.svg",UriKind.Relative) } };
+                var titleTxb = new TextBlock { Height = 28, Margin = new Thickness(10, 0, 0, 2), Style = GetStyle("BoldText"), TextAlignment = TextAlignment.Center, Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title") };
+                var exitButton = new Button { Height = 32, Width = 32, Style = GetStyle("NoBakBtn"), Content = new SvgViewbox { Width = 16, Height = 16, Source = new Uri("/Resources/Icons/Close.svg") } };
+                var okButton = new Button { Margin = new Thickness(270, 0, 35, 0), Content = GetI18NText("Butten_OK"), Style = GetStyle("MainBtn") };
+                exitButton.Click += (s, e) =>
+                {
+                    FrontGrid.Visibility = Visibility.Hidden;
+                };
+                okButton.Click += (s, e) => {
+                    Process.Start("explorer", "https://www.microsoft.com/link");
+                };
+                DockPanel.SetDock(informationBod, Dock.Left);
+                DockPanel.SetDock(titleTxb, Dock.Left);
+                DockPanel.SetDock(exitButton, Dock.Right);
+                DialogStackPan.Children.Clear();
+                DialogStackPan.Children.Add(dockPan);
+                DialogStackPan.Children.Add(new TextBlock { Margin = new Thickness(51, 10, 20, 0), Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip") });
+                DialogStackPan.Children.Add(new TextBlock { Margin = new Thickness(50, 10, 20, 0), Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode") });
+                DialogStackPan.Children.Add(new TextBlock { Margin = new Thickness(50, 5, 20, 0), Text = e.Item2,FontSize=24});
+
+                DialogStackPan.Children.Add(dockPan);
+            }
             switch (e)
             {
-                case MSAuth.WindowsTypes.StartLogin:
+                case (WindowsTypes.StartLogin,null):
                     {
                         FrontGrid.Visibility = Visibility.Visible;
                         DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });

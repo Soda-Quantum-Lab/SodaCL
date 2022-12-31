@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:svgc ="http://sharpvectors.codeplex.com/svgc/"
       xmlns:local="clr-namespace:SodaCL.Pages"
       mc:Ignorable="d"
       d:DesignHeight="555" d:DesignWidth="800"
@@ -11,66 +12,39 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
             <RowDefinition Height="4*" />
-            <RowDefinition Height="100px" />
-            <RowDefinition Height="10" />
+            <RowDefinition Height="110px" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="0,5,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="45" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <TextBlock x:Name="SayHelloTimeTxb" Text="N/A" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
-                <TextBlock x:Name="SayHelloUsernameTxb" Text="N/A"  FontSize="36" VerticalAlignment="Center" Block.TextAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" />
+                <TextBlock x:Name="SayHelloTimeTxb" Text="N/A" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" Style="{StaticResource BoldText }" />
+                <TextBlock x:Name="SayHelloUsernameTxb" Text="N/A"  FontSize="36" VerticalAlignment="Center" TextAlignment="Center" Margin="20,0,0,0" Style="{StaticResource BoldText }"/>
             </StackPanel>
-            <TextBlock x:Name="YiYanTxb" Grid.Row="1" Text="{DynamicResource MainPage_GettingYiyan}" Block.TextAlignment="Center" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
+            <TextBlock x:Name="YiYanTxb" Grid.Row="1" Text="{DynamicResource MainPage_GettingYiyan}" Block.TextAlignment="Center" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" />
         </Grid>
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="15" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="1" Background="White" CornerRadius="12,12,12,12">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="290" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="42" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+            <Border Background="White" Margin="20,0,20,10" CornerRadius="12,12,12,12">
+                <DockPanel LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Left">
                         <TextBlock Text="{DynamicResource MainPage_CurrentCore}" Margin="20,27,0,0" FontSize="18" FontWeight="Bold" Height="25" />
-                        <TextBlock Text="Minecraft 11.45.14" Margin="20,8,0,0" FontSize="14"  Height="20" />
+                        <TextBlock Text="Minecraft 11.45.14" Margin="20,5,0,0" FontSize="14"  Height="20" />
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="145,0,20,0" Grid.ColumnSpan="2">
+                    <StackPanel Height="48" DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button Width="80" Margin="0,0,15,0" Content="启动BakaXL" Click="BakaXLStartUpBtnClick" />
                         <Button Width="40" Margin="0,0,15,0" Content="Log" Click="LogFolderOpenerButtonClick" />
                         <Button Width="80" Margin="0,0,15,0" Content="下载测试" Click="DownloadTestButtonClick" />
-                        <Button Style="{DynamicResource StartBtn}" x:Name="StartBtn" Width="120" Content="{DynamicResource MainPage_StartGame}"  Foreground="White" FontSize="16" Click="StartBtn_Click" />
+                        <Button Style="{DynamicResource MainBtn}" x:Name="StartBtn" Width="120" Content="{DynamicResource MainPage_StartGame}" Click="StartBtn_Click" Height="45" />
                     </StackPanel>
-                </Grid>
+                </DockPanel>
             </Border>
         </Grid>
         <Grid x:Name="FrontGrid" x:FieldModifier="public" Grid.Row="0" Grid.RowSpan="4" Visibility="Hidden">
             <Rectangle Fill="#AD000000" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" ></Rectangle>
             <Border Width="400" Height="250" Background="White" CornerRadius="12">
-                <StackPanel x:Name="DialogStackPan" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,35,0,0">
-                    <!--<TextBlock Margin="10,0,0,1" FontSize="20" Text="SodaCL 即将为您打开登录页面" />
-                    <TextBlock Margin="10,10,10,1" FontSize="12" TextWrapping="Wrap" Text="请在打开的页面中粘贴登录代码，SodaCL已将登录代码粘贴入您的剪切板" />
-                    <StackPanel Margin="0,0,6,0" HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBlock Margin="10,0,0,1" FontSize="12" TextWrapping="Wrap" Text="登陆代码为" />
-                        <TextBlock x:Name="DeviceCodeTxb" />
-                    </StackPanel>
-                    <TextBlock Margin="10,0,0,0" FontSize="12" Text="单击按钮以继续" />
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="30" Margin="10,30,0,0">
-                        <Button Content="取消" Width=" 150" Margin="0,0,31,0" />
-                        <Button Content="继续"  Width=" 150" />
-                    </StackPanel>-->
+                <StackPanel x:Name="DialogStackPan" VerticalAlignment="Top" HorizontalAlignment="Center" Width="400" Height="250">
                 </StackPanel>
             </Border>
         </Grid>

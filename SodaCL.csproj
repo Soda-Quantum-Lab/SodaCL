@@ -26,41 +26,29 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="Controls\**" />
-		<Compile Remove="SodaCL.Core\**" />
-		<Compile Remove="Windows\**" />
-		<EmbeddedResource Remove="Controls\**" />
-		<EmbeddedResource Remove="SodaCL.Core\**" />
-		<EmbeddedResource Remove="Windows\**" />
-		<None Remove="Controls\**" />
-		<None Remove="SodaCL.Core\**" />
-		<None Remove="Windows\**" />
-		<Page Remove="Controls\**" />
-		<Page Remove="SodaCL.Core\**" />
-		<Page Remove="Windows\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Remove="Properties\Settings.Designer.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="0qyknttf.wmj~" />
-		<None Remove="Resources\icons\Help.svg" />
-		<None Remove="Resources\icons\Min.svg" />
-		<None Remove="Resources\icons\Settings.svg" />
+		<None Remove="Resources\Fonts\MiSans-Normal.ttf" />
+		<None Remove="Resources\Fonts\MiSans-Regular.ttf" />
+		<None Remove="Resources\Fonts\MiSans\MiSans-Bold.ttf" />
+		<None Remove="Resources\Fonts\MiSans\MiSans-Medium.ttf" />
+		<None Remove="Resources\Icons\Help.svg" />
+		<None Remove="Resources\Icons\Information.svg" />
+		<None Remove="Resources\Icons\Min.svg" />
+		<None Remove="Resources\Icons\Settings.svg" />
 		<None Remove="Resources\Images\Dev.ico" />
 		<None Remove="Resources\Images\Launcher-Bg.jpg" />
 		<None Remove="Resources\Images\Release.ico" />
-		<None Remove="Resources\icons\Close.svg" />
+		<None Remove="Resources\Icons\Close.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\icons\Help.svg" />
-		<Resource Include="Resources\icons\Min.svg" />
-		<Resource Include="Resources\icons\Settings.svg" />
+		<Resource Include="Resources\Fonts\MiSans\MiSans-Bold.ttf" />
+		<Resource Include="Resources\Fonts\MiSans\MiSans-Medium.ttf" />
+		<Resource Include="Resources\Icons\Help.svg" />
+		<Resource Include="Resources\Icons\Information.svg" />
+		<Resource Include="Resources\Icons\Min.svg" />
+		<Resource Include="Resources\Icons\Settings.svg" />
 		<Resource Include="Resources\Images\Dev.ico" />
-		<Resource Include="Resources\icons\Close.svg" />
+		<Resource Include="Resources\Icons\Close.svg" />
 		<Resource Include="Resources\Images\Launcher-Bg.jpg" />
 		<Resource Include="Resources\Images\Release.ico" />
 	</ItemGroup>
@@ -68,13 +56,6 @@
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
 		<PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>
