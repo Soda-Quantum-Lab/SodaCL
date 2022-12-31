@@ -10,12 +10,11 @@ using SodaCL.Core.Auth.Models;
 using static SodaCL.Launcher.LauncherLogging;
 using static SodaCL.Toolkits.GetResources;
 
-
 namespace SodaCL.Core.Auth
 {
     public class MSAuth
     {
-        public event EventHandler<(WindowsTypes,string)> OpenWindows;
+        public event EventHandler<(WindowsTypes, string)> OpenWindows;
 
         public bool IsSuccess { get; private set; } = false;
 
@@ -38,7 +37,7 @@ namespace SodaCL.Core.Auth
         {
             #region 获取 DeviceCode
 
-            OpenWindows?.Invoke(this, (WindowsTypes.StartLogin,null));
+            OpenWindows?.Invoke(this, (WindowsTypes.StartLogin, null));
             var deviceCodeClient = new HttpClient();
             var deviceCodeContent = new Dictionary<string, string>();
             deviceCodeContent.Add("client_id", clientId);
@@ -56,7 +55,7 @@ namespace SodaCL.Core.Auth
 
             #region 获取 OAuth2 Access Token
 
-            OpenWindows?.Invoke(this, (WindowsTypes.OpenInBrowser,microsoftOAuth2ResModel.UserCode));
+            OpenWindows?.Invoke(this, (WindowsTypes.OpenInBrowser, microsoftOAuth2ResModel.UserCode));
             var AccessTokenClient = new HttpClient();
             AccessTokenClient.BaseAddress = new Uri("https://login.microsoftonline.com/consumers/oauth2/v2.0/");
             AccessTokenClient.Timeout = TimeSpan.FromSeconds(10);
@@ -87,7 +86,7 @@ namespace SodaCL.Core.Auth
 
             #region 获取Xbox XBL Token
 
-            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXBLToken,null));
+            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXBLToken, null));
             var xboxXBLClient = new HttpClient();
             xboxXBLClient.Timeout = TimeSpan.FromSeconds(10);
             var xblJsonContent = "{ \"Properties\": { \"AuthMethod\": \"RPS\", \"SiteName\": \"user.auth.xboxlive.com\", \"RpsTicket\": \"d=" + OAuth2AccessToken + "\"}, \"RelyingParty\": \"http://auth.xboxlive.com\", \"TokenType\": \"JWT\" }";
@@ -101,7 +100,7 @@ namespace SodaCL.Core.Auth
 
             #region 获取 Xbox XSTS Token
 
-            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken,null));
+            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
             var xboxXSTSClient = new HttpClient();
             xboxXSTSClient.Timeout = TimeSpan.FromSeconds(10);
             var xstsJsonContent = @"{""Properties"": { ""SandboxId"": ""RETAIL"", ""UserTokens"": [ """ + xboxXBLResModel.XboxXBLToken + @"""] }, ""RelyingParty"": ""rp://api.minecraftservices.com/"", ""TokenType"": ""JWT""}";
@@ -149,7 +148,7 @@ namespace SodaCL.Core.Auth
 
             #region 获取 Minecraft Access Token
 
-            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken,null));
+            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
 
             var mcClient = new HttpClient();
             mcClient.Timeout = TimeSpan.FromSeconds(10);
@@ -163,7 +162,7 @@ namespace SodaCL.Core.Auth
 
             #region 获取 User Profile
 
-            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken,null));
+            OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
             var userProfileClient = new HttpClient();
             userProfileClient.Timeout = TimeSpan.FromSeconds(10);
             userProfileClient.DefaultRequestHeaders.Add("Authorization", "Bearer" + " " + mcAccessToken);
@@ -175,7 +174,7 @@ namespace SodaCL.Core.Auth
             }
             else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                OpenWindows?.Invoke(this, (WindowsTypes.GettingMCProfile,null));
+                OpenWindows?.Invoke(this, (WindowsTypes.GettingMCProfile, null));
                 return new MicrosoftAccount
                 {
                     ErrorMessage = GetI18NText("Login_Microsoft_Error_NoGame")

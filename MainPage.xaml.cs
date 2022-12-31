@@ -1,17 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SharpVectors.Converters;
 using SodaCL.Core.Auth;
 using SodaCL.Core.Download;
-using SharpVectors;
 using static SodaCL.Core.Auth.MSAuth;
 using static SodaCL.Launcher.LauncherLogging;
 using static SodaCL.Toolkits.GetResources;
-using SharpVectors.Converters;
-using System.Diagnostics;
 
 namespace SodaCL.Pages
 {
@@ -170,36 +169,87 @@ namespace SodaCL.Pages
             }
         }
 
-        private void MSOAuth_OpenWindows(object sender, (MSAuth.WindowsTypes, string)e)
+        private void MSOAuth_OpenWindows(object sender, (MSAuth.WindowsTypes, string) e)
         {
             if (e.Item1.Equals(WindowsTypes.OpenInBrowser))
             {
-                var dockPan = new DockPanel { Margin = new Thickness(10, 10, 10, 0), LastChildFill = false, Height = 32 };
-                var informationBod = new Border { Height = 32, Width = 32, Background = GetBrush("color1"), CornerRadius = new CornerRadius(16), Child = new SvgViewbox { Width = 20, Height = 20, Source = new Uri("/Resources/Icons/Information.svg",UriKind.Relative) } };
-                var titleTxb = new TextBlock { Height = 28, Margin = new Thickness(10, 0, 0, 2), Style = GetStyle("BoldText"), TextAlignment = TextAlignment.Center, Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title") };
-                var exitButton = new Button { Height = 32, Width = 32, Style = GetStyle("NoBakBtn"), Content = new SvgViewbox { Width = 16, Height = 16, Source = new Uri("/Resources/Icons/Close.svg") } };
-                var okButton = new Button { Margin = new Thickness(270, 0, 35, 0), Content = GetI18NText("Butten_OK"), Style = GetStyle("MainBtn") };
+                var StackPan = new StackPanel { Margin = new Thickness(10, 10, 10, 0), Orientation = Orientation.Horizontal };
+                var iconBor = new Border
+                {
+                    Height = 32,
+                    Width = 32,
+                    Background = GetBrush("Color1"),
+                    CornerRadius = new CornerRadius(16),
+                    Child = new SvgViewbox
+
+                    {
+                        Width = 20,
+                        Height = 20,
+                        Source = new Uri("/Resources/Icons/Information.svg", UriKind.Relative)
+                    }
+                };
+                var exitButton = new Button
+                {
+                    Margin = new Thickness(125, 0, 0, 0),
+                    Height = 32,
+                    Width = 32,
+                    Style = GetStyle("NoBakBtn"),
+                    Content = new SvgViewbox
+                    {
+                        Width = 16,
+                        Height = 16,
+                        Source = new Uri("/Resources/Icons/Close.svg", UriKind.Relative)
+                    }
+                };
+                var okButton = new Button
+                {
+                    Margin = new Thickness(270, 0, 35, 0),
+                    Content = GetI18NText("Butten_OK"),
+                    Style = GetStyle("MainBtn")
+                };
                 exitButton.Click += (s, e) =>
                 {
                     FrontGrid.Visibility = Visibility.Hidden;
                 };
-                okButton.Click += (s, e) => {
+                okButton.Click += (s, be) =>
+                {
+                    Clipboard.SetText(e.Item2);
                     Process.Start("explorer", "https://www.microsoft.com/link");
                 };
-                DockPanel.SetDock(informationBod, Dock.Left);
-                DockPanel.SetDock(titleTxb, Dock.Left);
-                DockPanel.SetDock(exitButton, Dock.Right);
                 DialogStackPan.Children.Clear();
-                DialogStackPan.Children.Add(dockPan);
-                DialogStackPan.Children.Add(new TextBlock { Margin = new Thickness(51, 10, 20, 0), Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip") });
-                DialogStackPan.Children.Add(new TextBlock { Margin = new Thickness(50, 10, 20, 0), Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode") });
-                DialogStackPan.Children.Add(new TextBlock { Margin = new Thickness(50, 5, 20, 0), Text = e.Item2,FontSize=24});
-
-                DialogStackPan.Children.Add(dockPan);
+                StackPan.Children.Add(iconBor);
+                StackPan.Children.Add(new TextBlock
+                {
+                    Height = 28,
+                    Margin = new Thickness(9, 0, 0, 0),
+                    Padding = new Thickness(0, 3, 0, 0),
+                    Style = GetStyle("BoldText"),
+                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
+                });
+                StackPan.Children.Add(exitButton);
+                DialogStackPan.Children.Add(StackPan);
+                DialogStackPan.Children.Add(new TextBlock
+                {
+                    Margin = new Thickness(50, 10, 20, 0),
+                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
+                });
+                DialogStackPan.Children.Add(new TextBlock
+                {
+                    Margin = new Thickness(50, 10, 20, 0),
+                    Style = GetStyle("BoldText"),
+                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
+                });
+                DialogStackPan.Children.Add(new TextBlock
+                {
+                    Margin = new Thickness(50, 5, 20, 0),
+                    Text = e.Item2,
+                    FontSize = 24
+                });
+                DialogStackPan.Children.Add(okButton);
             }
             switch (e)
             {
-                case (WindowsTypes.StartLogin,null):
+                case (WindowsTypes.StartLogin, null):
                     {
                         FrontGrid.Visibility = Visibility.Visible;
                         DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
@@ -207,12 +257,6 @@ namespace SodaCL.Pages
                         break;
                     }
             }
-        }
-
-        private void Rectangle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            FrontGrid.Visibility = Visibility.Hidden;
-            DialogStackPan.Children.Clear();
         }
     }
 }

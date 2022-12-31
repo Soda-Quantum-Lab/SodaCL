@@ -7,19 +7,20 @@ namespace SodaCL.Toolkits
     {
         public static string GetI18NText(string key)
         {
-            var targetString = Application.Current.Resources.FindName(key).ToString();
+            var targetString = Application.Current.Resources[key].ToString();
             return targetString;
         }
+
         public static Brush GetBrush(string key)
         {
-            var targetBrush = (Brush)Application.Current.Resources.FindName(key);
+            var targetBrush = (Brush)Application.Current.Resources[key];
             return targetBrush;
         }
+
         public static Style GetStyle(string key)
         {
-            var targetStyle = (Style)Application.Current.Resources.FindName(key);
+            var targetStyle = (Style)Application.Current.Resources[key];
             return targetStyle;
         }
     }
-
 }

@@ -1,10 +1,10 @@
 ﻿<Window x:Class="SodaCL.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:SodaCL"
-    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" mc:Ignorable="d" Title="SodaCL" Height="534" Width="754" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+        mc:Ignorable="d" Title="SodaCL" Height="534" Width="754" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
     <Grid Margin="2">
         <Border CornerRadius="10,10,10,10">
             <Border.Background>
@@ -40,13 +40,13 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" Height="32" Margin="0,10,0,10" HorizontalAlignment="Right">
                                     <Button x:Name="IssuesBtn" Style="{DynamicResource NoBakBtn}" Width="32" Height="32" Margin="0,0,5,0" Click="IssuesBtn_Click" ToolTip="{DynamicResource TitleBar_IssuesBtn_Tip}">
-                                            <svgc:SvgViewbox Height="22" Width="22" Source="/Resources/Icons/Help.svg" />
+                                        <svgc:SvgViewbox Height="22" Width="22" Source="/Resources/Icons/Help.svg" />
                                     </Button>
                                     <Button Style="{DynamicResource NoBakBtn}" x:Name="SettingsBtn" Width="32" Height="32" Margin="0,0,5,0" Click="SettingsBtn_Click">
-                                            <svgc:SvgViewbox Height="20" Width="20" Source="/Resources/Icons/Settings.svg" />
+                                        <svgc:SvgViewbox Height="20" Width="20" Source="/Resources/Icons/Settings.svg" />
                                     </Button>
                                     <Button Style="{DynamicResource NoBakBtn}" x:Name="MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="MiniSizeBtn_Click">
-                                            <svgc:SvgViewbox Height="12" Width="12" Source="/Resources/Icons/Min.svg" />
+                                        <svgc:SvgViewbox Height="12" Width="12" Source="/Resources/Icons/Min.svg" />
                                     </Button>
                                     <Button Style="{DynamicResource NoBakBtn}" x:Name="ExitBtn" Width="32" Height="32" Margin="0,0,20,0" Click="ExitBtn_Click">
                                         <svgc:SvgViewbox Height="16" Width="16" Source="/Resources/Icons/Close.svg" />
