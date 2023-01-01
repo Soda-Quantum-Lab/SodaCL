@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SharpVectors.Converters;
 using SodaCL.Core.Auth;
+using SodaCL.Core.Auth.Models;
 using SodaCL.Core.Download;
 using static SodaCL.Core.Auth.MSAuth;
 using static SodaCL.Launcher.LauncherLogging;
@@ -18,14 +22,16 @@ namespace SodaCL.Pages
     /// <summary>
     /// MainPage.xaml 的交互逻辑
     /// </summary>
+
     public partial class MainPage : Page
     {
         #region 初始化
+
         public MainPage()
         {
             InitializeComponent();
         }
-       
+
         private void Page_Initialized(object sender, EventArgs e)
         {
             SayHello();
@@ -72,7 +78,6 @@ namespace SodaCL.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
@@ -111,11 +116,12 @@ namespace SodaCL.Pages
             }
             catch (HttpRequestException ex)
             {
-                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
-        #endregion
+
+        #endregion 初始化
+
         #region 事件
 
         private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
@@ -149,8 +155,7 @@ namespace SodaCL.Pages
             }
             catch (Exception ex)
             {
-                Log(ModuleList.Main, LogInfo.Error, "BakaXL 未能正常启动，可能是下载的文件不完整");
-                MessageBox.Show(ex.Message, ex.StackTrace);
+                Log(ModuleList.Main, LogInfo.Error, "BakaXL 未能正常启动，可能是下载的文件不完整" + ex.Message, ex.StackTrace);
             }
         }
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
@@ -159,119 +164,128 @@ namespace SodaCL.Pages
             {
                 MSAuth msOAuth = new();
                 msOAuth.OpenWindows += MSOAuth_OpenWindows;
-                var msAccount = await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
+                var mcAccount = await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
+                FrontGrid.Visibility = Visibility.Hidden;
+                DialogStackPan.Children.Clear();
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
 
         #endregion 事件
-        private void MSOAuth_OpenWindows(object sender, (MSAuth.WindowsTypes, string) e)
+
+        private async void MSOAuth_OpenWindows(object sender, (MSAuth.WindowsTypes, string) e)
         {
             if (e.Item1.Equals(WindowsTypes.OpenInBrowser))
             {
-                MSOAuth_OpenInBrowserWindow(e.Item2);
+                await MSOAuth_OpenInBrowserWindow(e.Item2);
             }
             switch (e)
             {
                 case (WindowsTypes.StartLogin, null):
                     {
-                        FrontGrid.Visibility = Visibility.Visible;
-                        DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
-                        DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
+                        await Dispatcher.InvokeAsync(() =>
+                        {
+                            FrontGrid.Visibility = Visibility.Visible;
+                            DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
+                            DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
+                        });
                         break;
                     }
             }
         }
+
         /// <summary>
         /// 打开一个登录说明界面
         /// </summary>
         /// <param name="deviceCode">显示的登陆代码</param>
-        private void MSOAuth_OpenInBrowserWindow(string deviceCode)
+        private async Task MSOAuth_OpenInBrowserWindow(string deviceCode)
         {
-            var StackPan = new StackPanel { Margin = new Thickness(10, 10, 10, 0), Orientation = Orientation.Horizontal };
-            var iconBor = new Border
+            await Dispatcher.InvokeAsync(() =>
             {
-                Height = 32,
-                Width = 32,
-                Background = GetBrush("Color1"),
-                CornerRadius = new CornerRadius(16),
-                Child = new SvgViewbox
-
+                var StackPan = new StackPanel { Margin = new Thickness(10, 10, 10, 0), Orientation = Orientation.Horizontal };
+                var iconBor = new Border
                 {
-                    Width = 20,
-                    Height = 20,
-                    Source = new Uri("/Resources/Icons/Information.svg", UriKind.Relative)
-                }
-            };
-            var exitButton = new Button
-            {
-                Margin = new Thickness(125, 0, 0, 0),
-                Height = 32,
-                Width = 32,
-                Style = GetStyle("NoBakBtn"),
-                Content = new SvgViewbox
+                    Height = 32,
+                    Width = 32,
+                    Background = GetBrush("Color1"),
+                    CornerRadius = new CornerRadius(16),
+                    Child = new Image
+                    {
+                        Width = 20,
+                        Height = 20,
+                        Source = GetSvg("Svg_Information"),
+                    }
+                };
+                var exitButton = new Button
                 {
-                    Width = 16,
-                    Height = 16,
-                    Source = new Uri("/Resources/Icons/Close.svg", UriKind.Relative)
-                }
-            };
-            var okButton = new Button
-            {
-                Margin = new Thickness(270, 0, 35, 0),
-                Content = GetI18NText("Butten_OK"),
-                Style = GetStyle("MainBtn")
-            };
-            exitButton.Click += (s, e) =>
-            {
-                FrontGrid.Visibility = Visibility.Hidden;
+                    Margin = new Thickness(125, 0, 0, 0),
+                    Height = 32,
+                    Width = 32,
+                    Style = GetStyle("Btn_NoBackground"),
+                    Content = new Image
+                    {
+                        Width = 20,
+                        Height = 20,
+                        Source = GetSvg("Svg_Close")
+                    }
+                };
+                var okButton = new Button
+                {
+                    Margin = new Thickness(270, 0, 35, 0),
+                    Content = GetI18NText("Butten_OK"),
+                    Style = GetStyle("Btn_Main")
+                };
+                exitButton.Click += (s, e) =>
+                {
+                    FrontGrid.Visibility = Visibility.Hidden;
+                    DialogStackPan.Children.Clear();
+                };
+                okButton.Click += (s, be) =>
+                    {
+                        Clipboard.SetText(deviceCode);
+                        Log(ModuleList.IO, LogInfo.Info, "成功将DeviceCode复制到剪切板");
+                        Process.Start("explorer", "https://www.microsoft.com/link");
+                        Log(ModuleList.IO, LogInfo.Info, "成功打开浏览器");
+                    };
                 DialogStackPan.Children.Clear();
-            };
-            okButton.Click += (s, be) =>
-            {
-                Clipboard.SetText(deviceCode);
-                Log(ModuleList.IO, LogInfo.Info, "成功将DeviceCode复制到剪切板");
-                Process.Start("explorer", "https://www.microsoft.com/link");
-                Log(ModuleList.IO, LogInfo.Info, "成功打开浏览器");
-            };
-            DialogStackPan.Children.Clear();
-            StackPan.Children.Add(iconBor);
-            StackPan.Children.Add(new TextBlock
-            {
-                Height = 28,
-                Margin = new Thickness(9, 0, 0, 0),
-                Padding = new Thickness(0, 3, 0, 0),
-                Style = GetStyle("BoldText"),
-                Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
+                StackPan.Children.Add(iconBor);
+                StackPan.Children.Add(new TextBlock
+                {
+                    Height = 28,
+                    Margin = new Thickness(10, 0, 0, 0),
+                    Padding = new Thickness(0, 3, 0, 0),
+                    Style = GetStyle("Text_Bold"),
+                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
+                });
+                StackPan.Children.Add(exitButton);
+                DialogStackPan.Children.Add(StackPan);
+                DialogStackPan.Children.Add(new TextBlock
+                {
+                    Margin = new Thickness(52, 10, 20, 0),
+                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
+                });
+                DialogStackPan.Children.Add(new TextBlock
+                {
+                    Margin = new Thickness(50, 10, 20, 0),
+                    Style = GetStyle("Text_Bold"),
+                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
+                });
+                DialogStackPan.Children.Add(new TextBlock
+                {
+                    Margin = new Thickness(50, 5, 20, 0),
+                    Text = deviceCode,
+                    FontSize = 24,
+                });
+                DialogStackPan.Children.Add(okButton);
+
             });
-            StackPan.Children.Add(exitButton);
-            DialogStackPan.Children.Add(StackPan);
-            DialogStackPan.Children.Add(new TextBlock
-            {
-                Margin = new Thickness(50, 10, 20, 0),
-                Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
-            });
-            DialogStackPan.Children.Add(new TextBlock
-            {
-                Margin = new Thickness(50, 10, 20, 0),
-                Style = GetStyle("BoldText"),
-                Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
-            });
-            DialogStackPan.Children.Add(new TextBlock
-            {
-                Margin = new Thickness(50, 5, 20, 0),
-                Text = deviceCode,
-                FontSize = 24,
-            });
-            DialogStackPan.Children.Add(okButton);
         }
+
         private void MSOAuth_WaitingWindow()
         {
-
         }
     }
 }

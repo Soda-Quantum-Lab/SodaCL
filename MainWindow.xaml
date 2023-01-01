@@ -3,7 +3,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d" Title="SodaCL" Height="534" Width="754" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
     <Grid Margin="2">
         <Border CornerRadius="10,10,10,10">
@@ -36,20 +35,20 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,10,0,10">
                                     <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
-                                    <TextBlock Text="Soda Craft Launcher" Height="28"  Margin="5,0,0,0" FontSize="18" Padding="5,3,5,5" ScrollViewer.CanContentScroll="True" />
+                                    <TextBlock Text="Soda Craft Launcher" Height="28"  Margin="5,0,0,0" FontSize="16" Padding="5,4,5,0" ScrollViewer.CanContentScroll="True" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" Height="32" Margin="0,10,0,10" HorizontalAlignment="Right">
-                                    <Button x:Name="IssuesBtn" Style="{DynamicResource NoBakBtn}" Width="32" Height="32" Margin="0,0,5,0" Click="IssuesBtn_Click" ToolTip="{DynamicResource TitleBar_IssuesBtn_Tip}">
-                                        <svgc:SvgViewbox Height="22" Width="22" Source="/Resources/Icons/Help.svg" />
+                                    <Button x:Name="IssuesBtn" Style="{DynamicResource Btn_NoBackground}" Width="32" Height="32" Margin="0,0,5,0" Click="IssuesBtn_Click" ToolTip="{DynamicResource TitleBar_IssuesBtn_Tip}">
+                                        <Image Height="22" Width="22" Source="{DynamicResource Svg_Help}"></Image>
                                     </Button>
-                                    <Button Style="{DynamicResource NoBakBtn}" x:Name="SettingsBtn" Width="32" Height="32" Margin="0,0,5,0" Click="SettingsBtn_Click">
-                                        <svgc:SvgViewbox Height="20" Width="20" Source="/Resources/Icons/Settings.svg" />
+                                    <Button Style="{DynamicResource Btn_NoBackground}" x:Name="SettingsBtn" Width="32" Height="32" Margin="0,0,5,0" Click="SettingsBtn_Click">
+                                        <Image Height="20" Width="20" Source="{DynamicResource Svg_Settings}"></Image>
                                     </Button>
-                                    <Button Style="{DynamicResource NoBakBtn}" x:Name="MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="MiniSizeBtn_Click">
-                                        <svgc:SvgViewbox Height="12" Width="12" Source="/Resources/Icons/Min.svg" />
+                                    <Button Style="{DynamicResource Btn_NoBackground}" x:Name="MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="MiniSizeBtn_Click">
+                                        <Image  Height="12" Width="12" Source="{StaticResource Svg_Min}"></Image>
                                     </Button>
-                                    <Button Style="{DynamicResource NoBakBtn}" x:Name="ExitBtn" Width="32" Height="32" Margin="0,0,20,0" Click="ExitBtn_Click">
-                                        <svgc:SvgViewbox Height="16" Width="16" Source="/Resources/Icons/Close.svg" />
+                                    <Button Style="{DynamicResource Btn_NoBackground}" x:Name="ExitBtn" Width="32" Height="32" Margin="0,0,20,0" Click="ExitBtn_Click">
+                                        <Image  Height="16" Width="16" Source="{StaticResource Svg_Close}"></Image>
                                     </Button>
                                 </StackPanel>
                             </Grid>

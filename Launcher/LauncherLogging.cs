@@ -60,10 +60,9 @@ namespace SodaCL.Launcher
                 Trace.AutoFlush = true;
                 Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
             }
-            catch (Exception LauncherLoggingFailedException)
+            catch (Exception ex)
             {
-                Log(ModuleList.IO, LogInfo.Error, LauncherLoggingFailedException.Message, LauncherLoggingFailedException.StackTrace);
-                MessageBox.Show($"SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的\n错误详细信息\n{LauncherLoggingFailedException.Message}");
+                Log(ModuleList.IO, LogInfo.Error, "SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的"+ex.Message, ex.StackTrace);
             }
         }
 
@@ -79,6 +78,7 @@ namespace SodaCL.Launcher
             if (LogInfo == LogInfo.Error)
             {
                 logContent = "出现错误:" + logContent + exStack;
+                MessageBox.Show(logContent);
             }
             switch (module)
             {
@@ -115,9 +115,9 @@ namespace SodaCL.Launcher
                     fileNum++;
                 return fileNum;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Log 文件夹或文件异常");
+                Log(ModuleList.IO, LogInfo.Error, "Log 文件夹或文件异常" + ex.Message, ex.StackTrace);
                 throw;
             }
         }
