@@ -62,7 +62,7 @@ namespace SodaCL.Launcher
             }
             catch (Exception ex)
             {
-                Log(ModuleList.IO, LogInfo.Error, "SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的"+ex.Message, ex.StackTrace);
+                Log(ModuleList.IO, LogInfo.Error, "SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的" + ex.Message, ex.StackTrace);
             }
         }
 

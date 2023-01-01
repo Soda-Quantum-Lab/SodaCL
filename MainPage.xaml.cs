@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
-using SodaCL.Core.Auth.Models;
 using SodaCL.Core.Download;
 using static SodaCL.Core.Auth.MSAuth;
 using static SodaCL.Launcher.LauncherLogging;

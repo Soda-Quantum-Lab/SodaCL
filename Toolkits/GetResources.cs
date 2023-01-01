@@ -22,11 +22,11 @@ namespace SodaCL.Toolkits
             var targetStyle = (Style)Application.Current.Resources[key];
             return targetStyle;
         }
+
         public static DrawingImage GetSvg(string key)
         {
             var targetSvg = (DrawingImage)Application.Current.Resources[key];
             return targetSvg;
         }
-
     }
 }
