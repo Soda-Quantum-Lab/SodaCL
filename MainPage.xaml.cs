@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
@@ -153,6 +154,7 @@ namespace SodaCL.Pages
                 Log(ModuleList.Main, LogInfo.Error, "BakaXL 未能正常启动，可能是下载的文件不完整" + ex.Message, ex.StackTrace);
             }
         }
+
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -163,8 +165,7 @@ namespace SodaCL.Pages
             }
             catch (Exception ex)
             {
-                FrontGrid.Visibility = Visibility.Hidden;
-                DialogStackPan.Children.Clear();
+                CloseDialog();
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
@@ -175,7 +176,8 @@ namespace SodaCL.Pages
         {
             if (e.Item1.Equals(WindowsTypes.OpenInBrowser))
             {
-                await MSOAuth_OpenInBrowserWindow(e.Item2);
+                ChangeDialog();
+                await OpenOpenInBrowserWindow(e.Item2);
             }
             switch (e)
             {
@@ -183,7 +185,7 @@ namespace SodaCL.Pages
                     {
                         await Dispatcher.InvokeAsync(() =>
                         {
-                            FrontGrid.Visibility = Visibility.Visible;
+                            OpenDialog();
                             DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
                             DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
                         });
@@ -196,7 +198,7 @@ namespace SodaCL.Pages
         /// 打开一个登录说明界面
         /// </summary>
         /// <param name="deviceCode">显示的登陆代码</param>
-        private async Task MSOAuth_OpenInBrowserWindow(string deviceCode)
+        private async Task OpenOpenInBrowserWindow(string deviceCode)
         {
             await Dispatcher.InvokeAsync(() =>
             {
@@ -235,8 +237,7 @@ namespace SodaCL.Pages
                 };
                 exitButton.Click += (s, e) =>
                 {
-                    FrontGrid.Visibility = Visibility.Hidden;
-                    DialogStackPan.Children.Clear();
+                    CloseDialog();
                 };
                 okButton.Click += (s, be) =>
                     {
@@ -245,7 +246,6 @@ namespace SodaCL.Pages
                         Process.Start("explorer", "https://www.microsoft.com/link");
                         Log(ModuleList.IO, LogInfo.Info, "成功打开浏览器");
                     };
-                DialogStackPan.Children.Clear();
                 StackPan.Children.Add(iconBor);
                 StackPan.Children.Add(new TextBlock
                 {
@@ -275,12 +275,112 @@ namespace SodaCL.Pages
                     FontSize = 24,
                 });
                 DialogStackPan.Children.Add(okButton);
-
             });
         }
 
-        private void MSOAuth_WaitingWindow()
+        private void OpenDialog()
         {
+            FrontGrid.Visibility = Visibility.Visible;
+            var easingFunc = new CubicEase
+            {
+                EasingMode = EasingMode.EaseInOut
+            };
+            var diaSbBig = new Storyboard();
+            var rectBigOpacAni = new DoubleAnimation(0.6, TimeSpan.FromSeconds(1));
+            Storyboard.SetTarget(rectBigOpacAni, DialogRect);
+            Storyboard.SetTargetProperty(rectBigOpacAni, new PropertyPath("Opacity"));
+            var borderBigWidthAni = new DoubleAnimation(400, TimeSpan.FromSeconds(1));
+            borderBigWidthAni.EasingFunction = easingFunc;
+            Storyboard.SetTarget(borderBigWidthAni, DialogBorder);
+            Storyboard.SetTargetProperty(borderBigWidthAni, new PropertyPath("Width"));
+            var borderBigHeightAni = new DoubleAnimation(250, TimeSpan.FromSeconds(1));
+            borderBigHeightAni.EasingFunction = easingFunc;
+            Storyboard.SetTarget(borderBigHeightAni, DialogBorder);
+            Storyboard.SetTargetProperty(borderBigHeightAni, new PropertyPath("Height"));
+            diaSbBig.Children.Add(rectBigOpacAni);
+            diaSbBig.Children.Add(borderBigWidthAni);
+            diaSbBig.Children.Add(borderBigHeightAni);
+            diaSbBig.Begin();
+        }
+
+        private void ChangeDialog()
+        {
+            DialogStackPan.Children.Clear();
+            FrontBorder.Visibility = Visibility.Visible;
+            DialogBorder.Visibility = Visibility.Hidden;
+            var easingFunc = new CubicEase
+            {
+                EasingMode = EasingMode.EaseInOut
+            };
+            var froSbSmall = new Storyboard();
+
+            var borderSmallWidthAni = new DoubleAnimation(400, 0, TimeSpan.FromSeconds(0.5));
+            borderSmallWidthAni.EasingFunction = easingFunc;
+
+            Storyboard.SetTarget(borderSmallWidthAni, FrontBorder);
+            Storyboard.SetTargetProperty(borderSmallWidthAni, new PropertyPath("Width"));
+
+            var borderSmallHeightAni = new DoubleAnimation(250, 0, TimeSpan.FromSeconds(0.5));
+            borderSmallHeightAni.EasingFunction = easingFunc;
+
+            Storyboard.SetTarget(borderSmallHeightAni, FrontBorder);
+            Storyboard.SetTargetProperty(borderSmallHeightAni, new PropertyPath("Height"));
+
+            froSbSmall.Children.Add(borderSmallWidthAni);
+            froSbSmall.Children.Add(borderSmallHeightAni);
+
+            var diaSbBig = new Storyboard();
+
+            var forBorderBigWidthAni = new DoubleAnimation(0, 400, TimeSpan.FromSeconds(1));
+            forBorderBigWidthAni.EasingFunction = easingFunc;
+            Storyboard.SetTarget(forBorderBigWidthAni, DialogBorder);
+            Storyboard.SetTargetProperty(forBorderBigWidthAni, new PropertyPath("Width"));
+
+            var forBorderBigHeightAni = new DoubleAnimation(0, 250, TimeSpan.FromSeconds(1));
+            forBorderBigHeightAni.EasingFunction = easingFunc;
+            Storyboard.SetTarget(forBorderBigHeightAni, DialogBorder);
+            Storyboard.SetTargetProperty(forBorderBigHeightAni, new PropertyPath("Height"));
+            diaSbBig.Children.Add(forBorderBigWidthAni);
+            diaSbBig.Children.Add(forBorderBigHeightAni);
+
+            froSbSmall.Completed += (object sender, EventArgs e) =>
+            {
+                FrontBorder.Visibility = Visibility.Hidden;
+                DialogBorder.Visibility = Visibility.Visible;
+
+                diaSbBig.Begin();
+                Trace.WriteLine(FrontBorder.Width + FrontBorder.Width);
+            };
+            froSbSmall.Begin();
+        }
+
+        private void CloseDialog()
+        {
+            var easingFunc = new CubicEase
+            {
+                EasingMode = EasingMode.EaseInOut
+            };
+            var diaSbSmall = new Storyboard();
+            var rectSmallOpacAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.6));
+            Storyboard.SetTarget(rectSmallOpacAni, DialogRect);
+            Storyboard.SetTargetProperty(rectSmallOpacAni, new PropertyPath("Opacity"));
+            var borderSmallWidthAni = new DoubleAnimation(0, TimeSpan.FromSeconds(1));
+            borderSmallWidthAni.EasingFunction = easingFunc;
+            Storyboard.SetTarget(borderSmallWidthAni, DialogBorder);
+            Storyboard.SetTargetProperty(borderSmallWidthAni, new PropertyPath("Width"));
+            var borderSmallHeightAni = new DoubleAnimation(0, TimeSpan.FromSeconds(1));
+            borderSmallHeightAni.EasingFunction = easingFunc;
+            Storyboard.SetTarget(borderSmallHeightAni, DialogBorder);
+            Storyboard.SetTargetProperty(borderSmallHeightAni, new PropertyPath("Height"));
+            diaSbSmall.Children.Add(rectSmallOpacAni);
+            diaSbSmall.Children.Add(borderSmallWidthAni);
+            diaSbSmall.Children.Add(borderSmallHeightAni);
+            diaSbSmall.Completed += (object sender, EventArgs e) =>
+            {
+                FrontGrid.Visibility = Visibility.Hidden;
+                DialogStackPan.Children.Clear();
+            };
+            diaSbSmall.Begin();
         }
     }
 }
