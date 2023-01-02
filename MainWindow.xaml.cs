@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -17,11 +18,15 @@ namespace SodaCL
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow mainWindow;
         public static LauncherInfo launcherInfo;
         public static List<MCClient> clients = new();
 
         public MainWindow()
         {
+            mainWindow = Application.Current.Windows
+            .Cast<Window>()
+            .FirstOrDefault(window => window is MainWindow) as MainWindow;
             InitializeComponent();
         }
 

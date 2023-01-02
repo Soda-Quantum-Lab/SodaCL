@@ -12,6 +12,7 @@ using SodaCL.Core.Download;
 using static SodaCL.Core.Auth.MSAuth;
 using static SodaCL.Launcher.LauncherLogging;
 using static SodaCL.Toolkits.GetResources;
+using static SodaCL.Toolkits.Dialog;
 
 namespace SodaCL.Pages
 {
@@ -112,6 +113,7 @@ namespace SodaCL.Pages
             }
             catch (HttpRequestException ex)
             {
+                YiYanTxb.Text = "一言获取失败";
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
@@ -186,8 +188,8 @@ namespace SodaCL.Pages
                         await Dispatcher.InvokeAsync(() =>
                         {
                             OpenDialog();
-                            DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
-                            DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
+                            MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
+                            MainWindow.mainWindow.DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
                         });
                         break;
                     }
@@ -256,131 +258,28 @@ namespace SodaCL.Pages
                     Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
                 });
                 StackPan.Children.Add(exitButton);
-                DialogStackPan.Children.Add(StackPan);
-                DialogStackPan.Children.Add(new TextBlock
+                MainWindow.mainWindow.DialogStackPan.Children.Add(StackPan);
+                MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
                     Margin = new Thickness(52, 10, 20, 0),
                     Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
                 });
-                DialogStackPan.Children.Add(new TextBlock
+                MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
                     Margin = new Thickness(50, 10, 20, 0),
                     Style = GetStyle("Text_Bold"),
                     Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
                 });
-                DialogStackPan.Children.Add(new TextBlock
+                MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
                     Margin = new Thickness(50, 5, 20, 0),
                     Text = deviceCode,
                     FontSize = 24,
                 });
-                DialogStackPan.Children.Add(okButton);
+                MainWindow.mainWindow.DialogStackPan.Children.Add(okButton);
             });
         }
 
-        private void OpenDialog()
-        {
-            FrontGrid.Visibility = Visibility.Visible;
-            var easingFunc = new CubicEase
-            {
-                EasingMode = EasingMode.EaseInOut
-            };
-            var diaSbBig = new Storyboard();
-            var rectBigOpacAni = new DoubleAnimation(0.6, TimeSpan.FromSeconds(1));
-            Storyboard.SetTarget(rectBigOpacAni, DialogRect);
-            Storyboard.SetTargetProperty(rectBigOpacAni, new PropertyPath("Opacity"));
-            var borderBigWidthAni = new DoubleAnimation(400, TimeSpan.FromSeconds(1));
-            borderBigWidthAni.EasingFunction = easingFunc;
-            Storyboard.SetTarget(borderBigWidthAni, DialogBorder);
-            Storyboard.SetTargetProperty(borderBigWidthAni, new PropertyPath("Width"));
-            var borderBigHeightAni = new DoubleAnimation(250, TimeSpan.FromSeconds(1));
-            borderBigHeightAni.EasingFunction = easingFunc;
-            Storyboard.SetTarget(borderBigHeightAni, DialogBorder);
-            Storyboard.SetTargetProperty(borderBigHeightAni, new PropertyPath("Height"));
-            diaSbBig.Children.Add(rectBigOpacAni);
-            diaSbBig.Children.Add(borderBigWidthAni);
-            diaSbBig.Children.Add(borderBigHeightAni);
-            diaSbBig.Begin();
-        }
 
-        private void ChangeDialog()
-        {
-            DialogStackPan.Children.Clear();
-            FrontBorder.Visibility = Visibility.Visible;
-            DialogBorder.Visibility = Visibility.Hidden;
-            var easingFunc = new CubicEase
-            {
-                EasingMode = EasingMode.EaseInOut
-            };
-            var froSbSmall = new Storyboard();
-
-            var borderSmallWidthAni = new DoubleAnimation(400, 0, TimeSpan.FromSeconds(0.5));
-            borderSmallWidthAni.EasingFunction = easingFunc;
-
-            Storyboard.SetTarget(borderSmallWidthAni, FrontBorder);
-            Storyboard.SetTargetProperty(borderSmallWidthAni, new PropertyPath("Width"));
-
-            var borderSmallHeightAni = new DoubleAnimation(250, 0, TimeSpan.FromSeconds(0.5));
-            borderSmallHeightAni.EasingFunction = easingFunc;
-
-            Storyboard.SetTarget(borderSmallHeightAni, FrontBorder);
-            Storyboard.SetTargetProperty(borderSmallHeightAni, new PropertyPath("Height"));
-
-            froSbSmall.Children.Add(borderSmallWidthAni);
-            froSbSmall.Children.Add(borderSmallHeightAni);
-
-            var diaSbBig = new Storyboard();
-
-            var forBorderBigWidthAni = new DoubleAnimation(0, 400, TimeSpan.FromSeconds(1));
-            forBorderBigWidthAni.EasingFunction = easingFunc;
-            Storyboard.SetTarget(forBorderBigWidthAni, DialogBorder);
-            Storyboard.SetTargetProperty(forBorderBigWidthAni, new PropertyPath("Width"));
-
-            var forBorderBigHeightAni = new DoubleAnimation(0, 250, TimeSpan.FromSeconds(1));
-            forBorderBigHeightAni.EasingFunction = easingFunc;
-            Storyboard.SetTarget(forBorderBigHeightAni, DialogBorder);
-            Storyboard.SetTargetProperty(forBorderBigHeightAni, new PropertyPath("Height"));
-            diaSbBig.Children.Add(forBorderBigWidthAni);
-            diaSbBig.Children.Add(forBorderBigHeightAni);
-
-            froSbSmall.Completed += (object sender, EventArgs e) =>
-            {
-                FrontBorder.Visibility = Visibility.Hidden;
-                DialogBorder.Visibility = Visibility.Visible;
-
-                diaSbBig.Begin();
-                Trace.WriteLine(FrontBorder.Width + FrontBorder.Width);
-            };
-            froSbSmall.Begin();
-        }
-
-        private void CloseDialog()
-        {
-            var easingFunc = new CubicEase
-            {
-                EasingMode = EasingMode.EaseInOut
-            };
-            var diaSbSmall = new Storyboard();
-            var rectSmallOpacAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.6));
-            Storyboard.SetTarget(rectSmallOpacAni, DialogRect);
-            Storyboard.SetTargetProperty(rectSmallOpacAni, new PropertyPath("Opacity"));
-            var borderSmallWidthAni = new DoubleAnimation(0, TimeSpan.FromSeconds(1));
-            borderSmallWidthAni.EasingFunction = easingFunc;
-            Storyboard.SetTarget(borderSmallWidthAni, DialogBorder);
-            Storyboard.SetTargetProperty(borderSmallWidthAni, new PropertyPath("Width"));
-            var borderSmallHeightAni = new DoubleAnimation(0, TimeSpan.FromSeconds(1));
-            borderSmallHeightAni.EasingFunction = easingFunc;
-            Storyboard.SetTarget(borderSmallHeightAni, DialogBorder);
-            Storyboard.SetTargetProperty(borderSmallHeightAni, new PropertyPath("Height"));
-            diaSbSmall.Children.Add(rectSmallOpacAni);
-            diaSbSmall.Children.Add(borderSmallWidthAni);
-            diaSbSmall.Children.Add(borderSmallHeightAni);
-            diaSbSmall.Completed += (object sender, EventArgs e) =>
-            {
-                FrontGrid.Visibility = Visibility.Hidden;
-                DialogStackPan.Children.Clear();
-            };
-            diaSbSmall.Begin();
-        }
     }
 }

@@ -55,6 +55,13 @@
                         </Grid>
                     </Border>
                     <Frame x:Name="MainFram" Grid.Row="1" Source="./MainPage.xaml" NavigationUIVisibility="Hidden" Style="{x:Null}"></Frame>
+                    <Grid x:Name="FrontGrid" x:FieldModifier="public" Grid.Row="3" Grid.RowSpan="4" Visibility="Hidden">
+                        <Rectangle x:Name="DialogRect" Opacity="0" Fill="Black" ></Rectangle>
+                        <Border x:Name="DialogBorder" Width="0" Height="0" Background="White" CornerRadius="12">
+                            <StackPanel x:Name="DialogStackPan" VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" Height="250"></StackPanel>
+                        </Border>
+                        <Border x:Name="FrontBorder" Width="400" Height="250" Background="White" CornerRadius="12" Visibility="Hidden"></Border>
+                    </Grid>
                 </Grid>
             </Border>
         </Border>
