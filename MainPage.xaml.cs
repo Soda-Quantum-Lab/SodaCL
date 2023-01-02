@@ -111,7 +111,7 @@ namespace SodaCL.Pages
                     Log(ModuleList.Network, LogInfo.Info, "一言获取成功");
                 }
             }
-            catch (HttpRequestException ex)
+            catch (TaskCanceledException ex)
             {
                 YiYanTxb.Text = "一言获取失败";
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);

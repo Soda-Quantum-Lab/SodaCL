@@ -24,10 +24,8 @@ namespace SodaCL
 
         public MainWindow()
         {
-            mainWindow = Application.Current.Windows
-            .Cast<Window>()
-            .FirstOrDefault(window => window is MainWindow) as MainWindow;
             InitializeComponent();
+            mainWindow = this;
         }
 
         #region 自定义标题栏
@@ -84,7 +82,7 @@ namespace SodaCL
 
         private void IssuesBtn_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer", "https://github.com/SodaCL-Launcher/SodaCL/issues");
+            Process.Start("explorer", "https://github.com/Soda-Quantum-Lab/SodaCL/issues");
         }
 
         private void Window_Closed(object sender, EventArgs e)
