@@ -41,7 +41,7 @@ namespace SodaCL
             {
                 //Toolkits.IniFile.Write("LaunchTime", Convert.ToString(int.Parse(Toolkits.IniFile.Read("LaunchTime")??"0") + 1 ));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log(ModuleList.Main, LogInfo.Error, ex.Message, ex.StackTrace);
             }
@@ -75,7 +75,6 @@ namespace SodaCL
         private void TitleBar_SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
             MainFram.Navigate(new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative));
-            DoubleAnimation titleBarAni = new();
         }
 
         private void TitleBar_IssuesBtn_Click(object sender, RoutedEventArgs e)
@@ -102,35 +101,44 @@ namespace SodaCL
             {
                 EasingMode = EasingMode.EaseInOut
             };
-            var AniTime = TimeSpan.FromSeconds(0.4);
+            var AniTime = TimeSpan.FromSeconds(0.3);
             if (MainFram.CanGoBack == true && !IsThisPage)
-
             {
                 var goBackSb = new Storyboard();
 
-                var goBackBtnAni = new ThicknessAnimation(new Thickness(-50, 0, 0, 0), new Thickness(20, 0, 0, 0), AniTime);
-                goBackBtnAni.EasingFunction = easingFunc;
-                Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
-                Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
-                goBackSb.Children.Add(goBackBtnAni);
                 var goBackPanAni = new ThicknessAnimation(new Thickness(5, 0, 0, 0), new Thickness(-240, 6, 0, 0), AniTime);
                 goBackPanAni.EasingFunction = easingFunc;
                 Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
                 Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
                 goBackSb.Children.Add(goBackPanAni);
+
+                var goBackBtnAni = new ThicknessAnimation(new Thickness(-50, 0, 0, 0), new Thickness(10, 0, 0, 0), AniTime);
+                goBackBtnAni.EasingFunction = easingFunc;
+                goBackBtnAni.BeginTime = TimeSpan.FromSeconds(0.2);
+                Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
+                Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
+                goBackSb.Children.Add(goBackBtnAni);
+
+                var goBackOpacAni = new DoubleAnimation(1, TimeSpan.FromSeconds(0.3));
+                Storyboard.SetTarget(goBackOpacAni, MainFram);
+                Storyboard.SetTargetProperty(goBackOpacAni, new PropertyPath("Opacity"));
+                goBackSb.Children.Add(goBackOpacAni);
+
                 goBackSb.Begin();
                 TitleBar_GoBackBtn.Visibility = Visibility.Visible;
             }
             else if (MainFram.CanGoBack == false)
             {
                 var goBackSb = new Storyboard();
-                var goBackBtnAni = new ThicknessAnimation(new Thickness(20, 0, 0, 0), new Thickness(-50, 0, 0, 0), AniTime);
+                var goBackBtnAni = new ThicknessAnimation(new Thickness(10, 0, 0, 0), new Thickness(-50, 0, 0, 0), AniTime);
                 goBackBtnAni.EasingFunction = easingFunc;
                 Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
                 Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
                 goBackSb.Children.Add(goBackBtnAni);
+
                 var goBackPanAni = new ThicknessAnimation(new Thickness(-240, 0, 0, 0), new Thickness(5, 0, 0, 0), AniTime);
                 goBackPanAni.EasingFunction = easingFunc;
+                goBackPanAni.BeginTime = TimeSpan.FromSeconds(0.2);
                 Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
                 Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
                 goBackSb.Children.Add(goBackPanAni);

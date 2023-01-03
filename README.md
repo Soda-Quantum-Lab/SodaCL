@@ -22,7 +22,7 @@
 [![Kook](https://img.shields.io/badge/KOOK-SodaCL-7ACC35.svg?style=flat-square)](https://kook.top/vPP18n)
 [![Discord](https://img.shields.io/badge/discord-SodaCL-blue.svg?style=flat-square&color=5e75c5&logo=discord)](https://discord.gg/zJSv6p5dYZ)
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Soda-Quantum-Lab/SodaCL/publish.yml?branch=master&label=Publish&style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/actions/workflows/publish.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Soda-Quantum-Lab/SodaCL/release.yml?branch=master&label=Release&style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/actions/workflows/release.yml)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Soda-Quantum-Lab/SodaCL/build-and-test.yml?branch=master&label=build%20and%20test&style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/actions/workflows/build-and-test.yml)
 
 </div>

@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
@@ -34,6 +35,34 @@ namespace SodaCL.Pages
         {
             await GetYiyanAsync();
             SayHello();
+            TextAni();
+        }
+        private void TextAni()
+        {
+            var textSb = new Storyboard();
+            var helloAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
+            Storyboard.SetTarget(helloAni, SayHelloUsernameTxb);
+            Storyboard.SetTargetProperty(helloAni, new PropertyPath("Opacity"));
+            textSb.Children.Add(helloAni);
+            var DateAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
+            Storyboard.SetTarget(DateAni, SayHelloTimeTxb);
+            Storyboard.SetTargetProperty(DateAni, new PropertyPath("Opacity"));
+            textSb.Children.Add(DateAni);
+            var yiYanAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
+            yiYanAni.BeginTime = TimeSpan.FromSeconds(0.2);
+            Storyboard.SetTarget(yiYanAni, YiYanTxb);
+            Storyboard.SetTargetProperty(yiYanAni, new PropertyPath("Opacity"));
+            textSb.Children.Add(yiYanAni);
+            var launchBarAni = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.4));
+            launchBarAni.BeginTime = TimeSpan.FromSeconds(0.2);
+            launchBarAni.EasingFunction = new CubicEase
+            {
+                EasingMode = EasingMode.EaseInOut
+            };
+            Storyboard.SetTarget(launchBarAni, LaunchBar);
+            Storyboard.SetTargetProperty(launchBarAni, new PropertyPath("Margin"));
+            textSb.Children.Add(launchBarAni);
+            textSb.Begin();
         }
 
         private void SayHello()

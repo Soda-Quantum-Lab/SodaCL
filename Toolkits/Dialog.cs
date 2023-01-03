@@ -7,8 +7,8 @@ namespace SodaCL.Toolkits
 {
     public class Dialog
     {
-        private static TimeSpan DialogAniSpeed { get; } = TimeSpan.FromSeconds(0.9);
-        private static TimeSpan OpacAniSpeed { get; } = TimeSpan.FromSeconds(1);
+        private static TimeSpan DialogAniSpeed { get; } = TimeSpan.FromSeconds(0.5);
+        private static TimeSpan OpacAniSpeed { get; } = TimeSpan.FromSeconds(0.7);
         private static CubicEase EasingFunc { get; set; } = new CubicEase { EasingMode = EasingMode.EaseInOut };
 
         public static void OpenDialog()

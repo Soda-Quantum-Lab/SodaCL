@@ -18,12 +18,12 @@
                 <RowDefinition Height="45" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <TextBlock Name="SayHelloTimeTxb" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" Style="{StaticResource Text_Bold }" />
-                <TextBlock Name="SayHelloUsernameTxb" FontSize="36" VerticalAlignment="Center" TextAlignment="Center" Margin="20,0,0,0" Style="{StaticResource Text_Bold }" />
+                <TextBlock Name="SayHelloTimeTxb" FontSize="36" VerticalAlignment="Center" Margin="20,0,0,0" Style="{StaticResource Text_Bold }" Opacity="0"/>
+                <TextBlock Name="SayHelloUsernameTxb" FontSize="36" VerticalAlignment="Center" TextAlignment="Center" Margin="20,0,0,0" Style="{StaticResource Text_Bold }" Opacity="0" />
             </StackPanel>
-            <TextBlock Name="YiYanTxb" Grid.Row="1" Block.TextAlignment="Center" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" />
+            <TextBlock Name="YiYanTxb" Grid.Row="1" Block.TextAlignment="Center" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Opacity="0"/>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Name="LaunchBar" Margin="0,110,0,0">
             <Border Background="White" Margin="20,0,20,10" CornerRadius="12,12,12,12">
                 <DockPanel LastChildFill="False">
                     <StackPanel DockPanel.Dock="Left">
