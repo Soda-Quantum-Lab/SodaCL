@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using Newtonsoft.Json;
+using System.Windows.Navigation;
 using SodaCL.Core;
 using SodaCL.Launcher;
 using static SodaCL.Launcher.LauncherLogging;
@@ -21,6 +19,7 @@ namespace SodaCL
         public static MainWindow mainWindow;
         public static LauncherInfo launcherInfo;
         public static List<MCClient> clients = new();
+        private bool IsThisPage;
 
         public MainWindow()
         {
@@ -36,26 +35,14 @@ namespace SodaCL
         }
 
         // 退出按钮
-        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        private void TitleBar_ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(LauncherInfo.versionListSavePath))
-            {
-                FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
-                fileStream.Close();
-            }
-            File.WriteAllText(LauncherInfo.versionListSavePath, JsonConvert.SerializeObject(clients));
-
-            if (!File.Exists(LauncherInfo.launcherInfoSavePath))
-            {
-                FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
-                fileStream.Close();
-            }
-            File.WriteAllText(LauncherInfo.launcherInfoSavePath, JsonConvert.SerializeObject(launcherInfo));
+            Toolkits.IniFile.Write("LaunchTime", Convert.ToString(int.Parse(Toolkits.IniFile.Read("LaunchTime")) + 1));
             this.Close();
         }
 
         //最小化按钮
-        private void MiniSizeBtn_Click(object sender, RoutedEventArgs e)
+        private void TitleBar_MiniSizeBtn_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
@@ -66,21 +53,22 @@ namespace SodaCL
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            Log(ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
             LauncherInit.InitNewFolder();
+
+            Log(ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
         }
 
         #endregion 初次启动
 
         #region 事件
 
-        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        private void TitleBar_SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainFram.Source = new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative);
+            MainFram.Navigate(new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative));
             DoubleAnimation titleBarAni = new();
         }
 
-        private void IssuesBtn_Click(object sender, RoutedEventArgs e)
+        private void TitleBar_IssuesBtn_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("explorer", "https://github.com/Soda-Quantum-Lab/SodaCL/issues");
         }
@@ -92,5 +80,64 @@ namespace SodaCL
         }
 
         #endregion 事件
+
+        private void TitleBar_GoBackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainFram.GoBack();
+        }
+
+        private void MainFram_Navigated(object sender, NavigationEventArgs e)
+        {
+            var easingFunc = new CubicEase
+            {
+                EasingMode = EasingMode.EaseInOut
+            };
+            var AniTime = TimeSpan.FromSeconds(0.4);
+            if (MainFram.CanGoBack == true && !IsThisPage)
+
+            {
+                var goBackSb = new Storyboard();
+
+                var goBackBtnAni = new ThicknessAnimation(new Thickness(-50, 0, 0, 0), new Thickness(20, 0, 0, 0), AniTime);
+                goBackBtnAni.EasingFunction = easingFunc;
+                Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
+                Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
+                goBackSb.Children.Add(goBackBtnAni);
+                var goBackPanAni = new ThicknessAnimation(new Thickness(5, 0, 0, 0), new Thickness(-230, 6, 0, 0), AniTime);
+                goBackPanAni.EasingFunction = easingFunc;
+                Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
+                Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
+                goBackSb.Children.Add(goBackPanAni);
+                goBackSb.Begin();
+                TitleBar_GoBackBtn.Visibility = Visibility.Visible;
+            }
+            else if (MainFram.CanGoBack == false)
+            {
+                var goBackSb = new Storyboard();
+                var goBackBtnAni = new ThicknessAnimation(new Thickness(20, 0, 0, 0), new Thickness(-50, 0, 0, 0), AniTime);
+                goBackBtnAni.EasingFunction = easingFunc;
+                Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
+                Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
+                goBackSb.Children.Add(goBackBtnAni);
+                var goBackPanAni = new ThicknessAnimation(new Thickness(-230, 0, 0, 0), new Thickness(5, 0, 0, 0), AniTime);
+                goBackPanAni.EasingFunction = easingFunc;
+                Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
+                Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
+                goBackSb.Children.Add(goBackPanAni);
+                goBackSb.Completed += (object sender, EventArgs e) =>
+                {
+                    TitleBar_GoBackBtn.Visibility = Visibility.Hidden;
+                };
+                goBackSb.Begin();
+            }
+        }
+
+        private void MainFram_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.Uri == MainFram.CurrentSource)
+                IsThisPage = true;
+            else
+                IsThisPage = false;
+        }
     }
 }

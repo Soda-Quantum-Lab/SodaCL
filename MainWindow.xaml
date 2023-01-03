@@ -3,67 +3,69 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Title="SodaCL" Height="534" Width="754" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
-    <Grid Margin="2">
+        mc:Ignorable="d" Title="SodaCL" Height="530" Width="750" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
+    <Border CornerRadius="10,10,10,10">
+        <Border.Background>
+            <ImageBrush ImageSource="/Resources/Images/Launcher-Bg.jpg" />
+        </Border.Background>
         <Border CornerRadius="10,10,10,10">
             <Border.Background>
-                <ImageBrush ImageSource="/Resources/Images/Launcher-Bg.jpg" />
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Offset="0" Color="white" />
+                    <GradientStop Offset="0.4" Color="white" />
+                    <GradientStop Offset="1.3" Color="Transparent" />
+                </LinearGradientBrush>
             </Border.Background>
-            <Border CornerRadius="10,10,10,10">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Offset="0" Color="white" />
-                        <GradientStop Offset="0.4" Color="white" />
-                        <GradientStop Offset="1.3" Color="Transparent" />
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Grid x:Name="MainGrid">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="55" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Border Height="55" Grid.Row="0" CornerRadius="10,10,0,0" Background="Transparent"  VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                        <Grid>
-                            <Grid Height="55" VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="10*" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="3*" MaxWidth="171" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,10,0,10">
-                                    <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
-                                    <TextBlock Text="Soda Craft Launcher" Height="28"  Margin="5,0,0,0" FontSize="16" Padding="5,4,5,0" ScrollViewer.CanContentScroll="True" />
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Orientation="Horizontal" Height="32" Margin="0,10,0,10" HorizontalAlignment="Right">
-                                    <Button x:Name="IssuesBtn" Style="{DynamicResource Btn_NoBackground}" Width="32" Height="32" Margin="0,0,5,0" Click="IssuesBtn_Click" ToolTip="{DynamicResource TitleBar_IssuesBtn_Tip}">
-                                        <Image Height="22" Width="22" Source="{DynamicResource Svg_Help}"></Image>
-                                    </Button>
-                                    <Button Style="{DynamicResource Btn_NoBackground}" x:Name="SettingsBtn" Width="32" Height="32" Margin="0,0,5,0" Click="SettingsBtn_Click">
-                                        <Image Height="20" Width="20" Source="{DynamicResource Svg_Settings}"></Image>
-                                    </Button>
-                                    <Button Style="{DynamicResource Btn_NoBackground}" x:Name="MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="MiniSizeBtn_Click">
-                                        <Image  Height="12" Width="12" Source="{StaticResource Svg_Min}"></Image>
-                                    </Button>
-                                    <Button Style="{DynamicResource Btn_NoBackground}" x:Name="ExitBtn" Width="32" Height="32" Margin="0,0,20,0" Click="ExitBtn_Click">
-                                        <Image  Height="16" Width="16" Source="{StaticResource Svg_Close}"></Image>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
+            <Grid Name="MainGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Height="55" Grid.Row="0" CornerRadius="10,10,0,0" Background="Transparent"  VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                    <Grid>
+                        <Grid Height="55" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="4*" />
+                                <RowDefinition Height="51*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="3*" MaxWidth="171" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Name="TitleBar_TitlePan" Grid.Column="0" Orientation="Horizontal" Margin="3,6,0,10" HorizontalAlignment="Left" Grid.Row="1">
+                                <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
+                                <TextBlock Text="Soda Craft Launcher" Height="28"  Margin="5,0,0,0" FontSize="18" Padding="5,3,5,0" ScrollViewer.CanContentScroll="True" />
+                            </StackPanel>
+                            <Button Name="TitleBar_GoBackBtn" Width="32" Height="32" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="20,6,0,10" Visibility="Hidden" Click="TitleBar_GoBackBtn_Click" Style="{DynamicResource Btn_NoBackground}">
+                                <Image Width="20" Height="20" Source="{StaticResource Svg_GoBack}" />
+                            </Button>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Height="32" Margin="0,8,0,11" HorizontalAlignment="Right" Grid.Row="1">
+                                <Button Name="TitleBar_IssuesBtn" Style="{DynamicResource Btn_NoBackground}" Width="32" Height="32" Margin="0,0,5,0" Click="TitleBar_IssuesBtn_Click" ToolTip="{DynamicResource TitleBar_IssuesBtn_Tip}">
+                                    <Image Height="22" Width="22" Source="{DynamicResource Svg_Help}"></Image>
+                                </Button>
+                                <Button Style="{DynamicResource Btn_NoBackground}" Name="TitleBar_SettingsBtn" Width="32" Height="32" Margin="0,0,5,0" Click="TitleBar_SettingsBtn_Click">
+                                    <Image Height="20" Width="20" Source="{DynamicResource Svg_Settings}"></Image>
+                                </Button>
+                                <Button Style="{DynamicResource Btn_NoBackground}" Name="TitleBar_MiniSizeBtn" Width="32" Height="32" Margin="0,0,5,0" Click="TitleBar_MiniSizeBtn_Click">
+                                    <Image  Height="12" Width="12" Source="{StaticResource Svg_Min}"></Image>
+                                </Button>
+                                <Button Style="{DynamicResource Btn_NoBackground}" Name="TitleBar_ExitBtn" Width="32" Height="32" Margin="0,0,20,0" Click="TitleBar_ExitBtn_Click">
+                                    <Image  Height="16" Width="16" Source="{StaticResource Svg_Close}"></Image>
+                                </Button>
+                            </StackPanel>
                         </Grid>
-                    </Border>
-                    <Frame x:Name="MainFram" Grid.Row="1" Source="./MainPage.xaml" NavigationUIVisibility="Hidden" Style="{x:Null}"></Frame>
-                    <Grid x:Name="FrontGrid" x:FieldModifier="public" Grid.Row="3" Grid.RowSpan="4" Visibility="Hidden">
-                        <Rectangle x:Name="DialogRect" Opacity="0" Fill="Black" ></Rectangle>
-                        <Border x:Name="DialogBorder" Width="0" Height="0" Background="White" CornerRadius="12">
-                            <StackPanel x:Name="DialogStackPan" VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" Height="250"></StackPanel>
-                        </Border>
-                        <Border x:Name="FrontBorder" Width="400" Height="250" Background="White" CornerRadius="12" Visibility="Hidden"></Border>
                     </Grid>
+                </Border>
+                <Frame Name="MainFram" Grid.Row="1" Source="./MainPage.xaml" NavigationUIVisibility="Hidden" Style="{x:Null}" Navigated="MainFram_Navigated" Navigating="MainFram_Navigating" />
+                <Grid Name="FrontGrid" Grid.Row="2" Visibility="Hidden">
+                    <Rectangle Name="DialogRect" Opacity="0" Fill="Black" ></Rectangle>
+                    <Border Name="DialogBorder" Width="400" Height="250" Background="White" CornerRadius="12">
+                        <StackPanel Name="DialogStackPan" Width="400" Height="250" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    </Border>
+                    <Border Name="FrontBorder" Width="400" Height="250" Background="White" CornerRadius="12" Visibility="Hidden"></Border>
                 </Grid>
-            </Border>
+            </Grid>
         </Border>
-    </Grid>
+    </Border>
 </Window>

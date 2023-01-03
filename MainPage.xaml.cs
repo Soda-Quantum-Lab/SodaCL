@@ -4,15 +4,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
 using SodaCL.Core.Download;
 using static SodaCL.Core.Auth.MSAuth;
 using static SodaCL.Launcher.LauncherLogging;
-using static SodaCL.Toolkits.GetResources;
 using static SodaCL.Toolkits.Dialog;
+using static SodaCL.Toolkits.GetResources;
 
 namespace SodaCL.Pages
 {
@@ -22,6 +21,8 @@ namespace SodaCL.Pages
 
     public partial class MainPage : Page
     {
+        private string yiYanText;
+
         #region 初始化
 
         public MainPage()
@@ -29,10 +30,10 @@ namespace SodaCL.Pages
             InitializeComponent();
         }
 
-        private void Page_Initialized(object sender, EventArgs e)
+        private async void Page_Initialized(object sender, EventArgs e)
         {
+            await GetYiyanAsync();
             SayHello();
-            GetYiyanAsync();
         }
 
         private void SayHello()
@@ -49,7 +50,7 @@ namespace SodaCL.Pages
                         break;
 
                     case int n when (n >= 5 && n < 11):
-                        SayHelloTimeTxb.Text = "清晨好!";
+                        SayHelloTimeTxb.Text = "上午好!";
                         break;
 
                     case int n when (n >= 11 && n < 13):
@@ -82,33 +83,47 @@ namespace SodaCL.Pages
         /// <summary>
         /// 向Api接口获取一言并做出处理
         /// </summary>
-        private async void GetYiyanAsync()
+        private async Task GetYiyanAsync()
         {
-            Log(ModuleList.Network, LogInfo.Info, "正在获取一言");
+            string text;
             try
             {
-                using (var client = new HttpClient())
+                if (yiYanText == null)
                 {
-                    var yiYanApiAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10";
-                    client.Timeout = TimeSpan.FromSeconds(5);
-                    string jsonResponse = await client.GetStringAsync(yiYanApiAdd);
-                    JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
-                    string yiYan = (string)jObj["hitokoto"];
-                    string space;
-                    string endSpace;
-                    if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！"))
+                    Log(ModuleList.Network, LogInfo.Info, "正在获取一言");
+                    do
                     {
-                        space = "  ";
-                        endSpace = "";
+                        using (var client = new HttpClient())
+                        {
+                            var yiYanApiAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10";
+                            client.Timeout = TimeSpan.FromSeconds(5);
+                            string jsonResponse = await client.GetStringAsync(yiYanApiAdd);
+                            JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
+                            string yiYan = (string)jObj["hitokoto"];
+                            string space;
+                            string endSpace;
+                            if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！"))
+                            {
+                                space = "  ";
+                                endSpace = "";
+                            }
+                            else
+                            {
+                                space = "  ";
+                                endSpace = "  ";
+                            }
+                            YiYanTxb.Margin = new Thickness(10, 0, 0, 0);
+                            text = $"「{space + yiYan + endSpace}」 ——  {(string)jObj["from"]}";
+                        }
                     }
-                    else
-                    {
-                        space = "  ";
-                        endSpace = "  ";
-                    }
-                    YiYanTxb.Margin = new Thickness(10, 0, 0, 0);
-                    YiYanTxb.Text = $"「{space + yiYan + endSpace}」 ——  {(string)jObj["from"]}";
+                    while (text.Length > 35);
+                    YiYanTxb.Text = text;
+                    yiYanText = YiYanTxb.Text;
                     Log(ModuleList.Network, LogInfo.Info, "一言获取成功");
+                }
+                else
+                {
+                    YiYanTxb.Text = yiYanText;
                 }
             }
             catch (TaskCanceledException ex)
@@ -141,7 +156,7 @@ namespace SodaCL.Pages
 
         private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe", ".\\SodaCL\\logs");
+            Process.Start("explorer.exe", ".\\SodaCL\\logs");
         }
 
         private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
@@ -233,7 +248,7 @@ namespace SodaCL.Pages
                 };
                 var okButton = new Button
                 {
-                    Margin = new Thickness(270, 0, 35, 0),
+                    Margin = new Thickness(270, 0, 0, 0),
                     Content = GetI18NText("Butten_OK"),
                     Style = GetStyle("Btn_Main")
                 };
@@ -279,7 +294,5 @@ namespace SodaCL.Pages
                 MainWindow.mainWindow.DialogStackPan.Children.Add(okButton);
             });
         }
-
-
     }
 }
