@@ -78,6 +78,10 @@ namespace SodaCL.Core.Auth
                     OAuth2AccessToken = pollingPostResModel.AccessToken;
                     break;
                 }
+                //TODO:错误处理
+                else if (pollingPostRes.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                }
             }
             stopwatch.Stop();
             AccessTokenClient.Dispose();

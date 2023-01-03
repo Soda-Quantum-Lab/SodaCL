@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Windows;
-using Newtonsoft.Json;
-using SodaCL.Core;
 using static SodaCL.Launcher.LauncherLogging;
 
 namespace SodaCL.Launcher
@@ -20,42 +16,14 @@ namespace SodaCL.Launcher
                 Directory.CreateDirectory(LauncherInfo.sodaCLBasePath);
                 Directory.CreateDirectory(LauncherInfo.mcDir);
                 Directory.CreateDirectory(LauncherInfo.sodaCLLogPath);
+                if (!File.Exists(LauncherInfo.sodaCLConfigPath))
+                {
+                    File.Create(LauncherInfo.sodaCLConfigPath);
+                    Toolkits.IniFile.Write("LaunchTime", "1");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                SodaCL.Launcher.LauncherLogging.Log(ModuleList.IO, LogInfo.Error, ex.Message);
-            }
-
-            try
-            {
-                if (!File.Exists(LauncherInfo.versionListSavePath))
-                {
-                    FileStream fileStream = new(LauncherInfo.versionListSavePath, FileMode.Create, FileAccess.ReadWrite);
-                    fileStream.Close();
-                    Log(ModuleList.IO, LogInfo.Info, "新建版本文件");
-                }
-                else
-                {
-                    MainWindow.clients = JsonConvert.DeserializeObject<List<MCClient>>(File.ReadAllText(LauncherInfo.versionListSavePath));
-                }
-
-                if (!File.Exists(LauncherInfo.launcherInfoSavePath))
-                {
-                    FileStream fileStream = new(LauncherInfo.launcherInfoSavePath, FileMode.Create, FileAccess.ReadWrite);
-                    fileStream.Close();
-                    Log(ModuleList.IO, LogInfo.Info, "新建启动器文件");
-                    MainWindow.launcherInfo = new LauncherInfo();
-                }
-                else
-                {
-                    MainWindow.launcherInfo = JsonConvert.DeserializeObject<LauncherInfo>(File.ReadAllText(LauncherInfo.launcherInfoSavePath));
-                }
-                MainWindow.launcherInfo.addLaunchTime(); // 启动器启动次数统计
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
                 Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
             }
         }
