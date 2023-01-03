@@ -19,7 +19,6 @@ namespace SodaCL.Launcher
                 if (!File.Exists(LauncherInfo.sodaCLConfigPath))
                 {
                     File.Create(LauncherInfo.sodaCLConfigPath);
-                    Toolkits.IniFile.Write("LaunchTime", "1");
                 }
             }
             catch (Exception ex)

@@ -6,7 +6,7 @@ namespace SodaCL.Toolkits
 {
     internal class IniFile
     {
-        private static string EXE = Assembly.GetExecutingAssembly().GetName().Name;
+        private static string EXE = "SodaCL";
 
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
         private static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);

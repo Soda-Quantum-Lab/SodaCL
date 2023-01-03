@@ -9,7 +9,7 @@ namespace SodaCL.Toolkits
     {
         private static TimeSpan DialogAniSpeed { get; } = TimeSpan.FromSeconds(0.9);
         private static TimeSpan OpacAniSpeed { get; } = TimeSpan.FromSeconds(1);
-        private static CubicEase easingFunc { get; set; } = new CubicEase { EasingMode = EasingMode.EaseIn };
+        private static CubicEase EasingFunc { get; set; } = new CubicEase { EasingMode = EasingMode.EaseInOut };
 
         public static void OpenDialog()
         {
@@ -20,11 +20,11 @@ namespace SodaCL.Toolkits
             Storyboard.SetTarget(rectBigOpacAni, MainWindow.mainWindow.DialogRect);
             Storyboard.SetTargetProperty(rectBigOpacAni, new PropertyPath("Opacity"));
             var borderBigWidthAni = new DoubleAnimation(0, 400, DialogAniSpeed);
-            borderBigWidthAni.EasingFunction = easingFunc;
+            borderBigWidthAni.EasingFunction = EasingFunc;
             Storyboard.SetTarget(borderBigWidthAni, MainWindow.mainWindow.DialogBorder);
             Storyboard.SetTargetProperty(borderBigWidthAni, new PropertyPath("Width"));
             var borderBigHeightAni = new DoubleAnimation(0, 250, DialogAniSpeed);
-            borderBigHeightAni.EasingFunction = easingFunc;
+            borderBigHeightAni.EasingFunction = EasingFunc;
             Storyboard.SetTarget(borderBigHeightAni, MainWindow.mainWindow.DialogBorder);
             Storyboard.SetTargetProperty(borderBigHeightAni, new PropertyPath("Height"));
             diaSbBig.Children.Add(rectBigOpacAni);
@@ -41,13 +41,13 @@ namespace SodaCL.Toolkits
             var froSbSmall = new Storyboard();
 
             var borderSmallWidthAni = new DoubleAnimation(400, 0, DialogAniSpeed);
-            borderSmallWidthAni.EasingFunction = easingFunc;
+            borderSmallWidthAni.EasingFunction = EasingFunc;
 
             Storyboard.SetTarget(borderSmallWidthAni, MainWindow.mainWindow.FrontBorder);
             Storyboard.SetTargetProperty(borderSmallWidthAni, new PropertyPath("Width"));
 
             var borderSmallHeightAni = new DoubleAnimation(250, 0, DialogAniSpeed);
-            borderSmallHeightAni.EasingFunction = easingFunc;
+            borderSmallHeightAni.EasingFunction = EasingFunc;
 
             Storyboard.SetTarget(borderSmallHeightAni, MainWindow.mainWindow.FrontBorder);
             Storyboard.SetTargetProperty(borderSmallHeightAni, new PropertyPath("Height"));
@@ -58,12 +58,12 @@ namespace SodaCL.Toolkits
             var diaSbBig = new Storyboard();
 
             var forBorderBigWidthAni = new DoubleAnimation(0, 400, DialogAniSpeed);
-            forBorderBigWidthAni.EasingFunction = easingFunc;
+            forBorderBigWidthAni.EasingFunction = EasingFunc;
             Storyboard.SetTarget(forBorderBigWidthAni, MainWindow.mainWindow.DialogBorder);
             Storyboard.SetTargetProperty(forBorderBigWidthAni, new PropertyPath("Width"));
 
             var forBorderBigHeightAni = new DoubleAnimation(0, 250, DialogAniSpeed);
-            forBorderBigHeightAni.EasingFunction = easingFunc;
+            forBorderBigHeightAni.EasingFunction = EasingFunc;
             Storyboard.SetTarget(forBorderBigHeightAni, MainWindow.mainWindow.DialogBorder);
             Storyboard.SetTargetProperty(forBorderBigHeightAni, new PropertyPath("Height"));
             diaSbBig.Children.Add(forBorderBigWidthAni);
@@ -88,11 +88,11 @@ namespace SodaCL.Toolkits
             Storyboard.SetTarget(rectSmallOpacAni, MainWindow.mainWindow.DialogRect);
             Storyboard.SetTargetProperty(rectSmallOpacAni, new PropertyPath("Opacity"));
             var borderSmallWidthAni = new DoubleAnimation(400, 0, DialogAniSpeed);
-            borderSmallWidthAni.EasingFunction = easingFunc;
+            borderSmallWidthAni.EasingFunction = EasingFunc;
             Storyboard.SetTarget(borderSmallWidthAni, MainWindow.mainWindow.DialogBorder);
             Storyboard.SetTargetProperty(borderSmallWidthAni, new PropertyPath("Width"));
             var borderSmallHeightAni = new DoubleAnimation(250, 0, DialogAniSpeed);
-            borderSmallHeightAni.EasingFunction = easingFunc;
+            borderSmallHeightAni.EasingFunction = EasingFunc;
             Storyboard.SetTarget(borderSmallHeightAni, MainWindow.mainWindow.DialogBorder);
             Storyboard.SetTargetProperty(borderSmallHeightAni, new PropertyPath("Height"));
             diaSbSmall.Children.Add(rectSmallOpacAni);

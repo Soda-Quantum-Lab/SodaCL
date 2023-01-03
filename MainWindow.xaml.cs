@@ -37,8 +37,18 @@ namespace SodaCL
         // 退出按钮
         private void TitleBar_ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            Toolkits.IniFile.Write("LaunchTime", Convert.ToString(int.Parse(Toolkits.IniFile.Read("LaunchTime")) + 1));
-            this.Close();
+            try
+            {
+                //Toolkits.IniFile.Write("LaunchTime", Convert.ToString(int.Parse(Toolkits.IniFile.Read("LaunchTime")??"0") + 1 ));
+            }
+            catch(Exception ex)
+            {
+                Log(ModuleList.Main, LogInfo.Error, ex.Message, ex.StackTrace);
+            }
+            finally
+            {
+                this.Close();
+            }
         }
 
         //最小化按钮
@@ -103,7 +113,7 @@ namespace SodaCL
                 Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
                 Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
                 goBackSb.Children.Add(goBackBtnAni);
-                var goBackPanAni = new ThicknessAnimation(new Thickness(5, 0, 0, 0), new Thickness(-230, 6, 0, 0), AniTime);
+                var goBackPanAni = new ThicknessAnimation(new Thickness(5, 0, 0, 0), new Thickness(-240, 6, 0, 0), AniTime);
                 goBackPanAni.EasingFunction = easingFunc;
                 Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
                 Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
@@ -119,7 +129,7 @@ namespace SodaCL
                 Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
                 Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
                 goBackSb.Children.Add(goBackBtnAni);
-                var goBackPanAni = new ThicknessAnimation(new Thickness(-230, 0, 0, 0), new Thickness(5, 0, 0, 0), AniTime);
+                var goBackPanAni = new ThicknessAnimation(new Thickness(-240, 0, 0, 0), new Thickness(5, 0, 0, 0), AniTime);
                 goBackPanAni.EasingFunction = easingFunc;
                 Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
                 Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
