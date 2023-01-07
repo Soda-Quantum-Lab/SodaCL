@@ -207,6 +207,11 @@ namespace SodaCL.Pages
             }
         }
 
+        private void DownloadButtonClick(object sender, RoutedEventArgs e)
+        {
+            //MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
+        }
+
         //登录Task取消Token
         public CancellationTokenSource loginTsCancelSrc;
 
