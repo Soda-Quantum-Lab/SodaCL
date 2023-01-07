@@ -1,4 +1,4 @@
-﻿namespace SodaCL.Core.Auth.Models
+﻿namespace SodaCL.Core.Auth.Model
 {
     public abstract class Account
     {
@@ -9,7 +9,5 @@
     {
         public string UserName { get; set; }
         public string AccessToken { get; set; }
-
-        public string ErrorMessage { get; set; }
     }
 }

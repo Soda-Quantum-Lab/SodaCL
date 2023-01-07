@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace SodaCL.Core.Auth.Models
+namespace SodaCL.Core.Auth.Model
 {
     public class DisplayClaimsModel
     {
@@ -40,7 +40,6 @@ namespace SodaCL.Core.Auth.Models
         [JsonProperty("error")]
         public string Error { get; set; }
     }
-
     public class XboxXBLResModel
     {
         [JsonProperty("Token")]

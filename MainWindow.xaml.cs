@@ -7,7 +7,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using SodaCL.Core;
 using SodaCL.Launcher;
-using static SodaCL.Launcher.LauncherLogging;
+using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL
 {

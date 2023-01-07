@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 using SodaCL.Launcher;
-using static SodaCL.Launcher.LauncherLogging;
+using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL
 {

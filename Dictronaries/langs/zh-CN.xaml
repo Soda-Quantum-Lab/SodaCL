@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <!--不要乱改语言文件中的空格-->
+    <s:String x:Key="Error">发生错误</s:String>
     <s:String x:Key="Butten_OK">确认</s:String>
     <s:String x:Key="TitleBar_IssuesBtn_Tip">打开SodaCL的Issues页面以反馈Bug</s:String>
     <s:String x:Key="MainPage_GettingYiyan">正在获取一言</s:String>
@@ -10,9 +11,11 @@
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Title">即将跳转至微软登录页</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip">将要跳转至微软登录页，请在接下来打开的界面填写相应登录代码登录微软账户，我们已经将登陆代码复制到你的剪贴板中。</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode">你的登陆代码</s:String>
+    <s:String x:Key="Login_Microsoft_Error_AuthDeclined">您拒绝了授权请求，请在授权页面中允许授权请求</s:String>
+    <s:String x:Key="Login_Microsoft_Error_ExpiredToken">登录超时，请再试一次</s:String>
     <s:String x:Key="Login_Microsoft_Error_NoXboxAccount">该微软账户帐户尚未创建 Xbox 帐户</s:String>
     <s:String x:Key="Login_Microsoft_Error_XboxDisable">Xbox Live 在您的国家/地区不可用</s:String>
     <s:String x:Key="Login_Microsoft_Error_NeedAdultAuth">您需要进行成人验证</s:String>
-    <s:String x:Key="Login_Microsoft_Error_NeedJoinInFamily">您需要由成人添加家庭</s:String>
+    <s:String x:Key="Login_Microsoft_Error_NeedJoiningInFamily">您的账户为儿童账户，需要由成人添加家庭</s:String>
     <s:String x:Key="Login_Microsoft_Error_NoGame">我们未在您的帐户中找到正版游戏</s:String>
 </ResourceDictionary>

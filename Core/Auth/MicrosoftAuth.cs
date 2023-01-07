@@ -6,27 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SodaCL.Core.Auth.Models;
-using static SodaCL.Launcher.LauncherLogging;
-using static SodaCL.Toolkits.GetResources;
+using SodaCL.Core.Auth.Enum;
+using SodaCL.Core.Auth.Exception;
+using SodaCL.Core.Auth.Model;
+using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Auth
 {
     public class MSAuth
     {
         public event EventHandler<(WindowsTypes, string)> OpenWindows;
-
-        public bool IsSuccess { get; private set; } = false;
-
-        public enum WindowsTypes
-        {
-            StartLogin,
-            OpenInBrowser,
-            GettingXboxXBLToken,
-            GettingXboxXSTSToken,
-            GettingMCProfile,
-            NoProfile
-        }
 
         private string OAuth2AccessToken { get; set; }
         private XboxXSTSResModel xboxXSTSResModel;
@@ -67,20 +56,29 @@ namespace SodaCL.Core.Auth
             Log(ModuleList.Login, LogInfo.Info, "开始轮询");
             while (stopwatch.Elapsed < TimeSpan.FromSeconds(microsoftOAuth2ResModel.ExpiresIn))
             {
+                Pages.MainPage.mainPage.loginTsCancelSrc.Token.ThrowIfCancellationRequested();
                 await Task.Delay(microsoftOAuth2ResModel.Interval * 1000);
 
                 var pollingPostRes = await AccessTokenClient.PostAsync("token", new FormUrlEncodedContent(oAuthPostContent));
-                Log(ModuleList.Login, LogInfo.Info, "POST请求成功");
+                var pollingPostResStr = await pollingPostRes.Content.ReadAsStringAsync();
                 if (pollingPostRes.IsSuccessStatusCode)
                 {
-                    var pollingPostResModel = JsonConvert.DeserializeObject<PollingPostResModel>(await pollingPostRes.Content.ReadAsStringAsync());
+                    var pollingPostResModel = JsonConvert.DeserializeObject<PollingPostResModel>(pollingPostResStr);
                     Log(ModuleList.Login, LogInfo.Info, "成功获取OAuth2Token");
                     OAuth2AccessToken = pollingPostResModel.AccessToken;
                     break;
                 }
-                //TODO:错误处理
-                else if (pollingPostRes.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                else if (pollingPostRes.StatusCode == (System.Net.HttpStatusCode)401)
                 {
+                    var errorCode = JObject.Parse(pollingPostResStr);
+                    switch ((string)errorCode["error"])
+                    {
+                        case "authorization_declined":
+                            throw new MicrosoftAuthException(MsAuthErrorType.AuthDeclined);
+
+                        case "ExpiredToken":
+                            throw new MicrosoftAuthException(MsAuthErrorType.ExpiredToken);
+                    }
                 }
             }
             stopwatch.Stop();
@@ -122,28 +120,16 @@ namespace SodaCL.Core.Auth
                 switch (xboxXSTSErrModel.XErr)
                 {
                     case string Err when Err.Equals("2148916233"):
-                        return new MicrosoftAccount
-                        {
-                            ErrorMessage = GetI18NText("Login_Microsoft_Error_NoXboxAccount")
-                        };
+                        throw new MicrosoftAuthException(MsAuthErrorType.NoXboxAccount);
 
                     case string Err when Err.Equals("2148916235"):
-                        return new MicrosoftAccount
-                        {
-                            ErrorMessage = GetI18NText("Login_Microsoft_Error_XboxDisable")
-                        };
+                        throw new MicrosoftAuthException(MsAuthErrorType.XboxDisable);
 
                     case string Err when Err.Equals("2148916236") || Err.Equals("2148916237"):
-                        return new MicrosoftAccount
-                        {
-                            ErrorMessage = GetI18NText("Login_Microsoft_Error_NeedAdultAuth")
-                        };
+                        throw new MicrosoftAuthException(MsAuthErrorType.NeedAdultAuth);
 
                     case string Err when Err.Equals("2148916233"):
-                        return new MicrosoftAccount
-                        {
-                            ErrorMessage = GetI18NText("Login_Microsoft_Error_NeedJoinInFamily")
-                        };
+                        throw new MicrosoftAuthException(MsAuthErrorType.NeedJoiningInFamily);
                 }
                 xstsResponse.EnsureSuccessStatusCode();
                 xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
@@ -178,16 +164,12 @@ namespace SodaCL.Core.Auth
             if (userProfileRes.IsSuccessStatusCode)
             {
                 minecraftProfileResModel = JsonConvert.DeserializeObject<MinecraftProfileResModel>(await userProfileRes.Content.ReadAsStringAsync());
-                IsSuccess = true;
                 Log(ModuleList.Login, LogInfo.Info, "成功获取MCToken");
             }
             else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 OpenWindows?.Invoke(this, (WindowsTypes.GettingMCProfile, null));
-                return new MicrosoftAccount
-                {
-                    ErrorMessage = GetI18NText("Login_Microsoft_Error_NoGame")
-                };
+                throw new MicrosoftAuthException(MsAuthErrorType.NoGame);
             }
 
             #endregion 获取 User Profile

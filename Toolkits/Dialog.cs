@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using static SodaCL.Toolkits.GetResources;
 
 namespace SodaCL.Toolkits
 {
@@ -13,6 +15,7 @@ namespace SodaCL.Toolkits
 
         public static void OpenDialog()
         {
+            GlobalVariable.IsDialogOpen = true;
             MainWindow.mainWindow.TitleBar_SettingsBtn.IsEnabled = false;
             MainWindow.mainWindow.FrontGrid.Visibility = Visibility.Visible;
             var diaSbBig = new Storyboard();
@@ -31,6 +34,57 @@ namespace SodaCL.Toolkits
             diaSbBig.Children.Add(borderBigWidthAni);
             diaSbBig.Children.Add(borderBigHeightAni);
             diaSbBig.Begin();
+        }
+        public static void OpenErrorDialog(string message,string stack)
+        {
+            OpenDialog();
+            var StackPan = new StackPanel { Margin = new Thickness(10, 20, 10, 0), Orientation = Orientation.Horizontal };
+            var iconBor = new Border
+            {
+                Height = 32,
+                Width = 32,
+                Margin = new Thickness(5, 0, 0, 0),
+                Background = GetBrush("Color1"),
+                CornerRadius = new CornerRadius(16),
+                Child = new System.Windows.Controls.Image
+                {
+                    Width = 20,
+                    Height = 20,
+                    Source = GetSvg("Svg_Information"),
+                }
+            };
+            var okButton = new Button
+            {
+                Margin = new Thickness(270, 0, 0, 0),
+                Content = GetI18NText("Butten_OK"),
+                Style = GetStyle("Btn_Main")
+            };
+            okButton.Click += (s, be) =>
+            {
+                CloseDialog();
+            };
+            StackPan.Children.Add(iconBor);
+            StackPan.Children.Add(new TextBlock
+            {
+                Height = 28,
+                Margin = new Thickness(10, 0, 0, 0),
+                Padding = new Thickness(0, 3, 0, 0),
+                Style = GetStyle("Text_Bold"),
+                Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
+            });
+            MainWindow.mainWindow.DialogStackPan.Children.Add(StackPan);
+            MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
+            {
+                Margin = new Thickness(57, 10, 20, 0),
+                Text = GetI18NText("Error")
+            });
+            MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
+            {
+                Margin = new Thickness(56, 10, 20, 0),
+                Style = GetStyle("Text_Bold"),
+                Text = message + "\n" + stack
+            });
+            MainWindow.mainWindow.DialogStackPan.Children.Add(okButton);
         }
 
         public static void ChangeDialog()
@@ -104,6 +158,7 @@ namespace SodaCL.Toolkits
                 MainWindow.mainWindow.DialogStackPan.Children.Clear();
             };
             diaSbSmall.Begin();
+            GlobalVariable.IsDialogOpen = false;
         }
     }
 }

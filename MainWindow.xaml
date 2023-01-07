@@ -61,7 +61,7 @@
                 <Grid Name="FrontGrid" Grid.Row="2" Visibility="Hidden">
                     <Rectangle Name="DialogRect" Opacity="0" Fill="Black" ></Rectangle>
                     <Border Name="DialogBorder" Width="400" Height="250" Background="White" CornerRadius="12">
-                        <StackPanel Name="DialogStackPan" Width="400" Height="250" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <StackPanel Name="DialogStackPan" Width="400" Height="250" HorizontalAlignment="Left" VerticalAlignment="Top"></StackPanel>
                     </Border>
                     <Border Name="FrontBorder" Width="400" Height="250" Background="White" CornerRadius="12" Visibility="Hidden"></Border>
                 </Grid>

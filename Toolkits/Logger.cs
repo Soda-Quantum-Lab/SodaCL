@@ -2,10 +2,11 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using SodaCL.Launcher;
 
-namespace SodaCL.Launcher
+namespace SodaCL.Toolkits
 {
-    public class LauncherLogging
+    public class Logger
     {
         /// <summary>
         /// 日志级别枚举
@@ -53,7 +54,6 @@ namespace SodaCL.Launcher
                 for (; fileNum >= 5; fileNum--)
                     File.Delete(logFiles[fileNum - 1].ToString());
             }
-            //不需要目录处理，C#自动处理，别加了。
             try
             {
                 Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.sodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
@@ -77,7 +77,7 @@ namespace SodaCL.Launcher
             string moduleText = "";
             if (LogInfo == LogInfo.Error)
             {
-                logContent = "出现错误:" + logContent + exStack;
+                logContent = "出现错误:" + logContent + "\n" + exStack;
                 MessageBox.Show(logContent);
             }
             switch (module)

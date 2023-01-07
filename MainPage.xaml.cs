@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,11 +9,13 @@ using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
+using SodaCL.Core.Auth.Enum;
+using SodaCL.Core.Auth.Exception;
+using SodaCL.Core.Auth.Model;
 using SodaCL.Core.Download;
-using static SodaCL.Core.Auth.MSAuth;
-using static SodaCL.Launcher.LauncherLogging;
 using static SodaCL.Toolkits.Dialog;
 using static SodaCL.Toolkits.GetResources;
+using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Pages
 {
@@ -22,6 +25,7 @@ namespace SodaCL.Pages
 
     public partial class MainPage : Page
     {
+        public static MainPage mainPage;
         private string yiYanText;
 
         #region 初始化
@@ -29,14 +33,16 @@ namespace SodaCL.Pages
         public MainPage()
         {
             InitializeComponent();
+            mainPage = this;
         }
 
         private async void Page_Initialized(object sender, EventArgs e)
         {
-            await GetYiyanAsync();
             SayHello();
             TextAni();
+            await GetYiyanAsync();
         }
+
         private void TextAni()
         {
             var textSb = new Storyboard();
@@ -48,12 +54,7 @@ namespace SodaCL.Pages
             Storyboard.SetTarget(DateAni, SayHelloTimeTxb);
             Storyboard.SetTargetProperty(DateAni, new PropertyPath("Opacity"));
             textSb.Children.Add(DateAni);
-            var yiYanAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
-            yiYanAni.BeginTime = TimeSpan.FromSeconds(0.2);
-            Storyboard.SetTarget(yiYanAni, YiYanTxb);
-            Storyboard.SetTargetProperty(yiYanAni, new PropertyPath("Opacity"));
-            textSb.Children.Add(yiYanAni);
-            var launchBarAni = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.4));
+            var launchBarAni = new ThicknessAnimation(new Thickness(0, 110, 0, 0), new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.4));
             launchBarAni.BeginTime = TimeSpan.FromSeconds(0.2);
             launchBarAni.EasingFunction = new CubicEase
             {
@@ -160,6 +161,11 @@ namespace SodaCL.Pages
                 YiYanTxb.Text = "一言获取失败";
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
             }
+            finally
+            {
+                var yiYanAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
+                YiYanTxb.BeginAnimation(OpacityProperty, yiYanAni);
+            }
         }
 
         #endregion 初始化
@@ -201,28 +207,81 @@ namespace SodaCL.Pages
             }
         }
 
+        //登录Task取消Token
+        public CancellationTokenSource loginTsCancelSrc;
+
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
         {
+            MSAuth msOAuth = new();
+            msOAuth.OpenWindows += MSOAuth_OpenWindows;
+            loginTsCancelSrc = new CancellationTokenSource();
+
+            MicrosoftAccount msAccount;
             try
             {
-                MSAuth msOAuth = new();
-                msOAuth.OpenWindows += MSOAuth_OpenWindows;
-                var mcAccount = await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
+                msAccount = await Task.Run<MicrosoftAccount>(async () =>
+            {
+                return await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
+            }, loginTsCancelSrc.Token);
+            }
+            catch (MicrosoftAuthException ex)
+            {
+                string errorMsg;
+                switch (ex.ErrorType)
+                {
+                    case MsAuthErrorType.AuthDeclined:
+                        errorMsg = GetI18NText("Login_Microsoft_Error_AuthDeclined");
+                        Log(ModuleList.Login, LogInfo.Error, "最终用户拒绝了授权请求");
+                        break;
+                    case MsAuthErrorType.ExpiredToken:
+                        errorMsg = GetI18NText("Login_Microsoft_Error_ExpiredToken");
+                        Log(ModuleList.Login, LogInfo.Error, "登录超时");
+                        break;
+                    case MsAuthErrorType.NoXboxAccount:
+                        errorMsg = GetI18NText("Login_Microsoft_Error_NoXboxAccount");
+                        Log(ModuleList.Login, LogInfo.Error, "用户未创建Xbox账户");
+                        break;
+                    case MsAuthErrorType.XboxDisable:
+                        errorMsg = GetI18NText("Login_Microsoft_Error_XboxDisable");
+                        Log(ModuleList.Login, LogInfo.Error, " Xbox Live 不可用/禁止的国家/地区");
+                        break;
+                    case MsAuthErrorType.NeedAdultAuth:
+                        errorMsg = GetI18NText("Login_Microsoft_Error_NeedAdultAuth");
+                        Log(ModuleList.Login, LogInfo.Error, "需要在 Xbox 页面上进行成人验证");
+                        break;
+                    case MsAuthErrorType.NeedJoiningInFamily:
+                        errorMsg = GetI18NText("Login_Microsoft_Error_NeedJoiningInFamily");
+                        Log(ModuleList.Login, LogInfo.Error, "需要在 Xbox 页面上进行成人验证");
+                        break;
+                    case MsAuthErrorType.NoGame:
+                        errorMsg = GetI18NText("Login_Microsoft_Error_NoGame");
+                        Log(ModuleList.Login, LogInfo.Error, "该帐户是儿童账户");
+                        break;
+                };
+                OpenDialog();
+
+            }
+            catch (OperationCanceledException)
+            {
+                Log(ModuleList.Login, LogInfo.Warning, "登录操作已取消");
             }
             catch (Exception ex)
             {
-                CloseDialog();
+                Dispatcher.Invoke(new Action(() => { CloseDialog(); }));
                 Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
+            }
+            finally
+            {
+                loginTsCancelSrc.Dispose();
             }
         }
 
-        #endregion 事件
-
-        private async void MSOAuth_OpenWindows(object sender, (MSAuth.WindowsTypes, string) e)
+        private async void MSOAuth_OpenWindows(object sender, (WindowsTypes, string) e)
         {
             if (e.Item1.Equals(WindowsTypes.OpenInBrowser))
             {
-                ChangeDialog();
+                Dispatcher.Invoke(new Action(() => { ChangeDialog(); }));
+
                 await OpenOpenInBrowserWindow(e.Item2);
             }
             switch (e)
@@ -240,22 +299,25 @@ namespace SodaCL.Pages
             }
         }
 
+        #endregion 事件
+
         /// <summary>
-        /// 打开一个登录说明界面
+        /// 打开登录说明界面
         /// </summary>
-        /// <param name="deviceCode">显示的登陆代码</param>
+        /// <param name="deviceCode">显示的登录代码</param>
         private async Task OpenOpenInBrowserWindow(string deviceCode)
         {
             await Dispatcher.InvokeAsync(() =>
             {
-                var StackPan = new StackPanel { Margin = new Thickness(10, 10, 10, 0), Orientation = Orientation.Horizontal };
+                var StackPan = new StackPanel { Margin = new Thickness(10, 20, 10, 0), Orientation = Orientation.Horizontal };
                 var iconBor = new Border
                 {
                     Height = 32,
                     Width = 32,
+                    Margin = new Thickness(5, 0, 0, 0),
                     Background = GetBrush("Color1"),
                     CornerRadius = new CornerRadius(16),
-                    Child = new Image
+                    Child = new System.Windows.Controls.Image
                     {
                         Width = 20,
                         Height = 20,
@@ -264,11 +326,11 @@ namespace SodaCL.Pages
                 };
                 var exitButton = new Button
                 {
-                    Margin = new Thickness(125, 0, 0, 0),
+                    Margin = new Thickness(120, 0, 0, 0),
                     Height = 32,
                     Width = 32,
                     Style = GetStyle("Btn_NoBackground"),
-                    Content = new Image
+                    Content = new System.Windows.Controls.Image
                     {
                         Width = 20,
                         Height = 20,
@@ -283,7 +345,9 @@ namespace SodaCL.Pages
                 };
                 exitButton.Click += (s, e) =>
                 {
-                    CloseDialog();
+                    loginTsCancelSrc.Cancel();
+                    Dispatcher.Invoke(new Action(() => { CloseDialog(); }));
+                    Log(ModuleList.Login, LogInfo.Warning, "用户取消了登录操作");
                 };
                 okButton.Click += (s, be) =>
                     {
@@ -305,18 +369,18 @@ namespace SodaCL.Pages
                 MainWindow.mainWindow.DialogStackPan.Children.Add(StackPan);
                 MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
-                    Margin = new Thickness(52, 10, 20, 0),
+                    Margin = new Thickness(57, 10, 20, 0),
                     Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
                 });
                 MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
-                    Margin = new Thickness(50, 10, 20, 0),
+                    Margin = new Thickness(56, 10, 20, 0),
                     Style = GetStyle("Text_Bold"),
                     Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
                 });
                 MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
-                    Margin = new Thickness(50, 5, 20, 0),
+                    Margin = new Thickness(55, 5, 20, 0),
                     Text = deviceCode,
                     FontSize = 24,
                 });

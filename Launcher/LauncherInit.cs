@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using static SodaCL.Launcher.LauncherLogging;
+using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Launcher
 {
