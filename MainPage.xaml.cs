@@ -194,22 +194,14 @@ namespace SodaCL.Pages
             Process.Start("explorer.exe", ".\\SodaCL\\logs");
         }
 
-        private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
-                Log(ModuleList.Main, LogInfo.Info, "BakaXL 已启动");
-            }
-            catch (Exception ex)
-            {
-                Log(ModuleList.Main, LogInfo.Error, "BakaXL 未能正常启动，可能是下载的文件不完整" + ex.Message, ex.StackTrace);
-            }
-        }
-
         private void DownloadButtonClick(object sender, RoutedEventArgs e)
         {
             //MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
+        }
+
+        private void VersionsListButtonClick(object sender, RoutedEventArgs e)
+        {
+            Core.MCVersionList.GetVersionList();
         }
 
         //登录Task取消Token

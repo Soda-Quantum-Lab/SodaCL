@@ -16,6 +16,7 @@ namespace SodaCL.Launcher
                 Directory.CreateDirectory(LauncherInfo.sodaCLBasePath);
                 Directory.CreateDirectory(LauncherInfo.mcDir);
                 Directory.CreateDirectory(LauncherInfo.sodaCLLogPath);
+                Directory.CreateDirectory(LauncherInfo.mcVersionsDir);
                 if (!File.Exists(LauncherInfo.sodaCLConfigPath))
                 {
                     File.Create(LauncherInfo.sodaCLConfigPath);
