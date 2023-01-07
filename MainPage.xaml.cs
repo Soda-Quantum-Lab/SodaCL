@@ -243,7 +243,7 @@ namespace SodaCL.Pages
         /// <summary>
         /// 打开一个登录说明界面
         /// </summary>
-        /// <param name="deviceCode">显示的登陆代码</param>
+        /// <param name="deviceCode">显示的登录代码</param>
         private async Task OpenOpenInBrowserWindow(string deviceCode)
         {
             await Dispatcher.InvokeAsync(() =>

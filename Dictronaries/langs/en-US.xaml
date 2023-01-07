@@ -8,8 +8,8 @@
     <s:String x:Key="MainPage_CurrentCore">当前启动的核心</s:String>
     <s:String x:Key="MainPage_StartGame">▷ 开始游戏</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Title">即将跳转至微软登录页</s:String>
-    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip">将要跳转至微软登录页，请在接下来打开的界面填写相应登录代码登录微软账户，我们已经将登陆代码复制到你的剪贴板中。</s:String>
-    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode">你的登陆代码</s:String>
+    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip">将要跳转至微软登录页，请在接下来打开的界面填写相应登录代码登录微软账户，我们已经将登录代码复制到你的剪贴板中。</s:String>
+    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode">你的登录代码</s:String>
     <s:String x:Key="Login_Microsoft_Error_NoXboxAccount">该微软账户帐户尚未创建 Xbox 帐户</s:String>
     <s:String x:Key="Login_Microsoft_Error_XboxDisable">Xbox Live 在您的国家/地区不可用</s:String>
     <s:String x:Key="Login_Microsoft_Error_NeedAdultAuth">您需要进行成人验证</s:String>
