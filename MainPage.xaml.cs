@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
@@ -22,7 +23,7 @@ namespace SodaCL.Pages
 
     public partial class MainPage : Page
     {
-        public static MainWindow mainwindow;
+        public static MainPage mainPage;
         private string yiYanText;
 
         #region 初始化
@@ -30,6 +31,7 @@ namespace SodaCL.Pages
         public MainPage()
         {
             InitializeComponent();
+            mainPage = this;
         }
 
         private async void Page_Initialized(object sender, EventArgs e)
@@ -204,7 +206,7 @@ namespace SodaCL.Pages
 
         private void DownloadButtonClick(object sender, RoutedEventArgs e)
         {
-            MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
+            //MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
         }
 
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
