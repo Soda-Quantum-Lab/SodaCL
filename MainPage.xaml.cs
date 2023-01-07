@@ -22,6 +22,7 @@ namespace SodaCL.Pages
 
     public partial class MainPage : Page
     {
+        public static MainWindow mainwindow;
         private string yiYanText;
 
         #region 初始化
@@ -199,6 +200,11 @@ namespace SodaCL.Pages
             {
                 Log(ModuleList.Main, LogInfo.Error, "BakaXL 未能正常启动，可能是下载的文件不完整" + ex.Message, ex.StackTrace);
             }
+        }
+
+        private void DownloadButtonClick(object sender, RoutedEventArgs e)
+        {
+            MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
         }
 
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
