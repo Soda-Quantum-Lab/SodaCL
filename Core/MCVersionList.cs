@@ -39,7 +39,7 @@ namespace SodaCL.Core
             }
             else
             {
-                Log(ModuleList.IO, LogInfo.Error, "versions 目录不存在, 可能是初始化阶段出现了异常导致 versions 文件夹未成功创建");
+                Log(ModuleList.IO,"versions 目录不存在, 可能是初始化阶段出现了异常导致 versions 文件夹未成功创建");
                 return null;
             }
         }

@@ -140,9 +140,45 @@ namespace SodaCL.Toolkits
 
             Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [Error] {logContent}");
         }
+        /// <summary>
+        /// 输出无错误体的自定义错误Log
+        /// </summary>
+        /// <param name="module">模块位置</param>
+        /// <param name="exContent">自定义错误信息</param>
+        public static void Log(ModuleList module, string exContent)
+        {
+            var moduleText = "";
+            var logContent = "出现错误:" + exContent;
+            MessageBox.Show(logContent);
+
+            switch (module)
+            {
+                case ModuleList.Main:
+                    moduleText = "Main";
+                    break;
+
+                case ModuleList.Animation:
+                    moduleText = "Animation";
+                    break;
+
+                case ModuleList.Network:
+                    moduleText = "Network";
+                    break;
+
+                case ModuleList.IO:
+                    moduleText = "IO";
+                    break;
+
+                case ModuleList.Login:
+                    moduleText = "Login";
+                    break;
+            }
+
+            Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [Error] {logContent}");
+        }
 
         /// <summary>
-        /// 输出自定义错误Log
+        /// 输出有错误体的自定义错误Log
         /// </summary>
         /// <param name="module">模块位置</param>
         /// <param name="ex">错误体</param>
