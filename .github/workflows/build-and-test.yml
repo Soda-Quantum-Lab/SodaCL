@@ -27,14 +27,14 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Install dependencies
-      run: dotnet restore Soda_Craft_Launcher.sln
-
     - name: Init Token
       run: |        
         $token_xaml = [System.Convert]::FromBase64String("${{ secrets.TOKEN_XAML_BASE64 }}")
         $token_path = Join-Path -Path D:\a\SodaCL\SodaCL\Dictronaries\ -ChildPath Token.xaml
         [IO.File]::WriteAllBytes("$token_path", $token_xaml)
+
+    - name: Install dependencies
+      run: dotnet restore Soda_Craft_Launcher.sln
 
     - name: Build
       run: dotnet build Soda_Craft_Launcher.sln --configuration Release --no-restore
