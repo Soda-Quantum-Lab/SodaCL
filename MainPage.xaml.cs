@@ -208,7 +208,7 @@ namespace SodaCL.Pages
 
         private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
         {
-            Core.MCVersionList.GetVersionList();
+            MC_VersionList.GetVersionList();
             Core.JavaFinding.AutoJavaFinding();
         }
 
