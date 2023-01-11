@@ -37,32 +37,41 @@ namespace SodaCL.Pages
 
         private async void Page_Initialized(object sender, EventArgs e)
         {
+            await GetYiyanAsync();
             SayHello();
             TextAni();
-            await GetYiyanAsync();
-        }
 
+        }
         private void TextAni()
         {
-            var textSb = new Storyboard();
-            var helloAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
-            Storyboard.SetTarget(helloAni, SayHelloUsernameTxb);
-            Storyboard.SetTargetProperty(helloAni, new PropertyPath("Opacity"));
-            textSb.Children.Add(helloAni);
-            var DateAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
-            Storyboard.SetTarget(DateAni, SayHelloTimeTxb);
-            Storyboard.SetTargetProperty(DateAni, new PropertyPath("Opacity"));
-            textSb.Children.Add(DateAni);
-            var launchBarAni = new ThicknessAnimation(new Thickness(0, 110, 0, 0), new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.4));
-            launchBarAni.BeginTime = TimeSpan.FromSeconds(0.2);
-            launchBarAni.EasingFunction = new CubicEase
+            Storyboard storyboard = new Storyboard();
+            DoubleAnimation doubleAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
+            Storyboard.SetTarget(doubleAnimation, SayHelloUsernameTxb);
+            Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("Opacity"));
+            storyboard.Children.Add(doubleAnimation);
+            DoubleAnimation doubleAnimation2 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
+            Storyboard.SetTarget(doubleAnimation2, SayHelloTimeTxb);
+            Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath("Opacity"));
+            storyboard.Children.Add(doubleAnimation2);
+            DoubleAnimation doubleAnimation3 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5))
             {
-                EasingMode = EasingMode.EaseInOut
+                BeginTime = TimeSpan.FromSeconds(0.2)
             };
-            Storyboard.SetTarget(launchBarAni, LaunchBar);
-            Storyboard.SetTargetProperty(launchBarAni, new PropertyPath("Margin"));
-            textSb.Children.Add(launchBarAni);
-            textSb.Begin();
+            Storyboard.SetTarget(doubleAnimation3, YiYanTxb);
+            Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath("Opacity"));
+            storyboard.Children.Add(doubleAnimation3);
+            ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4))
+            {
+                BeginTime = TimeSpan.FromSeconds(0.2),
+                EasingFunction = new CubicEase
+                {
+                    EasingMode = EasingMode.EaseInOut
+                }
+            };
+            Storyboard.SetTarget(thicknessAnimation, LaunchBar);
+            Storyboard.SetTargetProperty(thicknessAnimation, new PropertyPath("Margin"));
+            storyboard.Children.Add(thicknessAnimation);
+            storyboard.Begin();
         }
 
         private void SayHello()
@@ -155,15 +164,10 @@ namespace SodaCL.Pages
                     YiYanTxb.Text = yiYanText;
                 }
             }
-            catch (TaskCanceledException ex)
+            catch (Exception ex)
             {
                 YiYanTxb.Text = "一言获取失败";
-                Log(ModuleList.Network, ex, ex.Message, ex.StackTrace);
-            }
-            finally
-            {
-                var yiYanAni = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5));
-                YiYanTxb.BeginAnimation(OpacityProperty, yiYanAni);
+                Trace.WriteLine($"[{DateTime.Now}] [NetWork] [Error] 一眼获取失败{ex.Message}");
             }
         }
 
@@ -397,5 +401,7 @@ namespace SodaCL.Pages
                 MainWindow.mainWindow.DialogStackPan.Children.Add(okButton);
             });
         }
+
+
     }
 }
