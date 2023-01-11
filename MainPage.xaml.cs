@@ -194,7 +194,7 @@ namespace SodaCL.Pages
             Process.Start("explorer.exe", ".\\SodaCL\\logs");
         }
 
-        private void BakaXLStartUpBtnClick(object sender, RoutedEventArgs e)
+        private void DownloadButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -207,9 +207,9 @@ namespace SodaCL.Pages
             }
         }
 
-        private void DownloadButtonClick(object sender, RoutedEventArgs e)
+        private void VersionsListButtonClick(object sender, RoutedEventArgs e)
         {
-            //MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
+            Core.MCVersionList.GetVersionList();
         }
 
         //登录Task取消Token
