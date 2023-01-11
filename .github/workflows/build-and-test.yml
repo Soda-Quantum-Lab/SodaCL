@@ -32,7 +32,7 @@ jobs:
 
     - name: Init Token
       run: |
-        $token_xaml = ${{ secrets.Base64_Encoded_Pfx }}
+        $token_xaml = ${{ secrets.TOKEN_XAML }}
         $token_path = Join-Path -Path D:\a\SodaCL\SodaCL\Dictronaries\ -ChildPath Token.xaml
         [IO.File]::WriteAllText("$token_path", $token_xaml)
 
