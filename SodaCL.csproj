@@ -9,8 +9,8 @@
 		<AssemblyName>SodaCL</AssemblyName>
 		<AssemblyTitle>Soda Craft Launcher 启动器</AssemblyTitle>
 		<Description>一个清爽的 Minecraft 启动器</Description>
-		<Version>0.0.4.4</Version>
-		<FileVersion>0.0.4.4</FileVersion>
+		<Version>0.0.4.6</Version>
+		<FileVersion>0.0.4.6</FileVersion>
 		<Copyright>Copyright © 2022-2023 Soda Quantum Laboratory，All Rights Reserved.</Copyright>
 		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
 		<RootNamespace>SodaCL</RootNamespace>
@@ -38,6 +38,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
 		<PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
 	</ItemGroup>
 

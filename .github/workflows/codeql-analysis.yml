@@ -38,6 +38,12 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
+      
+    - name: Init Token
+      run: |
+        $token_xaml = [System.Convert]::FromBase64String("${{ secrets.TOKEN_XAML_BASE64 }}")
+        $token_path = Join-Path -Path D:\a\SodaCL\SodaCL\Dictronaries\ -ChildPath Token.xaml
+        [IO.File]::WriteAllBytes("$token_path", $token_xaml)
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1

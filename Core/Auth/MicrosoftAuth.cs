@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SodaCL.Core.Auth.Enum;
-using SodaCL.Core.Auth.Exception;
 using SodaCL.Core.Auth.Model;
 using static SodaCL.Toolkits.Logger;
 

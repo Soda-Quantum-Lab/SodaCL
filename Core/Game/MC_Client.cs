@@ -1,19 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace SodaCL.Core
+namespace SodaCL.Core.Game
 {
-    public class MC_Mod
-    {
-        private string version;
-        private string id, name;
-        private List<string> author;
-        private List<string> depend;
-        private string platf;// forge/fabric/...
-        private string gamePath = ".minecraft";//ÓÎÏ·Â·¾¶
-    }
-
-    public class MCClient
+    public class MC_Client
     {
         public string version;
         public int addition;// forge, fabric, opti, ...
@@ -28,7 +18,7 @@ namespace SodaCL.Core
         public string path;
         public string versionJson, clientJar;
 
-        public MCClient(string version)
+        public MC_Client(string version)
         {
             this.version = version;
             createTime = DateTime.Now;

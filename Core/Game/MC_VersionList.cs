@@ -1,18 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static SodaCL.Toolkits.Logger;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.IO;
 using SodaCL.Launcher;
+using static SodaCL.Toolkits.Logger;
 
-namespace SodaCL.Core
+namespace SodaCL.Core.Game
 {
-    internal class MCVersionList
+    internal class MC_VersionList
     {
-        public static string[] GetVersionList() 
+        public static string[] GetVersionList()
         {
             // 留着，以后有用
             //DirectoryInfo mcVersionsFolder = new DirectoryInfo(SodaCL.Launcher.LauncherInfo.mcVersionsDir);
@@ -39,11 +33,9 @@ namespace SodaCL.Core
             }
             else
             {
-                Log(ModuleList.IO, LogInfo.Error, "versions 目录不存在, 可能是初始化阶段出现了异常导致 versions 文件夹未成功创建");
+                Log(ModuleList.IO, "versions 目录不存在, 可能是初始化阶段出现了异常导致 versions 文件夹未成功创建");
                 return null;
             }
         }
-        
-        
     }
 }

@@ -9,10 +9,9 @@ using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
-using SodaCL.Core.Auth.Enum;
-using SodaCL.Core.Auth.Exception;
 using SodaCL.Core.Auth.Model;
 using SodaCL.Core.Download;
+using SodaCL.Core.Game;
 using static SodaCL.Toolkits.Dialog;
 using static SodaCL.Toolkits.GetResources;
 using static SodaCL.Toolkits.Logger;
@@ -106,7 +105,7 @@ namespace SodaCL.Pages
             }
             catch (Exception ex)
             {
-                Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
+                Log(ModuleList.IO, ex, ex.Message, ex.StackTrace);
             }
         }
 
@@ -159,7 +158,7 @@ namespace SodaCL.Pages
             catch (TaskCanceledException ex)
             {
                 YiYanTxb.Text = "一言获取失败";
-                Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
+                Log(ModuleList.Network, ex, ex.Message, ex.StackTrace);
             }
             finally
             {
@@ -196,7 +195,15 @@ namespace SodaCL.Pages
 
         private void DownloadButtonClick(object sender, RoutedEventArgs e)
         {
-            //MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
+            try
+            {
+                System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
+                Log(ModuleList.Main, LogInfo.Info, "BakaXL 已启动");
+            }
+            catch (Exception ex)
+            {
+                Log(ModuleList.Main, ex, "BakaXL 未能正常启动，可能是下载的文件不完整");
+            }
         }
 
         private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
@@ -219,7 +226,7 @@ namespace SodaCL.Pages
             {
                 msAccount = await Task.Run<MicrosoftAccount>(async () =>
             {
-                return await msOAuth.StartAuthAsync("7cb6044b-138a-48e9-994c-54d682ad1e34");
+                return await msOAuth.StartAuthAsync(GetText("OAuth2Token"));
             }, loginTsCancelSrc.Token);
             }
             catch (MicrosoftAuthException ex)
@@ -228,36 +235,41 @@ namespace SodaCL.Pages
                 switch (ex.ErrorType)
                 {
                     case MsAuthErrorType.AuthDeclined:
-                        errorMsg = GetI18NText("Login_Microsoft_Error_AuthDeclined");
-                        Log(ModuleList.Login, LogInfo.Error, "最终用户拒绝了授权请求");
+                        errorMsg = GetText("Login_Microsoft_Error_AuthDeclined");
+                        Log(ModuleList.Login, ex, "最终用户拒绝了授权请求");
                         break;
+
                     case MsAuthErrorType.ExpiredToken:
-                        errorMsg = GetI18NText("Login_Microsoft_Error_ExpiredToken");
-                        Log(ModuleList.Login, LogInfo.Error, "登录超时");
+                        errorMsg = GetText("Login_Microsoft_Error_ExpiredToken");
+                        Log(ModuleList.Login, ex, "登录超时");
                         break;
+
                     case MsAuthErrorType.NoXboxAccount:
-                        errorMsg = GetI18NText("Login_Microsoft_Error_NoXboxAccount");
-                        Log(ModuleList.Login, LogInfo.Error, "用户未创建Xbox账户");
+                        errorMsg = GetText("Login_Microsoft_Error_NoXboxAccount");
+                        Log(ModuleList.Login, ex, "用户未创建Xbox账户");
                         break;
+
                     case MsAuthErrorType.XboxDisable:
-                        errorMsg = GetI18NText("Login_Microsoft_Error_XboxDisable");
-                        Log(ModuleList.Login, LogInfo.Error, " Xbox Live 不可用/禁止的国家/地区");
+                        errorMsg = GetText("Login_Microsoft_Error_XboxDisable");
+                        Log(ModuleList.Login, ex, " Xbox Live 不可用/禁止的国家/地区");
                         break;
+
                     case MsAuthErrorType.NeedAdultAuth:
-                        errorMsg = GetI18NText("Login_Microsoft_Error_NeedAdultAuth");
-                        Log(ModuleList.Login, LogInfo.Error, "需要在 Xbox 页面上进行成人验证");
+                        errorMsg = GetText("Login_Microsoft_Error_NeedAdultAuth");
+                        Log(ModuleList.Login, ex, "需要在 Xbox 页面上进行成人验证");
                         break;
+
                     case MsAuthErrorType.NeedJoiningInFamily:
-                        errorMsg = GetI18NText("Login_Microsoft_Error_NeedJoiningInFamily");
-                        Log(ModuleList.Login, LogInfo.Error, "需要在 Xbox 页面上进行成人验证");
+                        errorMsg = GetText("Login_Microsoft_Error_NeedJoiningInFamily");
+                        Log(ModuleList.Login, ex, "需要在 Xbox 页面上进行成人验证");
                         break;
+
                     case MsAuthErrorType.NoGame:
-                        errorMsg = GetI18NText("Login_Microsoft_Error_NoGame");
-                        Log(ModuleList.Login, LogInfo.Error, "该帐户是儿童账户");
+                        errorMsg = GetText("Login_Microsoft_Error_NoGame");
+                        Log(ModuleList.Login, ex, "该帐户是儿童账户");
                         break;
                 };
                 OpenDialog();
-
             }
             catch (OperationCanceledException)
             {
@@ -266,7 +278,7 @@ namespace SodaCL.Pages
             catch (Exception ex)
             {
                 Dispatcher.Invoke(new Action(() => { CloseDialog(); }));
-                Log(ModuleList.Network, LogInfo.Error, ex.Message, ex.StackTrace);
+                Log(ModuleList.Network, ex, ex.Message, ex.StackTrace);
             }
             finally
             {
@@ -338,7 +350,7 @@ namespace SodaCL.Pages
                 var okButton = new Button
                 {
                     Margin = new Thickness(270, 0, 0, 0),
-                    Content = GetI18NText("Butten_OK"),
+                    Content = GetText("Butten_OK"),
                     Style = GetStyle("Btn_Main")
                 };
                 exitButton.Click += (s, e) =>
@@ -361,20 +373,20 @@ namespace SodaCL.Pages
                     Margin = new Thickness(10, 0, 0, 0),
                     Padding = new Thickness(0, 3, 0, 0),
                     Style = GetStyle("Text_Bold"),
-                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
+                    Text = GetText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
                 });
                 StackPan.Children.Add(exitButton);
                 MainWindow.mainWindow.DialogStackPan.Children.Add(StackPan);
                 MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
                     Margin = new Thickness(57, 10, 20, 0),
-                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
+                    Text = GetText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
                 });
                 MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {
                     Margin = new Thickness(56, 10, 20, 0),
                     Style = GetStyle("Text_Bold"),
-                    Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
+                    Text = GetText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
                 });
                 MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
                 {

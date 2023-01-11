@@ -40,6 +40,7 @@ namespace SodaCL.Core.Auth.Model
         [JsonProperty("error")]
         public string Error { get; set; }
     }
+
     public class XboxXBLResModel
     {
         [JsonProperty("Token")]

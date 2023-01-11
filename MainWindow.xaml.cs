@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using SodaCL.Core;
+using SodaCL.Core.Game;
 using SodaCL.Launcher;
 using static SodaCL.Toolkits.Logger;
 
@@ -18,7 +18,7 @@ namespace SodaCL
     {
         public static MainWindow mainWindow;
         public static LauncherInfo launcherInfo;
-        public static List<MCClient> clients = new();
+        public static List<MC_Client> clients = new();
         private bool IsThisPage;
 
         public MainWindow()
@@ -43,7 +43,7 @@ namespace SodaCL
             }
             catch (Exception ex)
             {
-                Log(ModuleList.Main, LogInfo.Error, ex.Message, ex.StackTrace);
+                Log(ModuleList.Main, ex, ex.Message, ex.StackTrace);
             }
             finally
             {

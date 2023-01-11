@@ -1,15 +1,13 @@
 ﻿using System;
-using SodaCL.Core.Auth.Enum;
 
-namespace SodaCL.Core.Auth.Exception
+namespace SodaCL.Core.Auth;
+
+[Serializable]
+public class MicrosoftAuthException : System.Exception
 {
-    [Serializable]
-    public class MicrosoftAuthException : System.Exception
-    {
-        public MsAuthErrorType ErrorType { get; private set; }
+    public MsAuthErrorType ErrorType { get; private set; }
 
-        public MicrosoftAuthException(MsAuthErrorType errorType, string message = null) : base(message)
-        {
-        }
+    public MicrosoftAuthException(MsAuthErrorType errorType, string message = null) : base(message)
+    {
     }
 }
