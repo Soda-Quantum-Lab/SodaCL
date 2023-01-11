@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Dictronaries\langs\en-US.xaml" />
                 <ResourceDictionary Source="Dictronaries\langs\zh-CN.xaml" />
+                <ResourceDictionary Source="Dictronaries\Token.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--主题色-->
             <!-- 主按钮普通 -->

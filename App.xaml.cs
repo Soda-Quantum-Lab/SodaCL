@@ -13,6 +13,7 @@ namespace SodaCL
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            Toolkits.AppCenterManager.StartAppCenter();
             for (int i = 0; i < e.Args.Length; i++)
             {
                 if (e.Args[i] == "--langs")
@@ -30,13 +31,12 @@ namespace SodaCL
             }
             catch (Exception ex)
             {
-                MessageBox.Show("发生错误:" + ex.Message + "\n" + ex.StackTrace);
+                Log(ModuleList.Main, ex, ex.Message, ex.StackTrace);
             }
             LogStart();
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true, true);
             Log(ModuleList.Main, LogInfo.Info, "显示启动画面");
-            base.OnStartup(e);
             Log(ModuleList.Main, LogInfo.Info, "开始加载主窗体");
             Languages.MultiLanguages();
             Log(ModuleList.Main, LogInfo.Info, "加载语言文件");

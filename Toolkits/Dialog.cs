@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using static SodaCL.Toolkits.GetResources;
 
@@ -35,7 +36,7 @@ namespace SodaCL.Toolkits
             diaSbBig.Children.Add(borderBigHeightAni);
             diaSbBig.Begin();
         }
-        public static void OpenErrorDialog(string message,string stack)
+        public static void OpenErrorDialog(string message, string stack)
         {
             OpenDialog();
             var StackPan = new StackPanel { Margin = new Thickness(10, 20, 10, 0), Orientation = Orientation.Horizontal };
@@ -44,22 +45,29 @@ namespace SodaCL.Toolkits
                 Height = 32,
                 Width = 32,
                 Margin = new Thickness(5, 0, 0, 0),
-                Background = GetBrush("Color1"),
+                Background = Brushes.Red,
                 CornerRadius = new CornerRadius(16),
-                Child = new System.Windows.Controls.Image
+                Child = new Image
                 {
                     Width = 20,
                     Height = 20,
                     Source = GetSvg("Svg_Information"),
                 }
             };
-            var okButton = new Button
+            var exitButton = new Button
             {
-                Margin = new Thickness(270, 0, 0, 0),
-                Content = GetI18NText("Butten_OK"),
-                Style = GetStyle("Btn_Main")
+                Margin = new Thickness(120, 0, 0, 0),
+                Height = 32,
+                Width = 32,
+                Style = GetStyle("Btn_NoBackground"),
+                Content = new Image
+                {
+                    Width = 20,
+                    Height = 20,
+                    Source = GetSvg("Svg_Close")
+                }
             };
-            okButton.Click += (s, be) =>
+            exitButton.Click += (s, be) =>
             {
                 CloseDialog();
             };
@@ -70,13 +78,13 @@ namespace SodaCL.Toolkits
                 Margin = new Thickness(10, 0, 0, 0),
                 Padding = new Thickness(0, 3, 0, 0),
                 Style = GetStyle("Text_Bold"),
-                Text = GetI18NText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
+                Text = GetText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
             });
             MainWindow.mainWindow.DialogStackPan.Children.Add(StackPan);
             MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
             {
                 Margin = new Thickness(57, 10, 20, 0),
-                Text = GetI18NText("Error")
+                Text = GetText("Error")
             });
             MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
             {
@@ -84,7 +92,7 @@ namespace SodaCL.Toolkits
                 Style = GetStyle("Text_Bold"),
                 Text = message + "\n" + stack
             });
-            MainWindow.mainWindow.DialogStackPan.Children.Add(okButton);
+            MainWindow.mainWindow.DialogStackPan.Children.Add(exitButton);
         }
 
         public static void ChangeDialog()

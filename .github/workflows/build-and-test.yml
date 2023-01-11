@@ -30,6 +30,12 @@ jobs:
     - name: Install dependencies
       run: dotnet restore Soda_Craft_Launcher.sln
 
+    - name: init Token
+      run: |
+          echo ${{secrets.TOKEN_XAML}} >> Token.xaml
+          cat D:\a\SodaCL\SodaCL\Dictronaries\Token.xaml
+      shell: bash
+
     - name: Build
       run: dotnet build Soda_Craft_Launcher.sln --configuration Release --no-restore
 

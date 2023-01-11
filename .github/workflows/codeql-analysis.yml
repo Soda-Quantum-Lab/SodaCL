@@ -38,6 +38,12 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
+      
+    - name: init Token
+      run: |
+          echo ${{secrets.TOKEN_XAML}} >> Token.xaml
+          cat D:\a\SodaCL\SodaCL\Dictronaries\Token.xaml
+      shell: bash
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1

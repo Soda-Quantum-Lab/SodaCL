@@ -43,7 +43,7 @@ namespace SodaCL
             }
             catch (Exception ex)
             {
-                Log(ModuleList.Main, LogInfo.Error, ex.Message, ex.StackTrace);
+                Log(ModuleList.Main, ex, ex.Message, ex.StackTrace);
             }
             finally
             {

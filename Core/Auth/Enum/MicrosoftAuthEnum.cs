@@ -19,6 +19,5 @@
         NeedAdultAuth,
         NeedJoiningInFamily,
         NoGame,
-
     }
 }

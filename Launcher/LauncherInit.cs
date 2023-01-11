@@ -23,7 +23,7 @@ namespace SodaCL.Launcher
             }
             catch (Exception ex)
             {
-                Log(ModuleList.IO, LogInfo.Error, ex.Message, ex.StackTrace);
+                Log(ModuleList.IO, ex, ex.Message, ex.StackTrace);
             }
         }
     }
