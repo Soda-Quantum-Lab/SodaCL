@@ -199,9 +199,10 @@ namespace SodaCL.Pages
             //MainFram.Navigate(new Uri("\\Pages\\Download\\Dl_Main.xaml", UriKind.Relative));
         }
 
-        private void VersionsListButtonClick(object sender, RoutedEventArgs e)
+        private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
         {
             Core.MCVersionList.GetVersionList();
+            Core.JavaFinding.AutoJavaFinding();
         }
 
         //登录Task取消Token

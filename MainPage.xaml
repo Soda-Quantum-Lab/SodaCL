@@ -32,7 +32,7 @@
                     </StackPanel>
                     <StackPanel Height="48" DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button Width="80" Margin="0,0,15,0" Content="下载页面" Click="DownloadButtonClick" />
-                        <Button Width="80" Margin="0,0,15,0" Content="版本列表" Click="VersionsListButtonClick" />
+                        <Button Width="80" Margin="0,0,15,0" Content="获取测试" Click="EnvironmentCheckButtonClick" />
                         <Button Width="40" Margin="0,0,15,0" Content="Log" Click="LogFolderOpenerButtonClick" />
                         <Button Width="80" Margin="0,0,15,0" Content="下载测试" Click="DownloadTestButtonClick" />
                         <Button Style="{DynamicResource Btn_Main}" Name="StartBtn" Width="120" Content="{DynamicResource MainPage_StartGame}" Click="StartBtn_Click" Height="45" />
