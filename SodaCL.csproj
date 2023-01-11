@@ -32,6 +32,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Page Remove="Dictronaries\Token.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Dictronaries\Token.xaml" />
 		<Resource Include="Resources\Images\Dev.ico" />
 		<Resource Include="Resources\Images\Launcher-Bg.jpg" />
 		<Resource Include="Resources\Images\Release.ico" />
