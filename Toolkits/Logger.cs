@@ -140,6 +140,7 @@ namespace SodaCL.Toolkits
 
             Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [Error] {logContent}");
         }
+
         /// <summary>
         /// 输出无错误体的自定义错误Log
         /// </summary>

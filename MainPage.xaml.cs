@@ -9,10 +9,9 @@ using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
-using SodaCL.Core.Auth.Enum;
-using SodaCL.Core.Auth.Exception;
 using SodaCL.Core.Auth.Model;
 using SodaCL.Core.Download;
+using SodaCL.Core.Game;
 using static SodaCL.Toolkits.Dialog;
 using static SodaCL.Toolkits.GetResources;
 using static SodaCL.Toolkits.Logger;
@@ -209,7 +208,7 @@ namespace SodaCL.Pages
 
         private void VersionsListButtonClick(object sender, RoutedEventArgs e)
         {
-            Core.MCVersionList.GetVersionList();
+            MC_VersionList.GetVersionList();
         }
 
         //登录Task取消Token

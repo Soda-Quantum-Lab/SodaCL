@@ -1,4 +1,4 @@
-﻿namespace SodaCL.Core.Auth.Enum
+﻿namespace SodaCL.Core.Auth
 {
     public enum WindowsTypes
     {
