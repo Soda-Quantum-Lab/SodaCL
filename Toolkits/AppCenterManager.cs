@@ -3,9 +3,10 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using static SodaCL.Toolkits.GetResources;
+
 namespace SodaCL.Toolkits
 {
-    static class AppCenterManager
+    public static class AppCenterManager
     {
         public static void StartAppCenter()
         {
