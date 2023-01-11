@@ -36,6 +36,7 @@ namespace SodaCL.Toolkits
             diaSbBig.Children.Add(borderBigHeightAni);
             diaSbBig.Begin();
         }
+
         public static void OpenErrorDialog(string message, string stack)
         {
             OpenDialog();

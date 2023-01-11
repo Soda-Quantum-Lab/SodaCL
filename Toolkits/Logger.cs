@@ -100,6 +100,7 @@ namespace SodaCL.Toolkits
 
             Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [{LogInfo}] {logContent}");
         }
+
         /// <summary>
         /// 输出普通错误Log
         /// </summary>
@@ -139,6 +140,7 @@ namespace SodaCL.Toolkits
 
             Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [Error] {logContent}");
         }
+
         /// <summary>
         /// 输出自定义错误Log
         /// </summary>
@@ -177,6 +179,7 @@ namespace SodaCL.Toolkits
 
             Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [Error] {logContent}");
         }
+
         public static int GetFileNum()
         {
             try

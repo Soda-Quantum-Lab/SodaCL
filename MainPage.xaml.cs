@@ -238,33 +238,38 @@ namespace SodaCL.Pages
                         errorMsg = GetText("Login_Microsoft_Error_AuthDeclined");
                         Log(ModuleList.Login, ex, "最终用户拒绝了授权请求");
                         break;
+
                     case MsAuthErrorType.ExpiredToken:
                         errorMsg = GetText("Login_Microsoft_Error_ExpiredToken");
                         Log(ModuleList.Login, ex, "登录超时");
                         break;
+
                     case MsAuthErrorType.NoXboxAccount:
                         errorMsg = GetText("Login_Microsoft_Error_NoXboxAccount");
                         Log(ModuleList.Login, ex, "用户未创建Xbox账户");
                         break;
+
                     case MsAuthErrorType.XboxDisable:
                         errorMsg = GetText("Login_Microsoft_Error_XboxDisable");
                         Log(ModuleList.Login, ex, " Xbox Live 不可用/禁止的国家/地区");
                         break;
+
                     case MsAuthErrorType.NeedAdultAuth:
                         errorMsg = GetText("Login_Microsoft_Error_NeedAdultAuth");
                         Log(ModuleList.Login, ex, "需要在 Xbox 页面上进行成人验证");
                         break;
+
                     case MsAuthErrorType.NeedJoiningInFamily:
                         errorMsg = GetText("Login_Microsoft_Error_NeedJoiningInFamily");
                         Log(ModuleList.Login, ex, "需要在 Xbox 页面上进行成人验证");
                         break;
+
                     case MsAuthErrorType.NoGame:
                         errorMsg = GetText("Login_Microsoft_Error_NoGame");
                         Log(ModuleList.Login, ex, "该帐户是儿童账户");
                         break;
                 };
                 OpenDialog();
-
             }
             catch (OperationCanceledException)
             {

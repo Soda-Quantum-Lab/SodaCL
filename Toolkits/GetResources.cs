@@ -24,7 +24,6 @@ namespace SodaCL.Toolkits
         public static DrawingImage GetSvg(string key)
         {
             return (DrawingImage)Application.Current.Resources[key];
-
         }
     }
 }
