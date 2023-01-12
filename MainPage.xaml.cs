@@ -12,6 +12,7 @@ using SodaCL.Core.Auth;
 using SodaCL.Core.Auth.Model;
 using SodaCL.Core.Download;
 using SodaCL.Core.Game;
+using SodaCL.Core.Java;
 using static SodaCL.Toolkits.Dialog;
 using static SodaCL.Toolkits.GetResources;
 using static SodaCL.Toolkits.Logger;
@@ -213,7 +214,7 @@ namespace SodaCL.Pages
         private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
         {
             MC_VersionList.GetVersionList();
-            Core.JavaFinding.AutoJavaFinding();
+            JavaFinding.AutoJavaFinding(true);
         }
 
         //登录Task取消Token
