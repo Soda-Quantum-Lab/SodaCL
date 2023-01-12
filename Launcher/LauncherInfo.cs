@@ -9,7 +9,8 @@ namespace SodaCL.Launcher
         public static string sodaCLLogPath = currentDir + @"SodaCL\logs";
         public static string sodaCLConfigPath = sodaCLBasePath + @"\Config.ini";
         public static string mcDir = currentDir + @".minecraft";
-        public static int launchTime;
+        public static string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\SodaCL";
         public static string mcVersionsDir = mcDir + @"\versions";
+        public static int launchTime;
     }
 }

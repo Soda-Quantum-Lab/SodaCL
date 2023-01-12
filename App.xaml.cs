@@ -1,7 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using SodaCL.Launcher;
+using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL
@@ -13,7 +12,6 @@ namespace SodaCL
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Toolkits.AppCenterManager.StartAppCenter();
             for (int i = 0; i < e.Args.Length; i++)
             {
                 if (e.Args[i] == "--langs")
@@ -23,17 +21,9 @@ namespace SodaCL
                     //bool isTranslator = true;
                 }
             }
-            try
-            {
-                Directory.CreateDirectory(LauncherInfo.sodaCLBasePath);
-                Directory.CreateDirectory(LauncherInfo.mcDir);
-                Directory.CreateDirectory(LauncherInfo.sodaCLLogPath);
-            }
-            catch (Exception ex)
-            {
-                Log(ModuleList.Main, ex, ex.Message, ex.StackTrace);
-            }
+            InitFolder.InitBasicFolder();
             LogStart();
+            Toolkits.AppCenterManager.StartAppCenter();
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true, true);
             base.OnStartup(e);

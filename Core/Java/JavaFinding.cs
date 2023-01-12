@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using Microsoft.Win32;
 using static SodaCL.Toolkits.Logger;
 
@@ -14,7 +9,7 @@ namespace SodaCL.Core.Java
         // 若 bool 值为 true , 则选择 javaw.exe , 反之则选择 java.exe
         public static void AutoJavaFinding(bool javaOrJavaw)
         {
-            string[] javaPath = { "java" , "java" , "java" };
+            string[] javaPath = { "java", "java", "java" };
             string javaExeName = null;
             if (javaOrJavaw)
             {
@@ -46,7 +41,7 @@ namespace SodaCL.Core.Java
             string jdkRegPath = @"SOFTWARE\JavaSoft\Java Development Kit";
             string jreRegPath = @"SOFTWARE\JavaSoft\Java Runtime Environment";
             RegistryKey regKey = Registry.LocalMachine;
-            RegistryKey regSubKey = regKey.OpenSubKey(jdkRegPath, false); 
+            RegistryKey regSubKey = regKey.OpenSubKey(jdkRegPath, false);
 
             //try
             //{

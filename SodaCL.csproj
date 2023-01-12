@@ -26,6 +26,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\AppCenter\SQLite-net.dll" />
+		<None Remove="Resources\AppCenter\SQLitePCLRaw.batteries_green.dll" />
+		<None Remove="Resources\AppCenter\SQLitePCLRaw.batteries_v2.dll" />
+		<None Remove="Resources\AppCenter\SQLitePCLRaw.core.dll" />
+		<None Remove="Resources\AppCenter\SQLitePCLRaw.provider.e_sqlite3.dll" />
+		<None Remove="Resources\AppCenter\x64\e_sqlite3.dll" />
+		<None Remove="Resources\AppCenter\x86\e_sqlite3.dll" />
 		<None Remove="Resources\Images\Dev.ico" />
 		<None Remove="Resources\Images\Launcher-Bg.jpg" />
 		<None Remove="Resources\Images\Release.ico" />
@@ -33,6 +40,16 @@
 
 	<ItemGroup>
 	  <Page Remove="Dictronaries\Token.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\AppCenter\SQLite-net.dll" />
+	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.batteries_green.dll" />
+	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.batteries_v2.dll" />
+	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.core.dll" />
+	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.provider.e_sqlite3.dll" />
+	  <EmbeddedResource Include="Resources\AppCenter\x64\e_sqlite3.dll" />
+	  <EmbeddedResource Include="Resources\AppCenter\x86\e_sqlite3.dll" />
 	</ItemGroup>
 
 	<ItemGroup>
