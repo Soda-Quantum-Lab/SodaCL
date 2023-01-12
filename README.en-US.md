@@ -9,8 +9,8 @@
 
 <div align="center">
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Soda-Quantum-Lab/SodaCL?style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/release/latest)
-[![GitHub release (latest by date)](https://img.shields.io/github/downloads/Soda-Quantum-Lab/SodaCL/latest/total?style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/releases/latest/download/SodaCL.exe)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Soda-Quantum-Lab/SodaCL?style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/releases/latest)
+[![GitHub release (latest by date)](https://img.shields.io/github/downloads/Soda-Quantum-Lab/SodaCL/latest/total?style=flat-square)](https://ghproxy.com/https://github.com/Soda-Quantum-Lab/SodaCL/releases/latest/download/SodaCL.exe)
 [![LICENSE](https://img.shields.io/github/license/Soda-Quantum-Lab/SodaCL?style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/blob/master/LICENSE.txt)
 [![Github stars](https://img.shields.io/github/stars/Soda-Quantum-Lab/SodaCL?style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Soda-Quantum-Lab/SodaCL?style=flat-square)](https://github.com/Soda-Quantum-Lab/SodaCL/commits)
