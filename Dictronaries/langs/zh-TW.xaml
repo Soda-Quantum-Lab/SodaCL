@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <!--不要乱改语言文件中的空格-->
+    <s:String x:Key="Error">出現錯誤</s:String>
+    <s:String x:Key="Butten_OK">確認</s:String>
+    <s:String x:Key="TitleBar_IssuesBtn_Tip">打開SodaCL 的 Issues 頁面以進行反饋</s:String>
+    <s:String x:Key="MainPage_GettingYiyan">加載中...</s:String>
+    <s:String x:Key="MainPage_CurrentCore">當前選用的核心</s:String>
+    <s:String x:Key="MainPage_StartGame">▷ 啟動遊戲</s:String>
+    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Title">即將跳轉至Microsoft登錄頁面</s:String>
+    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip">即將跳轉至Microsoft登錄頁面，請在接下來打開的頁面填寫相應的登錄代碼登錄Microsoft賬戶，登錄代碼已經複製至剪切板。</s:String>
+    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode">你的登錄代碼</s:String>
+    <s:String x:Key="Login_Microsoft_Error_AuthDeclined">你拒絕了賬戶授權請求，請在授權頁面中允許授權請求</s:String>
+    <s:String x:Key="Login_Microsoft_Error_ExpiredToken">登錄超時，請再試一次</s:String>
+    <s:String x:Key="Login_Microsoft_Error_NoXboxAccount">此Microsoft賬戶尚未創建 Xbox 賬戶</s:String>
+    <s:String x:Key="Login_Microsoft_Error_XboxDisable">Xbox Live 在您的國家 / 地區不可用</s:String>
+    <s:String x:Key="Login_Microsoft_Error_NeedAdultAuth">您需要進行成人驗證</s:String>
+    <s:String x:Key="Login_Microsoft_Error_NeedJoiningInFamily">您的賬戶為兒童賬戶，需要由成人添加家庭</s:String>
+    <s:String x:Key="Login_Microsoft_Error_NoGame">我們未在您的賬戶中找到正版遊戲</s:String>
+</ResourceDictionary>
