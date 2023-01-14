@@ -23,13 +23,13 @@ namespace SodaCL
             }
             InitFolder.InitBasicFolder();
             LogStart();
-            Toolkits.AppCenterManager.StartAppCenter();
+            AppCenterManager.StartAppCenter();
             SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true, true);
             base.OnStartup(e);
-            Log(ModuleList.Main, LogInfo.Info, "显示启动画面");
+            Log(false, ModuleList.Main, LogInfo.Info, "显示启动画面");
             Languages.MultiLanguages();
-            Log(ModuleList.Main, LogInfo.Info, "加载语言文件");
+            Log(false, ModuleList.Main, LogInfo.Info, "加载语言文件");
         }
     }
 }

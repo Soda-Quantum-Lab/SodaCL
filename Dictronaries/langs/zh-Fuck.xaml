@@ -5,7 +5,7 @@
     <s:String x:Key="Error">出錯了</s:String>
     <s:String x:Key="Butten_OK">ao</s:String>
     <s:String x:Key="TitleBar_IssuesBtn_Tip">Bug，SodaCL Github Issue 頁面，懂？</s:String>
-    <s:String x:Key="MainPage_GettingYiyan">Souiken:給我把這句改成 Loading... </s:String>
+    <s:String x:Key="MainPage_GettingYiyan">Souiken:給我把這句改成 Loading...</s:String>
     <s:String x:Key="MainPage_CurrentCore">當前使用堆芯</s:String>
     <s:String x:Key="MainPage_StartGame">▷ AZ-5按鈕</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Title">巨硬登錄頁，懂？</s:String>

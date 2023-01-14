@@ -24,15 +24,15 @@ namespace SodaCL.Core.Java
             {
                 string javahomeContent = Environment.GetEnvironmentVariable("JAVA_HOME");
                 string pathContent = Environment.GetEnvironmentVariable("Path");
-                Log(ModuleList.IO, LogInfo.Info, "获取到环境变量信息: ");
-                Log(ModuleList.IO, LogInfo.Info, "JAVA_HOME: " + javahomeContent);
-                Log(ModuleList.IO, LogInfo.Info, "Path: " + pathContent);
+                Log(false, ModuleList.IO, LogInfo.Info, "获取到环境变量信息: ");
+                Log(false, ModuleList.IO, LogInfo.Info, "JAVA_HOME: " + javahomeContent);
+                Log(false, ModuleList.IO, LogInfo.Info, "Path: " + pathContent);
                 javaPath[0] = javahomeContent + "bin\\" + javaExeName;
-                Log(ModuleList.IO, LogInfo.Debug, "Java 列表数组第一位: " + javaPath[0]);
+                Log(false, ModuleList.IO, LogInfo.Debug, "Java 列表数组第一位: " + javaPath[0]);
             }
             catch (Exception)
             {
-                Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 Java (从环境变量) 时发生错误");
+                Log(true, ModuleList.IO, LogInfo.Warning, "在执行自动查找 Java (从环境变量) 时发生错误");
                 throw;
             }
 
@@ -60,7 +60,6 @@ namespace SodaCL.Core.Java
             //{
             //    Log(ModuleList.IO, LogInfo.Debug, javaPath.ToString());
             //}
-
         }
     }
 }
