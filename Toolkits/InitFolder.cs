@@ -22,7 +22,7 @@ namespace SodaCL.Toolkits
             }
             catch (Exception ex)
             {
-                Log(ModuleList.Main, ex, ex.Message, ex.StackTrace);
+                Log(true, ModuleList.Main, LogInfo.Error, ex: ex);
             }
         }
     }

@@ -26,7 +26,6 @@ namespace SodaCL
             InitializeComponent();
             mainWindow = this;
         }
-
         #region 自定义标题栏
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -43,18 +42,22 @@ namespace SodaCL
             }
             catch (Exception ex)
             {
-                Log(ModuleList.Main, ex, ex.Message, ex.StackTrace);
+                Log(true, ModuleList.Main, LogInfo.Error, ex: ex);
             }
             finally
             {
-                this.Close();
+                var opcAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.1));
+                opcAni.Completed += (sender, r) => { this.Close(); };
+                this.BeginAnimation(OpacityProperty, opcAni);
             }
         }
 
         //最小化按钮
         private void TitleBar_MiniSizeBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            var opcAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.1));
+            opcAni.Completed += (sender, r) => { this.WindowState = WindowState.Minimized; };
+            this.BeginAnimation(OpacityProperty, opcAni);
         }
 
         #endregion 自定义标题栏
@@ -65,7 +68,7 @@ namespace SodaCL
         {
             LauncherInit.InitNewFolder();
 
-            Log(ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
+            Log(false, ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
         }
 
         #endregion 初次启动
@@ -81,10 +84,14 @@ namespace SodaCL
         {
             Process.Start("explorer", "https://github.com/Soda-Quantum-Lab/SodaCL/issues");
         }
-
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            var opcAni = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
+            this.BeginAnimation(OpacityProperty, opcAni);
+        }
         private void Window_Closed(object sender, EventArgs e)
         {
-            Log(ModuleList.Main, LogInfo.Info, "程序退出");
+            Log(false, ModuleList.Main, LogInfo.Info, "程序退出");
             Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
         }
 
@@ -157,5 +164,6 @@ namespace SodaCL
             else
                 IsThisPage = false;
         }
+
     }
 }

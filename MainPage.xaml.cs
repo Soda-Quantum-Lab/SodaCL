@@ -38,11 +38,13 @@ namespace SodaCL.Pages
 
         private async void Page_Initialized(object sender, EventArgs e)
         {
-            await GetYiyanAsync();
             SayHello();
             TextAni();
-
+            await GetYiyanAsync();
+            var da = new DoubleAnimation(1, TimeSpan.FromSeconds(0.5));
+            YiYanTxb.BeginAnimation(OpacityProperty, da);
         }
+
         private void TextAni()
         {
             Storyboard storyboard = new Storyboard();
@@ -54,13 +56,13 @@ namespace SodaCL.Pages
             Storyboard.SetTarget(doubleAnimation2, SayHelloTimeTxb);
             Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath("Opacity"));
             storyboard.Children.Add(doubleAnimation2);
-            DoubleAnimation doubleAnimation3 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5))
-            {
-                BeginTime = TimeSpan.FromSeconds(0.2)
-            };
-            Storyboard.SetTarget(doubleAnimation3, YiYanTxb);
-            Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath("Opacity"));
-            storyboard.Children.Add(doubleAnimation3);
+            //DoubleAnimation doubleAnimation3 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5))
+            //{
+            //    BeginTime = TimeSpan.FromSeconds(0.2)
+            //};
+            //Storyboard.SetTarget(doubleAnimation3, YiYanTxb);
+            //Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath("Opacity"));
+            //storyboard.Children.Add(doubleAnimation3);
             ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4))
             {
                 BeginTime = TimeSpan.FromSeconds(0.2),
@@ -115,7 +117,7 @@ namespace SodaCL.Pages
             }
             catch (Exception ex)
             {
-                Log(ModuleList.IO, ex, ex.Message, ex.StackTrace);
+                Log(true, ModuleList.IO, LogInfo.Error, ex: ex);
             }
         }
 
@@ -129,7 +131,7 @@ namespace SodaCL.Pages
             {
                 if (yiYanText == null)
                 {
-                    Log(ModuleList.Network, LogInfo.Info, "正在获取一言");
+                    Log(false, ModuleList.Network, LogInfo.Info, "正在获取一言");
                     do
                     {
                         using (var client = new HttpClient())
@@ -158,7 +160,7 @@ namespace SodaCL.Pages
                     while (text.Length > 35);
                     YiYanTxb.Text = text;
                     yiYanText = YiYanTxb.Text;
-                    Log(ModuleList.Network, LogInfo.Info, "一言获取成功");
+                    Log(false, ModuleList.Network, LogInfo.Info, "一言获取成功");
                 }
                 else
                 {
@@ -168,7 +170,8 @@ namespace SodaCL.Pages
             catch (Exception ex)
             {
                 YiYanTxb.Text = "一言获取失败";
-                Trace.WriteLine($"[{DateTime.Now}] [NetWork] [Error] 一眼获取失败{ex.Message}");
+                Log(false, ModuleList.Network, LogInfo.Warning, "一言获取失败", ex);
+                ;
             }
         }
 
@@ -181,13 +184,13 @@ namespace SodaCL.Pages
             MultiDownload multiDownload = new(8, "http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe", ".\\SodaCL\\BakaXL.exe");
             multiDownload.Start();
             MessageBox.Show("下载开始，请等待大约 30s 后点击启动按钮\n若启动器崩溃请重新打开启动器并执行下载");
-            Log(ModuleList.Network, LogInfo.Info, "下载线程已启动");
+            Log(true, ModuleList.Network, LogInfo.Info, "下载线程已启动");
             for (int i = 0; i < 1; i--)
             {
                 if (multiDownload.IsComplete)
                 {
                     MessageBox.Show("下载完成");
-                    Log(ModuleList.Network, LogInfo.Info, "下载已完成");
+                    Log(true, ModuleList.Network, LogInfo.Info, "下载已完成");
                     break;
                 }
             }
@@ -203,11 +206,11 @@ namespace SodaCL.Pages
             try
             {
                 System.Diagnostics.Process.Start(".\\SodaCL\\BakaXL.exe");
-                Log(ModuleList.Main, LogInfo.Info, "BakaXL 已启动");
+                Log(true, ModuleList.Main, LogInfo.Info, "BakaXL 已启动");
             }
             catch (Exception ex)
             {
-                Log(ModuleList.Main, ex, "BakaXL 未能正常启动，可能是下载的文件不完整");
+                Log(true, ModuleList.Main, LogInfo.Warning, "BakaXL 未能正常启动，可能是下载的文件不完整", ex);
             }
         }
 
@@ -241,49 +244,49 @@ namespace SodaCL.Pages
                 {
                     case MsAuthErrorType.AuthDeclined:
                         errorMsg = GetText("Login_Microsoft_Error_AuthDeclined");
-                        Log(ModuleList.Login, ex, "最终用户拒绝了授权请求");
+                        Log(true, ModuleList.Login, LogInfo.Warning, "最终用户拒绝了授权请求", ex);
                         break;
 
                     case MsAuthErrorType.ExpiredToken:
                         errorMsg = GetText("Login_Microsoft_Error_ExpiredToken");
-                        Log(ModuleList.Login, ex, "登录超时");
+                        Log(true, ModuleList.Login, LogInfo.Warning, "登录超时", ex);
                         break;
 
                     case MsAuthErrorType.NoXboxAccount:
                         errorMsg = GetText("Login_Microsoft_Error_NoXboxAccount");
-                        Log(ModuleList.Login, ex, "用户未创建Xbox账户");
+                        Log(true, ModuleList.Login, LogInfo.Warning, "用户未创建Xbox账户", ex);
                         break;
 
                     case MsAuthErrorType.XboxDisable:
                         errorMsg = GetText("Login_Microsoft_Error_XboxDisable");
-                        Log(ModuleList.Login, ex, " Xbox Live 不可用/禁止的国家/地区");
+                        Log(true, ModuleList.Login, LogInfo.Warning, " Xbox Live 不可用/禁止的国家/地区", ex);
                         break;
 
                     case MsAuthErrorType.NeedAdultAuth:
                         errorMsg = GetText("Login_Microsoft_Error_NeedAdultAuth");
-                        Log(ModuleList.Login, ex, "需要在 Xbox 页面上进行成人验证");
+                        Log(true, ModuleList.Login, LogInfo.Warning, "需要在 Xbox 页面上进行成人验证", ex);
                         break;
 
                     case MsAuthErrorType.NeedJoiningInFamily:
                         errorMsg = GetText("Login_Microsoft_Error_NeedJoiningInFamily");
-                        Log(ModuleList.Login, ex, "需要在 Xbox 页面上进行成人验证");
+                        Log(true, ModuleList.Login, LogInfo.Warning, "需要在 Xbox 页面上进行成人验证", ex);
                         break;
 
                     case MsAuthErrorType.NoGame:
                         errorMsg = GetText("Login_Microsoft_Error_NoGame");
-                        Log(ModuleList.Login, ex, "该帐户是儿童账户");
+                        Log(true, ModuleList.Login, LogInfo.Warning, "该帐户是儿童账户", ex);
                         break;
                 };
                 OpenDialog();
             }
             catch (OperationCanceledException)
             {
-                Log(ModuleList.Login, LogInfo.Warning, "登录操作已取消");
+                Log(false, ModuleList.Login, LogInfo.Warning, "登录操作已取消");
             }
             catch (Exception ex)
             {
                 Dispatcher.Invoke(new Action(() => { CloseDialog(); }));
-                Log(ModuleList.Network, ex, ex.Message, ex.StackTrace);
+                Log(true, ModuleList.Network, LogInfo.Error, ex: ex);
             }
             finally
             {
@@ -362,14 +365,14 @@ namespace SodaCL.Pages
                 {
                     loginTsCancelSrc.Cancel();
                     Dispatcher.Invoke(new Action(() => { CloseDialog(); }));
-                    Log(ModuleList.Login, LogInfo.Warning, "用户取消了登录操作");
+                    Log(false, ModuleList.Login, LogInfo.Warning, "用户取消了登录操作");
                 };
                 okButton.Click += (s, be) =>
                     {
                         Clipboard.SetText(deviceCode);
-                        Log(ModuleList.IO, LogInfo.Info, "成功将DeviceCode复制到剪切板");
+                        Log(false, ModuleList.IO, LogInfo.Info, "成功将DeviceCode复制到剪切板");
                         Process.Start("explorer", "https://www.microsoft.com/link");
-                        Log(ModuleList.IO, LogInfo.Info, "成功打开浏览器");
+                        Log(false, ModuleList.IO, LogInfo.Info, "成功打开浏览器");
                     };
                 StackPan.Children.Add(iconBor);
                 StackPan.Children.Add(new TextBlock
@@ -402,7 +405,5 @@ namespace SodaCL.Pages
                 MainWindow.mainWindow.DialogStackPan.Children.Add(okButton);
             });
         }
-
-
     }
 }

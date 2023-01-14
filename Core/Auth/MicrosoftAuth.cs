@@ -31,11 +31,11 @@ namespace SodaCL.Core.Auth
             deviceCodeContent.Add("scope", "XboxLive.signin");
             deviceCodeClient.BaseAddress = new Uri("https://login.microsoftonline.com/consumers/oauth2/v2.0/");
             deviceCodeClient.Timeout = TimeSpan.FromSeconds(10);
-            Log(ModuleList.Login, LogInfo.Info, "开始微软设备流登录");
+            Log(false, ModuleList.Login, LogInfo.Info, "开始微软设备流登录");
             var oAuthPostResponse = await deviceCodeClient.PostAsync("devicecode", new FormUrlEncodedContent(deviceCodeContent));
             oAuthPostResponse.EnsureSuccessStatusCode();
             deviceCodeClient.Dispose();
-            Log(ModuleList.Login, LogInfo.Info, "成功获取DeviceID");
+            Log(false, ModuleList.Login, LogInfo.Info, "成功获取DeviceID");
             var microsoftOAuth2ResModel = JsonConvert.DeserializeObject<MicrosoftOAuth2ResModel>(await oAuthPostResponse.Content.ReadAsStringAsync());
 
             #endregion 获取 DeviceCode
@@ -51,7 +51,7 @@ namespace SodaCL.Core.Auth
             oAuthPostContent.Add("client_id", clientId);
             oAuthPostContent.Add("device_code", microsoftOAuth2ResModel.DeviceCode);
             var stopwatch = Stopwatch.StartNew();
-            Log(ModuleList.Login, LogInfo.Info, "开始轮询");
+            Log(false, ModuleList.Login, LogInfo.Info, "开始轮询");
             while (stopwatch.Elapsed < TimeSpan.FromSeconds(microsoftOAuth2ResModel.ExpiresIn))
             {
                 Pages.MainPage.mainPage.loginTsCancelSrc.Token.ThrowIfCancellationRequested();
@@ -62,7 +62,7 @@ namespace SodaCL.Core.Auth
                 if (pollingPostRes.IsSuccessStatusCode)
                 {
                     var pollingPostResModel = JsonConvert.DeserializeObject<PollingPostResModel>(pollingPostResStr);
-                    Log(ModuleList.Login, LogInfo.Info, "成功获取OAuth2Token");
+                    Log(false, ModuleList.Login, LogInfo.Info, "成功获取OAuth2Token");
                     OAuth2AccessToken = pollingPostResModel.AccessToken;
                     break;
                 }
@@ -93,7 +93,7 @@ namespace SodaCL.Core.Auth
             var xblPostContent = new StringContent(xblJsonContent, Encoding.UTF8, "application/json");
             var xblResponse = await xboxXBLClient.PostAsync("https://user.auth.xboxlive.com/user/authenticate", xblPostContent);
             xblResponse.EnsureSuccessStatusCode();
-            Log(ModuleList.Login, LogInfo.Info, "成功获取XBLToken");
+            Log(false, ModuleList.Login, LogInfo.Info, "成功获取XBLToken");
             var xboxXBLResModel = JsonConvert.DeserializeObject<XboxXBLResModel>(await xblResponse.Content.ReadAsStringAsync());
             xboxXBLClient.Dispose();
 
@@ -110,7 +110,7 @@ namespace SodaCL.Core.Auth
             if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)200)
             {
                 xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
-                Log(ModuleList.Login, LogInfo.Info, "成功获取XstsToken");
+                Log(false, ModuleList.Login, LogInfo.Info, "成功获取XstsToken");
             }
             else if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)401)
             {
@@ -147,7 +147,7 @@ namespace SodaCL.Core.Auth
             var mcPostContent = new StringContent(mcJsonContent, Encoding.UTF8, "application/json");
             var mcResponse = await mcClient.PostAsync("https://api.minecraftservices.com/authentication/login_with_xbox", mcPostContent);
             mcResponse.EnsureSuccessStatusCode();
-            Log(ModuleList.Login, LogInfo.Info, "成功获取MCToken");
+            Log(false, ModuleList.Login, LogInfo.Info, "成功获取MCToken");
             string mcAccessToken = (string)JObject.Parse(await mcResponse.Content.ReadAsStringAsync())["access_token"];
 
             #endregion 获取 Minecraft Access Token
@@ -162,7 +162,7 @@ namespace SodaCL.Core.Auth
             if (userProfileRes.IsSuccessStatusCode)
             {
                 minecraftProfileResModel = JsonConvert.DeserializeObject<MinecraftProfileResModel>(await userProfileRes.Content.ReadAsStringAsync());
-                Log(ModuleList.Login, LogInfo.Info, "成功获取MCToken");
+                Log(false, ModuleList.Login, LogInfo.Info, "成功获取MCToken");
             }
             else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
             {

@@ -23,17 +23,17 @@ namespace SodaCL.Core.Game
             {
                 string[] dir = Directory.GetDirectories(LauncherInfo.mcVersionsDir);
                 string[] names = new string[dir.Length];
-                Log(ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
+                Log(true,ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
                 for (int i = 0; i < dir.Length; i++)
                 {
                     names[i] = Path.GetFileName(dir[i]);
-                    Log(ModuleList.IO, LogInfo.Info, names[i]);
+                    Log(true,ModuleList.IO, LogInfo.Info, names[i]);
                 }
                 return names;
             }
             else
             {
-                Log(ModuleList.IO, "versions 目录不存在, 可能是初始化阶段出现了异常导致 versions 文件夹未成功创建");
+                Log(true,ModuleList.IO, LogInfo.Warning,"versions 目录不存在, 可能是初始化阶段出现了异常导致 versions 文件夹未成功创建");
                 return null;
             }
         }
