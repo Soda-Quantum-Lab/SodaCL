@@ -18,7 +18,7 @@ namespace SodaCL.Toolkits
         {
             try
             {
-                Log(false, ModuleList.Main, LogInfo.Info, "正在释放AppCenter依赖文件");
+                Log(false, ModuleList.Main, LogInfo.Info, "正在加载AppCenter依赖文件");
                 var arch = Environment.Is64BitOperatingSystem ? "x64" : "x86";
                 var acRuntimeDir = $@"{LauncherInfo.appDataDir}\Runtime\AppCenter";
                 var acRuntimeFiles = new List<string> { $"{arch}\\e_sqlite3.dll", "SQLite-net.dll", "SQLitePCLRaw.batteries_green.dll", "SQLitePCLRaw.batteries_v2.dll", "SQLitePCLRaw.core.dll", "SQLitePCLRaw.provider.e_sqlite3.dll" };
@@ -49,9 +49,9 @@ namespace SodaCL.Toolkits
                     if (!file.Contains("x86") && !file.Contains("x64"))
                     {
                         Assembly.LoadFile(acRuntimeDir + "\\" + file);
-                        Log(false, ModuleList.Main, LogInfo.Info, $"成功加载AppCenter依赖文件 {file}");
                     }
                 }
+                Log(false, ModuleList.Main, LogInfo.Info, "成功加载AppCenter依赖文件");
             }
             catch (Exception ex)
             {
