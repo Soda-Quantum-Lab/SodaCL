@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Documents;
 using Microsoft.Win32;
 using static SodaCL.Toolkits.Logger;
 
@@ -9,7 +10,7 @@ namespace SodaCL.Core.Java
         // 若 bool 值为 true , 则选择 javaw.exe , 反之则选择 java.exe
         public static void AutoJavaFinding(bool javaOrJavaw)
         {
-            string[] javaPath = { "java", "java", "java" };
+            string[] javaPath = { "null", "null", "null", "null", "null", "null", "null" };
             string javaExeName = null;
             if (javaOrJavaw)
             {
@@ -38,28 +39,160 @@ namespace SodaCL.Core.Java
 
             // 从注册表获取 Java 路径
             string strKeyName = "JavaHome";
-            string jdkRegPath = @"SOFTWARE\JavaSoft\Java Development Kit";
-            string jreRegPath = @"SOFTWARE\JavaSoft\Java Runtime Environment";
+            string jdkRegPath = @"SOFTWARE\JavaSoft\Java Development Kit\";
+            string jreRegPath = @"SOFTWARE\JavaSoft\Java Runtime Environment\";
+            string javaVersion8 = "1.8";
+            string javaVersion11 = "1.11";
+            string javaVersion17 = "1.17";
             RegistryKey regKey = Registry.LocalMachine;
-            RegistryKey regSubKey = regKey.OpenSubKey(jdkRegPath, false);
+            
+            
+            
 
-            //try
-            //{
-            //    object javaRegPath = regSubKey.GetValue(strKeyName);
-            //    Log(ModuleList.IO, LogInfo.Info, "获取到注册表内的 Java 信息: ");
-            //    Log(ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
-            //}
-            //catch (Exception)
-            //{
-            //    Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 Java (从注册表) 时发生错误");
-            //    throw;
-            //}
+            try
+            {
+                RegistryKey regSubKey8 = regKey.OpenSubKey(jdkRegPath + javaVersion8, false);
+                if (regSubKey8 == null)
+                {
+                    Log(ModuleList.IO, LogInfo.Warning, "JDK 8 不存在 (从注册表) ");
+                }
+                else
+                {
+                    object javaRegPath = regSubKey8.GetValue(strKeyName);
+                    Log(ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 8 位置信息: ");
+                    Log(ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
+                    javaPath[1] = javaExePath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 JDK 8 (从注册表) 时发生错误: ");
+                Log(ModuleList.IO, LogInfo.Warning, ex.ToString());
+            }
 
-            //RegistryValueKind regValueKind = regSubKey.GetValueKind(strKeyName);
-            //if (regValueKind == RegistryValueKind.String)
-            //{
-            //    Log(ModuleList.IO, LogInfo.Debug, javaPath.ToString());
-            //}
+            try
+            {
+                RegistryKey regSubKey11 = regKey.OpenSubKey(jdkRegPath + javaVersion11, false);
+                if (regSubKey11 == null)
+                {
+                    Log(ModuleList.IO, LogInfo.Warning, "JDK 11 不存在 (从注册表) ");
+                }
+                else
+                {
+                    object javaRegPath = regSubKey11.GetValue(strKeyName);
+                    Log(ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 11 位置信息: ");
+                    Log(ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
+                    javaPath[2] = javaExePath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 JDK 11 (从注册表) 时发生错误: ");
+                Log(ModuleList.IO, LogInfo.Warning, ex.ToString());
+            }
+
+            try
+            {
+                RegistryKey regSubKey17 = regKey.OpenSubKey(jdkRegPath + javaVersion17, false);
+                if (regSubKey17 == null)
+                {
+                    Log(ModuleList.IO, LogInfo.Warning, "JDK 17 不存在 (从注册表) ");
+                }
+                else
+                {
+                    object javaRegPath = regSubKey17.GetValue(strKeyName);
+                    Log(ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 17 位置信息: ");
+                    Log(ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
+                    javaPath[3] = javaExePath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 JDK 17 (从注册表) 时发生错误: ");
+                Log(ModuleList.IO, LogInfo.Warning, ex.ToString());
+            }
+
+            try
+            {
+                RegistryKey regSubKey8 = regKey.OpenSubKey(jreRegPath + javaVersion8, false);
+                if (regSubKey8 == null)
+                {
+                    Log(ModuleList.IO, LogInfo.Warning, "JRE 8 不存在 (从注册表) ");
+                }
+                else
+                {
+                    object javaRegPath = regSubKey8.GetValue(strKeyName);
+                    Log(ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 8 位置信息: ");
+                    Log(ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
+                    javaPath[4] = javaExePath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 JRE 8 (从注册表) 时发生错误: ");
+                Log(ModuleList.IO, LogInfo.Warning, ex.ToString());
+            }
+
+            try
+            {
+                RegistryKey regSubKey11 = regKey.OpenSubKey(jreRegPath + javaVersion11, false);
+                if (regSubKey11 == null)
+                {
+                    Log(ModuleList.IO, LogInfo.Warning, "JRE 11 不存在 (从注册表) ");
+                }
+                else
+                {
+                    object javaRegPath = regSubKey11.GetValue(strKeyName);
+                    Log(ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 11 位置信息: ");
+                    Log(ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
+                    javaPath[5] = javaExePath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 JRE 11 (从注册表) 时发生错误: ");
+                Log(ModuleList.IO, LogInfo.Warning, ex.ToString());
+            }
+
+            try
+            {
+                RegistryKey regSubKey17 = regKey.OpenSubKey(jreRegPath + javaVersion17, false);
+                if (regSubKey17 == null)
+                {
+                    Log(ModuleList.IO, LogInfo.Warning, "JRE 17 不存在 (从注册表) ");
+                }
+                else
+                {
+                    object javaRegPath = regSubKey17.GetValue(strKeyName);
+                    Log(ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 17 位置信息: ");
+                    Log(ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
+                    javaPath[6] = javaExePath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ModuleList.IO, LogInfo.Warning, "在执行自动查找 JRE 17 (从注册表) 时发生错误: ");
+                Log(ModuleList.IO, LogInfo.Warning, ex.ToString());
+            }
+
+            Log(ModuleList.IO, LogInfo.Info, "获取到 Java 列表: ");
+            for (int i = 0; i < javaPath.Length; i++)
+            {
+                if (javaPath[i] == null)
+                {
+
+                }
+                else
+                {
+                    Log(ModuleList.IO, LogInfo.Info, javaPath[i]);
+                }
+            }
 
         }
     }
