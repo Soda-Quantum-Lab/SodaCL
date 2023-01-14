@@ -41,7 +41,7 @@ namespace SodaCL.Pages
             SayHello();
             TextAni();
             await GetYiyanAsync();
-            var da = new DoubleAnimation(1, TimeSpan.FromSeconds(0.4));
+            var da = new DoubleAnimation(1, TimeSpan.FromSeconds(0.5));
             YiYanTxb.BeginAnimation(OpacityProperty, da);
         }
 
@@ -56,13 +56,13 @@ namespace SodaCL.Pages
             Storyboard.SetTarget(doubleAnimation2, SayHelloTimeTxb);
             Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath("Opacity"));
             storyboard.Children.Add(doubleAnimation2);
-            DoubleAnimation doubleAnimation3 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5))
-            {
-                BeginTime = TimeSpan.FromSeconds(0.2)
-            };
-            Storyboard.SetTarget(doubleAnimation3, YiYanTxb);
-            Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath("Opacity"));
-            storyboard.Children.Add(doubleAnimation3);
+            //DoubleAnimation doubleAnimation3 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5))
+            //{
+            //    BeginTime = TimeSpan.FromSeconds(0.2)
+            //};
+            //Storyboard.SetTarget(doubleAnimation3, YiYanTxb);
+            //Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath("Opacity"));
+            //storyboard.Children.Add(doubleAnimation3);
             ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4))
             {
                 BeginTime = TimeSpan.FromSeconds(0.2),

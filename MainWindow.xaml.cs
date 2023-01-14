@@ -26,7 +26,6 @@ namespace SodaCL
             InitializeComponent();
             mainWindow = this;
         }
-
         #region 自定义标题栏
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -165,7 +164,6 @@ namespace SodaCL
             else
                 IsThisPage = false;
         }
-
 
     }
 }

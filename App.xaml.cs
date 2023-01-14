@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using SodaCL.Launcher;
 using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
