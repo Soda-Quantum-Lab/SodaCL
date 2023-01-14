@@ -8,6 +8,9 @@ namespace SodaCL.Core.Java
     internal class JavaFinding
     {
         // 若 bool 值为 true , 则选择 javaw.exe , 反之则选择 java.exe
+        // javaPath 数组介绍：
+        // 0 为 JAVA_HOME 环境变量内包含的 Java
+        // 1-6 分别为 JDK 8 / 11 / 17 ， JRE 8 / 11 / 17
         public static void AutoJavaFinding(bool javaOrJavaw)
         {
             string[] javaPath = { "null", "null", "null", "null", "null", "null", "null" };
