@@ -217,6 +217,7 @@ namespace SodaCL.Pages
         private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
         {
             MC_VersionList.GetVersionList();
+            Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
             JavaFinding.AutoJavaFinding(true);
         }
 

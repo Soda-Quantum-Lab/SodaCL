@@ -9,6 +9,11 @@ namespace SodaCL.Toolkits
 {
     public class Logger
     {
+        // Log 模块介绍: 
+        // 第一位 bool 参数: 控制是否显示 MsgBox , 若为 true 则显示
+        // 第二位 ModuleList 参数: 控制 Log 输出的模块类型
+        // 第三位 LogInfo 参数: 控制日志等级
+        // 第四位参数: Log 输出的内容
         /// <summary>
         /// 日志级别枚举(不包括Error！)
         /// </summary>

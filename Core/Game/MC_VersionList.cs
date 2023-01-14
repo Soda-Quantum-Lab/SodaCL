@@ -23,11 +23,11 @@ namespace SodaCL.Core.Game
             {
                 string[] dir = Directory.GetDirectories(LauncherInfo.mcVersionsDir);
                 string[] names = new string[dir.Length];
-                Log(true,ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
+                Log(false,ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
                 for (int i = 0; i < dir.Length; i++)
                 {
                     names[i] = Path.GetFileName(dir[i]);
-                    Log(true,ModuleList.IO, LogInfo.Info, names[i]);
+                    Log(false,ModuleList.IO, LogInfo.Info, names[i]);
                 }
                 return names;
             }

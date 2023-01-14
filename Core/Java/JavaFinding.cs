@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.Win32;
 using static SodaCL.Toolkits.Logger;
 
@@ -7,12 +9,9 @@ namespace SodaCL.Core.Java
     internal class JavaFinding
     {
         // 若 bool 值为 true , 则选择 javaw.exe , 反之则选择 java.exe
-        // javaPath 数组介绍：
-        // 0 为 JAVA_HOME 环境变量内包含的 Java
-        // 1-6 分别为 JDK 8 / 11 / 17 ， JRE 8 / 11 / 17
         public static void AutoJavaFinding(bool javaOrJavaw)
         {
-            string[] javaPath = { "null", "null", "null", "null", "null", "null", "null" };
+            List<string> javaPath = new List<string>(100);
             string javaExeName = null;
             if (javaOrJavaw)
             {
@@ -30,14 +29,16 @@ namespace SodaCL.Core.Java
                 Log(false, ModuleList.IO, LogInfo.Info, "获取到环境变量信息: ");
                 Log(false, ModuleList.IO, LogInfo.Info, "JAVA_HOME: " + javahomeContent);
                 Log(false, ModuleList.IO, LogInfo.Info, "Path: " + pathContent);
-                javaPath[0] = javahomeContent + "bin\\" + javaExeName;
-                Log(false, ModuleList.IO, LogInfo.Debug, "Java 列表数组第一位: " + javaPath[0]);
+                string javaExePath = javahomeContent + "bin\\" + javaExeName;
+                javaPath.Add(javaExePath);
             }
             catch (Exception)
             {
                 Log(false, ModuleList.IO, LogInfo.Warning, "在执行自动查找 Java (从环境变量) 时发生错误");
                 throw;
             }
+
+            Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
 
             // 从注册表获取 Java 路径
             string strKeyName = "JavaHome";
@@ -58,10 +59,9 @@ namespace SodaCL.Core.Java
                 else
                 {
                     object javaRegPath = regSubKey8.GetValue(strKeyName);
-                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 8 位置信息: ");
-                    Log(false, ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 8 位置信息: " + javaRegPath.ToString());
                     string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
-                    javaPath[1] = javaExePath;
+                    javaPath.Add(javaExePath);
                 }
             }
             catch (Exception ex)
@@ -80,10 +80,9 @@ namespace SodaCL.Core.Java
                 else
                 {
                     object javaRegPath = regSubKey11.GetValue(strKeyName);
-                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 11 位置信息: ");
-                    Log(false, ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 11 位置信息: " + javaRegPath.ToString());
                     string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
-                    javaPath[2] = javaExePath;
+                    javaPath.Add(javaExePath);
                 }
             }
             catch (Exception ex)
@@ -102,10 +101,9 @@ namespace SodaCL.Core.Java
                 else
                 {
                     object javaRegPath = regSubKey17.GetValue(strKeyName);
-                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 17 位置信息: ");
-                    Log(false, ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JDK 17 位置信息: " + javaRegPath.ToString());
                     string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
-                    javaPath[3] = javaExePath;
+                    javaPath.Add(javaExePath);
                 }
             }
             catch (Exception ex)
@@ -124,10 +122,9 @@ namespace SodaCL.Core.Java
                 else
                 {
                     object javaRegPath = regSubKey8.GetValue(strKeyName);
-                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 8 位置信息: ");
-                    Log(false, ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 8 位置信息: " + javaRegPath.ToString());
                     string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
-                    javaPath[4] = javaExePath;
+                    javaPath.Add(javaExePath);
                 }
             }
             catch (Exception ex)
@@ -146,10 +143,9 @@ namespace SodaCL.Core.Java
                 else
                 {
                     object javaRegPath = regSubKey11.GetValue(strKeyName);
-                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 11 位置信息: ");
-                    Log(false, ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 11 位置信息: " + javaRegPath.ToString());
                     string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
-                    javaPath[5] = javaExePath;
+                    javaPath.Add(javaExePath);
                 }
             }
             catch (Exception ex)
@@ -168,10 +164,9 @@ namespace SodaCL.Core.Java
                 else
                 {
                     object javaRegPath = regSubKey17.GetValue(strKeyName);
-                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 17 位置信息: ");
-                    Log(false, ModuleList.IO, LogInfo.Info, javaRegPath.ToString());
+                    Log(false, ModuleList.IO, LogInfo.Info, "获取到注册表内的 JRE 17 位置信息: " + javaRegPath.ToString());
                     string javaExePath = javaRegPath.ToString() + "bin\\" + javaExeName;
-                    javaPath[6] = javaExePath;
+                    javaPath.Add(javaExePath);
                 }
             }
             catch (Exception ex)
@@ -180,17 +175,9 @@ namespace SodaCL.Core.Java
                 Log(false, ModuleList.IO, LogInfo.Warning, ex.ToString());
             }
 
+            Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
             Log(false, ModuleList.IO, LogInfo.Info, "获取到 Java 列表: ");
-            for (int i = 0; i < javaPath.Length; i++)
-            {
-                if (javaPath[i] == null)
-                {
-                }
-                else
-                {
-                    Log(false, ModuleList.IO, LogInfo.Info, javaPath[i]);
-                }
-            }
+            javaPath.ForEach(java => Log(false, ModuleList.IO, LogInfo.Info, java.ToString()));
         }
     }
 }
