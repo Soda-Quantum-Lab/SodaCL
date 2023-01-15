@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Documents;
 using Microsoft.Win32;
 using static SodaCL.Toolkits.Logger;
 
@@ -9,7 +10,7 @@ namespace SodaCL.Core.Java
     internal class JavaFinding
     {
         // 若 bool 值为 true , 则选择 javaw.exe , 反之则选择 java.exe
-        public static void AutoJavaFinding(bool javaOrJavaw)
+        public static Array AutoJavaFinding(bool javaOrJavaw)
         {
             List<string> javaPath = new List<string>(100);
             string javaExeName = null;
@@ -178,6 +179,7 @@ namespace SodaCL.Core.Java
             Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
             Log(false, ModuleList.IO, LogInfo.Info, "获取到 Java 列表: ");
             javaPath.ForEach(java => Log(false, ModuleList.IO, LogInfo.Info, java.ToString()));
+            return javaPath.ToArray();
         }
     }
 }
