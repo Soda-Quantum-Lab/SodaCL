@@ -32,13 +32,13 @@ namespace SodaCL.Toolkits
                 {
                     if (!File.Exists(acRuntimeDir + "\\" + file))
                     {
-                        using (Stream sm = assm.GetManifestResourceStream($@"{appName}.Resources.AppCenter.{file.Replace("\\", ".")}"))
+                        using (var sm = assm.GetManifestResourceStream($@"{appName}.Resources.AppCenter.{file.Replace("\\", ".")}"))
                         {
                             var buffer = new byte[sm.Length];
                             using (var fs = new FileStream(acRuntimeDir + "\\" + file, FileMode.Create))
                             {
                                 sm.Read(buffer, 0, buffer.Length);
-                                using (BinaryWriter bw = new BinaryWriter(fs))
+                                using (var bw = new BinaryWriter(fs))
                                 {
                                     bw.Write(buffer, 0, buffer.Length);
                                     bw.Close();

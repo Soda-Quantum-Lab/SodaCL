@@ -44,7 +44,7 @@ namespace SodaCL.Toolkits
 
         public static void LogStart()
         {
-            int fileNum = GetFileNum();
+            var fileNum = GetFileNum();
             SortAsFileCreationTime(ref logFiles);
             if (fileNum == 5)
             {
@@ -76,8 +76,8 @@ namespace SodaCL.Toolkits
         /// ">需要写入的Log信息或自定义错误信息</param>
         public static void Log(bool isOpenDialog, ModuleList module, LogInfo LogInfo, string message = null, Exception ex = null)
         {
-            string moduleText = "";
-            string logContent = "";
+            var moduleText = "";
+            var logContent = "";
             switch (module)
             {
                 case ModuleList.Main:
@@ -127,8 +127,8 @@ namespace SodaCL.Toolkits
         {
             try
             {
-                int fileNum = 0;
-                foreach (FileInfo f in logDir.GetFiles())
+                var fileNum = 0;
+                foreach (var f in logDir.GetFiles())
                     fileNum++;
                 return fileNum;
             }

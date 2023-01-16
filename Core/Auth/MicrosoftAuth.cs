@@ -16,9 +16,9 @@ namespace SodaCL.Core.Auth
         public event EventHandler<(WindowsTypes, string)> OpenWindows;
 
         private string OAuth2AccessToken { get; set; }
-        private XboxXSTSResModel xboxXSTSResModel;
-        private XboxXSTSErrModel xboxXSTSErrModel;
-        private MinecraftProfileResModel minecraftProfileResModel;
+        private XboxXSTSResModel _xboxXSTSResModel;
+        private XboxXSTSErrModel _xboxXSTSErrModel;
+        private MinecraftProfileResModel _minecraftProfileResModel;
 
         public async Task<MicrosoftAccount> StartAuthAsync(string clientId)
         {
@@ -109,13 +109,13 @@ namespace SodaCL.Core.Auth
             var xstsResponse = await xboxXSTSClient.PostAsync("https://xsts.auth.xboxlive.com/xsts/authorize", xstsPostContent);
             if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)200)
             {
-                xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
+                _xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
                 Log(false, ModuleList.Login, LogInfo.Info, "成功获取XstsToken");
             }
             else if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)401)
             {
-                xboxXSTSErrModel = JsonConvert.DeserializeObject<XboxXSTSErrModel>(await xstsResponse.Content.ReadAsStringAsync());
-                switch (xboxXSTSErrModel.XErr)
+                _xboxXSTSErrModel = JsonConvert.DeserializeObject<XboxXSTSErrModel>(await xstsResponse.Content.ReadAsStringAsync());
+                switch (_xboxXSTSErrModel.XErr)
                 {
                     case string Err when Err.Equals("2148916233"):
                         throw new MicrosoftAuthException(MsAuthErrorType.NoXboxAccount);
@@ -130,7 +130,7 @@ namespace SodaCL.Core.Auth
                         throw new MicrosoftAuthException(MsAuthErrorType.NeedJoiningInFamily);
                 }
                 xstsResponse.EnsureSuccessStatusCode();
-                xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
+                _xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
                 xboxXSTSClient.Dispose();
             }
 
@@ -143,12 +143,12 @@ namespace SodaCL.Core.Auth
             var mcClient = new HttpClient();
             mcClient.Timeout = TimeSpan.FromSeconds(10);
 
-            var mcJsonContent = $"{{ \"identityToken\": \"XBL3.0 x={xboxXSTSResModel.DisplayClaims.Xui[0]["uhs"]};{xboxXSTSResModel.XboxXSTSToken}\"}}";
+            var mcJsonContent = $"{{ \"identityToken\": \"XBL3.0 x={_xboxXSTSResModel.DisplayClaims.Xui[0]["uhs"]};{_xboxXSTSResModel.XboxXSTSToken}\"}}";
             var mcPostContent = new StringContent(mcJsonContent, Encoding.UTF8, "application/json");
             var mcResponse = await mcClient.PostAsync("https://api.minecraftservices.com/authentication/login_with_xbox", mcPostContent);
             mcResponse.EnsureSuccessStatusCode();
             Log(false, ModuleList.Login, LogInfo.Info, "成功获取MCToken");
-            string mcAccessToken = (string)JObject.Parse(await mcResponse.Content.ReadAsStringAsync())["access_token"];
+            var mcAccessToken = (string)JObject.Parse(await mcResponse.Content.ReadAsStringAsync())["access_token"];
 
             #endregion 获取 Minecraft Access Token
 
@@ -161,7 +161,7 @@ namespace SodaCL.Core.Auth
             var userProfileRes = await userProfileClient.GetAsync("https://api.minecraftservices.com/minecraft/profile");
             if (userProfileRes.IsSuccessStatusCode)
             {
-                minecraftProfileResModel = JsonConvert.DeserializeObject<MinecraftProfileResModel>(await userProfileRes.Content.ReadAsStringAsync());
+                _minecraftProfileResModel = JsonConvert.DeserializeObject<MinecraftProfileResModel>(await userProfileRes.Content.ReadAsStringAsync());
                 Log(false, ModuleList.Login, LogInfo.Info, "成功获取MCToken");
             }
             else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -175,8 +175,8 @@ namespace SodaCL.Core.Auth
             return new MicrosoftAccount
             {
                 AccessToken = mcAccessToken,
-                UserName = minecraftProfileResModel.Name,
-                Uuid = Guid.Parse(minecraftProfileResModel.Id),
+                UserName = _minecraftProfileResModel.Name,
+                Uuid = Guid.Parse(_minecraftProfileResModel.Id),
             };
         }
     }

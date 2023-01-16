@@ -13,9 +13,9 @@ namespace SodaCL
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            for (int i = 0; i < e.Args.Length; i++)
+            foreach (var t in e.Args)
             {
-                if (e.Args[i] == "--langs")
+                if (t == "--langs")
                 {
                     //留个接口先
                     MessageBox.Show("您正处于翻译人员模式");
@@ -25,7 +25,7 @@ namespace SodaCL
             InitFolder.InitBasicFolder();
             LogStart();
             AppCenterManager.StartAppCenter();
-            SplashScreen splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
+            var splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
             splashScreen.Show(true, true);
             base.OnStartup(e);
             Log(false, ModuleList.Main, LogInfo.Info, "显示启动画面");

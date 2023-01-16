@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace SodaCL.Core.Download
 {
-    public class McDownload
+    public class MC_Download
     {
         //private static string version = "1.7.10";
         //private static string type = "client";
-        private static string BMCLapiUrl = "https://bmclapi2.bangbang93.com/";
+        private static readonly string BMCLapiUrl = "https://bmclapi2.bangbang93.com/";
 
         //public static async Task GetVersion()
         //{
@@ -25,7 +25,7 @@ namespace SodaCL.Core.Download
         public static async Task GetManifest(string targetPath)
         {
             HttpClient client = new();
-            string response = await client.GetStringAsync(BMCLapiUrl + "mc/game/versionmanifest.json");
+            var response = await client.GetStringAsync(BMCLapiUrl + "mc/game/versionmanifest.json");
             File.WriteAllText(targetPath, response);
         }
     }

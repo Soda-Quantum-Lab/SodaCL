@@ -47,12 +47,12 @@ namespace SodaCL.Pages
 
         private void TextAni()
         {
-            Storyboard storyboard = new Storyboard();
-            DoubleAnimation doubleAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
+            var storyboard = new Storyboard();
+            var doubleAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
             Storyboard.SetTarget(doubleAnimation, SayHelloUsernameTxb);
             Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("Opacity"));
             storyboard.Children.Add(doubleAnimation);
-            DoubleAnimation doubleAnimation2 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
+            var doubleAnimation2 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
             Storyboard.SetTarget(doubleAnimation2, SayHelloTimeTxb);
             Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath("Opacity"));
             storyboard.Children.Add(doubleAnimation2);
@@ -63,7 +63,7 @@ namespace SodaCL.Pages
             //Storyboard.SetTarget(doubleAnimation3, YiYanTxb);
             //Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath("Opacity"));
             //storyboard.Children.Add(doubleAnimation3);
-            ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4))
+            var thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4))
             {
                 BeginTime = TimeSpan.FromSeconds(0.2),
                 EasingFunction = new CubicEase
@@ -83,7 +83,7 @@ namespace SodaCL.Pages
             {
                 SayHelloUsernameTxb.Text = Environment.UserName;
 
-                int hour = DateTime.Now.Hour;
+                var hour = DateTime.Now.Hour;
                 switch (hour)
                 {
                     case int n when (n >= 3 && n < 5):
@@ -138,9 +138,9 @@ namespace SodaCL.Pages
                         {
                             var yiYanApiAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10";
                             client.Timeout = TimeSpan.FromSeconds(5);
-                            string jsonResponse = await client.GetStringAsync(yiYanApiAdd);
-                            JObject jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
-                            string yiYan = (string)jObj["hitokoto"];
+                            var jsonResponse = await client.GetStringAsync(yiYanApiAdd);
+                            var jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
+                            var yiYan = (string)jObj["hitokoto"];
                             string space;
                             string endSpace;
                             if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！"))
@@ -185,7 +185,7 @@ namespace SodaCL.Pages
             multiDownload.Start();
             MessageBox.Show("下载开始，请等待大约 30s 后点击启动按钮\n若启动器崩溃请重新打开启动器并执行下载");
             Log(true, ModuleList.Network, LogInfo.Info, "下载线程已启动");
-            for (int i = 0; i < 1; i--)
+            for (var i = 0; i < 1; i--)
             {
                 if (multiDownload.IsComplete)
                 {

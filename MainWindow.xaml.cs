@@ -46,7 +46,7 @@ namespace SodaCL
             }
             finally
             {
-                var opcAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.1));
+                var opcAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
                 opcAni.Completed += (sender, r) => { this.Close(); };
                 this.BeginAnimation(OpacityProperty, opcAni);
             }
@@ -55,7 +55,7 @@ namespace SodaCL
         //最小化按钮
         private void TitleBar_MiniSizeBtn_Click(object sender, RoutedEventArgs e)
         {
-            var opcAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.1));
+            var opcAni = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
             opcAni.Completed += (sender, r) => { this.WindowState = WindowState.Minimized; };
             this.BeginAnimation(OpacityProperty, opcAni);
         }
