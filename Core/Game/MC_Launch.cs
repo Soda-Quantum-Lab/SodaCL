@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Windows;
+using Newtonsoft.Json;
 using static SodaCL.Core.Java.JavaSelector;
 using static SodaCL.Toolkits.Logger;
 
@@ -16,6 +17,11 @@ namespace SodaCL.Core.Game
     {
         public static void MCLaunching(string versionName, string ramMaxSize, string username)
         {
+            string mcVersionJson = System.IO.File.ReadAllText(SodaCL.Launcher.LauncherInfo.mcVersionsDir + versionName + "\\" + versionName + ".json");
+            string getJson = MC_JsonParser.MCJsonParser(mcVersionJson);
+            Log(false, ModuleList.IO, LogInfo.Info, "SodaCL 已对核心 Json 进行解析，结果如下: ");
+            Log(false, ModuleList.IO, LogInfo.Info, getJson);
+
             string indexVersion = "1.12";
             int indexVersionInt;
             string[] javaSelectedPath = new string[100];
@@ -26,6 +32,9 @@ namespace SodaCL.Core.Game
             string windowHeight = "480";
 
             int.TryParse(indexVersion, out indexVersionInt);
+
+            
+
 
             javaSelectedPath = (string[])SelectJavaByVersion(indexVersionInt);
             if (javaSelectedPath == null)
