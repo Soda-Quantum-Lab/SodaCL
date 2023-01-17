@@ -179,20 +179,16 @@ namespace SodaCL.Pages
 
         #region 事件
 
-        private void DownloadTestButtonClick(object sender, RoutedEventArgs e)
+        private void StartTestButtonClick(object sender, RoutedEventArgs e)
         {
-            MultiDownload multiDownload = new(8, "http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe", ".\\SodaCL\\BakaXL.exe");
-            multiDownload.Start();
-            MessageBox.Show("下载开始，请等待大约 30s 后点击启动按钮\n若启动器崩溃请重新打开启动器并执行下载");
-            Log(true, ModuleList.Network, LogInfo.Info, "下载线程已启动");
-            for (var i = 0; i < 1; i--)
+            try
             {
-                if (multiDownload.IsComplete)
-                {
-                    MessageBox.Show("下载完成");
-                    Log(true, ModuleList.Network, LogInfo.Info, "下载已完成");
-                    break;
-                }
+                SodaCL.Core.Game.MC_Launch.MCLaunching("1.12.2", "4096M", "SodaCL_Test");
+                Log(false, ModuleList.Main, LogInfo.Info, "启动游戏成功");
+            }
+            catch (Exception ex)
+            {
+                Log(true, ModuleList.Main, LogInfo.Info, "SodaCL 在启动游戏时发生了错误: \n" + ex.ToString());
             }
         }
 
@@ -217,6 +213,7 @@ namespace SodaCL.Pages
         private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
         {
             MC_VersionList.GetVersionList();
+            Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
             JavaFinding.AutoJavaFinding(true);
         }
 

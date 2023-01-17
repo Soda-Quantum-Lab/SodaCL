@@ -27,7 +27,7 @@ namespace SodaCL.Core.Game
                 for (var i = 0; i < dir.Length; i++)
                 {
                     names[i] = Path.GetFileName(dir[i]);
-                    Log(true,ModuleList.IO, LogInfo.Info, names[i]);
+                    Log(false,ModuleList.IO, LogInfo.Info, names[i]);
                 }
                 return names;
             }
