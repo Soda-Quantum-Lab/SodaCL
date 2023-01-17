@@ -2,19 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <!--不要乱改语言文件中的空格-->
-    <s:String x:Key="Error">出錯了</s:String>
-    <s:String x:Key="Butten_OK">ao</s:String>
+    <s:String x:Key="Error">我操你媽的，出錯了</s:String>
+    <s:String x:Key="Butten_OK">好的</s:String>
     <s:String x:Key="TitleBar_IssuesBtn_Tip">Bug，SodaCL Github Issue 頁面，懂？</s:String>
     <s:String x:Key="MainPage_GettingYiyan">Souiken:給我把這句改成 Loading...</s:String>
     <s:String x:Key="MainPage_CurrentCore">當前使用堆芯</s:String>
     <s:String x:Key="MainPage_StartGame">▷ AZ-5按鈕</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Title">巨硬登錄頁，懂？</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip">跳，巨硬登錄頁，代碼，巨硬賬戶，代碼，剪切板。懂？</s:String>
-    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode">登錄代碼</s:String>
+    <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode">顧名思義，登錄代碼</s:String>
     <s:String x:Key="Login_Microsoft_Error_AuthDeclined">你為什麼拒絕了授權請求，現在去授權頁面再試一次。</s:String>
     <s:String x:Key="Login_Microsoft_Error_ExpiredToken">登錄超時，寄</s:String>
     <s:String x:Key="Login_Microsoft_Error_NoXboxAccount">巨硬賬戶裡面沒有X盒子賬戶</s:String>
-    <s:String x:Key="Login_Microsoft_Error_XboxDisable">你的國家不給你用Xbox Live</s:String>
+    <s:String x:Key="Login_Microsoft_Error_XboxDisable">國家不給你用 X盒子在線</s:String>
     <s:String x:Key="Login_Microsoft_Error_NeedAdultAuth">請進行我不是屁孩驗證</s:String>
     <s:String x:Key="Login_Microsoft_Error_NeedJoiningInFamily">屁孩賬戶需要爸媽加入家庭</s:String>
     <s:String x:Key="Login_Microsoft_Error_NoGame">你沒正版你玩你媽呢？</s:String>
