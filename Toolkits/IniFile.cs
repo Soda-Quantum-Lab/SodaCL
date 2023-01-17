@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SodaCL.Toolkits
 {
-    internal class IniFile
+    public static class IniFile
     {
         private static readonly string EXE = "SodaCL";
 

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace SodaCL.Core.Game
 {
-    internal class MC_JsonParser
+    internal class MinecraftJsonParser
     {
         //如果好用，请收藏地址，帮忙分享。
         public class AssetIndex
@@ -28,22 +24,6 @@ namespace SodaCL.Core.Game
             /// 
             /// </summary>
             public int totalSize { get; set; }
-            /// <summary>
-            /// 
-            /// </summary>
-            public string url { get; set; }
-        }
-
-        public class Client
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            public string sha1 { get; set; }
-            /// <summary>
-            /// 
-            /// </summary>
-            public int size { get; set; }
             /// <summary>
             /// 
             /// </summary>
@@ -110,13 +90,6 @@ namespace SodaCL.Core.Game
             public string url { get; set; }
         }
 
-        public class Downloads
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            public Artifact artifact { get; set; }
-        }
 
         public class LibrariesItem
         {
@@ -234,11 +207,11 @@ namespace SodaCL.Core.Game
             public string type { get; set; }
         }
 
-        public static string MCJsonParser(string mcVersionJson)
+        public static string McJsonParser(string mcVersionJson)
         {
             Root rt = JsonConvert.DeserializeObject<Root>(mcVersionJson);
             return rt.ToString();
         }
-        
+
     }
 }

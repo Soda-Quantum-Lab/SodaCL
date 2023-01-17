@@ -11,7 +11,7 @@ using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Auth
 {
-    public class MSAuth
+    public class MicrosoftAuth
     {
         public event EventHandler<(WindowsTypes, string)> OpenWindows;
 
@@ -19,6 +19,27 @@ namespace SodaCL.Core.Auth
         private XboxXSTSResModel _xboxXSTSResModel;
         private XboxXSTSErrModel _xboxXSTSErrModel;
         private MinecraftProfileResModel _minecraftProfileResModel;
+
+        public enum WindowsTypes
+        {
+            StartLogin,
+            OpenInBrowser,
+            GettingXboxXBLToken,
+            GettingXboxXSTSToken,
+            GettingMcProfile,
+            NoProfile
+        }
+
+        public enum MsAuthErrorType
+        {
+            AuthDeclined,
+            ExpiredToken,
+            NoXboxAccount,
+            XboxDisable,
+            NeedAdultAuth,
+            NeedJoiningInFamily,
+            NoGame,
+        }
 
         public async Task<MicrosoftAccount> StartAuthAsync(string clientId)
         {
@@ -147,7 +168,7 @@ namespace SodaCL.Core.Auth
             var mcPostContent = new StringContent(mcJsonContent, Encoding.UTF8, "application/json");
             var mcResponse = await mcClient.PostAsync("https://api.minecraftservices.com/authentication/login_with_xbox", mcPostContent);
             mcResponse.EnsureSuccessStatusCode();
-            Log(false, ModuleList.Login, LogInfo.Info, "成功获取MCToken");
+            Log(false, ModuleList.Login, LogInfo.Info, "成功获取McToken");
             var mcAccessToken = (string)JObject.Parse(await mcResponse.Content.ReadAsStringAsync())["access_token"];
 
             #endregion 获取 Minecraft Access Token
@@ -162,11 +183,11 @@ namespace SodaCL.Core.Auth
             if (userProfileRes.IsSuccessStatusCode)
             {
                 _minecraftProfileResModel = JsonConvert.DeserializeObject<MinecraftProfileResModel>(await userProfileRes.Content.ReadAsStringAsync());
-                Log(false, ModuleList.Login, LogInfo.Info, "成功获取MCToken");
+                Log(false, ModuleList.Login, LogInfo.Info, "成功获取McToken");
             }
             else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                OpenWindows?.Invoke(this, (WindowsTypes.GettingMCProfile, null));
+                OpenWindows?.Invoke(this, (WindowsTypes.GettingMcProfile, null));
                 throw new MicrosoftAuthException(MsAuthErrorType.NoGame);
             }
 

@@ -2,7 +2,7 @@
 
 namespace SodaCL.Core.Game
 {
-    public class MC_Mod
+    public class MinecraftMod
     {
         private string version;
         private string id, name;

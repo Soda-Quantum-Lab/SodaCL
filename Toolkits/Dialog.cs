@@ -8,7 +8,7 @@ using static SodaCL.Toolkits.GetResources;
 
 namespace SodaCL.Toolkits
 {
-    public class Dialog
+    public static class Dialog
     {
         private static TimeSpan DialogAniSpeed { get; } = TimeSpan.FromSeconds(0.5);
         private static TimeSpan OpacAniSpeed { get; } = TimeSpan.FromSeconds(0.7);

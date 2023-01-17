@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using SodaCL.Launcher;
 using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
@@ -22,7 +21,7 @@ namespace SodaCL
                     //bool isTranslator = true;
                 }
             }
-            InitFolder.InitBasicFolder();
+            LauncherInit.InitNewFolder();
             LogStart();
             AppCenterManager.StartAppCenter();
             var splashScreen = new SplashScreen("/Resources/Images/Dev.ico");

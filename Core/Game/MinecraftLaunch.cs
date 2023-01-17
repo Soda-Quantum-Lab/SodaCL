@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Windows;
-using Newtonsoft.Json;
+﻿using System.Diagnostics;
 using static SodaCL.Core.Java.JavaSelector;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Game
 {
-    internal class MC_Launch
+    internal class MinecraftLaunch
     {
-        public static void MCLaunching(string versionName, string ramMaxSize, string username)
+        public static void McLaunching(string versionName, string ramMaxSize, string username)
         {
             string mcVersionJson = System.IO.File.ReadAllText(SodaCL.Launcher.LauncherInfo.mcVersionsDir + versionName + "\\" + versionName + ".json");
-            string getJson = MC_JsonParser.MCJsonParser(mcVersionJson);
+            string getJson = MinecraftJsonParser.McJsonParser(mcVersionJson);
             Log(false, ModuleList.IO, LogInfo.Info, "SodaCL 已对核心 Json 进行解析，结果如下: ");
             Log(false, ModuleList.IO, LogInfo.Info, getJson);
 
@@ -33,7 +24,7 @@ namespace SodaCL.Core.Game
 
             int.TryParse(indexVersion, out indexVersionInt);
 
-            
+
 
 
             javaSelectedPath = (string[])SelectJavaByVersion(indexVersionInt);

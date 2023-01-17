@@ -18,7 +18,7 @@ namespace SodaCL
     {
         public static MainWindow mainWindow;
         public static LauncherInfo launcherInfo;
-        public static List<MC_Client> clients = new();
+        public static List<MinecraftClient> clients = new();
         private bool IsThisPage;
 
         public MainWindow()
@@ -149,7 +149,7 @@ namespace SodaCL
                 Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
                 Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
                 goBackSb.Children.Add(goBackPanAni);
-                goBackSb.Completed += (object sender, EventArgs e) =>
+                goBackSb.Completed += (sender, e) =>
                 {
                     TitleBar_GoBackBtn.Visibility = Visibility.Hidden;
                 };

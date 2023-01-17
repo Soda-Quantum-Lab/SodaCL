@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
 using SodaCL.Core.Auth.Model;
-using SodaCL.Core.Download;
 using SodaCL.Core.Game;
 using SodaCL.Core.Java;
 using static SodaCL.Toolkits.Dialog;
@@ -171,7 +170,6 @@ namespace SodaCL.Pages
             {
                 YiYanTxb.Text = "一言获取失败";
                 Log(false, ModuleList.Network, LogInfo.Warning, "一言获取失败", ex);
-                ;
             }
         }
 
@@ -183,12 +181,12 @@ namespace SodaCL.Pages
         {
             try
             {
-                SodaCL.Core.Game.MC_Launch.MCLaunching("1.12.2", "4096M", "SodaCL_Test");
+                MinecraftLaunch.McLaunching("1.12.2", "4096M", "SodaCL_Test");
                 Log(false, ModuleList.Main, LogInfo.Info, "启动游戏成功");
             }
             catch (Exception ex)
             {
-                Log(true, ModuleList.Main, LogInfo.Info, "SodaCL 在启动游戏时发生了错误: \n" + ex.ToString());
+                Log(true, ModuleList.Main, LogInfo.Info, "SodaCL 在启动游戏时发生了错误: \n" + ex);
             }
         }
 
@@ -212,7 +210,7 @@ namespace SodaCL.Pages
 
         private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
         {
-            MC_VersionList.GetVersionList();
+            MinecraftVersionList.GetVersionList();
             Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
             JavaFinding.AutoJavaFinding(true);
         }
@@ -222,7 +220,7 @@ namespace SodaCL.Pages
 
         private async void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSAuth msOAuth = new();
+            MicrosoftAuth msOAuth = new();
             msOAuth.OpenWindows += MSOAuth_OpenWindows;
             loginTsCancelSrc = new CancellationTokenSource();
 
@@ -239,37 +237,37 @@ namespace SodaCL.Pages
                 string errorMsg;
                 switch (ex.ErrorType)
                 {
-                    case MsAuthErrorType.AuthDeclined:
+                    case MicrosoftAuth.MsAuthErrorType.AuthDeclined:
                         errorMsg = GetText("Login_Microsoft_Error_AuthDeclined");
                         Log(true, ModuleList.Login, LogInfo.Warning, "最终用户拒绝了授权请求", ex);
                         break;
 
-                    case MsAuthErrorType.ExpiredToken:
+                    case MicrosoftAuth.MsAuthErrorType.ExpiredToken:
                         errorMsg = GetText("Login_Microsoft_Error_ExpiredToken");
                         Log(true, ModuleList.Login, LogInfo.Warning, "登录超时", ex);
                         break;
 
-                    case MsAuthErrorType.NoXboxAccount:
+                    case MicrosoftAuth.MsAuthErrorType.NoXboxAccount:
                         errorMsg = GetText("Login_Microsoft_Error_NoXboxAccount");
                         Log(true, ModuleList.Login, LogInfo.Warning, "用户未创建Xbox账户", ex);
                         break;
 
-                    case MsAuthErrorType.XboxDisable:
+                    case MicrosoftAuth.MsAuthErrorType.XboxDisable:
                         errorMsg = GetText("Login_Microsoft_Error_XboxDisable");
                         Log(true, ModuleList.Login, LogInfo.Warning, " Xbox Live 不可用/禁止的国家/地区", ex);
                         break;
 
-                    case MsAuthErrorType.NeedAdultAuth:
+                    case MicrosoftAuth.MsAuthErrorType.NeedAdultAuth:
                         errorMsg = GetText("Login_Microsoft_Error_NeedAdultAuth");
                         Log(true, ModuleList.Login, LogInfo.Warning, "需要在 Xbox 页面上进行成人验证", ex);
                         break;
 
-                    case MsAuthErrorType.NeedJoiningInFamily:
+                    case MicrosoftAuth.MsAuthErrorType.NeedJoiningInFamily:
                         errorMsg = GetText("Login_Microsoft_Error_NeedJoiningInFamily");
                         Log(true, ModuleList.Login, LogInfo.Warning, "需要在 Xbox 页面上进行成人验证", ex);
                         break;
 
-                    case MsAuthErrorType.NoGame:
+                    case MicrosoftAuth.MsAuthErrorType.NoGame:
                         errorMsg = GetText("Login_Microsoft_Error_NoGame");
                         Log(true, ModuleList.Login, LogInfo.Warning, "该帐户是儿童账户", ex);
                         break;
@@ -291,9 +289,9 @@ namespace SodaCL.Pages
             }
         }
 
-        private async void MSOAuth_OpenWindows(object sender, (WindowsTypes, string) e)
+        private async void MSOAuth_OpenWindows(object sender, (MicrosoftAuth.WindowsTypes, string) e)
         {
-            if (e.Item1.Equals(WindowsTypes.OpenInBrowser))
+            if (e.Item1.Equals(MicrosoftAuth.WindowsTypes.OpenInBrowser))
             {
                 Dispatcher.Invoke(new Action(() => { ChangeDialog(); }));
 
@@ -301,7 +299,7 @@ namespace SodaCL.Pages
             }
             switch (e)
             {
-                case (WindowsTypes.StartLogin, null):
+                case (MicrosoftAuth.WindowsTypes.StartLogin, null):
                     {
                         await Dispatcher.InvokeAsync(() =>
                         {

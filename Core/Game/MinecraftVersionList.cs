@@ -4,7 +4,7 @@ using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Game
 {
-    internal class MC_VersionList
+    internal class MinecraftVersionList
     {
         public static string[] GetVersionList()
         {

@@ -7,7 +7,7 @@ using SodaCL.Launcher;
 
 namespace SodaCL.Toolkits
 {
-    public class Logger
+    public static class Logger
     {
         // Log 模块介绍: 
         // 第一位 bool 参数: 控制是否显示 MsgBox , 若为 true 则显示
@@ -15,7 +15,7 @@ namespace SodaCL.Toolkits
         // 第三位 LogInfo 参数: 控制日志等级
         // 第四位参数: Log 输出的内容
         /// <summary>
-        /// 日志级别枚举(不包括Error！)
+        /// 日志级别枚举
         /// </summary>
         public enum LogInfo
         {
