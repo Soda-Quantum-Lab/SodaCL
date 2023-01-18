@@ -8,7 +8,7 @@ namespace SodaCL.Core.Game
     {
         public static void McLaunching(string versionName, string ramMaxSize, string username)
         {
-            string mcVersionJson = System.IO.File.ReadAllText(SodaCL.Launcher.LauncherInfo.mcVersionsDir + versionName + "\\" + versionName + ".json");
+            string mcVersionJson = System.IO.File.ReadAllText(SodaCL.Launcher.LauncherInfo.mcVersionsDir + "\\" + versionName + "\\" + versionName + ".json");
             string getJson = MinecraftJsonParser.McJsonParser(mcVersionJson);
             Log(false, ModuleList.IO, LogInfo.Info, "SodaCL 已对核心 Json 进行解析，结果如下: ");
             Log(false, ModuleList.IO, LogInfo.Info, getJson);

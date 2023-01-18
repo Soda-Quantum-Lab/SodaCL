@@ -11,6 +11,7 @@ namespace SodaCL.Core.Java
 {
     internal class JavaSelector
     {
+        // 传入 Assets Index 版本即可
         public static Array SelectJavaByVersion(int gameVersion)
         {
             string[] javaPathArray = (string[])AutoJavaFinding(true);
