@@ -23,7 +23,6 @@ namespace SodaCL.Launcher
                     Directory.CreateDirectory(LauncherInfo.appDataDir);
                 if (!File.Exists(LauncherInfo.sodaCLConfigPath))
                     File.Create(LauncherInfo.sodaCLConfigPath);
-
             }
             catch (Exception ex)
             {

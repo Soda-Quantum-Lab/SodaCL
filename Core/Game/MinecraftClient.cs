@@ -5,17 +5,19 @@ namespace SodaCL.Core.Game
 {
     public class MinecraftClient
     {
-        public string version;
-        public int addition;// forge, fabric, opti, ...
-        public bool forgeInCore = false;
-        public bool fabricInCore = false;
-        public bool quiltInCore = false;
-        public bool optifineInCore = false;
+        public int addition;
         public bool apart;
+        public DateTime createTime, lstChangeTime;
+        public bool fabricInCore = false;
+
+        // forge, fabric, opti, ...
+        public bool forgeInCore = false;
 
         public List<MinecraftMod> modList;
-        public DateTime createTime, lstChangeTime;
+        public bool optifineInCore = false;
         public string path;
+        public bool quiltInCore = false;
+        public string version;
         public string versionJson, clientJar;
 
         public MinecraftClient(string version)

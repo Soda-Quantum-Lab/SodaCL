@@ -1,9 +1,6 @@
-﻿using Microsoft.AppCenter.Ingestion.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static SodaCL.Core.Java.JavaFinding;
 using static SodaCL.Toolkits.Logger;
 
@@ -27,13 +24,13 @@ namespace SodaCL.Core.Java
                     if (gameVersion == 1.16)
                     {
                         IEnumerable<string> javaIsCompatiable11 = from java in javaPathArray
-                                                                where java.Contains("11")
-                                                                select java;
+                                                                  where java.Contains("11")
+                                                                  select java;
                         if (javaIsCompatiable11 == null)
                         {
                             IEnumerable<string> javaIsCompatiable8 = from java in javaPathArray
-                                                                    where java.Contains("8")
-                                                                    select java;
+                                                                     where java.Contains("8")
+                                                                     select java;
                             if (javaIsCompatiable8 == null)
                             {
                                 Log(true, ModuleList.IO, LogInfo.Info, "SodaCL 找不到符合条件的 Java 。");
@@ -78,8 +75,8 @@ namespace SodaCL.Core.Java
                 else
                 {
                     IEnumerable<string> javaIsCompatiable17 = from java in javaPathArray
-                                                            where java.Contains("17")
-                                                            select java;
+                                                              where java.Contains("17")
+                                                              select java;
                     if (javaIsCompatiable17 == null)
                     {
                         Log(true, ModuleList.IO, LogInfo.Info, "SodaCL 找不到符合条件的 Java 。");

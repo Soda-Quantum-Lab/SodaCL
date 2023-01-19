@@ -7,24 +7,6 @@ namespace SodaCL.Toolkits
     {
         private static readonly string EXE = "SodaCL";
 
-        [DllImport("kernel32", CharSet = CharSet.Unicode)]
-        private static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);
-
-        [DllImport("kernel32", CharSet = CharSet.Unicode)]
-        private static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
-
-        public static string Read(string Key, string Section = null)
-        {
-            var RetVal = new StringBuilder(255);
-            GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Launcher.LauncherInfo.sodaCLConfigPath);
-            return RetVal.ToString();
-        }
-
-        public static void Write(string Key, string Value, string Section = null)
-        {
-            WritePrivateProfileString(Section ?? EXE, Key, Value, Launcher.LauncherInfo.sodaCLConfigPath);
-        }
-
         public static void DeleteKey(string Key, string Section = null)
         {
             Write(Key, null, Section ?? EXE);
@@ -39,5 +21,23 @@ namespace SodaCL.Toolkits
         {
             return Read(Key, Section).Length > 0;
         }
+
+        public static string Read(string Key, string Section = null)
+        {
+            var RetVal = new StringBuilder(255);
+            GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Launcher.LauncherInfo.sodaCLConfigPath);
+            return RetVal.ToString();
+        }
+
+        public static void Write(string Key, string Value, string Section = null)
+        {
+            WritePrivateProfileString(Section ?? EXE, Key, Value, Launcher.LauncherInfo.sodaCLConfigPath);
+        }
+
+        [DllImport("kernel32", CharSet = CharSet.Unicode)]
+        private static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
+
+        [DllImport("kernel32", CharSet = CharSet.Unicode)]
+        private static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);
     }
 }

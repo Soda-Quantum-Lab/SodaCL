@@ -16,12 +16,6 @@ namespace SodaCL.Core.Auth.Model
         [JsonProperty("device_code")]
         public string DeviceCode { get; set; }
 
-        [JsonProperty("user_code")]
-        public string UserCode { get; set; }
-
-        [JsonProperty("verification_uri")]
-        public Uri VerificationUri { get; set; }
-
         [JsonProperty("expires_in")]
         public int ExpiresIn { get; set; }
 
@@ -30,6 +24,27 @@ namespace SodaCL.Core.Auth.Model
 
         [JsonProperty("message")]
         public string Message { get; set; }
+
+        [JsonProperty("user_code")]
+        public string UserCode { get; set; }
+
+        [JsonProperty("verification_uri")]
+        public Uri VerificationUri { get; set; }
+    }
+
+    public class MinecraftProfileResModel
+    {
+        [JsonProperty("capes")]
+        public JArray Capes { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("skins")]
+        public List<SkinModel> Skins { get; set; }
     }
 
     public class PollingPostResModel
@@ -41,56 +56,11 @@ namespace SodaCL.Core.Auth.Model
         public string Error { get; set; }
     }
 
-    public class XboxXBLResModel
-    {
-        [JsonProperty("Token")]
-        public string XboxXBLToken { get; set; }
-
-        [JsonProperty("DisplayClaims")]
-        public DisplayClaimsModel DisplayClaims { get; set; }
-    }
-
-    public class XboxXSTSResModel
-    {
-        [JsonProperty("Token")]
-        public string XboxXSTSToken { get; set; }
-
-        [JsonProperty("DisplayClaims")]
-        public DisplayClaimsModel DisplayClaims { get; set; }
-    }
-
-    public class XboxXSTSErrModel
-    {
-        [JsonProperty("Identity")]
-        public string Identity { get; set; }
-
-        [JsonProperty("XErr")]
-        public string XErr { get; set; }
-
-        [JsonProperty("Message")]
-        public string Message { get; set; }
-
-        [JsonProperty("Redirect")]
-        public string Redirect { get; set; }
-    }
-
-    public class MinecraftProfileResModel
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("skins")]
-        public List<SkinModel> Skins { get; set; }
-
-        [JsonProperty("capes")]
-        public JArray Capes { get; set; }
-    }
-
     public class SkinModel
     {
+        [JsonProperty("alias")]
+        public string Alias { get; set; }
+
         [JsonProperty("id")]
         public string Id { get; set; }
 
@@ -102,8 +72,38 @@ namespace SodaCL.Core.Auth.Model
 
         [JsonProperty("variant")]
         public string Variant { get; set; }
+    }
 
-        [JsonProperty("alias")]
-        public string Alias { get; set; }
+    public class XboxXBLResModel
+    {
+        [JsonProperty("DisplayClaims")]
+        public DisplayClaimsModel DisplayClaims { get; set; }
+
+        [JsonProperty("Token")]
+        public string XboxXBLToken { get; set; }
+    }
+
+    public class XboxXSTSErrModel
+    {
+        [JsonProperty("Identity")]
+        public string Identity { get; set; }
+
+        [JsonProperty("Message")]
+        public string Message { get; set; }
+
+        [JsonProperty("Redirect")]
+        public string Redirect { get; set; }
+
+        [JsonProperty("XErr")]
+        public string XErr { get; set; }
+    }
+
+    public class XboxXSTSResModel
+    {
+        [JsonProperty("DisplayClaims")]
+        public DisplayClaimsModel DisplayClaims { get; set; }
+
+        [JsonProperty("Token")]
+        public string XboxXSTSToken { get; set; }
     }
 }
