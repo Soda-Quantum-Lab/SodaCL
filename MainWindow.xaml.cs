@@ -111,8 +111,10 @@ namespace SodaCL
 			{
 				var goBackSb = new Storyboard();
 
-				var goBackPanAni = new ThicknessAnimation(new Thickness(5, 0, 0, 0), new Thickness(-240, 6, 0, 0), AniTime);
-				goBackPanAni.EasingFunction = easingFunc;
+				var goBackPanAni = new ThicknessAnimation(new Thickness(5, 0, 0, 0), new Thickness(-240, 6, 0, 0), AniTime)
+				{
+					EasingFunction = easingFunc
+				};
 				Storyboard.SetTarget(goBackPanAni, TitleBar_TitlePan);
 				Storyboard.SetTargetProperty(goBackPanAni, new PropertyPath("Margin"));
 				goBackSb.Children.Add(goBackPanAni);
@@ -137,8 +139,10 @@ namespace SodaCL
 			else if (MainFram.CanGoBack == false)
 			{
 				var goBackSb = new Storyboard();
-				var goBackBtnAni = new ThicknessAnimation(new Thickness(10, 0, 0, 0), new Thickness(-50, 0, 0, 0), AniTime);
-				goBackBtnAni.EasingFunction = easingFunc;
+				var goBackBtnAni = new ThicknessAnimation(new Thickness(10, 0, 0, 0), new Thickness(-50, 0, 0, 0), AniTime)
+				{
+					EasingFunction = easingFunc
+				};
 				Storyboard.SetTarget(goBackBtnAni, TitleBar_GoBackBtn);
 				Storyboard.SetTargetProperty(goBackBtnAni, new PropertyPath("Margin"));
 				goBackSb.Children.Add(goBackBtnAni);

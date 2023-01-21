@@ -4,29 +4,29 @@ using System.Threading.Tasks;
 
 namespace SodaCL.Core.Download
 {
-    public class MinecraftDownload
-    {
-        //private static string version = "1.7.10";
-        //private static string type = "client";
-        private static readonly string BmclApiUrl = "https://bmclapi2.bangbang93.com/";
+	public class MinecraftDownload
+	{
+		//private static string version = "1.7.10";
+		//private static string type = "client";
+		private static readonly string BmclApiUrl = "https://bmclapi2.bangbang93.com/";
 
-        //public static async Task GetVersion()
-        //{
-        //    //测试用
-        //    string version = "1.7.10";
-        //    string type = "client";
-        //    string apiUrl = "https://bmclapi2.bangbang93.com/version/";
-        //    string fullApiUrl = apiUrl + version + "/" + type;
-        //    HttpClient client = new();
-        //    string response = await client.GetStringAsync(fullApiUrl);
-        //    HandyControl.Controls.MessageBox.Show(response);
+		//public static async Task GetVersion()
+		//{
+		//    //测试用
+		//    string version = "1.7.10";
+		//    string type = "client";
+		//    string apiUrl = "https://bmclapi2.bangbang93.com/version/";
+		//    string fullApiUrl = apiUrl + version + "/" + type;
+		//    HttpClient client = new();
+		//    string response = await client.GetStringAsync(fullApiUrl);
+		//    HandyControl.Controls.MessageBox.Show(response);
 
-        //}
-        public static async Task GetManifest(string targetPath)
-        {
-            HttpClient client = new();
-            var response = await client.GetStringAsync(BmclApiUrl + "Minecraft/game/versionmanifest.json");
-            File.WriteAllText(targetPath, response);
-        }
-    }
+		//}
+		public static async Task GetManifest(string targetPath)
+		{
+			HttpClient client = new();
+			var response = await client.GetStringAsync(BmclApiUrl + "Minecraft/game/versionmanifest.json");
+			File.WriteAllText(targetPath, response);
+		}
+	}
 }

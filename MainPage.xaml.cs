@@ -9,7 +9,6 @@ using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
-using SodaCL.Core.Auth.Model;
 using SodaCL.Core.Game;
 using SodaCL.Core.Java;
 using static SodaCL.Toolkits.Dialog;
@@ -25,6 +24,10 @@ namespace SodaCL.Pages
 	public partial class MainPage : Page
 	{
 		public static MainPage mainPage;
+
+		//登录Task取消Token
+		public CancellationTokenSource loginTsCancelSrc;
+
 		private string yiYanText;
 
 		#region 初始化
@@ -33,57 +36,6 @@ namespace SodaCL.Pages
 		{
 			InitializeComponent();
 			mainPage = this;
-		}
-
-		/// <summary>
-		/// 向Api接口获取一言并做出处理
-		/// </summary>
-		private async Task GetYiyanAsync()
-		{
-			string text;
-			try
-			{
-				if (yiYanText == null)
-				{
-					Log(false, ModuleList.Network, LogInfo.Info, "正在获取一言");
-					do
-					{
-						using var client = new HttpClient();
-						var yiYanApiAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10";
-						client.Timeout = TimeSpan.FromSeconds(5);
-						var jsonResponse = await client.GetStringAsync(yiYanApiAdd);
-						var jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
-						var yiYan = (string)jObj["hitokoto"];
-						string space;
-						string endSpace;
-						if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！"))
-						{
-							space = "  ";
-							endSpace = "";
-						}
-						else
-						{
-							space = "  ";
-							endSpace = "  ";
-						}
-						YiYanTxb.Margin = new Thickness(10, 0, 0, 0);
-						text = $"「{space + yiYan + endSpace}」 ——  {(string)jObj["from"]}";
-					}
-					while (text.Length > 35);
-					YiYanTxb.Text = text;
-					yiYanText = YiYanTxb.Text;
-					Log(false, ModuleList.Network, LogInfo.Info, "一言获取成功");
-				}
-				else
-				{
-					YiYanTxb.Text = yiYanText;
-				}
-			}
-			catch (Exception ex)
-			{
-				YiYanTxb.Text = "一言获取失败";
-				Log(false, ModuleList.Network, LogInfo.Warning, "一言获取失败", ex);
-			}
 		}
 
 		private async void Page_Initialized(object sender, EventArgs e)
@@ -95,51 +47,11 @@ namespace SodaCL.Pages
 			YiYanTxb.BeginAnimation(OpacityProperty, da);
 		}
 
-		private void SayHello()
-		{
-			try
-			{
-				SayHelloUsernameTxb.Text = Environment.UserName;
+		#endregion 初始化
 
-				var hour = DateTime.Now.Hour;
-				switch (hour)
-				{
-					case int n when (n >= 3 && n < 5):
-						SayHelloTimeTxb.Text = "凌晨好!";
-						break;
+		#region 动画
 
-					case int n when (n >= 5 && n < 11):
-						SayHelloTimeTxb.Text = "上午好!";
-						break;
-
-					case int n when (n >= 11 && n < 13):
-						SayHelloTimeTxb.Text = "中午好!";
-						break;
-
-					case int n when (n >= 13 && n < 17):
-						SayHelloTimeTxb.Text = "下午好!";
-						break;
-
-					case int n when (n >= 17 && n < 19):
-						SayHelloTimeTxb.Text = "傍晚好!";
-						break;
-
-					case int n when ((n <= 23 && n >= 19) || n > 23):
-						SayHelloTimeTxb.Text = "晚上好!";
-						break;
-
-					case int n when (n >= 0 && n < 3):
-						SayHelloTimeTxb.Text = "午夜好!";
-						break;
-				}
-			}
-			catch (Exception ex)
-			{
-				Log(true, ModuleList.IO, LogInfo.Error, ex: ex);
-			}
-		}
-
-		private void TextAni()
+		public void TextAni()
 		{
 			var storyboard = new Storyboard();
 			var doubleAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
@@ -150,13 +62,6 @@ namespace SodaCL.Pages
 			Storyboard.SetTarget(doubleAnimation2, SayHelloTimeTxb);
 			Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath("Opacity"));
 			storyboard.Children.Add(doubleAnimation2);
-			//DoubleAnimation doubleAnimation3 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5))
-			//{
-			//    BeginTime = TimeSpan.FromSeconds(0.2)
-			//};
-			//Storyboard.SetTarget(doubleAnimation3, YiYanTxb);
-			//Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath("Opacity"));
-			//storyboard.Children.Add(doubleAnimation3);
 			var thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4))
 			{
 				BeginTime = TimeSpan.FromSeconds(0.2),
@@ -171,12 +76,9 @@ namespace SodaCL.Pages
 			storyboard.Begin();
 		}
 
-		#endregion 初始化
+		#endregion 动画
 
 		#region 事件
-
-		//登录Task取消Token
-		public CancellationTokenSource loginTsCancelSrc;
 
 		private void DownloadButtonClick(object sender, RoutedEventArgs e)
 		{
@@ -193,7 +95,7 @@ namespace SodaCL.Pages
 
 		private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
 		{
-			MinecraftVersionList.GetVersionList();
+			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
 			JavaFinding.AutoJavaFinding(true);
 		}
@@ -203,31 +105,9 @@ namespace SodaCL.Pages
 			Process.Start("explorer.exe", ".\\SodaCL\\logs");
 		}
 
-		private async void MSOAuth_OpenWindows(object sender, (MicrosoftAuth.WindowsTypes, string) e)
-		{
-			if (e.Item1.Equals(MicrosoftAuth.WindowsTypes.OpenInBrowser))
-			{
-				Dispatcher.Invoke(new Action(() => { ChangeDialog(); }));
-
-				await OpenOpenInBrowserWindow(e.Item2);
-			}
-			switch (e)
-			{
-				case (MicrosoftAuth.WindowsTypes.StartLogin, null):
-					{
-						await Dispatcher.InvokeAsync(() =>
-						{
-							OpenDialog();
-							MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
-							MainWindow.mainWindow.DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
-						});
-						break;
-					}
-			}
-		}
-
 		private async void StartBtn_Click(object sender, RoutedEventArgs e)
 		{
+			MinecraftLaunch.LaunchGame();
 			MicrosoftAuth msOAuth = new();
 			msOAuth.OpenWindows += MSOAuth_OpenWindows;
 			loginTsCancelSrc = new CancellationTokenSource();
@@ -236,9 +116,9 @@ namespace SodaCL.Pages
 			try
 			{
 				msAccount = await Task.Run<MicrosoftAccount>(async () =>
-			{
-				return await msOAuth.StartAuthAsync(GetText("OAuth2Token"));
-			}, loginTsCancelSrc.Token);
+				{
+					return await msOAuth.StartAuthAsync(GetText("OAuth2Token"));
+				}, loginTsCancelSrc.Token);
 			}
 			catch (MicrosoftAuthException ex)
 			{
@@ -301,7 +181,6 @@ namespace SodaCL.Pages
 		{
 			try
 			{
-				MinecraftLaunch.McLaunching("1.12.2", "4096M", "SodaCL_Test");
 				Log(false, ModuleList.Main, LogInfo.Info, "启动游戏成功");
 			}
 			catch (Exception ex)
@@ -311,6 +190,127 @@ namespace SodaCL.Pages
 		}
 
 		#endregion 事件
+
+		#region 一言及问好处理
+
+		private async Task GetYiyanAsync()
+		{
+			string text;
+			try
+			{
+				if (yiYanText == null)
+				{
+					Log(false, ModuleList.Network, LogInfo.Info, "正在获取一言");
+					do
+					{
+						using var client = new HttpClient();
+						var yiYanApiAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10";
+						client.Timeout = TimeSpan.FromSeconds(5);
+						var jsonResponse = await client.GetStringAsync(yiYanApiAdd);
+						var jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
+						var yiYan = (string)jObj["hitokoto"];
+						string space;
+						string endSpace;
+						if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！"))
+						{
+							space = "  ";
+							endSpace = "";
+						}
+						else
+						{
+							space = "  ";
+							endSpace = "  ";
+						}
+						YiYanTxb.Margin = new Thickness(10, 0, 0, 0);
+						text = $"「{space + yiYan + endSpace}」 ——  {(string)jObj["from"]}";
+					}
+					while (text.Length > 35);
+					YiYanTxb.Text = text;
+					yiYanText = YiYanTxb.Text;
+					Log(false, ModuleList.Network, LogInfo.Info, "一言获取成功");
+				}
+				else
+				{
+					YiYanTxb.Text = yiYanText;
+				}
+			}
+			catch (Exception ex)
+			{
+				YiYanTxb.Text = "一言获取失败";
+				Log(false, ModuleList.Network, LogInfo.Warning, "一言获取失败", ex);
+			}
+		}
+
+		private void SayHello()
+		{
+			try
+			{
+				SayHelloUsernameTxb.Text = Environment.UserName;
+
+				var hour = DateTime.Now.Hour;
+				switch (hour)
+				{
+					case int n when (n >= 3 && n < 5):
+						SayHelloTimeTxb.Text = "凌晨好!";
+						break;
+
+					case int n when (n >= 5 && n < 11):
+						SayHelloTimeTxb.Text = "上午好!";
+						break;
+
+					case int n when (n >= 11 && n < 13):
+						SayHelloTimeTxb.Text = "中午好!";
+						break;
+
+					case int n when (n >= 13 && n < 17):
+						SayHelloTimeTxb.Text = "下午好!";
+						break;
+
+					case int n when (n >= 17 && n < 19):
+						SayHelloTimeTxb.Text = "傍晚好!";
+						break;
+
+					case int n when ((n <= 23 && n >= 19) || n > 23):
+						SayHelloTimeTxb.Text = "晚上好!";
+						break;
+
+					case int n when (n >= 0 && n < 3):
+						SayHelloTimeTxb.Text = "午夜好!";
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				Log(true, ModuleList.IO, LogInfo.Error, ex: ex);
+			}
+		}
+
+		/// <summary>
+		/// 向Api接口获取一言并做出处理
+		/// </summary>
+
+		#endregion 一言及问好处理
+
+		private async void MSOAuth_OpenWindows(object sender, (MicrosoftAuth.WindowsTypes, string) e)
+		{
+			if (e.Item1.Equals(MicrosoftAuth.WindowsTypes.OpenInBrowser))
+			{
+				Dispatcher.Invoke(new Action(() => { ChangeDialog(); }));
+
+				await OpenOpenInBrowserWindow(e.Item2);
+			}
+			switch (e)
+			{
+				case (MicrosoftAuth.WindowsTypes.StartLogin, null):
+					await Dispatcher.InvokeAsync(() =>
+					{
+						OpenDialog();
+						MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
+						MainWindow.mainWindow.DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
+					});
+					break;
+			}
+		}
 
 		/// <summary>
 		/// 打开登录说明界面

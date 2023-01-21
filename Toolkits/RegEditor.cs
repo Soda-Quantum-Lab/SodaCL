@@ -4,6 +4,10 @@ namespace SodaCL.Toolkits
 {
 	public static class RegEditor
 	{
+		public enum RegDomain
+		{
+
+		}
 		/// <summary>
 		/// 创建注册表子项
 		/// </summary>
@@ -51,7 +55,7 @@ namespace SodaCL.Toolkits
 		public static string? GetKeyValue(RegistryKey regDomain, string targetSubKey, string name)
 		{
 			var openedSubKey = regDomain.OpenSubKey(targetSubKey);
-			var getValue = openedSubKey.GetValue(name).ToString();
+			var getValue = openedSubKey == null ? openedSubKey.GetValue(name).ToString() : null;
 			regDomain.Close();
 			openedSubKey.Close();
 			return getValue;
