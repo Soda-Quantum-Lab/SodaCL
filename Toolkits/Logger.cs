@@ -39,7 +39,7 @@ namespace SodaCL.Toolkits
 		public enum ModuleList
 		{
 			Main,
-			Animation,
+			Control,
 			Network,
 			IO,
 			Login
@@ -77,8 +77,8 @@ namespace SodaCL.Toolkits
 					moduleText = "Main";
 					break;
 
-				case ModuleList.Animation:
-					moduleText = "Animation";
+				case ModuleList.Control:
+					moduleText = "Control";
 					break;
 
 				case ModuleList.Network:

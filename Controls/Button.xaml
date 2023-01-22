@@ -7,6 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="45 " d:DesignWidth="125">
     <Border Name="Btn_Border" Background="{DynamicResource Color1}" CornerRadius="6">
-        <TextBlock x:Name="Btn_Txb" FontSize="13" IsHitTestVisible="False" Foreground="{Binding Parent.BorderBrush, RelativeSource={RelativeSource Self}}">Button</TextBlock>
+        <TextBlock x:Name="Btn_Txb" FontSize="13" IsHitTestVisible="False" Foreground="White
+                   " HorizontalAlignment="Center" VerticalAlignment="Center" >Button</TextBlock>
     </Border>
 </UserControl>

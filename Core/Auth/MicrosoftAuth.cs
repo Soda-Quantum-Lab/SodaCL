@@ -20,7 +20,7 @@ namespace SodaCL.Core.Auth
 
 		public event EventHandler<(WindowsTypes, string)> OpenWindows;
 
-		public enum MsAuthErrorType
+		public enum MsAuthErrorTypes
 		{
 			AuthDeclined,
 			ExpiredToken,
@@ -48,7 +48,7 @@ namespace SodaCL.Core.Auth
 			#region 获取 DeviceCode
 
 			OpenWindows?.Invoke(this, (WindowsTypes.StartLogin, null));
-			var deviceCodeClient = new HttpClient();
+			using HttpClient deviceCodeClient = new();
 			var deviceCodeContent = new Dictionary<string, string>
 			{
 				{ "client_id", clientId },
@@ -68,7 +68,7 @@ namespace SodaCL.Core.Auth
 			#region 获取 OAuth2 Access Token
 
 			OpenWindows?.Invoke(this, (WindowsTypes.OpenInBrowser, microsoftOAuth2ResModel.UserCode));
-			var AccessTokenClient = new HttpClient
+			using HttpClient AccessTokenClient = new()
 			{
 				BaseAddress = new Uri("https://login.microsoftonline.com/consumers/oauth2/v2.0/"),
 				Timeout = TimeSpan.FromSeconds(10)
@@ -101,10 +101,10 @@ namespace SodaCL.Core.Auth
 					switch ((string)errorCode["error"])
 					{
 						case "authorization_declined":
-							throw new MicrosoftAuthException(MsAuthErrorType.AuthDeclined);
+							throw new MicrosoftAuthException(MsAuthErrorTypes.AuthDeclined);
 
 						case "ExpiredToken":
-							throw new MicrosoftAuthException(MsAuthErrorType.ExpiredToken);
+							throw new MicrosoftAuthException(MsAuthErrorTypes.ExpiredToken);
 					}
 				}
 			}
@@ -116,7 +116,7 @@ namespace SodaCL.Core.Auth
 			#region 获取Xbox XBL Token
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXBLToken, null));
-			var xboxXBLClient = new HttpClient
+			using HttpClient xboxXBLClient = new()
 			{
 				Timeout = TimeSpan.FromSeconds(10)
 			};
@@ -133,7 +133,7 @@ namespace SodaCL.Core.Auth
 			#region 获取 Xbox XSTS Token
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
-			var xboxXSTSClient = new HttpClient
+			using HttpClient xboxXSTSClient = new()
 			{
 				Timeout = TimeSpan.FromSeconds(10)
 			};
@@ -151,16 +151,16 @@ namespace SodaCL.Core.Auth
 				switch (_xboxXSTSErrModel.XErr)
 				{
 					case string Err when Err.Equals("2148916233"):
-						throw new MicrosoftAuthException(MsAuthErrorType.NoXboxAccount);
+						throw new MicrosoftAuthException(MsAuthErrorTypes.NoXboxAccount);
 
 					case string Err when Err.Equals("2148916235"):
-						throw new MicrosoftAuthException(MsAuthErrorType.XboxDisable);
+						throw new MicrosoftAuthException(MsAuthErrorTypes.XboxDisable);
 
 					case string Err when Err.Equals("2148916236") || Err.Equals("2148916237"):
-						throw new MicrosoftAuthException(MsAuthErrorType.NeedAdultAuth);
+						throw new MicrosoftAuthException(MsAuthErrorTypes.NeedAdultAuth);
 
 					case string Err when Err.Equals("2148916233"):
-						throw new MicrosoftAuthException(MsAuthErrorType.NeedJoiningInFamily);
+						throw new MicrosoftAuthException(MsAuthErrorTypes.NeedJoiningInFamily);
 				}
 				xstsResponse.EnsureSuccessStatusCode();
 				_xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
@@ -173,7 +173,7 @@ namespace SodaCL.Core.Auth
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
 
-			var mcClient = new HttpClient
+			using HttpClient mcClient = new()
 			{
 				Timeout = TimeSpan.FromSeconds(10)
 			};
@@ -190,7 +190,7 @@ namespace SodaCL.Core.Auth
 			#region 获取 User Profile
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
-			var userProfileClient = new HttpClient
+			using HttpClient userProfileClient = new()
 			{
 				Timeout = TimeSpan.FromSeconds(10)
 			};
@@ -204,7 +204,7 @@ namespace SodaCL.Core.Auth
 			else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
 			{
 				OpenWindows?.Invoke(this, (WindowsTypes.GettingMcProfile, null));
-				throw new MicrosoftAuthException(MsAuthErrorType.NoGame);
+				throw new MicrosoftAuthException(MsAuthErrorTypes.NoGame);
 			}
 
 			#endregion 获取 User Profile

@@ -32,6 +32,16 @@
             <SolidColorBrush x:Key="Color9" Color="#DAE0EC" />
             <!-- 普通按钮禁用 -->
             <SolidColorBrush x:Key="Color10" Color="#D0D4DD" />
+            <!-- 警告按钮普通 -->
+            <SolidColorBrush x:Key="Color11" Color="#ED3737" />
+            <!-- 警告按钮悬浮 -->
+            <SolidColorBrush x:Key="Color12" Color="#E13434" />
+            <!-- 警告按钮选中 -->
+            <SolidColorBrush x:Key="Color13" Color="#D53131" />
+            <!-- 警告按钮按下 -->
+            <SolidColorBrush x:Key="Color14" Color="#DF3434" />
+            <!-- 警告按钮禁用 -->
+            <SolidColorBrush x:Key="Color15" Color="#D45353" />
             <!-- 边框 -->
             <SolidColorBrush x:Key="GlobalTxtColor" Color="Black" />
             <DrawingImage x:Key="Svg_Min">
