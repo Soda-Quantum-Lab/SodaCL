@@ -10,10 +10,10 @@ using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Core.Auth;
-using SodaCL.Core.Download;
 using SodaCL.Core.Game;
 using SodaCL.Core.Java;
 using SodaCL.Launcher;
+using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Dialog;
 using static SodaCL.Toolkits.GetResources;
 using static SodaCL.Toolkits.Logger;
@@ -88,14 +88,26 @@ namespace SodaCL.Pages
 			try
 			{
 				if (!File.Exists(LauncherInfo.sodaCLBasePath + "\\BakaXL.exe"))
+				{
+					OpenDialog();
+					MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock() { Text = "临时下载进度页面", FontSize = 18, TextAlignment = TextAlignment.Center });
+					var psBar = new ProgressBar() { Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) };
+					MainWindow.mainWindow.DialogStackPan.Children.Add(psBar);
 					await Task.Run(() =>
 					{
 						var down = new FileDownloader("http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe", LauncherInfo.sodaCLBasePath + "\\BakaXL.exe");
+
+						down.DownloaderProgressChanged += (sender, e) =>
+						{
+							psBar.Value = e;
+						};
 						down.Start();
 						MessageBox.Show("正在下载 BakaXL");
 					});
-				Process.Start(LauncherInfo.sodaCLBasePath + "\\BakaXL.exe");
-				Log(true, ModuleList.IO, LogInfo.Info, "成功启动 BakaXL ！");
+					Process.Start(LauncherInfo.sodaCLBasePath + "\\BakaXL.exe");
+					CloseDialog();
+					Log(true, ModuleList.IO, LogInfo.Info, "成功启动 BakaXL ！");
+				}
 			}
 			catch (Exception ex)
 			{

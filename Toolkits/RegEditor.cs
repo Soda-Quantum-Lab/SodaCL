@@ -6,8 +6,8 @@ namespace SodaCL.Toolkits
 	{
 		public enum RegDomain
 		{
-
 		}
+
 		/// <summary>
 		/// 创建注册表子项
 		/// </summary>

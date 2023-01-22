@@ -5,9 +5,6 @@ using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL
 {
-	/// <summary>
-	/// Interaction logic for App.xaml
-	/// </summary>
 	public partial class App : Application
 	{
 		protected override void OnStartup(StartupEventArgs e)
@@ -24,8 +21,10 @@ namespace SodaCL
 			LauncherInit.InitNewFolder();
 			LogStart();
 			AppCenterManager.StartAppCenter();
+#if RELEASE
 			var splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
 			splashScreen.Show(true, true);
+#endif
 			base.OnStartup(e);
 			Log(false, ModuleList.Main, LogInfo.Info, "显示启动画面");
 			Languages.MultiLanguages();

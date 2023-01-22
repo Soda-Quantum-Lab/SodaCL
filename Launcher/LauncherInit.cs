@@ -27,7 +27,6 @@ namespace SodaCL.Launcher
 					File.Create(LauncherInfo.sodaCLConfigPath);
 				if (Registry.CurrentUser.OpenSubKey(@"Software\SodaCL") == null)
 					RegEditor.CreateSubKey(Registry.CurrentUser, @"Software\SodaCL");
-
 			}
 			catch (Exception ex)
 			{

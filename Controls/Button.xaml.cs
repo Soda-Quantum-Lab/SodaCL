@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.GetResources;
@@ -59,7 +60,7 @@ namespace SodaCL.Controls
 		public ButtenTypes ButtonType
 		{
 			get { return _ButtonType; }
-			set { _ButtonType = value; Button_ChangeColor(); }
+			set { _ButtonType = value; }
 		}
 
 		#endregion 属性
@@ -103,12 +104,12 @@ namespace SodaCL.Controls
 					if (IsMouseOver)
 					{
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Color2")), TimeSpan.FromSeconds(0.3));
-						this.Btn_Border.BeginAnimation(BorderBrushProperty, ca);
+						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
 					}
 					else
 					{
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Color1")), TimeSpan.FromSeconds(0.3));
-						this.Btn_Border.BeginAnimation(BorderBrushProperty, ca);
+						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
 					}
 					break;
 
@@ -116,12 +117,12 @@ namespace SodaCL.Controls
 					if (IsMouseOver)
 					{
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Color12")), TimeSpan.FromSeconds(0.3));
-						this.Btn_Border.BeginAnimation(BorderBrushProperty, ca);
+						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
 					}
 					else
 					{
-						//var ca = new ColorAnimation(BrushToColor(GetBrush("Color11")), TimeSpan.FromSeconds(0.3));
-						//this.Btn_Border.BeginAnimation(prop, ca);
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Color11")), TimeSpan.FromSeconds(0.3));
+						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
 					}
 					break;
 			}

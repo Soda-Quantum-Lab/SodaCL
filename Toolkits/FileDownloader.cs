@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 
-namespace SodaCL.Core.Download
+namespace SodaCL.Toolkits
 {
 	public class FileDownloader
 	{
@@ -17,6 +17,14 @@ namespace SodaCL.Core.Download
 		private Thread[] Threads;//线程数组
 
 		#endregion 字段
+
+		#region 事件
+
+		public event EventHandler<long> DownloaderProgressChanged;
+
+		public event EventHandler DownloaderProgressFinished;
+
+		#endregion 事件
 
 		#region 属性
 
@@ -118,7 +126,10 @@ namespace SodaCL.Core.Download
 				{
 					Thread.Sleep(20);
 					lock (_locker)
+					{
 						DownloadSize += getByteSize;
+						DownloaderProgressChanged?.Invoke(this, DownloadSize / FileSize);
+					}
 					localFileStram.Write(by, 0, getByteSize);
 					getByteSize = httpFileStream.Read(by, 0, (int)by.Length);
 				}
@@ -126,7 +137,7 @@ namespace SodaCL.Core.Download
 			}
 			catch (Exception ex)
 			{
-				throw new Exception(ex.Message.ToString());
+				Logger.Log(true, Logger.ModuleList.IO, Logger.LogInfo.Error, ex: ex);
 			}
 			finally
 			{
@@ -136,6 +147,7 @@ namespace SodaCL.Core.Download
 			if (_threadCompleteNum == ThreadsNum)
 			{
 				Complete();
+				DownloaderProgressFinished?.Invoke(this, null);
 				IsComplete = true;
 			}
 		}
