@@ -41,7 +41,7 @@ namespace SodaCL.Pages
 			mainPage = this;
 		}
 
-		private async void Page_Initialized(object sender, EventArgs e)
+		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			SayHello();
 			TextAni();
@@ -57,11 +57,11 @@ namespace SodaCL.Pages
 		public void TextAni()
 		{
 			var storyboard = new Storyboard();
-			var doubleAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
+			var doubleAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.8));
 			Storyboard.SetTarget(doubleAnimation, SayHelloUsernameTxb);
 			Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("Opacity"));
 			storyboard.Children.Add(doubleAnimation);
-			var doubleAnimation2 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.5));
+			var doubleAnimation2 = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.8));
 			Storyboard.SetTarget(doubleAnimation2, SayHelloTimeTxb);
 			Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath("Opacity"));
 			storyboard.Children.Add(doubleAnimation2);

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using SodaCL.Launcher;
+using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL
