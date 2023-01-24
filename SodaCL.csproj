@@ -9,8 +9,8 @@
 		<AssemblyName>SodaCL</AssemblyName>
 		<AssemblyTitle>Soda Craft Launcher 启动器</AssemblyTitle>
 		<Description>一个清爽的 Minecraft 启动器</Description>
-		<Version>0.0.5.0</Version>
-		<FileVersion>0.0.5.0</FileVersion>
+		<Version>0.0.5.1</Version>
+		<FileVersion>0.0.5.1</FileVersion>
 		<Copyright>Copyright © 2022-2023 Soda Quantum Laboratory，All Rights Reserved.</Copyright>
 		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
 		<RootNamespace>SodaCL</RootNamespace>
@@ -26,30 +26,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Resources\AppCenter\SQLite-net.dll" />
-		<None Remove="Resources\AppCenter\SQLitePCLRaw.batteries_green.dll" />
-		<None Remove="Resources\AppCenter\SQLitePCLRaw.batteries_v2.dll" />
-		<None Remove="Resources\AppCenter\SQLitePCLRaw.core.dll" />
-		<None Remove="Resources\AppCenter\SQLitePCLRaw.provider.e_sqlite3.dll" />
-		<None Remove="Resources\AppCenter\x64\e_sqlite3.dll" />
-		<None Remove="Resources\AppCenter\x86\e_sqlite3.dll" />
 		<None Remove="Resources\Images\Dev.ico" />
 		<None Remove="Resources\Images\Launcher-Bg.jpg" />
 		<None Remove="Resources\Images\Release.ico" />
+		<None Remove="Toolkits\bxnkgplz.r4o~" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Page Remove="Dictronaries\Token.xaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Resources\AppCenter\SQLite-net.dll" />
-	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.batteries_green.dll" />
-	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.batteries_v2.dll" />
-	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.core.dll" />
-	  <EmbeddedResource Include="Resources\AppCenter\SQLitePCLRaw.provider.e_sqlite3.dll" />
-	  <EmbeddedResource Include="Resources\AppCenter\x64\e_sqlite3.dll" />
-	  <EmbeddedResource Include="Resources\AppCenter\x86\e_sqlite3.dll" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -62,7 +46,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
 		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
-		<PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	</ItemGroup>
 
 </Project>

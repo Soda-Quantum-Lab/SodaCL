@@ -12,7 +12,7 @@ namespace SodaCL.Toolkits
 		/// <summary>
 		/// Log文件夹
 		/// </summary>
-		public static DirectoryInfo logDir = new(LauncherInfo.sodaCLLogPath);
+		public static DirectoryInfo logDir = new(LauncherInfo.sodaCLLogForderPath);
 
 		/// <summary>
 		/// Log目录下的所有文件
@@ -69,8 +69,8 @@ namespace SodaCL.Toolkits
 		/// <param name="message ">需要写入的Log信息或自定义错误信息</param>
 		public static void Log(bool isOpenDialog, ModuleList module, LogInfo LogInfo, string message = null, Exception ex = null)
 		{
-			var moduleText = "";
-			var logContent = "";
+			string moduleText = null;
+			string logContent = null;
 			switch (module)
 			{
 				case ModuleList.Main:
@@ -97,11 +97,11 @@ namespace SodaCL.Toolkits
 			{
 				if (logContent != null)
 				{
-					logContent = $"发生错误 {message}";
+					logContent = $"发生错误： {message}";
 				}
 				else
 				{
-					logContent = $"发生错误 {ex.Message}\n{ex.StackTrace}";
+					logContent = $"发生错误： {ex.Message}\n{ex.StackTrace}";
 				}
 				Crashes.TrackError(ex);
 			}
@@ -131,7 +131,7 @@ namespace SodaCL.Toolkits
 			}
 			try
 			{
-				Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.sodaCLLogPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+				Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.sodaCLLogForderPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
 				Trace.AutoFlush = true;
 				Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
 			}

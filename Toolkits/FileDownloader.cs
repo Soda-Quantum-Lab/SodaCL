@@ -4,6 +4,8 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
+using System.Threading.Tasks;
+using SodaCL.Launcher;
 
 namespace SodaCL.Toolkits
 {
@@ -20,7 +22,21 @@ namespace SodaCL.Toolkits
 
 		#region 事件
 
-		public event EventHandler<long> DownloaderProgressChanged;
+		/// <summary>
+		/// 单文件多线程下载器
+		/// </summary>
+		/// <param name="fileUrl">文件网址</param>
+		/// <param name="savePath">保存的路径</param>
+		/// <param name="threadsNum">线程数 (可选）默认32)</param>
+		public FileDownloader(string fileUrl, string savePath, int threadsNum = 32)
+		{
+			this.ThreadsNum = threadsNum;
+			this.Threads = new Thread[threadsNum];
+			this.FileUrl = fileUrl;
+			this.SavePath = savePath;
+		}
+
+		public event EventHandler<float> DownloaderProgressChanged;
 
 		public event EventHandler DownloaderProgressFinished;
 
@@ -39,28 +55,14 @@ namespace SodaCL.Toolkits
 
 		#endregion 属性
 
-		/// <summary>
-		/// 单文件多线程下载器
-		/// </summary>
-		/// <param name="fileUrl">文件网址</param>
-		/// <param name="savePath">保存的路径</param>
-		/// <param name="threadsNum">线程数 (可选）默认32)</param>
-		public FileDownloader(string fileUrl, string savePath, int threadsNum = 32)
-		{
-			this.ThreadsNum = threadsNum;
-			this.Threads = new Thread[threadsNum];
-			this.FileUrl = fileUrl;
-			this.SavePath = savePath;
-		}
-
-		public void Start()
+		public async Task Start()
 		{
 			using HttpClient hc = new();
-			var response = hc.GetAsync(this.FileUrl).Result;
+			var response = await hc.GetAsync(this.FileUrl);
 			if (response.IsSuccessStatusCode)
 			{
 				var content = response.Content;
-				var contentStream = content.ReadAsStream();
+				var contentStream = await content.ReadAsStreamAsync();
 				this.FileSize = contentStream.Length;
 			}
 			else
@@ -113,7 +115,7 @@ namespace SodaCL.Toolkits
 			try
 			{
 				var ran = obj as int[];
-				var tmpFileBlock = Path.GetTempPath() + Thread.CurrentThread.Name + ".tmp";
+				var tmpFileBlock = LauncherInfo.sodaCLTempForderPath + Thread.CurrentThread.Name + ".SodaTmp";
 				_tmpFiles.Add(tmpFileBlock);
 				using HttpClient hc = new();
 				hc.DefaultRequestHeaders.Range = new RangeHeaderValue(ran[0], ran[1]);
@@ -128,16 +130,16 @@ namespace SodaCL.Toolkits
 					lock (_locker)
 					{
 						DownloadSize += getByteSize;
-						DownloaderProgressChanged?.Invoke(this, DownloadSize / FileSize);
+						DownloaderProgressChanged.Invoke(this, ((float)DownloadSize / (float)FileSize) * 100);
 					}
 					localFileStram.Write(by, 0, getByteSize);
 					getByteSize = httpFileStream.Read(by, 0, (int)by.Length);
 				}
 				lock (_locker) _threadCompleteNum++;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Logger.Log(true, Logger.ModuleList.IO, Logger.LogInfo.Error, ex: ex);
+				throw;
 			}
 			finally
 			{

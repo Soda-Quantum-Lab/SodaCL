@@ -35,7 +35,8 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Name="TitleBar_TitlePan" Grid.Column="0" Orientation="Horizontal" Margin="3,6,0,10" HorizontalAlignment="Left" Grid.Row="1">
                                 <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
-                                <TextBlock Text="Soda Craft Launcher" Height="28"  Margin="5,0,0,0" FontSize="16" Padding="5,4,5,0" />
+                                <TextBlock Text="Soda Craft Launcher" Height="28"  Margin="5,0,0,0" FontSize="18
+                                           " Padding="5,3,5,0" />
                             </StackPanel>
                             <Button Name="TitleBar_GoBackBtn" Width="32" Height="32" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="20,6,0,10" Visibility="Hidden" Click="TitleBar_GoBackBtn_Click" Style="{DynamicResource Btn_NoBackground}">
                                 <Image Width="20" Height="20" Source="{StaticResource Svg_GoBack}" />

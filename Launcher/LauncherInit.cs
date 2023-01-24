@@ -8,6 +8,20 @@ namespace SodaCL.Launcher
 {
 	public static class LauncherInit
 	{
+		public static void DeleteTempFolder()
+		{
+			if (Directory.GetFiles(LauncherInfo.sodaCLTempForderPath).Length > 0)
+			{
+				var tempDir = new DirectoryInfo(LauncherInfo.sodaCLTempForderPath);
+				var tempFiles = tempDir.GetFiles();
+				foreach (var files in tempFiles)
+				{
+					File.Delete(files.FullName);
+				}
+				Log(false, ModuleList.IO, LogInfo.Debug, "正在清空缓存");
+			}
+		}
+
 		/// <summary>
 		/// 新建Minecraft及启动器文件
 		/// </summary>
@@ -15,16 +29,18 @@ namespace SodaCL.Launcher
 		{
 			try
 			{
-				if (!File.Exists(LauncherInfo.sodaCLBasePath))
-					Directory.CreateDirectory(LauncherInfo.sodaCLBasePath);
-				if (!File.Exists(LauncherInfo.mcDir))
+				if (!Directory.Exists(LauncherInfo.sodaCLForderPath))
+					Directory.CreateDirectory(LauncherInfo.sodaCLForderPath);
+				if (!Directory.Exists(LauncherInfo.mcDir))
 					Directory.CreateDirectory(LauncherInfo.mcDir);
-				if (!File.Exists(LauncherInfo.sodaCLLogPath))
-					Directory.CreateDirectory(LauncherInfo.sodaCLLogPath);
-				if (!File.Exists(LauncherInfo.appDataDir))
+				if (!Directory.Exists(LauncherInfo.sodaCLLogForderPath))
+					Directory.CreateDirectory(LauncherInfo.sodaCLLogForderPath);
+				if (!Directory.Exists(LauncherInfo.appDataDir))
 					Directory.CreateDirectory(LauncherInfo.appDataDir);
-				if (!File.Exists(LauncherInfo.sodaCLConfigPath))
-					File.Create(LauncherInfo.sodaCLConfigPath);
+				if (!File.Exists(LauncherInfo.sodaCLConfigFilePath))
+					File.Create(LauncherInfo.sodaCLConfigFilePath);
+				if (!Directory.Exists(LauncherInfo.sodaCLTempForderPath))
+					Directory.CreateDirectory(LauncherInfo.sodaCLTempForderPath);
 				if (Registry.CurrentUser.OpenSubKey(@"Software\SodaCL") == null)
 					RegEditor.CreateSubKey(Registry.CurrentUser, @"Software\SodaCL");
 			}

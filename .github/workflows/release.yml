@@ -32,7 +32,7 @@ jobs:
     - name: Build
       run: |
         dotnet build Soda_Craft_Launcher.sln --configuration Release --no-restore
-        dotnet publish Soda_Craft_Launcher.sln -c Release -r win-x86 --sc false /p:PublishSingleFile=True
+        dotnet publish Soda_Craft_Launcher.sln /p:PublishProfile=.\Properties\PublishProfiles\SodaCL_Publish.pubxml
 
     - name: Test
       run: |
@@ -53,4 +53,4 @@ jobs:
 
             ${{ steps.changelog.outputs.commitLog }}
           files: |
-            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x86\publish\SodaCL.exe
+            D:\a\SodaCL\SodaCL\bin\Release\net6.0-windows\win-x64\publish\SodaCL.exe

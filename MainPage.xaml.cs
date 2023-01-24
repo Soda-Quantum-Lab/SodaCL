@@ -87,31 +87,42 @@ namespace SodaCL.Pages
 		{
 			try
 			{
-				if (!File.Exists(LauncherInfo.sodaCLBasePath + "\\BakaXL.exe"))
+				if (!File.Exists(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe"))
 				{
 					OpenDialog();
 					MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock() { Text = "临时下载进度页面", FontSize = 18, TextAlignment = TextAlignment.Center });
 					var psBar = new ProgressBar() { Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) };
 					MainWindow.mainWindow.DialogStackPan.Children.Add(psBar);
-					await Task.Run(() =>
-					{
-						var down = new FileDownloader("http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe", LauncherInfo.sodaCLBasePath + "\\BakaXL.exe");
 
-						down.DownloaderProgressChanged += (sender, e) =>
+					var down = new
+					FileDownloader("http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe",
+					LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
+
+					down.DownloaderProgressChanged += (sender, percent) =>
+					{
+						Dispatcher.Invoke(() =>
 						{
-							psBar.Value = e;
-						};
-						down.Start();
-						MessageBox.Show("正在下载 BakaXL");
-					});
-					Process.Start(LauncherInfo.sodaCLBasePath + "\\BakaXL.exe");
-					CloseDialog();
-					Log(true, ModuleList.IO, LogInfo.Info, "成功启动 BakaXL ！");
+							psBar.Value = percent;
+						});
+					};
+					down.DownloaderProgressFinished += (sender, e) =>
+					{
+						Process.Start(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
+						CloseDialog();
+						Log(true, ModuleList.IO, LogInfo.Info, "成功启动 BakaXL ！");
+					};
+					await down.Start();
+					MessageBox.Show("正在下载 BakaXL");
+				}
+				else
+				{
+					Process.Start(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
 				}
 			}
 			catch (Exception ex)
 			{
 				Log(true, ModuleList.Main, LogInfo.Warning, "BakaXL 未能正常启动，可能是下载的文件不完整", ex);
+				File.Delete(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
 			}
 		}
 

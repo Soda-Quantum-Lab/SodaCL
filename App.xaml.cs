@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using SodaCL.Launcher;
-using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL
@@ -19,9 +18,10 @@ namespace SodaCL
 				}
 			}
 			LauncherInit.InitNewFolder();
+			LauncherInit.DeleteTempFolder();
 			LogStart();
-			AppCenterManager.StartAppCenter();
 #if RELEASE
+			AppCenterManager.StartAppCenter();
 			var splashScreen = new SplashScreen("/Resources/Images/Dev.ico");
 			splashScreen.Show(true, true);
 #endif
