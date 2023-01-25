@@ -32,10 +32,10 @@
                         <TextBlock Text="Minecraft 11.45.14" Margin="20,5,0,0" FontSize="14"  Height="20" />
                     </StackPanel>
                     <StackPanel Height="48" DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                        <Button Width="80" Margin="0,0,15,0" Content="下载 BakaXL" Click="DownloadButtonClick" />
-                        <Button Width="80" Margin="0,0,15,0" Content="Java 测试" Click="EnvironmentCheckButtonClick" />
-                        <Button Width="40" Margin="0,0,15,0" Content="Log" Click="LogFolderOpenerButtonClick" />
-                        <Button Name="StartBtn" Width="120" Content="{DynamicResource MainPage_StartGame}" Click="StartBtn_Click" Height="45" />
+                        <soda:Button Width="80" Margin="0,0,15,0" Text="下载 BakaXL" Click="DownloadButtonClick" ButtonType="Normal" />
+                        <soda:Button Width="80" Margin="0,0,15,0" Text="Java 测试" Click="EnvironmentCheckButtonClick" ButtonType="Normal" />
+                        <soda:Button Width="40" Margin="0,0,15,0" Text="Log" Click="LogFolderOpenerButtonClick" ButtonType="Normal" />
+                        <soda:Button x:Name="StartBtn" Width="120" Text="{DynamicResource MainPage_StartGame}" Click="StartBtn_Click" Height="45" ButtonType="Main" />
                     </StackPanel>
                 </DockPanel>
             </Border>
