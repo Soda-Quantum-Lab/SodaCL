@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,32 +18,22 @@ namespace SodaCL.Controls
 	{
 		private static Button btn;
 		private bool isMouseDown;
+		private SolidColorBrush scb;
 
 		public Button()
 		{
 			InitializeComponent();
 			btn = this;
-			this.MouseEnter += Button_ChangeColor;
-			this.MouseDown += (sender, e) => { isMouseDown = true; };
-			this.MouseUp += (sender, e) => { isMouseDown = false; };
-			this.MouseLeave += Button_ChangeColor;
-			this.MouseUp += (sender, e) =>
-			{
-				if (isMouseDown)
-				{
-					Log(false, ModuleList.Control, LogInfo.Info, $"按下按钮 {Text}");
-					Click.Invoke(sender, e);
-				}
-			};
+			Init();
 		}
 
 		#region 枚举
 
 		public enum ButtenTypes
 		{
+			Main,
 			Normal,
-			Important,
-			//Disable
+			Warning,
 		}
 
 		#endregion 枚举
@@ -55,8 +46,9 @@ namespace SodaCL.Controls
 
 		#region 属性
 
-		private ButtenTypes _ButtonType = ButtenTypes.Normal;
+		private ButtenTypes _ButtonType;
 
+		[DefaultValue(ButtenTypes.Normal)]
 		public ButtenTypes ButtonType
 		{
 			get { return _ButtonType; }
@@ -96,33 +88,87 @@ namespace SodaCL.Controls
 
 		#endregion 依赖属性
 
+		public void Init()
+		{
+			switch (ButtonType)
+			{
+				case ButtenTypes.Main:
+					scb = (SolidColorBrush)GetBrush("Brush_Main");
+					break;
+
+				case ButtenTypes.Normal:
+					scb = (SolidColorBrush)GetBrush("Brush_Normal");
+					Btn_Txb.Foreground = Brushes.Black;
+					break;
+
+				case ButtenTypes.Warning:
+					scb = (SolidColorBrush)GetBrush("Brush_Warning");
+					break;
+			}
+
+			Btn_Border.MouseEnter += Button_ChangeColor;
+			Btn_Border.MouseDown += (sender, e) => { isMouseDown = true; };
+			Btn_Border.MouseUp += (sender, e) => { isMouseDown = false; };
+			Btn_Border.MouseLeave += Button_ChangeColor;
+			Btn_Border.MouseUp += (sender, e) =>
+			{
+				if (isMouseDown)
+				{
+					Log(false, ModuleList.Control, LogInfo.Info, $"按下按钮 {Text}");
+					Click.Invoke(sender, e);
+				}
+			};
+			Btn_Border.Background = scb;
+		}
+
 		public void Button_ChangeColor(object sender = null, MouseEventArgs e = null)
 		{
 			switch (this.ButtonType)
 			{
-				case ButtenTypes.Normal:
+				case ButtenTypes.Main:
 					if (IsMouseOver)
 					{
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Color2")), TimeSpan.FromSeconds(0.3));
-						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
+						var sb = new Storyboard();
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main_Hover")), new Duration(TimeSpan.FromSeconds(0.3)));
+						Storyboard.SetTarget(ca, Btn_Border);
+						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.BorderBrush).(SolidColorBrush.Color)"));
+						sb.Children.Add(ca);
+						sb.Begin();
 					}
 					else
 					{
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Color1")), TimeSpan.FromSeconds(0.3));
-						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
+						var sb = new Storyboard();
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main")), new Duration(TimeSpan.FromSeconds(0.3)));
+						Storyboard.SetTarget(ca, Btn_Border);
+						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.BorderBrush).(SolidColorBrush.Color)"));
+						sb.Children.Add(ca);
+						sb.Begin();
 					}
 					break;
 
-				case ButtenTypes.Important:
+				case ButtenTypes.Normal:
 					if (IsMouseOver)
 					{
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Color12")), TimeSpan.FromSeconds(0.3));
-						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal_Hover")), TimeSpan.FromSeconds(0.3));
+						Btn_Border.BeginAnimation(SolidColorBrush.ColorProperty, ca);
 					}
 					else
 					{
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Color11")), TimeSpan.FromSeconds(0.3));
-						this.Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal")), TimeSpan.FromSeconds(0.3));
+						Btn_Border.BeginAnimation(SolidColorBrush.ColorProperty, ca);
+					}
+					break;
+
+				case ButtenTypes.Warning:
+					if (IsMouseOver)
+					{
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning_Hover")), TimeSpan.FromSeconds(0.3));
+						Btn_Border.BeginAnimation(SolidColorBrush.ColorProperty, ca);
+					}
+					else
+					{
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning")), TimeSpan.FromSeconds(0.3));
+						Btn_Border.BeginAnimation(SolidColorBrush.ColorProperty, ca);
 					}
 					break;
 			}

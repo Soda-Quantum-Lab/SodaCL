@@ -359,7 +359,7 @@ namespace SodaCL.Pages
 					Height = 32,
 					Width = 32,
 					Margin = new Thickness(5, 0, 0, 0),
-					Background = GetBrush("Color1"),
+					Background = GetBrush("Brush_Main"),
 					CornerRadius = new CornerRadius(16),
 					Child = new System.Windows.Controls.Image
 					{
