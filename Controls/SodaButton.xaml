@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="SodaCL.Controls.SodaButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="45" d:DesignWidth="125" Loaded="Border_Loaded">
+    <Border Name="Btn_Border" CornerRadius="6" d:Background="{DynamicResource Brush_Main}" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="Btn_Border_MouseLeftButtonUp" MouseEnter="Button_ChangeColor" MouseLeave="Btn_Border_MouseLeave" MouseDown="Btn_Border_MouseDown" MouseUp="Btn_Border_MouseUp">
+        <Border.RenderTransform>
+            <ScaleTransform x:Name="Btn_Border_Scale" />
+        </Border.RenderTransform>
+        <TextBlock x:Name="Btn_Txb" FontSize="16" IsHitTestVisible="False" Foreground="White
+                   " HorizontalAlignment="Center" VerticalAlignment="Center" >Button</TextBlock>
+    </Border>
+</UserControl>

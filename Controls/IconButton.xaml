@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="SodaCL.Controls.SodaIconButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SodaCL.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="32" d:DesignWidth="32">
+    <Border Name="IconBtn_Border" CornerRadius="6" d:Background="Transparent" MouseEnter="IconBtn_ChangeColor" MouseDown="IconBtn_Border_MouseDown" MouseLeave="IconBtn_Border_MouseLeave" MouseLeftButtonUp="IconBtn_Border_MouseLeftButtonUp" MouseUp="IconBtn_Border_MouseUp" RenderTransformOrigin="0.5,0.5">
+        <Border.RenderTransform>
+            <ScaleTransform x:Name="IconBtn_Border_Scale" />
+        </Border.RenderTransform>
+        <Image Name="IconBtn_Img" Height="24" Width="24" Source="{DynamicResource Svg_Help}" />
+    </Border>
+</UserControl>

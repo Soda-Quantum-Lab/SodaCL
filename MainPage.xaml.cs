@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SodaCL.Controls;
 using SodaCL.Core.Auth;
 using SodaCL.Core.Game;
 using SodaCL.Core.Java;
@@ -210,18 +211,6 @@ namespace SodaCL.Pages
 			}
 		}
 
-		private void StartTestButtonClick(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				Log(false, ModuleList.Main, LogInfo.Info, "启动游戏成功");
-			}
-			catch (Exception ex)
-			{
-				Log(true, ModuleList.Main, LogInfo.Info, "SodaCL 在启动游戏时发生了错误: \n" + ex);
-			}
-		}
-
 		#endregion 事件
 
 		#region 一言及问好处理
@@ -368,24 +357,22 @@ namespace SodaCL.Pages
 						Source = GetSvg("Svg_Information"),
 					}
 				};
-				var exitButton = new Button
+				var exitButton = new SodaIconButton
 				{
 					Margin = new Thickness(120, 0, 0, 0),
 					Height = 32,
 					Width = 32,
-					Style = GetStyle("Btn_NoBackground"),
-					Content = new System.Windows.Controls.Image
-					{
-						Width = 20,
-						Height = 20,
-						Source = GetSvg("Svg_Close")
-					}
+					IconHeight = 20,
+					IconWidth = 20,
+					IconSrc = GetSvg("Svg_Close")
 				};
-				var okButton = new Button
+				var okButton = new SodaButton
 				{
+					Width = 90,
+					Height = 40,
 					Margin = new Thickness(270, 0, 0, 0),
-					Content = GetText("Butten_OK"),
-					Style = GetStyle("Btn_Main")
+					Text = GetText("Butten_OK"),
+					ButtonType = SodaButton.ButtonTypes.Main
 				};
 				exitButton.Click += (s, e) =>
 				{
