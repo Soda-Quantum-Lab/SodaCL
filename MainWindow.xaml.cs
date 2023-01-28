@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
@@ -29,9 +30,15 @@ namespace SodaCL
 
 		#region 自定义标题栏
 
+		private void TitleBar_GoBackBtn_Click(object sender, RoutedEventArgs e)
+		{
+			MainFram.GoBack();
+		}
+
 		private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			this.DragMove();
+			if ((sender as Border).IsMouseDirectlyOver)
+				DragMove();
 		}
 
 		// 退出按钮
@@ -75,30 +82,6 @@ namespace SodaCL
 		#endregion 初次启动
 
 		#region 事件
-
-		private void TitleBar_IssuesBtn_Click(object sender, RoutedEventArgs e)
-		{
-			Process.Start("explorer", "https://github.com/Soda-Quantum-Lab/SodaCL/issues");
-		}
-
-		private void TitleBar_SettingsBtn_Click(object sender, RoutedEventArgs e)
-		{
-			MainFram.Navigate(new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative));
-		}
-
-		private void Window_Activated(object sender, EventArgs e)
-		{
-			var opcAni = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
-			this.BeginAnimation(OpacityProperty, opcAni);
-		}
-
-		private void Window_Closed(object sender, EventArgs e)
-		{
-			Log(false, ModuleList.Main, LogInfo.Info, "程序退出");
-			Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
-		}
-
-		#endregion 事件
 
 		private void MainFram_Navigated(object sender, NavigationEventArgs e)
 		{
@@ -171,9 +154,28 @@ namespace SodaCL
 				IsThisPage = false;
 		}
 
-		private void TitleBar_GoBackBtn_Click(object sender, RoutedEventArgs e)
+		private void TitleBar_IssuesBtn_Click(object sender, RoutedEventArgs e)
 		{
-			MainFram.GoBack();
+			Process.Start("explorer", "https://github.com/Soda-Quantum-Lab/SodaCL/issues");
 		}
+
+		private void TitleBar_SettingsBtn_Click(object sender, RoutedEventArgs e)
+		{
+			MainFram.Navigate(new Uri("\\Pages\\Settings\\Set_About.xaml", UriKind.Relative));
+		}
+
+		private void Window_Activated(object sender, EventArgs e)
+		{
+			var opcAni = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
+			this.BeginAnimation(OpacityProperty, opcAni);
+		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			Log(false, ModuleList.Main, LogInfo.Info, "程序退出");
+			Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
+		}
+
+		#endregion 事件
 	}
 }

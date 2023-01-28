@@ -4,8 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:s="clr-namespace:SodaCL.Controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Title="SodaCL" Height="530" Width="750" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize" Activated="Window_Activated">
-    <Border CornerRadius="10,10,10,10">
+        mc:Ignorable="d" Title="SodaCL" Height="530" Width="750" WindowStyle="None" AllowsTransparency="True" Background="Transparent" OpacityMask="White" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closed="Window_Closed" ResizeMode="NoResize">
+    <Border CornerRadius="10,10,10,10" BorderThickness="0.6" BorderBrush="{DynamicResource Brush_Main}">
         <Border.Background>
             <ImageBrush ImageSource="/Resources/Images/Launcher-Bg.jpg" />
         </Border.Background>
@@ -22,7 +22,7 @@
                     <RowDefinition Height="55" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border Height="55" Grid.Row="0" CornerRadius="10,10,0,0" VerticalAlignment="Top">
+                <Border Name="Border_TitleBar" MouseLeftButtonDown="Border_MouseLeftButtonDown" Background="Transparent">
                     <Grid Height="55" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="4*" />
@@ -31,10 +31,10 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10*" />
                             <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="3*" MaxWidth="171" />
+                            <ColumnDefinition Width="3*" MaxWidth="160" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Name="TitleBar_TitlePan" Grid.Column="0" Orientation="Horizontal" Margin="3,6,0,10" Grid.Row="1">
-                            <Image Height="32" Width="32" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
+                            <Image Height="32" Width="32" HorizontalAlignment="Left" Margin="15,0,0,0" Source="/Resources/Images/Dev.ico" />
                             <TextBlock Text="Soda Craft Launcher" Height="28"  Margin="5,0,0,0" FontSize="18
                                            " Padding="5,3,5,0" />
                         </StackPanel>
@@ -51,7 +51,7 @@
                 <Grid Name="FrontGrid" Grid.Row="2" Visibility="Hidden">
                     <Rectangle Name="DialogRect" Opacity="0" Fill="Black" ></Rectangle>
                     <Border Name="DialogBorder" Width="400" Height="250" Background="White" CornerRadius="12">
-                        <StackPanel Name="DialogStackPan" Width="400" Height="250" HorizontalAlignment="Left" VerticalAlignment="Top"></StackPanel>
+                        <StackPanel Name="DialogStackPan" Width="400" Height="250"></StackPanel>
                     </Border>
                     <Border Name="FrontBorder" Width="400" Height="250" Background="White" CornerRadius="12" Visibility="Hidden"></Border>
                 </Grid>

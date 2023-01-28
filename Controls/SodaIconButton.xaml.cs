@@ -125,10 +125,10 @@ namespace SodaCL.Controls
 		private void IconBtn_Border_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			isMouseDown = true;
-			var scX = new DoubleAnimation(0.85, TimeSpan.FromSeconds(0.1));
+			var scX = new DoubleAnimation(0.95, TimeSpan.FromSeconds(0.1));
 			scX.EasingFunction = ce;
 			IconBtn_Border_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
-			var scY = new DoubleAnimation(0.85, TimeSpan.FromSeconds(0.1));
+			var scY = new DoubleAnimation(0.95, TimeSpan.FromSeconds(0.1));
 			scY.EasingFunction = ce; IconBtn_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
 			var caN = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal_Press")), new Duration(TimeSpan.FromSeconds(0.1)));
 			caN.EasingFunction = ce;

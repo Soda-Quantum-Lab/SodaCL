@@ -131,7 +131,7 @@ namespace SodaCL.Pages
 		{
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
-			JavaFinding.AutoJavaFinding(true);
+			Task.Run(() => { JavaFinding.AutoJavaFinding(true); });
 		}
 
 		private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
