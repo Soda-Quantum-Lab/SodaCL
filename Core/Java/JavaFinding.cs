@@ -38,7 +38,12 @@ namespace SodaCL.Core.Java
 			SearchJavaInFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ref javaList);
 			//List 去重
 			javaList.Where((x, i) => javaList.FindIndex(z => z.Path == x.Path) == i);
-			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java");
+			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
+			foreach (var java in javaList)
+			{
+				Log(false, ModuleList.IO, LogInfo.Info, java.ToString());
+			}
+			
 			//获取 Java 版本
 			GetJavaVersion(ref javaList);
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
@@ -81,6 +86,7 @@ namespace SodaCL.Core.Java
 				}
 
 				var javaVersionOutput = javaVersionLookingUpProcess.StandardOutput.ReadToEnd();
+
 				if (javaVersionOutput.Contains("8"))
 				{
 					java.Version = 8;
@@ -187,7 +193,9 @@ namespace SodaCL.Core.Java
 
 							searchKey.Contains("国服") || searchKey.Contains("网易") || searchKey.Contains("ext") ||
 
-							searchKey.Contains("netease") || searchKey.Contains("1.") || searchKey.Contains("启动"))
+							searchKey.Contains("netease") || searchKey.Contains("1.") || searchKey.Contains("启动") || 
+
+							searchKey.Contains("bakaxl") || searchKey.Contains("zulu") || searchKey.Contains("liberica"))
 						SearchJavaInFolder(item.FullName, ref javaList);
 				}
 			}
