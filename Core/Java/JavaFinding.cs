@@ -49,14 +49,81 @@ namespace SodaCL.Core.Java
 		{
 			foreach (var java in javaList)
 			{
-				if (java.Path.Contains("8"))
-					java.Version = 8;
-				else if (java.Path.Contains("11"))
-					java.Version = 11;
-				else if (java.Path.Contains("17"))
-					java.Version = 17;
+				//if (java.Path.Contains("8"))
+				//	java.Version = 8;
+				//else if (java.Path.Contains("11"))
+				//	java.Version = 11;
+				//else if (java.Path.Contains("17"))
+				//	java.Version = 17;
+				//else
+				//	java.Version = 0;
+
+				var javaVersionLookingUpProcess = new System.Diagnostics.Process();
+				javaVersionLookingUpProcess.StartInfo.FileName = "cmd.exe";
+				javaVersionLookingUpProcess.StartInfo.RedirectStandardInput = true;
+				javaVersionLookingUpProcess.StartInfo.RedirectStandardOutput = true;
+				javaVersionLookingUpProcess.StartInfo.RedirectStandardError = true;
+				javaVersionLookingUpProcess.StartInfo.CreateNoWindow = true;
+				javaVersionLookingUpProcess.Start();
+
+				javaVersionLookingUpProcess.StandardInput.WriteLine("cd " + java);
+				if (java.Path.Contains("javaw.exe"))
+				{
+					javaVersionLookingUpProcess.StandardInput.WriteLine("javaw -version");
+				}
+				else if (java.Path.Contains("java.exe"))
+				{
+					javaVersionLookingUpProcess.StandardInput.WriteLine("java -version");
+				}
 				else
+				{
+					return;
+				}
+
+				var javaVersionOutput = javaVersionLookingUpProcess.StandardOutput.ReadToEnd();
+				if (javaVersionOutput.Contains("8"))
+				{
+					java.Version = 8;
+				}
+				else if (javaVersionOutput.Contains("11"))
+				{
+					java.Version = 11;
+				}
+				else if (javaVersionOutput.Contains("17"))
+				{
+					java.Version = 17;
+				}
+				else if (javaVersionOutput.Contains("7"))
+				{
+					java.Version = 7;
+				}
+				else if (javaVersionOutput.Contains("14"))
+				{
+					java.Version = 14;
+				}
+				else if (javaVersionOutput.Contains("15"))
+				{
+					java.Version = 15;
+				}
+				else if (javaVersionOutput.Contains("16"))
+				{
+					java.Version = 16;
+				}
+				else if (javaVersionOutput.Contains("18"))
+				{
+					java.Version = 18;
+				}
+				else if (javaVersionOutput.Contains("19"))
+				{
+					java.Version = 19;
+				}
+				else
+				{
 					java.Version = 0;
+				}
+
+				javaVersionLookingUpProcess.WaitForExit();
+				javaVersionLookingUpProcess.Close();
 			}
 		}
 
