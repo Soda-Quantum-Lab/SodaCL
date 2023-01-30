@@ -20,6 +20,7 @@ namespace SodaCL
 			}
 			LauncherInit.InitNewFolder();
 			LauncherInit.DeleteTempFolder();
+			LauncherInit.InitMiSansFonts();
 			LogStart();
 #if RELEASE
 			AppCenterManager.StartAppCenter();

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
@@ -34,7 +36,9 @@ namespace SodaCL.Launcher
 				if (!Directory.Exists(LauncherInfo.mcDir))
 					Directory.CreateDirectory(LauncherInfo.mcDir);
 				if (!Directory.Exists(LauncherInfo.sodaCLLogForderPath))
-					Directory.CreateDirectory(LauncherInfo.sodaCLLogForderPath); 
+					Directory.CreateDirectory(LauncherInfo.sodaCLLogForderPath);
+				if (!Directory.Exists(LauncherInfo.sodaCLFontsForderPath))
+					Directory.CreateDirectory(LauncherInfo.sodaCLFontsForderPath);
 				if (!Directory.Exists(LauncherInfo.mcVersionsDir))
 					Directory.CreateDirectory(LauncherInfo.mcVersionsDir);
 				if (!Directory.Exists(LauncherInfo.appDataDir))
@@ -51,5 +55,26 @@ namespace SodaCL.Launcher
 				Log(true, ModuleList.IO, LogInfo.Info, ex: ex);
 			}
 		}
+		//TODO:做不做捏？
+		//public static async Task InitMiSansFonts()
+		//{
+		//	if (new DirectoryInfo(LauncherInfo.sodaCLFontsForderPath).GetFiles().Length != 11)
+		//	{
+		//		try
+		//		{
+		//			var zipPath = LauncherInfo.sodaCLFontsForderPath + "\\MiSans.zip";
+		//			var md = new FileDownloader("https://cdn.cnbj1.fds.api.mi-img.com/vipmlmodel/font/MiSans/MiSans.zip", zipPath);
+		//			md.DownloaderProgressFinished += (sender, e) =>
+		//			{
+		//				ZipFile.ExtractToDirectory(zipPath, LauncherInfo.sodaCLFontsForderPath);
+		//			};
+		//			await md.Start();
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			Log(true, ModuleList.Main, LogInfo.Warning, GetResources.GetText("Error_Init_Fonts_CannotLoad"), ex);
+		//		}
+		//	}
+		//}
 	}
 }

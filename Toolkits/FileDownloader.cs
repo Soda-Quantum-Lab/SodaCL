@@ -130,7 +130,7 @@ namespace SodaCL.Toolkits
 					lock (_locker)
 					{
 						DownloadSize += getByteSize;
-						DownloaderProgressChanged.Invoke(this, ((float)DownloadSize / (float)FileSize) * 100);
+						DownloaderProgressChanged?.Invoke(this, ((float)DownloadSize / (float)FileSize) * 100);
 					}
 					localFileStram.Write(by, 0, getByteSize);
 					getByteSize = httpFileStream.Read(by, 0, (int)by.Length);

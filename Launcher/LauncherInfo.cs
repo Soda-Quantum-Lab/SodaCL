@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
+using SodaCL.Toolkits;
 
 namespace SodaCL.Launcher
 {
@@ -11,6 +13,7 @@ namespace SodaCL.Launcher
 		public static string mcVersionsDir = mcDir + @"\versions";
 		public static string sodaCLConfigFilePath = currentDir + @"SodaCL\Config.ini";
 		public static string sodaCLForderPath = currentDir + @"SodaCL";
+		//public static string sodaCLFontsForderPath = appDataDir + @"\Fonts";
 		public static string sodaCLLogForderPath = currentDir + @"SodaCL\logs";
 		public static string sodaCLTempForderPath = Path.GetTempPath() + @"SodaCL\\";
 	}
