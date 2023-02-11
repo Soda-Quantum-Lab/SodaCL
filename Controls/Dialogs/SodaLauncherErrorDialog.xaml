@@ -10,7 +10,7 @@
     <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType= Grid}, Path=ActualWidth}"
           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType= Grid}, Path=ActualHeight}">
         <Rectangle Name="Rec_Background" Fill="Black" Opacity="0.5" />
-        <Border Name="Border_Dialog" Width="400" CornerRadius="16" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center">
+        <Border Name="Border_Dialog" Width="400" MaxHeight="250" CornerRadius="16" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                     <GradientStop Offset="0" Color="{DynamicResource Color_Dialog_Warning_Background}" />
