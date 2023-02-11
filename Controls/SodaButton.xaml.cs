@@ -39,7 +39,7 @@ namespace SodaCL.Controls
 			if (isMouseDown)
 			{
 				Log(false, ModuleList.Control, LogInfo.Info, $"按下按钮 \"{Text}\"");
-				Click.Invoke(sender, e);
+				Click?.Invoke(sender, e);
 			}
 		}
 

@@ -37,8 +37,8 @@ namespace SodaCL.Launcher
 					Directory.CreateDirectory(LauncherInfo.mcDir);
 				if (!Directory.Exists(LauncherInfo.sodaCLLogForderPath))
 					Directory.CreateDirectory(LauncherInfo.sodaCLLogForderPath);
-				if (!Directory.Exists(LauncherInfo.sodaCLFontsForderPath))
-					Directory.CreateDirectory(LauncherInfo.sodaCLFontsForderPath);
+				//if (!Directory.Exists(LauncherInfo.sodaCLFontsForderPath))
+				//	Directory.CreateDirectory(LauncherInfo.sodaCLFontsForderPath);
 				if (!Directory.Exists(LauncherInfo.mcVersionsDir))
 					Directory.CreateDirectory(LauncherInfo.mcVersionsDir);
 				if (!Directory.Exists(LauncherInfo.appDataDir))
@@ -55,6 +55,7 @@ namespace SodaCL.Launcher
 				Log(true, ModuleList.IO, LogInfo.Info, ex: ex);
 			}
 		}
+
 		//TODO:做不做捏？
 		//public static async Task InitMiSansFonts()
 		//{

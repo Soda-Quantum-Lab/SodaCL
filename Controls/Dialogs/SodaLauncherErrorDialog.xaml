@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="SodaCL.Controls.Dialogs.SodaLauncherErrorDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SodaCL.Controls.Dialogs"
+             xmlns:soda="clr-namespace:SodaCL.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="530" d:DesignWidth="750">
+    <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType= Grid}, Path=ActualWidth}"
+          Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType= Grid}, Path=ActualHeight}">
+        <Rectangle Name="Rec_Background" Fill="Black" Opacity="0.5" />
+        <Border Name="Border_Dialog" Width="400" CornerRadius="16" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0" Color="{DynamicResource Color_Dialog_Warning_Background}" />
+                    <GradientStop Offset="0.2" Color="White" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.RenderTransform>
+                <ScaleTransform x:Name="Dialog_Border_Scale" />
+            </Border.RenderTransform>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="2*" MinHeight="40" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <Border Width="30" Height=" 30" CornerRadius="100" Background="{StaticResource Brush_Warning }">
+                        <Image Width="22" Height="22"  Source="{DynamicResource Svg_Error}" />
+                    </Border>
+                    <TextBlock Text="{DynamicResource Dialog_Launcher_Error_Title}" Height="24" Margin="8,1,0,0" Style="{StaticResource Text_Bold}" />
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="37,0,0,0">
+                    <TextBlock Text="{DynamicResource Dialog_Launcher_Error_CatchError}" />
+                    <ScrollViewer Background="{DynamicResource Brush_Dialog_Warning_Background}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Foreground="Black">
+                        <TextBlock Name="Txb_ErrorMessage"></TextBlock>
+                    </ScrollViewer>
+                </StackPanel>
+                <soda:SodaButton x:Name="Button_Close" Width="80" Height="35" Grid.Row="3" Grid.Column="1" Text="{DynamicResource Butten_OK}" ButtonType="Warning" HorizontalAlignment="Right" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

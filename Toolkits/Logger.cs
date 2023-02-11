@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Microsoft.AppCenter.Crashes;
+using SodaCL.Controls.Dialogs;
 using SodaCL.Launcher;
 
 namespace SodaCL.Toolkits
@@ -111,7 +112,15 @@ namespace SodaCL.Toolkits
 			}
 			if (isOpenDialog)
 			{
-				MessageBox.Show(logContent);
+				if (ex != null)
+				{
+					var dE = new SodaLauncherErrorDialog(logContent);
+					MainWindow.mainWindow.Grid_DialogArea.Children.Add(dE);
+				}
+				else
+				{
+					MessageBox.Show(logContent);
+				}
 			}
 			Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [{LogInfo}] {logContent}");
 		}

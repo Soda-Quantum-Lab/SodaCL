@@ -10,12 +10,12 @@ using System.Windows.Media.Animation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Controls;
+using SodaCL.Controls.Dialogs;
 using SodaCL.Core.Auth;
 using SodaCL.Core.Game;
 using SodaCL.Core.Java;
 using SodaCL.Launcher;
 using SodaCL.Toolkits;
-using static SodaCL.Toolkits.Dialog;
 using static SodaCL.Toolkits.GetResources;
 using static SodaCL.Toolkits.Logger;
 
@@ -84,51 +84,39 @@ namespace SodaCL.Pages
 
 		#region 事件
 
-		private async void DownloadButtonClick(object sender, RoutedEventArgs e)
+		private void DownloadButtonClick(object sender, RoutedEventArgs e)
 		{
-			try
-			{
-				if (!File.Exists(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe"))
-				{
-					OpenDialog();
-					MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock() { Text = "临时下载进度页面", FontSize = 18, TextAlignment = TextAlignment.Center });
-					var psBar = new ProgressBar() { Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) };
-					MainWindow.mainWindow.DialogStackPan.Children.Add(psBar);
-
-					var down = new
-					FileDownloader("http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe",
-					LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
-
-					down.DownloaderProgressChanged += (sender, percent) =>
-					{
-						Dispatcher.Invoke(() =>
-						{
-							psBar.Value = percent;
-						});
-					};
-					down.DownloaderProgressFinished += (sender, e) =>
-					{
-						Process.Start(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
-						CloseDialog();
-						Log(true, ModuleList.IO, LogInfo.Info, "成功启动 BakaXL ！");
-					};
-					await down.Start();
-					MessageBox.Show("正在下载 BakaXL");
-				}
-				else
-				{
-					Process.Start(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
-				}
-			}
-			catch (Exception ex)
-			{
-				Log(true, ModuleList.Main, LogInfo.Warning, "BakaXL 未能正常启动，可能是下载的文件不完整", ex);
-				File.Delete(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
-			}
+			MessageBox.Show("笨蛋 xiaohu 还在搓天杀的控件，你先别急。");
+			//try
+			//{
+			//	if (!File.Exists(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe"))
+			//	{
+			//		var down = new
+			//		FileDownloader("http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe",
+			//		LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
+			//		down.DownloaderProgressFinished += (sender, e) =>
+			//		{
+			//			Log(true, ModuleList.IO, LogInfo.Info, "成功启动 BakaXL ！");
+			//		};
+			//		await down.Start();
+			//		MessageBox.Show("正在下载 BakaXL");
+			//	}
+			//	else
+			//	{
+			//		Process.Start(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
+			//	}
+			//}
+			//catch (Exception ex)
+			//{
+			//	Log(true, ModuleList.Main, LogInfo.Warning, "BakaXL 未能正常启动，可能是下载的文件不完整", ex);
+			//	File.Delete(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
+			//}
 		}
 
 		private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
 		{
+			var ed = new SodaLauncherErrorDialog("Test");
+			MainWindow.mainWindow.Grid_DialogArea.Children.Add(ed);
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
 			Task.Run(() => { JavaFinding.AutoJavaFinding(true); });
@@ -139,76 +127,11 @@ namespace SodaCL.Pages
 			Process.Start("explorer.exe", ".\\SodaCL\\logs");
 		}
 
-		private async void StartBtn_Click(object sender, RoutedEventArgs e)
+		private void StartBtn_Click(object sender, RoutedEventArgs e)
 		{
+			var dE = new SodaLauncherErrorDialog("笨蛋 xiaohu 还在搓天杀的控件，你先别急。");
+			MainWindow.mainWindow.Grid_DialogArea.Children.Add(dE);
 			MinecraftLaunch.LaunchGame();
-			MicrosoftAuth msOAuth = new();
-			msOAuth.OpenWindows += MSOAuth_OpenWindows;
-			loginTsCancelSrc = new CancellationTokenSource();
-
-			MicrosoftAccount msAccount;
-			try
-			{
-				msAccount = await Task.Run<MicrosoftAccount>(async () =>
-				{
-					return await msOAuth.StartAuthAsync(GetText("OAuth2Token"));
-				}, loginTsCancelSrc.Token);
-			}
-			catch (MicrosoftAuthException ex)
-			{
-				string errorMsg;
-				switch (ex.ErrorType)
-				{
-					case MicrosoftAuth.MsAuthErrorTypes.AuthDeclined:
-						errorMsg = GetText("Login_Microsoft_Error_AuthDeclined");
-						Log(true, ModuleList.Login, LogInfo.Warning, "最终用户拒绝了授权请求", ex);
-						break;
-
-					case MicrosoftAuth.MsAuthErrorTypes.ExpiredToken:
-						errorMsg = GetText("Login_Microsoft_Error_ExpiredToken");
-						Log(true, ModuleList.Login, LogInfo.Warning, "登录超时", ex);
-						break;
-
-					case MicrosoftAuth.MsAuthErrorTypes.NoXboxAccount:
-						errorMsg = GetText("Login_Microsoft_Error_NoXboxAccount");
-						Log(true, ModuleList.Login, LogInfo.Warning, "用户未创建Xbox账户", ex);
-						break;
-
-					case MicrosoftAuth.MsAuthErrorTypes.XboxDisable:
-						errorMsg = GetText("Login_Microsoft_Error_XboxDisable");
-						Log(true, ModuleList.Login, LogInfo.Warning, " Xbox Live 不可用/禁止的国家/地区", ex);
-						break;
-
-					case MicrosoftAuth.MsAuthErrorTypes.NeedAdultAuth:
-						errorMsg = GetText("Login_Microsoft_Error_NeedAdultAuth");
-						Log(true, ModuleList.Login, LogInfo.Warning, "需要在 Xbox 页面上进行成人验证", ex);
-						break;
-
-					case MicrosoftAuth.MsAuthErrorTypes.NeedJoiningInFamily:
-						errorMsg = GetText("Login_Microsoft_Error_NeedJoiningInFamily");
-						Log(true, ModuleList.Login, LogInfo.Warning, "需要在 Xbox 页面上进行成人验证", ex);
-						break;
-
-					case MicrosoftAuth.MsAuthErrorTypes.NoGame:
-						errorMsg = GetText("Login_Microsoft_Error_NoGame");
-						Log(true, ModuleList.Login, LogInfo.Warning, "该帐户是儿童账户", ex);
-						break;
-				};
-				OpenDialog();
-			}
-			catch (OperationCanceledException)
-			{
-				Log(false, ModuleList.Login, LogInfo.Warning, "登录操作已取消");
-			}
-			catch (Exception ex)
-			{
-				Dispatcher.Invoke(new Action(() => { CloseDialog(); }));
-				Log(true, ModuleList.Network, LogInfo.Error, ex: ex);
-			}
-			finally
-			{
-				loginTsCancelSrc.Dispose();
-			}
 		}
 
 		#endregion 事件
@@ -312,111 +235,5 @@ namespace SodaCL.Pages
 		/// </summary>
 
 		#endregion 一言及问好处理
-
-		private async void MSOAuth_OpenWindows(object sender, (MicrosoftAuth.WindowsTypes, string) e)
-		{
-			if (e.Item1.Equals(MicrosoftAuth.WindowsTypes.OpenInBrowser))
-			{
-				Dispatcher.Invoke(new Action(() => { ChangeDialog(); }));
-
-				await OpenOpenInBrowserWindow(e.Item2);
-			}
-			switch (e)
-			{
-				case (MicrosoftAuth.WindowsTypes.StartLogin, null):
-					await Dispatcher.InvokeAsync(() =>
-					{
-						OpenDialog();
-						MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock() { Text = "正在初始化微软登录服务", FontSize = 18, TextAlignment = TextAlignment.Center });
-						MainWindow.mainWindow.DialogStackPan.Children.Add(new ProgressBar() { IsIndeterminate = true, Height = 10, Width = 300, Margin = new Thickness(0, 30, 0, 0) });
-					});
-					break;
-			}
-		}
-
-		/// <summary>
-		/// 打开登录说明界面
-		/// </summary>
-		/// <param name="deviceCode">显示的登录代码</param>
-		private async Task OpenOpenInBrowserWindow(string deviceCode)
-		{
-			await Dispatcher.InvokeAsync(() =>
-			{
-				var StackPan = new StackPanel { Margin = new Thickness(10, 20, 10, 0), Orientation = Orientation.Horizontal };
-				var iconBor = new Border
-				{
-					Height = 32,
-					Width = 32,
-					Margin = new Thickness(5, 0, 0, 0),
-					Background = GetBrush("Brush_Main"),
-					CornerRadius = new CornerRadius(16),
-					Child = new System.Windows.Controls.Image
-					{
-						Width = 20,
-						Height = 20,
-						Source = GetSvg("Svg_Information"),
-					}
-				};
-				var exitButton = new SodaIconButton
-				{
-					Margin = new Thickness(120, 0, 0, 0),
-					Height = 32,
-					Width = 32,
-					IconHeight = 20,
-					IconWidth = 20,
-					IconSrc = GetSvg("Svg_Close")
-				};
-				var okButton = new SodaButton
-				{
-					Width = 90,
-					Height = 40,
-					Margin = new Thickness(270, 0, 0, 0),
-					Text = GetText("Butten_OK"),
-					ButtonType = SodaButton.ButtonTypes.Main
-				};
-				exitButton.Click += (s, e) =>
-				{
-					loginTsCancelSrc.Cancel();
-					Dispatcher.Invoke(new Action(() => { CloseDialog(); }));
-					Log(false, ModuleList.Login, LogInfo.Warning, "用户取消了登录操作");
-				};
-				okButton.Click += (s, be) =>
-					{
-						Clipboard.SetText(deviceCode);
-						Log(false, ModuleList.IO, LogInfo.Info, "成功将DeviceCode复制到剪切板");
-						Process.Start("explorer", "https://www.microsoft.com/link");
-						Log(false, ModuleList.IO, LogInfo.Info, "成功打开浏览器");
-					};
-				StackPan.Children.Add(iconBor);
-				StackPan.Children.Add(new TextBlock
-				{
-					Height = 28,
-					Margin = new Thickness(10, 0, 0, 0),
-					Padding = new Thickness(0, 3, 0, 0),
-					Style = GetStyle("Text_Bold"),
-					Text = GetText("Login_Microsoft_MessageBox_OpenInBrowser_Title")
-				});
-				StackPan.Children.Add(exitButton);
-				MainWindow.mainWindow.DialogStackPan.Children.Add(StackPan);
-				MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
-				{
-					Margin = new Thickness(57, 10, 20, 0),
-					Text = GetText("Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip")
-				});
-				MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
-				{
-					Margin = new Thickness(56, 10, 20, 0),
-					Style = GetStyle("Text_Bold"),
-					Text = GetText("Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode")
-				});
-				MainWindow.mainWindow.DialogStackPan.Children.Add(new TextBlock
-				{
-					Margin = new Thickness(55, 5, 20, 0),
-					Text = deviceCode,
-					FontSize = 24,
-				});
-				MainWindow.mainWindow.DialogStackPan.Children.Add(okButton);
-			});
-		}
 	}
 }
