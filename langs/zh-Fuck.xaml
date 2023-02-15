@@ -3,7 +3,7 @@
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <!--不要乱改语言文件中的空格-->
     <s:String x:Key="Error">我操你媽的，出錯了</s:String>
-    <s:String x:Key="Butten_OK">好的</s:String>
+    <s:String x:Key="Button_OK">好的</s:String>
     <s:String x:Key="TitleBar_IssuesBtn_Tip">Bug，SodaCL Github Issue 頁面，懂？</s:String>
     <s:String x:Key="MainPage_GettingYiyan">Souiken:給我把這句改成 Loading...</s:String>
     <s:String x:Key="MainPage_CurrentCore">當前使用堆芯</s:String>

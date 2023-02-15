@@ -4,7 +4,7 @@
     <!--不要乱改语言文件中的空格-->
     <s:String x:Key="Error">发生错误</s:String>
 
-    <s:String x:Key="Butten_OK">确定</s:String>
+    <s:String x:Key="Button_OK">确定</s:String>
 
     <s:String x:Key="Dialog_Launcher_Error_Title">发生错误</s:String>    
     <s:String x:Key="Dialog_Launcher_Error_CatchError">SodaCL 启动器发生错误</s:String>    

@@ -29,9 +29,9 @@
                     <RowDefinition Height="10" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                     <Border Width="30" Height=" 30" CornerRadius="100" Background="{StaticResource Brush_Warning }">
@@ -45,7 +45,7 @@
                         <TextBlock Name="Txb_ErrorMessage"></TextBlock>
                     </ScrollViewer>
                 </StackPanel>
-                <soda:SodaButton x:Name="Button_Close" Width="80" Height="35" Grid.Row="3" Grid.Column="1" Text="{DynamicResource Butten_OK}" ButtonType="Warning" HorizontalAlignment="Right" />
+                <soda:SodaButton x:Name="Button_Close" Width="80" Height="35" Grid.Row="3" Grid.Column="1" Text="{DynamicResource Button_OK}" ButtonType="Warning" HorizontalAlignment="Right" />
             </Grid>
         </Border>
     </Grid>

@@ -122,6 +122,7 @@ namespace SodaCL.Controls
 				sb.Begin();
 			}
 		}
+
 		private void IconBtn_Border_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			isMouseDown = true;
@@ -169,8 +170,7 @@ namespace SodaCL.Controls
 				IconBtn_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
 			}
 		}
+
 		#endregion 事件
-
-
 	}
 }

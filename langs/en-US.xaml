@@ -3,7 +3,7 @@
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <!--不要乱改语言文件中的空格-->
     <s:String x:Key="Error">Error</s:String>
-    <s:String x:Key="Butten_OK">Ok</s:String>
+    <s:String x:Key="Button_OK">Ok</s:String>
     <s:String x:Key="TitleBar_IssuesBtn_Tip">Open SodaCL github page to report bugs</s:String>
     <s:String x:Key="MainPage_GettingYiyan">Loading...</s:String>
     <s:String x:Key="MainPage_CurrentCore">Current Core</s:String>
