@@ -96,7 +96,7 @@ namespace SodaCL.Toolkits
 			}
 			if (ex != null)
 			{
-				if (logContent != null)
+				if (message != null)
 				{
 					logContent = $"发生错误： {message}";
 				}
