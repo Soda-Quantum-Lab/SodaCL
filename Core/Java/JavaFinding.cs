@@ -45,7 +45,7 @@ namespace SodaCL.Core.Java
 			}
 			
 			//获取 Java 版本
-			GetJavaVersion(ref javaList);
+			//GetJavaVersion(ref javaList);
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 			Log(true, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
 		}

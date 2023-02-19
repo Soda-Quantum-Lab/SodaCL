@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SodaCL.Controls.Dialogs"
-             xmlns:soda="clr-namespace:SodaCL.Controls"
+             xmlns:sc="clr-namespace:SodaCL.Controls"
              mc:Ignorable="d"
              d:DesignHeight="530" d:DesignWidth="750">
     <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType= Grid}, Path=ActualWidth}"
@@ -41,11 +41,11 @@
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="1" Margin="37,0,0,0">
                     <TextBlock Text="{DynamicResource Dialog_Launcher_Error_CatchError}" />
-                    <ScrollViewer Background="{DynamicResource Brush_Dialog_Warning_Background}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Foreground="Black">
+                    <ScrollViewer Style="{DynamicResource ScrollViewerStyle1}" Background="{DynamicResource Brush_Dialog_Warning_Background}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Foreground="Black">
                         <TextBlock Name="Txb_ErrorMessage"></TextBlock>
                     </ScrollViewer>
                 </StackPanel>
-                <soda:SodaButton x:Name="Button_Close" Width="80" Height="35" Grid.Row="3" Grid.Column="1" Text="{DynamicResource Button_OK}" ButtonType="Warning" HorizontalAlignment="Right" />
+                <sc:SodaButton x:Name="Button_Close" Width="80" Height="35" Grid.Row="3" Grid.Column="1" Text="{DynamicResource Button_OK}" ButtonType="Warning" HorizontalAlignment="Right" />
             </Grid>
         </Border>
     </Grid>
