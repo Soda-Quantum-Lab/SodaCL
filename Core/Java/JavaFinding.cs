@@ -43,9 +43,9 @@ namespace SodaCL.Core.Java
 			{
 				Log(false, ModuleList.IO, LogInfo.Info, java.ToString());
 			}
-			
+
 			//获取 Java 版本
-			//GetJavaVersion(ref javaList);
+			GetJavaVersion(ref javaList);
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 			Log(true, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
 		}
@@ -64,11 +64,14 @@ namespace SodaCL.Core.Java
 				//	java.Version = 0;
 
 				var javaVersionLookingUpProcess = new System.Diagnostics.Process();
-				javaVersionLookingUpProcess.StartInfo.FileName = "cmd.exe";
-				javaVersionLookingUpProcess.StartInfo.RedirectStandardInput = true;
-				javaVersionLookingUpProcess.StartInfo.RedirectStandardOutput = true;
-				javaVersionLookingUpProcess.StartInfo.RedirectStandardError = true;
-				javaVersionLookingUpProcess.StartInfo.CreateNoWindow = true;
+				javaVersionLookingUpProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
+				{
+					FileName = "cmd.exe",
+					RedirectStandardInput = true,
+					RedirectStandardOutput = true,
+					RedirectStandardError = true,
+					CreateNoWindow = true,
+				};
 				javaVersionLookingUpProcess.Start();
 
 				javaVersionLookingUpProcess.StandardInput.WriteLine("cd " + java);
@@ -82,52 +85,18 @@ namespace SodaCL.Core.Java
 				}
 				else
 				{
-					return;
+					throw new Exception("SodaCL 无法获取 Java 版本");
 				}
 
 				var javaVersionOutput = javaVersionLookingUpProcess.StandardOutput.ReadToEnd();
 
-				if (javaVersionOutput.Contains("8"))
+				for (var i = 0; i <= 30; i++)
 				{
-					java.Version = 8;
+					if (javaVersionOutput.Contains(i.ToString()))
+					{
+						java.Version = i;
+					}
 				}
-				else if (javaVersionOutput.Contains("11"))
-				{
-					java.Version = 11;
-				}
-				else if (javaVersionOutput.Contains("17"))
-				{
-					java.Version = 17;
-				}
-				else if (javaVersionOutput.Contains("7"))
-				{
-					java.Version = 7;
-				}
-				else if (javaVersionOutput.Contains("14"))
-				{
-					java.Version = 14;
-				}
-				else if (javaVersionOutput.Contains("15"))
-				{
-					java.Version = 15;
-				}
-				else if (javaVersionOutput.Contains("16"))
-				{
-					java.Version = 16;
-				}
-				else if (javaVersionOutput.Contains("18"))
-				{
-					java.Version = 18;
-				}
-				else if (javaVersionOutput.Contains("19"))
-				{
-					java.Version = 19;
-				}
-				else
-				{
-					java.Version = 0;
-				}
-
 				javaVersionLookingUpProcess.WaitForExit();
 				javaVersionLookingUpProcess.Close();
 			}
@@ -193,7 +162,7 @@ namespace SodaCL.Core.Java
 
 							searchKey.Contains("国服") || searchKey.Contains("网易") || searchKey.Contains("ext") ||
 
-							searchKey.Contains("netease") || searchKey.Contains("1.") || searchKey.Contains("启动") || 
+							searchKey.Contains("netease") || searchKey.Contains("1.") || searchKey.Contains("启动") ||
 
 							searchKey.Contains("bakaxl") || searchKey.Contains("zulu") || searchKey.Contains("liberica"))
 						SearchJavaInFolder(item.FullName, ref javaList);
