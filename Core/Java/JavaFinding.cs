@@ -14,16 +14,25 @@ namespace SodaCL.Core.Java
 		/// <summary> 自动 Java 查找 </summary> <returns><
 		public static void AutoJavaFinding(bool isJavaw)
 		{
+			var javaExeName = "java.exe";
+			if (isJavaw = true)
+			{
+				javaExeName = "javaw.exe";
+			}
+			else
+			{
+				javaExeName = "java.exe";
+			}
 			var javaList = new List<JavaModel>();
 			//查找环境变量中的 Java
 			var envPathOrigin = Environment.GetEnvironmentVariable("Path");
 			var envPathArray = envPathOrigin.Split(";");
 			foreach (var item in envPathArray)
 			{
-				if (File.Exists(item + "\\javaw.exe"))
+				if (File.Exists(item + "\\" + javaExeName))
 					javaList.Add(new JavaModel()
 					{
-						Path = item + "\\javaw.exe"
+						Path = item + "\\" + javaExeName
 					});
 			}
 
@@ -36,18 +45,19 @@ namespace SodaCL.Core.Java
 					SearchJavaInFolder(disk.Name, ref javaList);
 			}
 			SearchJavaInFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ref javaList);
-			//List 去重
-			javaList.Where((x, i) => javaList.FindIndex(z => z.Path == x.Path) == i);
-			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
-			foreach (var java in javaList)
-			{
-				Log(false, ModuleList.IO, LogInfo.Info, java.ToString());
-			}
 
 			//获取 Java 版本
 			GetJavaVersion(ref javaList);
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 			Log(true, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
+
+			//List 去重
+			javaList.Where((x, i) => javaList.FindIndex(z => z.Path == x.Path) == i);
+			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
+			foreach (var java in javaList)
+			{
+				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + " 是否为 64 位: " + java.Is64Bit.ToString() + " 路径: " + java.Path.ToString());
+			}
 		}
 
 		public static void GetJavaVersion(ref List<JavaModel> javaList)
@@ -63,6 +73,7 @@ namespace SodaCL.Core.Java
 				//else
 				//	java.Version = 0;
 
+				var javaPath = java.Path.ToString();
 				var javaVersionLookingUpProcess = new System.Diagnostics.Process();
 				javaVersionLookingUpProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
 				{
@@ -74,27 +85,34 @@ namespace SodaCL.Core.Java
 				};
 				javaVersionLookingUpProcess.Start();
 
-				javaVersionLookingUpProcess.StandardInput.WriteLine("cd " + java);
-				if (java.Path.Contains("javaw.exe"))
+				javaVersionLookingUpProcess.StandardInput.WriteLine("cd " + javaPath);
+				try
 				{
-					javaVersionLookingUpProcess.StandardInput.WriteLine("javaw -version");
+					javaVersionLookingUpProcess.StandardInput.WriteLine(javaPath + " -version");
 				}
-				else if (java.Path.Contains("java.exe"))
-				{
-					javaVersionLookingUpProcess.StandardInput.WriteLine("java -version");
-				}
-				else
+				catch (Exception)
 				{
 					throw new Exception("SodaCL 无法获取 Java 版本");
 				}
 
 				var javaVersionOutput = javaVersionLookingUpProcess.StandardOutput.ReadToEnd();
 
-				for (var i = 0; i <= 30; i++)
+				Log(false, ModuleList.IO, LogInfo.Info, javaVersionOutput);
+
+				for (var i = 7; i <= 30; i++)
 				{
-					if (javaVersionOutput.Contains(i.ToString()))
+					if (javaVersionOutput.Contains(i.ToString() + ".0"))
 					{
 						java.Version = i;
+					}
+
+					if (javaVersionOutput.Contains("64-Bit"))
+					{
+						java.Is64Bit = true;
+					}
+					else
+					{
+						java.Is64Bit = false;
 					}
 				}
 				javaVersionLookingUpProcess.WaitForExit();
