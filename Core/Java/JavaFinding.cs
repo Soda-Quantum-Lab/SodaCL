@@ -32,7 +32,7 @@ namespace SodaCL.Core.Java
 				if (File.Exists(item + "\\" + javaExeName))
 					javaList.Add(new JavaModel()
 					{
-						Path = item + "\\" + javaExeName
+						Path = item
 					});
 			}
 
@@ -46,18 +46,19 @@ namespace SodaCL.Core.Java
 			}
 			SearchJavaInFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ref javaList);
 
+			//List 去重
+			javaList.Where((x, i) => javaList.FindIndex(z => z.Path == x.Path) == i);
+			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
+
 			//获取 Java 版本
 			GetJavaVersion(ref javaList);
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 			Log(true, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
-
-			//List 去重
-			javaList.Where((x, i) => javaList.FindIndex(z => z.Path == x.Path) == i);
-			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
 			foreach (var java in javaList)
 			{
 				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + " 是否为 64 位: " + java.Is64Bit.ToString() + " 路径: " + java.Path.ToString());
 			}
+
 		}
 
 		public static void GetJavaVersion(ref List<JavaModel> javaList)
@@ -74,6 +75,7 @@ namespace SodaCL.Core.Java
 				//	java.Version = 0;
 
 				var javaPath = java.Path.ToString();
+				var javaExePath = javaPath + "java.exe";
 				var javaVersionLookingUpProcess = new System.Diagnostics.Process();
 				javaVersionLookingUpProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
 				{
@@ -81,14 +83,14 @@ namespace SodaCL.Core.Java
 					RedirectStandardInput = true,
 					RedirectStandardOutput = true,
 					RedirectStandardError = true,
-					CreateNoWindow = true,
+					CreateNoWindow = false,
 				};
+
 				javaVersionLookingUpProcess.Start();
 
-				javaVersionLookingUpProcess.StandardInput.WriteLine("cd " + javaPath);
 				try
 				{
-					javaVersionLookingUpProcess.StandardInput.WriteLine(javaPath + " -version");
+					javaVersionLookingUpProcess.StandardInput.WriteLine("\"" + javaExePath + "\"" + " -version");
 				}
 				catch (Exception)
 				{
@@ -129,11 +131,11 @@ namespace SodaCL.Core.Java
 			}
 			try
 			{
-				if (File.Exists(targetDir + "javaw.exe"))
+				if (File.Exists(targetDir + "java.exe"))
 				{
 					javaList.Add(new JavaModel()
 					{
-						Path = targetDir + "javaw.exe"
+						Path = targetDir + "java.exe"
 					});
 				}
 				foreach (var item in new DirectoryInfo(targetDir).EnumerateDirectories())

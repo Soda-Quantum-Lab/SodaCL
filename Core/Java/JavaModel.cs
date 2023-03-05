@@ -7,6 +7,9 @@ namespace SodaCL.Core.Java
 		[JsonProperty("is64Bit")]
 		public bool Is64Bit { get; set; }
 
+		[JsonProperty("exePath")]
+		public string ExePath { get; set; }
+
 		[JsonProperty("path")]
 		public string Path { get; set; }
 
