@@ -176,6 +176,6 @@ namespace SodaCL
 			Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
 		}
 
-		#endregion 事件
+		#endregion 事件	
 	}
 }

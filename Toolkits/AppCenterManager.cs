@@ -8,6 +8,9 @@ namespace SodaCL.Toolkits
 {
 	public static class AppCenterManager
 	{
+		/// <summary>
+		/// 启动 AppCenter 服务
+		/// </summary>
 		public static void StartAppCenter()
 		{
 			AppCenter.Start(GetText("AppCenterToken"), typeof(Analytics), typeof(Crashes));

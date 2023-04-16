@@ -5,120 +5,57 @@ using System.Linq;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using SodaCL.Toolkits;
+using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Java
 {
 	public class JavaFinding
 	{
-		/// <summary> 自动 Java 查找 </summary> <returns><
-		public static void AutoJavaFinding(bool isJavaw)
+		/// <summary>
+		/// 自动 Java 查找
+		/// </summary>
+
+		public static void AutoJavaFinding()
 		{
-			var javaExeName = "java.exe";
-			if (isJavaw = true)
-			{
-				javaExeName = "javaw.exe";
-			}
-			else
-			{
-				javaExeName = "java.exe";
-			}
+			const string javaExeName = "java.exe";
+			const string javawExeName = "javaw.exe";
+
 			var javaList = new List<JavaModel>();
 			//查找环境变量中的 Java
 			var envPathOrigin = Environment.GetEnvironmentVariable("Path");
 			var envPathArray = envPathOrigin.Split(";");
 			foreach (var item in envPathArray)
 			{
-				if (File.Exists(item + "\\" + javaExeName))
+				if (File.Exists(DirConverter(item) + "java.exe"))
 					javaList.Add(new JavaModel()
 					{
-						Path = item
+						DirPath = item,
+						JavaPath = DirConverter(item) + javaExeName,
+						JavawPath = DirConverter(item) + javawExeName
 					});
 			}
 
 			//查找 AppData 中的 Java
 			SearchJavaInFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ref javaList);
+
 			//查找 Disk 中的 Java
 			foreach (var disk in DriveInfo.GetDrives())
 			{
 				if (disk.DriveType == DriveType.Fixed)
 					SearchJavaInFolder(disk.Name, ref javaList);
 			}
-			SearchJavaInFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ref javaList);
 
 			//List 去重
-			javaList.Where((x, i) => javaList.FindIndex(z => z.Path == x.Path) == i);
+			javaList = javaList.GroupBy(d => new { d.DirPath }).Select(d => d.FirstOrDefault()).ToList();
 			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
 
 			//获取 Java 版本
-			GetJavaVersion(ref javaList);
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 			Log(true, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
 			foreach (var java in javaList)
 			{
-				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + " 是否为 64 位: " + java.Is64Bit.ToString() + " 路径: " + java.Path.ToString());
-			}
-
-		}
-
-		public static void GetJavaVersion(ref List<JavaModel> javaList)
-		{
-			foreach (var java in javaList)
-			{
-				//if (java.Path.Contains("8"))
-				//	java.Version = 8;
-				//else if (java.Path.Contains("11"))
-				//	java.Version = 11;
-				//else if (java.Path.Contains("17"))
-				//	java.Version = 17;
-				//else
-				//	java.Version = 0;
-
-				var javaPath = java.Path.ToString();
-				var javaExePath = javaPath + "java.exe";
-				var javaVersionLookingUpProcess = new System.Diagnostics.Process();
-				javaVersionLookingUpProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
-				{
-					FileName = "cmd.exe",
-					RedirectStandardInput = true,
-					RedirectStandardOutput = true,
-					RedirectStandardError = true,
-					CreateNoWindow = false,
-				};
-
-				javaVersionLookingUpProcess.Start();
-
-				try
-				{
-					javaVersionLookingUpProcess.StandardInput.WriteLine("\"" + javaExePath + "\"" + " -version");
-				}
-				catch (Exception)
-				{
-					throw new Exception("SodaCL 无法获取 Java 版本");
-				}
-
-				var javaVersionOutput = javaVersionLookingUpProcess.StandardOutput.ReadToEnd();
-
-				Log(false, ModuleList.IO, LogInfo.Info, javaVersionOutput);
-
-				for (var i = 7; i <= 30; i++)
-				{
-					if (javaVersionOutput.Contains(i.ToString() + ".0"))
-					{
-						java.Version = i;
-					}
-
-					if (javaVersionOutput.Contains("64-Bit"))
-					{
-						java.Is64Bit = true;
-					}
-					else
-					{
-						java.Is64Bit = false;
-					}
-				}
-				javaVersionLookingUpProcess.WaitForExit();
-				javaVersionLookingUpProcess.Close();
+				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + " 是否为 64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
 			}
 		}
 
@@ -131,11 +68,13 @@ namespace SodaCL.Core.Java
 			}
 			try
 			{
-				if (File.Exists(targetDir + "java.exe"))
+				if (File.Exists(DirConverter(targetDir) + "java.exe"))
 				{
 					javaList.Add(new JavaModel()
 					{
-						Path = targetDir + "java.exe"
+						DirPath = targetDir,
+						JavaPath = DirConverter(targetDir) + "java.exe",
+						JavawPath = DirConverter(targetDir) + "javaw.exe",
 					});
 				}
 				foreach (var item in new DirectoryInfo(targetDir).EnumerateDirectories())
@@ -143,7 +82,7 @@ namespace SodaCL.Core.Java
 					if (item.Attributes.HasFlag(FileAttributes.ReparsePoint))
 						continue;
 					var searchKey = item.Name.ToLower();
-					// 搜索条件来自 PCL2 ，作者爱发电地址 https://afdian.net/a/ltCAT , 欢迎赞助。
+					// 搜索条件来自 PCL2 ，作者爱发电地址 https://afdian.net/a/ltCAT.
 					if (item.Parent.Name.ToLower().Equals("users") || searchKey.Contains("java") || searchKey.Contains("jdk") || searchKey.Contains("env") ||
 
 							searchKey.Contains("环境") || searchKey.Contains("run") || searchKey.Contains("软件") ||
@@ -184,7 +123,9 @@ namespace SodaCL.Core.Java
 
 							searchKey.Contains("netease") || searchKey.Contains("1.") || searchKey.Contains("启动") ||
 
-							searchKey.Contains("bakaxl") || searchKey.Contains("zulu") || searchKey.Contains("liberica"))
+							searchKey.Contains("bakaxl") || searchKey.Contains("zulu") || searchKey.Contains("liberica") ||
+
+							searchKey.Contains("minecraft") || searchKey.Contains("adoptium") || searchKey.Contains("lib"))
 						SearchJavaInFolder(item.FullName, ref javaList);
 				}
 			}

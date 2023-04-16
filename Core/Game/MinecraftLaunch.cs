@@ -13,27 +13,25 @@ namespace SodaCL.Core.Game
 		private MinecraftLaunch()
 		{ }
 
-		private List<string> LaunchArguments { get; set; }
+		private static List<string> LaunchArguments { get; set; }
 
 		public static void LaunchGame()
 		{
+			SpliceArgumentsMain();
 		}
 
-		public void SpliceArgumentsMain()
+		public static void SpliceArgumentsMain()
 		{
 			SpliceBasicArguments();
 		}
 
-		public string SpliceBasicArguments()
+		public static string SpliceBasicArguments()
 		{
-			var javaPath = JavaSelector.SelectJavaByVersion(
-				JsonConvert.DeserializeObject<List<JavaModel>>(
-					RegEditor.GetKeyValue(
-						Registry.CurrentUser, @"Software\SodaCL", "JavaList"
-						)
-					), (int)1.12
-					);
-			LaunchArguments.Add(javaPath[0].ToString());
+			//TODO:JavaPath
+			var javaPathJson = RegEditor.GetKeyValue(Registry.CurrentUser, "JavaList");
+			var javaPath = JsonConvert.DeserializeObject<JavaModel>(javaPathJson);
+
+			//LaunchArguments.Add(javaPath[0].ToString());
 			LaunchArguments.Add($" -Xmx2048");
 			LaunchArguments.Add($" -Xmx2048");
 			LaunchArguments.Add($" -Xmn256m");

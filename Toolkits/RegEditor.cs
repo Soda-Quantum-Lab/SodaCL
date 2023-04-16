@@ -51,8 +51,8 @@ namespace SodaCL.Toolkits
 		/// <param name="regDomain"></param>
 		/// <param name="targetSubKey"></param>
 		/// <param name="name"></param>
-		///<returns> <see langword="string"/> 格式的目标值 </returns>
-		public static string? GetKeyValue(RegistryKey regDomain, string targetSubKey, string name)
+		/// <returns> <see langword="string"/> 格式的目标值 </returns>
+		public static string? GetKeyValue(RegistryKey regDomain, string name, string targetSubKey = @"Software\SodaCL")
 		{
 			var openedSubKey = regDomain.OpenSubKey(targetSubKey);
 			var getValue = openedSubKey == null ? openedSubKey.GetValue(name).ToString() : null;

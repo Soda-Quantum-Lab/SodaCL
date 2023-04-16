@@ -46,6 +46,7 @@ namespace SodaCL.Controls.Dialogs
 			{
 				Close();
 			};
+			MainWindow.mainWindow.Grid_DialogArea.Children.Add(this);
 		}
 
 		public void Close()

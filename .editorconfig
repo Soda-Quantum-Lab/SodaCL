@@ -79,6 +79,12 @@ csharp_space_around_binary_operators = before_and_after
 csharp_indent_labels = one_less_than_current
 csharp_style_namespace_declarations = block_scoped:silent
 
+# SYSLIB0022: 类型或成员已过时
+dotnet_diagnostic.SYSLIB0022.severity = none
+
+# SYSLIB0021: 类型或成员已过时
+dotnet_diagnostic.SYSLIB0021.severity = none
+
 [*.vb]
 #### 命名样式 ####
 
