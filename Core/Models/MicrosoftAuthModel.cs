@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace SodaCL.Core.Auth
+namespace SodaCL.Core.Models
 {
 	public class DisplayClaimsModel
 	{

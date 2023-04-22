@@ -1,9 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace SodaCL.Core.Java
+namespace SodaCL.Core.Models
 {
-	public class JavaModel:IEquatable<JavaModel>
+	public class JavaModel : IEquatable<JavaModel>
 
 	{
 		[JsonProperty("is64Bit")]
@@ -22,7 +22,7 @@ namespace SodaCL.Core.Java
 		public int Version { get; set; }
 		public bool Equals(JavaModel other)
 		{
-			return this.DirPath == other.DirPath;
+			return DirPath == other.DirPath;
 		}
 		public override int GetHashCode()
 		{

@@ -1,4 +1,4 @@
-﻿namespace SodaCL.Core.Auth
+﻿namespace SodaCL.Core.Models
 {
 	public abstract class AccountModel
 	{

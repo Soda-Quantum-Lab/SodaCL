@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using SodaCL.Core.Java;
+using static SodaCL.Launcher.LauncherInfo;
 using SodaCL.Toolkits;
 using static SodaCL.Toolkits.DeviceInfo;
+using static SodaCL.Toolkits.DataTool;
+using System;
+using SodaCL.Core.Models;
 
 namespace SodaCL.Core.Game
 {
@@ -41,7 +45,27 @@ namespace SodaCL.Core.Game
 			LaunchArguments.Add($" -Dos.name=Windows {GetOsMajorNumber()} ");
 			LaunchArguments.Add($" -Dminecraft.launcher.brand=SodaCL");
 			LaunchArguments.Add($" -Dminecraft.launcher.version={Assembly.GetExecutingAssembly().GetName().Version.ToString()}");
-			return DataTool.SplitListAndToString(LaunchArguments, " ");
+			return SplitListAndToString(LaunchArguments, " ");
+		}
+		public static void SpliceMcArguments()
+		{
+			LaunchArguments.Add($"--username {"HRxiaohu"}");
+			LaunchArguments.Add($"--version {"1.7.0"}");
+			LaunchArguments.Add($"--gameDir {sodaMcDir}");
+			LaunchArguments.Add($"--assetsDir ");
+			LaunchArguments.Add($"--assetIndex ");
+			LaunchArguments.Add($"--uuid {Guid.NewGuid().ToString("N")}");
+			LaunchArguments.Add($"--accessToken ");
+			LaunchArguments.Add($"--userType "); 
+			LaunchArguments.Add($"--versionType ");
+			LaunchArguments.Add($"--width ");
+			LaunchArguments.Add($"--height ");
+		}
+		public static void CreateLaunchScript(string script)
+		{
+			var targetPath = DirConverter(sodaCLForderPath) + "LaunchBat.bat";
+			File.CreateText(targetPath);
+			File.WriteAllText(targetPath, script);
 		}
 	}
 }

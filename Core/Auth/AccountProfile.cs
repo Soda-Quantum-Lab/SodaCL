@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using SodaCL.Controls.Dialogs;
-using SodaCL.Core.Auth;
+using SodaCL.Core.Models;
 using SodaCL.Toolkits;
 
 namespace SodaCL.Core.Profile

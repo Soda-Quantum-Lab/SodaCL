@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using SodaCL.Core.Models;
 using SodaCL.Toolkits;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.Logger;

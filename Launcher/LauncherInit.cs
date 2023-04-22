@@ -33,14 +33,14 @@ namespace SodaCL.Launcher
 			{
 				if (!Directory.Exists(LauncherInfo.sodaCLForderPath))
 					Directory.CreateDirectory(LauncherInfo.sodaCLForderPath);
-				if (!Directory.Exists(LauncherInfo.mcDir))
-					Directory.CreateDirectory(LauncherInfo.mcDir);
+				if (!Directory.Exists(LauncherInfo.sodaMcDir))
+					Directory.CreateDirectory(LauncherInfo.sodaMcDir);
 				if (!Directory.Exists(LauncherInfo.sodaCLLogForderPath))
 					Directory.CreateDirectory(LauncherInfo.sodaCLLogForderPath);
 				//if (!Directory.Exists(LauncherInfo.sodaCLFontsForderPath))
 				//	Directory.CreateDirectory(LauncherInfo.sodaCLFontsForderPath);
-				if (!Directory.Exists(LauncherInfo.mcVersionsDir))
-					Directory.CreateDirectory(LauncherInfo.mcVersionsDir);
+				if (!Directory.Exists(LauncherInfo.SodaMcVersionsDir))
+					Directory.CreateDirectory(LauncherInfo.SodaMcVersionsDir);
 				if (!Directory.Exists(LauncherInfo.appDataDir))
 					Directory.CreateDirectory(LauncherInfo.appDataDir);
 				if (!File.Exists(LauncherInfo.sodaCLConfigFilePath))

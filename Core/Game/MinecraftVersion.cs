@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using SodaCL.Core.Models;
 using SodaCL.Launcher;
 using static SodaCL.Toolkits.Logger;
 
@@ -19,9 +20,9 @@ namespace SodaCL.Core.Game
 			//    Log(ModuleList.IO, LogInfo.Info, item.ToString());
 			//    Console.WriteLine(item.ToString());
 			//}
-			if (Directory.Exists(LauncherInfo.mcVersionsDir))
+			if (Directory.Exists(LauncherInfo.SodaMcVersionsDir))
 			{
-				var dir = Directory.GetDirectories(LauncherInfo.mcVersionsDir);
+				var dir = Directory.GetDirectories(LauncherInfo.SodaMcVersionsDir);
 				var names = new string[dir.Length];
 				Log(true, ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
 				for (var i = 0; i < dir.Length; i++)
