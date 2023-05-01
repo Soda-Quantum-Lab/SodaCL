@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace SodaCL.Launcher
 		/// <summary>
 		/// 新建Minecraft及启动器文件
 		/// </summary>
-		public static void InitNewFolder()
+		public static void Setup()
 		{
 			try
 			{
@@ -49,6 +50,10 @@ namespace SodaCL.Launcher
 					Directory.CreateDirectory(LauncherInfo.sodaCLTempForderPath);
 				if (Registry.CurrentUser.OpenSubKey(@"Software\SodaCL") == null)
 					RegEditor.CreateSubKey(Registry.CurrentUser, @"Software\SodaCL");
+				if (RegEditor.GetKeyValue(Registry.CurrentUser, "IsSetuped") != "True")
+				{
+					FirstSetup();
+				}
 			}
 			catch (Exception ex)
 			{
@@ -77,5 +82,15 @@ namespace SodaCL.Launcher
 		//		}
 		//	}
 		//}
+		public static void FirstSetup()
+		{
+			#region 注册表
+			if (RegionInfo.CurrentRegion.Name == "CN")
+				RegEditor.SetKeyValue(Registry.CurrentUser, "Software\\SodaCL", "DownloadSource", "2", RegistryValueKind.String);
+			else
+				RegEditor.SetKeyValue(Registry.CurrentUser, "Software\\SodaCL", "DownloadSource", "0", RegistryValueKind.String);
+			RegEditor.SetKeyValue(Registry.CurrentUser, "Software\\SodaCL", "IsSetuped", "True", RegistryValueKind.String);
+			#endregion
+		}
 	}
 }

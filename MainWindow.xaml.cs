@@ -74,8 +74,6 @@ namespace SodaCL
 
 		private void Window_Initialized(object sender, EventArgs e)
 		{
-			LauncherInit.InitNewFolder();
-
 			Log(false, ModuleList.Main, LogInfo.Info, "主窗体加载完毕");
 		}
 

@@ -14,9 +14,10 @@ using SodaCL.Controls.Dialogs;
 using SodaCL.Core.Auth;
 using SodaCL.Core.Game;
 using SodaCL.Core.Java;
+using SodaCL.Core.Models;
 using SodaCL.Launcher;
 using SodaCL.Toolkits;
-using static SodaCL.Toolkits.GetResources;
+using static SodaCL.Toolkits.HttpHelper;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Pages
@@ -124,11 +125,13 @@ namespace SodaCL.Pages
 			Process.Start("explorer.exe", ".\\SodaCL\\logs");
 		}
 
-		private void StartBtn_Click(object sender, RoutedEventArgs e)
+		private async void StartBtn_Click(object sender, RoutedEventArgs e)
 		{
-			MinecraftLaunch.LaunchGame();
-			var dE = new SodaLauncherErrorDialog("笨蛋 xiaohu 还在搓天杀的控件，你先别急。人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n他奶奶的鸡蛋六舅的哈密瓜妹妹的大窝瓜爷爷的大鸡腿婶婶的大葡萄妈妈的黄瓜菜爸爸的大面包三舅姥爷的大李子二婶的桃子三叔的西瓜七舅姥爷的小荔枝二舅姥爷的火龙果姑姑的猕猴桃祖爷爷的车厘子祖姥爷的大菠萝祖奶奶的大榴莲二爷的小草莓他三婶姥姥的大白菜他哥哥的大面条妹妹的小油菜弟弟的西葫芦姐姐的大土豆姐夫的大青椒爷爷的大茄子嗯啊，杀杀杀！\r\n！\r\n好可怕杀杀杀杀杀杀上勾拳！\r\n下勾拳！\r\n左勾拳！\r\n右勾拳！\r\n扫堂腿！\r\n回旋踢！\r\n这是蜘蛛吃耳屎，这是龙卷风摧毁停车场！\r\n这是羚羊蹬，这是山羊跳！\r\n乌鸦坐飞机！\r\n老鼠走迷宫！\r\n大象踢腿！\r\n愤怒的章鱼！\r\n巨斧砍大树！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n");
-			MinecraftLaunch.LaunchGame();
+			//MinecraftLaunch.LaunchGame();
+			//var dE = new SodaLauncherErrorDialog("笨蛋 xiaohu 还在搓天杀的控件，你先别急。人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n他奶奶的鸡蛋六舅的哈密瓜妹妹的大窝瓜爷爷的大鸡腿婶婶的大葡萄妈妈的黄瓜菜爸爸的大面包三舅姥爷的大李子二婶的桃子三叔的西瓜七舅姥爷的小荔枝二舅姥爷的火龙果姑姑的猕猴桃祖爷爷的车厘子祖姥爷的大菠萝祖奶奶的大榴莲二爷的小草莓他三婶姥姥的大白菜他哥哥的大面条妹妹的小油菜弟弟的西葫芦姐姐的大土豆姐夫的大青椒爷爷的大茄子嗯啊，杀杀杀！\r\n！\r\n好可怕杀杀杀杀杀杀上勾拳！\r\n下勾拳！\r\n左勾拳！\r\n右勾拳！\r\n扫堂腿！\r\n回旋踢！\r\n这是蜘蛛吃耳屎，这是龙卷风摧毁停车场！\r\n这是羚羊蹬，这是山羊跳！\r\n乌鸦坐飞机！\r\n老鼠走迷宫！\r\n大象踢腿！\r\n愤怒的章鱼！\r\n巨斧砍大树！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n");
+
+			var sl = JsonConvert.DeserializeObject<AssetModel>(await GetStringResponseAsync("https://bmclapi2.bangbang93.com/mc/game/version_manifest_v2.json"));
+			MessageBox.Show(sl.ToString());
 		}
 
 		#endregion 事件
@@ -145,10 +148,7 @@ namespace SodaCL.Pages
 					Log(false, ModuleList.Network, LogInfo.Info, "正在获取一言");
 					do
 					{
-						using var client = new HttpClient();
-						var yiYanApiAdd = "https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10";
-						client.Timeout = TimeSpan.FromSeconds(5);
-						var jsonResponse = await client.GetStringAsync(yiYanApiAdd);
+						var jsonResponse = await GetStringResponseAsync("https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10");
 						var jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
 						var yiYan = (string)jObj["hitokoto"];
 						string space;

@@ -18,7 +18,7 @@ namespace SodaCL
 					//bool isTranslator = true;
 				}
 			}
-			LauncherInit.InitNewFolder();
+			LauncherInit.Setup();
 			LauncherInit.DeleteTempFolder();
 			//LauncherInit.InitMiSansFonts();
 			LogStart();
