@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using SodaCL.Core.Models;
 using SodaCL.Toolkits;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.Logger;
+using System.Text.RegularExpressions;
 
 namespace SodaCL.Core.Java
 {
@@ -56,6 +58,39 @@ namespace SodaCL.Core.Java
 			Log(true, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
 			foreach (var java in javaList)
 			{
+				var p = new Process();
+
+				p.StartInfo.FileName = java.JavaPath.ToString();
+				p.StartInfo.Arguments = " -version";
+				p.StartInfo.CreateNoWindow = true;
+				p.StartInfo.UseShellExecute = false;
+				p.StartInfo.RedirectStandardInput = true;
+				p.StartInfo.RedirectStandardOutput = true;
+				p.StartInfo.RedirectStandardError = true;
+
+				p.Start();
+
+				var Output = p.StandardError.ReadToEnd();
+
+				Log(false, ModuleList.IO, LogInfo.Info, Output);
+				var rg = new Regex("(?<=(version \"))[.\\s\\S]*?(?=(\"))", RegexOptions.Multiline | RegexOptions.Singleline);
+				var match = rg.Match(Output);
+
+				java.Version = match.Value;
+				java.Is64Bit = Output.Contains("64-Bit");
+
+				p.WaitForExit();
+				p.Close();
+
+				if (Output != "")
+				{
+
+				}
+				else
+				{
+					Log(false, ModuleList.IO, LogInfo.Warning, "[Java] 尝试运行该 Java 失败");
+				}
+
 				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + " 是否为 64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
 			}
 		}
