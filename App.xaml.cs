@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using SodaCL.Core.Java;
 using SodaCL.Launcher;
 using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
@@ -20,6 +22,7 @@ namespace SodaCL
 			}
 			LauncherInit.Setup();
 			LauncherInit.DeleteTempFolder();
+			Task.Run(() => { JavaFinding.AutoJavaFinding(); });
 			//LauncherInit.InitMiSansFonts();
 			LogStart();
 #if RELEASE

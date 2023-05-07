@@ -10,6 +10,8 @@ using SodaCL.Toolkits;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.Logger;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace SodaCL.Core.Java
 {
@@ -55,7 +57,7 @@ namespace SodaCL.Core.Java
 
 			//获取 Java 版本
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
-			Log(true, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
+			Log(false, ModuleList.IO, LogInfo.Info, JsonConvert.SerializeObject(javaList));
 			foreach (var java in javaList)
 			{
 				var p = new Process();
@@ -92,6 +94,8 @@ namespace SodaCL.Core.Java
 				}
 
 				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + " 是否为 64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
+				Pages.MainPage.JavaComboBoxItemAdder(java.Version.ToString(), java.Is64Bit, java.DirPath.ToString());
+				
 			}
 		}
 

@@ -85,33 +85,6 @@ namespace SodaCL.Pages
 
 		#region 事件
 
-		private async void DownloadButtonClick(object sender, RoutedEventArgs e)
-		{
-			try
-			{
-				if (!File.Exists(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe"))
-				{
-					var down = new
-					FileDownloader("http://jk-insider.bakaxl.com:8888/job/BakaXL%20Insider%20Parrot/lastSuccessfulBuild/artifact/BakaXL_Public/bin/Jenkins%20Release/BakaXL_Secure/BakaXL.exe",
-					LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
-					down.DownloaderProgressFinished += (sender, e) =>
-					{
-						Log(true, ModuleList.IO, LogInfo.Info, "成功启动 BakaXL ！\r\n");
-					};
-					await Task.Run(async () => { await down.Start(); });
-					MessageBox.Show("正在下载 BakaXL");
-				}
-				else
-				{
-					Process.Start(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
-				}
-			}
-			catch (Exception ex)
-			{
-				Log(true, ModuleList.Main, LogInfo.Warning, "BakaXL 未能正常启动，可能是下载的文件不完整", ex);
-				File.Delete(LauncherInfo.sodaCLForderPath + "\\BakaXL.exe");
-			}
-		}
 
 		private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
 		{
@@ -232,5 +205,30 @@ namespace SodaCL.Pages
 		/// </summary>
 
 		#endregion 一言及问好处理
+
+		public static void JavaComboBoxItemAdder(string javaVersion, bool is64Bit, string javaPath)
+		{
+			var bitString = "N/A 位";
+			if (is64Bit)
+			{
+				bitString = "64 位";
+			}
+			else
+			{
+				bitString = "32 位";
+			}
+
+			var JavaCbBox = new ComboBox();
+			JavaCbBox.SelectedIndex = 0;
+			JavaCbBox.Items.Add("Java " + javaVersion + ", " + bitString + ", 路径: " + javaPath);
+		}
+
+		private void JavaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			switch (JavaComboBox)
+			{
+
+			}
+		}
 	}
 }
