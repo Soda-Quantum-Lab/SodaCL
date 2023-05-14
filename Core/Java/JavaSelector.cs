@@ -6,8 +6,20 @@ using System.Threading.Tasks;
 
 namespace SodaCL.Core.Java
 {
-	class JavaSelector
+	class JavaSelectClass
 	{
 		//TODO
+		public string javaSelected = null;
+		public void JavaSelector(bool IsAuto, string ExpectedVersion)
+		{
+			if (IsAuto)
+			{
+
+			}
+			else
+			{
+				
+			}
+		}
 	}
 }

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing.Printing;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SodaCL.Controls;
@@ -91,6 +94,10 @@ namespace SodaCL.Pages
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
 			Task.Run(() => { JavaFinding.AutoJavaFinding(); });
+			JavaComboBoxResetter();
+			JavaComboBox.Items.Add("Java 8");
+			JavaComboBox.Items.Add("Java 11");
+			JavaComboBox.Items.Add("Java 17");
 		}
 
 		private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
@@ -206,29 +213,47 @@ namespace SodaCL.Pages
 
 		#endregion 一言及问好处理
 
-		public static void JavaComboBoxItemAdder(string javaVersion, bool is64Bit, string javaPath)
+		#region Java 选择处理
+
+		public void JavaComboBoxResetter()
+		{
+			JavaComboBox.Items.Clear();
+			JavaComboBox.Items.Add("自动选择 Java");
+		}
+		public void JavaComboBoxItemAdder(string javaVersion, bool is64Bit, string javaPath)
 		{
 			var bitString = "N/A 位";
-			if (is64Bit)
+			try
 			{
-				bitString = "64 位";
+				if (is64Bit)
+				{
+					bitString = "64 位";
+				}
+				else
+				{
+					bitString = "32 位";
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				bitString = "32 位";
+				Log(false, ModuleList.IO, LogInfo.Warning, "SodaCL 无法确定 Java 位数，显示为 N/A ");
+				throw;
 			}
 
-			var JavaCbBox = new ComboBox();
-			JavaCbBox.SelectedIndex = 0;
-			JavaCbBox.Items.Add("Java " + javaVersion + ", " + bitString + ", 路径: " + javaPath);
+			JavaComboBox.SelectedIndex = 0;
+			JavaComboBox.Items.Add("Java " + javaVersion + ", " + bitString + ", 路径: " + javaPath);
 		}
 
 		private void JavaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			switch (JavaComboBox)
 			{
-
+				//case "Java 8":
+				//	{
+				//		break;
+				//	}
 			}
 		}
+		#endregion
 	}
 }

@@ -33,9 +33,6 @@
                     </StackPanel>
                     <StackPanel Height="48" DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
                         <ComboBox Name="JavaComboBox" Width="200" Margin="0,0,15,0" SelectionChanged="JavaComboBox_SelectionChanged" SelectedIndex="0">
-                            <StackPanel Orientation="Horizontal">
-                                <Label VerticalAlignment="Center">自动选择 Java</Label>
-                            </StackPanel>
                         </ComboBox>
                         <soda:SodaButton Width="80" Margin="0,0,15,0" Text="Java 测试" Click="EnvironmentCheckButtonClick" />
                         <soda:SodaButton Width="40" Margin="0,0,15,0" Text="Log" Click="LogFolderOpenerButtonClick" />

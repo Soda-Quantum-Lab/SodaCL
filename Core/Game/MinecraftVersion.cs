@@ -24,7 +24,7 @@ namespace SodaCL.Core.Game
 			{
 				var dir = Directory.GetDirectories(LauncherInfo.SodaMcVersionsDir);
 				var names = new string[dir.Length];
-				Log(true, ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
+				Log(false, ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
 				for (var i = 0; i < dir.Length; i++)
 				{
 					names[i] = Path.GetFileName(dir[i]);
