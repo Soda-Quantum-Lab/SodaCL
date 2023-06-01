@@ -56,7 +56,6 @@ namespace SodaCL.Core.Java
 			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
 
 			//获取 Java 版本
-			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "JavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 			foreach (var java in javaList)
 			{
 				var p = new Process();
@@ -91,7 +90,7 @@ namespace SodaCL.Core.Java
 					Log(false, ModuleList.IO, LogInfo.Warning, "[Java] 尝试运行该 Java 失败");
 				}
 
-				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + " 是否为 64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
+				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + "  64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
 
 				App.Current.Dispatcher.BeginInvoke(new Action(() =>
 				{
@@ -99,9 +98,10 @@ namespace SodaCL.Core.Java
 					mainPage.JavaComboBoxResetter();
 					mainPage.JavaComboBoxItemAdder(java.Version.ToString(), java.Is64Bit, java.DirPath.ToString());
 				}));
-				
-				
 			}
+			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheJavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
+
+			
 		}
 
 		public static void SearchJavaInFolder(string targetDir, ref List<JavaModel> javaList)
