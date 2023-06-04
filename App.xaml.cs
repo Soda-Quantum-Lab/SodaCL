@@ -22,7 +22,7 @@ namespace SodaCL
 			}
 			LauncherInit.Setup();
 			LauncherInit.DeleteTempFolder();
-			Task.Run(() => { JavaFinding.AutoJavaFinding(); });
+			Task.Run(() => { JavaFindingAndSelecting.AutoJavaFinding(); });
 			//LauncherInit.InitMiSansFonts();
 			LogStart();
 #if RELEASE

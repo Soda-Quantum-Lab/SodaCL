@@ -93,11 +93,11 @@ namespace SodaCL.Pages
 		{
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
-			Task.Run(() => { JavaFinding.AutoJavaFinding(); });
-			Task.Run(() => 
-			{ 
-				JavaSelectClass.JavaSelector(true, 1.17); 
-			});
+			Task.Run(() => { JavaFindingAndSelecting.AutoJavaFinding(); });
+			//Task.Run(() => 
+			//{ 
+			//	JavaSelectClass.JavaSelector(true, 1.17); 
+			//});
 			JavaComboBoxResetter();
 			JavaComboBox.Items.Add("Java 8");
 			JavaComboBox.Items.Add("Java 11");

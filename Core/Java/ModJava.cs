@@ -12,10 +12,11 @@ using static SodaCL.Toolkits.Logger;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SodaCL.Core.Java
 {
-	public class JavaFinding
+	public class JavaFindingAndSelecting
 	{
 		/// <summary>
 		/// 自动 Java 查找
@@ -98,10 +99,38 @@ namespace SodaCL.Core.Java
 					mainPage.JavaComboBoxResetter();
 					mainPage.JavaComboBoxItemAdder(java.Version.ToString(), java.Is64Bit, java.DirPath.ToString());
 				}));
+				
 			}
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheJavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 
-			
+		}
+
+		public static void JavaSelector(int TargetMcVersion)
+		{
+			var javaListJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList", "CacheJavaList");
+			var javaList = new List<JavaModel>((IEnumerable<JavaModel>)JsonConvert.DeserializeObject(javaListJson));
+			if (TargetMcVersion >= 1.17)
+			{
+				foreach (var java in javaList)
+				{
+					if (java.Version.Contains("1.8"))
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheSelectedJava", java.JavaPath, RegistryValueKind.String);
+						Log(false, ModuleList.IO, LogInfo.Info, "SodaCL 已选定了目标 MC 版本 " + TargetMcVersion + " 需要的 Java ，路径：" + java.JavaPath);
+					}
+				}
+			}
+			else
+			{
+				foreach (var java in javaList)
+				{
+					if (java.Version.Contains("17"))
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheSelectedJava", java.JavaPath, RegistryValueKind.String);
+						Log(false, ModuleList.IO, LogInfo.Info, "SodaCL 已选定了目标 MC 版本 " + TargetMcVersion + " 需要的 Java ，路径：" + java.JavaPath);
+					}
+				}
+			}
 		}
 
 		public static void SearchJavaInFolder(string targetDir, ref List<JavaModel> javaList)
