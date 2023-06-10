@@ -1,6 +1,6 @@
 <div id="top" align="center">
 
-<img src="https://s2.loli.net/2022/11/27/nOb8QHZdeBgV5yC.png" width="35%">
+<img src="https://s2.loli.net/2022/11/27/nOb8QHZdeBgV5yC.png" width="256">
 
 # Soda Craft Launcher
 **一个清爽的Minecraft启动器**
@@ -46,3 +46,12 @@
 <div class="members" align="center">
   <img align ="center" src="https://repobeats.axiom.co/api/embed/5748006471f1d72145ea0714d1c99b45ad2fb296.svg">
 </div>
+
+---
+## 🎉致谢
+<a href="https://visualstudio.microsoft.com/" align="center">
+  <img weight="128" height="128" src="https://visualstudio.microsoft.com/wp-content/uploads/2021/10/Product-Icon.svg" alt="Visual Studio Logo">
+</a>
+<a href="https://jb.gg/OpenSourceSupport" align="center">
+  <img weight="128" height="128" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo.">
+</a>
