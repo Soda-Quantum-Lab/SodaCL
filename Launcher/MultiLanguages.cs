@@ -14,7 +14,7 @@ namespace SodaCL.Launcher
 				dictionaryList.Add(dictionary);
 			}
 			//TODO:多语言切换
-			var requestedCulture = @"langs\zh-CN.xaml";
+			var requestedCulture = @"Langs\zh-CN.xaml";
 			var resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedCulture));
 			Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
 			Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);

@@ -6,6 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using SodaCL.Controls.Dialogs;
+using SodaCL.Toolkits;
 using SodaCL.Core.Game;
 using SodaCL.Launcher;
 using static SodaCL.Toolkits.Logger;
@@ -17,8 +19,6 @@ namespace SodaCL
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public static List<MinecraftClient> clients = new();
-		public static LauncherInfo launcherInfo;
 		public static MainWindow mainWindow;
 		private bool IsThisPage;
 
@@ -174,6 +174,6 @@ namespace SodaCL
 			Trace.WriteLine("-------- SodaCL 程序日志记录结束 --------\n");
 		}
 
-		#endregion 事件	
+		#endregion 事件
 	}
 }

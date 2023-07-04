@@ -6,17 +6,20 @@
 
     <s:String x:Key="Button_OK">确定</s:String>
 
-    <s:String x:Key="Dialog_Launcher_Error_Title">发生错误</s:String>    
-    <s:String x:Key="Dialog_Launcher_Error_CatchError">SodaCL 启动器发生错误</s:String>    
-    
+    <s:String x:Key="ExceptionCatcher_Dialog_CatchedMessage_Start">SodaCL 捕获到未经处理的异常：\r\n</s:String>
+    <s:String x:Key="ExceptionCatcher_Dialog_CatchedMessage_End">异常数据已上报至 AppCenter 分析</s:String>
+
+    <s:String x:Key="Dialog_Launcher_Error_Title">发生错误</s:String>
+    <s:String x:Key="Dialog_Launcher_Error_CatchError">SodaCL 启动器发生错误</s:String>
+
     <s:String x:Key="TitleBar_IssuesBtn_Tip">打开 SodaCL 的 Issues 页面以反馈 Bug</s:String>
-    
+
     <s:String x:Key="MainPage_GettingYiyan">正在获取一言</s:String>
     <s:String x:Key="MainPage_CurrentCore">当前启动的核心</s:String>
     <s:String x:Key="MainPage_StartGame">▷ 开始游戏</s:String>
-    
+
     <s:String x:Key="Error_Init_Fonts_CannotLoad">SodaCL 无法加载所需的字体文件</s:String>
-    
+
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Title">即将跳转至微软登录页</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_Tip">将要跳转至微软登录页，请在接下来打开的界面填写相应登录代码登录微软账户，我们已经将登陆代码复制到你的剪贴板中。</s:String>
     <s:String x:Key="Login_Microsoft_MessageBox_OpenInBrowser_Text_YourLoginCode">你的登陆代码</s:String>

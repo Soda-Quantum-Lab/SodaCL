@@ -23,13 +23,13 @@ namespace SodaCL.Toolkits
 		public static string Read(string Key, string Section = null)
 		{
 			var RetVal = new StringBuilder(255);
-			GetPrivateProfileString(Section ?? "SodaCL", Key, "", RetVal, 255, Launcher.LauncherInfo.sodaCLConfigFilePath);
+			GetPrivateProfileString(Section ?? "SodaCL", Key, "", RetVal, 255, Launcher.LauncherInfo.SODACL_BASE_PATH);
 			return RetVal.ToString();
 		}
 
 		public static void Write(string Key, string Value, string Section = null)
 		{
-			WritePrivateProfileString(Section ?? "SodaCL", Key, Value, Launcher.LauncherInfo.sodaCLConfigFilePath);
+			WritePrivateProfileString(Section ?? "SodaCL", Key, Value, Launcher.LauncherInfo.SODACL_BASE_PATH);
 		}
 
 		[DllImport("kernel32", CharSet = CharSet.Unicode)]

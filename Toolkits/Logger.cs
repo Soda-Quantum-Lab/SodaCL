@@ -13,7 +13,7 @@ namespace SodaCL.Toolkits
 		/// <summary>
 		/// Log文件夹
 		/// </summary>
-		public static DirectoryInfo logDir = new(LauncherInfo.sodaCLLogForderPath);
+		public static DirectoryInfo logDir = new(LauncherInfo.SODACL_LOG_FOLDER_PATH);
 
 		/// <summary>
 		/// Log目录下的所有文件
@@ -32,6 +32,7 @@ namespace SodaCL.Toolkits
 			Warning,
 			Debug,
 			Error,
+			Unhandled
 		}
 
 		/// <summary>
@@ -43,7 +44,8 @@ namespace SodaCL.Toolkits
 			Control,
 			Network,
 			IO,
-			Login
+			Login,
+			Unknown
 		}
 
 		public static int GetFileNum()
@@ -140,7 +142,7 @@ namespace SodaCL.Toolkits
 			}
 			try
 			{
-				Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.sodaCLLogForderPath}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+				Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SODACL_LOG_FOLDER_PATH}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
 				Trace.AutoFlush = true;
 				Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
 			}

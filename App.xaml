@@ -7,10 +7,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="langs\en-US.xaml" />
-                <ResourceDictionary Source="langs\zh-CN.xaml" />
-                <ResourceDictionary Source="langs\zh-TW.xaml" />
-                <ResourceDictionary Source="langs\zh-Fuck.xaml" />
+                <ResourceDictionary Source="Langs\en-US.xaml" />
+                <ResourceDictionary Source="Langs\zh-CN.xaml" />
+                <ResourceDictionary Source="Langs\zh-TW.xaml" />
+                <ResourceDictionary Source="Langs\zh-Fuck.xaml" />
                 <ResourceDictionary Source="Token.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--主题色-->
@@ -238,7 +238,7 @@
             <Style TargetType="ScrollViewer">
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ScrollViewer}" >
+                        <ControlTemplate TargetType="{x:Type ScrollViewer}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="16">
                                 <Grid x:Name="Grid">
                                     <Grid.ColumnDefinitions>

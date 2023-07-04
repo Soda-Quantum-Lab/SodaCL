@@ -115,7 +115,7 @@ namespace SodaCL.Toolkits
 			try
 			{
 				var ran = obj as int[];
-				var tmpFileBlock = LauncherInfo.sodaCLTempForderPath + Thread.CurrentThread.Name + ".SodaTmp";
+				var tmpFileBlock = LauncherInfo.SODACL_TEMP_FOLDER_PATH + Thread.CurrentThread.Name + ".SodaTmp";
 				_tmpFiles.Add(tmpFileBlock);
 				using HttpClient hc = new();
 				hc.DefaultRequestHeaders.Range = new RangeHeaderValue(ran[0], ran[1]);

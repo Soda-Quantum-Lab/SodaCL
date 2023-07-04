@@ -13,9 +13,9 @@ namespace SodaCL.Launcher
 	{
 		public static void DeleteTempFolder()
 		{
-			if (Directory.GetFiles(LauncherInfo.sodaCLTempForderPath).Length > 0)
+			if (Directory.GetFiles(LauncherInfo.SODACL_TEMP_FOLDER_PATH).Length > 0)
 			{
-				var tempDir = new DirectoryInfo(LauncherInfo.sodaCLTempForderPath);
+				var tempDir = new DirectoryInfo(LauncherInfo.SODACL_TEMP_FOLDER_PATH);
 				var tempFiles = tempDir.GetFiles();
 				foreach (var files in tempFiles)
 				{
@@ -32,24 +32,33 @@ namespace SodaCL.Launcher
 		{
 			try
 			{
-				if (!Directory.Exists(LauncherInfo.sodaCLForderPath))
-					Directory.CreateDirectory(LauncherInfo.sodaCLForderPath);
-				if (!Directory.Exists(LauncherInfo.sodaMcDir))
-					Directory.CreateDirectory(LauncherInfo.sodaMcDir);
-				if (!Directory.Exists(LauncherInfo.sodaCLLogForderPath))
-					Directory.CreateDirectory(LauncherInfo.sodaCLLogForderPath);
+				if (!Directory.Exists(LauncherInfo.SODACL_FOLDER_PATH))
+					Directory.CreateDirectory(LauncherInfo.SODACL_FOLDER_PATH);
+
+				if (!Directory.Exists(LauncherInfo.SODA_MC_DIR))
+					Directory.CreateDirectory(LauncherInfo.SODA_MC_DIR);
+
+				if (!Directory.Exists(LauncherInfo.SODACL_LOG_FOLDER_PATH))
+					Directory.CreateDirectory(LauncherInfo.SODACL_LOG_FOLDER_PATH);
+
 				//if (!Directory.Exists(LauncherInfo.sodaCLFontsForderPath))
 				//	Directory.CreateDirectory(LauncherInfo.sodaCLFontsForderPath);
-				if (!Directory.Exists(LauncherInfo.SodaMcVersionsDir))
-					Directory.CreateDirectory(LauncherInfo.SodaMcVersionsDir);
+
+				if (!Directory.Exists(LauncherInfo.SODA_MC_VERSIONS_DIR))
+					Directory.CreateDirectory(LauncherInfo.SODA_MC_VERSIONS_DIR);
+
 				if (!Directory.Exists(LauncherInfo.appDataDir))
 					Directory.CreateDirectory(LauncherInfo.appDataDir);
-				if (!File.Exists(LauncherInfo.sodaCLConfigFilePath))
-					File.Create(LauncherInfo.sodaCLConfigFilePath);
-				if (!Directory.Exists(LauncherInfo.sodaCLTempForderPath))
-					Directory.CreateDirectory(LauncherInfo.sodaCLTempForderPath);
+
+				if (!File.Exists(LauncherInfo.SODACL_BASE_PATH))
+					File.Create(LauncherInfo.SODACL_BASE_PATH);
+
+				if (!Directory.Exists(LauncherInfo.SODACL_TEMP_FOLDER_PATH))
+					Directory.CreateDirectory(LauncherInfo.SODACL_TEMP_FOLDER_PATH);
+
 				if (Registry.CurrentUser.OpenSubKey(@"Software\SodaCL") == null)
 					RegEditor.CreateSubKey(Registry.CurrentUser, @"Software\SodaCL");
+
 				if (RegEditor.GetKeyValue(Registry.CurrentUser, "IsSetuped") != "True")
 				{
 					FirstSetup();
@@ -85,12 +94,14 @@ namespace SodaCL.Launcher
 		public static void FirstSetup()
 		{
 			#region 注册表
+
 			if (RegionInfo.CurrentRegion.Name == "CN")
 				RegEditor.SetKeyValue(Registry.CurrentUser, "Software\\SodaCL", "DownloadSource", "2", RegistryValueKind.String);
 			else
 				RegEditor.SetKeyValue(Registry.CurrentUser, "Software\\SodaCL", "DownloadSource", "0", RegistryValueKind.String);
 			RegEditor.SetKeyValue(Registry.CurrentUser, "Software\\SodaCL", "IsSetuped", "True", RegistryValueKind.String);
-			#endregion
+
+			#endregion 注册表
 		}
 	}
 }

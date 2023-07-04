@@ -24,8 +24,8 @@ namespace SodaCL.Core.Java
 
 		public static void AutoJavaFinding()
 		{
-			const string javaExeName = "java.exe";
-			const string javawExeName = "javaw.exe";
+			const string JAVA_EXE_NAME = "java.exe";
+			const string JAVAW_EXE_NAME = "javaw.exe";
 
 			var javaList = new List<JavaModel>();
 			//查找环境变量中的 Java
@@ -37,8 +37,8 @@ namespace SodaCL.Core.Java
 					javaList.Add(new JavaModel()
 					{
 						DirPath = item,
-						JavaPath = DirConverter(item) + javaExeName,
-						JavawPath = DirConverter(item) + javawExeName
+						JavaPath = DirConverter(item) + JAVA_EXE_NAME,
+						JavawPath = DirConverter(item) + JAVAW_EXE_NAME
 					});
 			}
 
@@ -82,13 +82,9 @@ namespace SodaCL.Core.Java
 				p.WaitForExit();
 				p.Close();
 
-				if (Output != "")
+				if (string.IsNullOrEmpty(Output))
 				{
-
-				}
-				else
-				{
-					Log(false, ModuleList.IO, LogInfo.Warning, "[Java] 尝试运行该 Java 失败");
+					Log(false, ModuleList.IO, LogInfo.Warning, "尝试运行该 Java 失败");
 				}
 
 				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + "  64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
@@ -99,10 +95,8 @@ namespace SodaCL.Core.Java
 					mainPage.JavaComboBoxResetter();
 					mainPage.JavaComboBoxItemAdder(java.Version.ToString(), java.Is64Bit, java.DirPath.ToString());
 				}));
-				
 			}
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheJavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
-
 		}
 
 		public static void JavaSelector(int TargetMcVersion)

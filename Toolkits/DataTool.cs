@@ -15,6 +15,7 @@ namespace SodaCL.Toolkits
 		{
 			return ((SolidColorBrush)targetBrush).Color;
 		}
+
 		/// <summary>
 		/// 为目录后增加 "//"
 		/// </summary>
@@ -22,7 +23,12 @@ namespace SodaCL.Toolkits
 		/// <returns></returns>
 		public static string DirConverter(string rawDir)
 		{
-			return rawDir + "\\";
+			if (rawDir.EndsWith("\\"))
+				return rawDir;
+			else if (string.IsNullOrEmpty(rawDir) || string.IsNullOrWhiteSpace(rawDir))
+				throw new System.Exception("目录格式非法");
+			else
+				return rawDir + "\\";
 		}
 
 		/// <summary>

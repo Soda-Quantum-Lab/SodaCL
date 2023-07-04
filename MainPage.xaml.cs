@@ -33,7 +33,7 @@ namespace SodaCL.Pages
 	{
 		public static MainPage mainPage;
 
-		//登录Task取消Token
+		//登录 Task 取消 Token
 		public CancellationTokenSource loginTsCancelSrc;
 
 		private string yiYanText;
@@ -88,15 +88,14 @@ namespace SodaCL.Pages
 
 		#region 事件
 
-
 		private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
 		{
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
 			Task.Run(() => { JavaFindingAndSelecting.AutoJavaFinding(); });
-			//Task.Run(() => 
-			//{ 
-			//	JavaSelectClass.JavaSelector(true, 1.17); 
+			//Task.Run(() =>
+			//{
+			//	JavaSelectClass.JavaSelector(true, 1.17);
 			//});
 			JavaComboBoxResetter();
 			JavaComboBox.Items.Add("Java 8");
@@ -224,6 +223,7 @@ namespace SodaCL.Pages
 			JavaComboBox.Items.Clear();
 			JavaComboBox.Items.Add("自动选择 Java");
 		}
+
 		public void JavaComboBoxItemAdder(string javaVersion, bool is64Bit, string javaPath)
 		{
 			var bitString = "N/A 位";
@@ -240,7 +240,7 @@ namespace SodaCL.Pages
 			}
 			catch (Exception ex)
 			{
-				Log(false, ModuleList.IO, LogInfo.Warning, "SodaCL 无法确定 Java 位数，显示为 N/A ");
+				Log(false, ModuleList.IO, LogInfo.Warning, "SodaCL 无法确定 Java 位数，显示为 N/A ", ex);
 				throw;
 			}
 
@@ -258,6 +258,7 @@ namespace SodaCL.Pages
 				//	}
 			}
 		}
-		#endregion
+
+		#endregion Java 选择处理
 	}
 }
