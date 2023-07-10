@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Diagnostics;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using SodaCL.Core.Models;
 using SodaCL.Toolkits;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.Logger;
-using System.Text.RegularExpressions;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Security.Cryptography.X509Certificates;
 
+//Finish
 namespace SodaCL.Core.Java
 {
 	public class JavaFindingAndSelecting
@@ -76,7 +74,9 @@ namespace SodaCL.Core.Java
 				var rg = new Regex("(?<=(version \"))[.\\s\\S]*?(?=(\"))", RegexOptions.Multiline | RegexOptions.Singleline);
 				var match = rg.Match(Output);
 
-				java.Version = match.Value;
+				//获取 Java 大版本号
+				var majorVersion = new Regex(@"\d*(?=(\d*\.*\d*))", RegexOptions.Multiline | RegexOptions.Singleline).Match(match.Value);
+				java.Version = majorVersion.Value;
 				java.Is64Bit = Output.Contains("64-Bit");
 
 				p.WaitForExit();
@@ -88,43 +88,8 @@ namespace SodaCL.Core.Java
 				}
 
 				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + "  64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
-
-				App.Current.Dispatcher.BeginInvoke(new Action(() =>
-				{
-					var mainPage = new Pages.MainPage();
-					mainPage.JavaComboBoxResetter();
-					mainPage.JavaComboBoxItemAdder(java.Version.ToString(), java.Is64Bit, java.DirPath.ToString());
-				}));
 			}
 			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheJavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
-		}
-
-		public static void JavaSelector(int TargetMcVersion)
-		{
-			var javaListJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList", "CacheJavaList");
-			var javaList = new List<JavaModel>((IEnumerable<JavaModel>)JsonConvert.DeserializeObject(javaListJson));
-			if (TargetMcVersion >= 1.17)
-			{
-				foreach (var java in javaList)
-				{
-					if (java.Version.Contains("1.8"))
-					{
-						RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheSelectedJava", java.JavaPath, RegistryValueKind.String);
-						Log(false, ModuleList.IO, LogInfo.Info, "SodaCL 已选定了目标 MC 版本 " + TargetMcVersion + " 需要的 Java ，路径：" + java.JavaPath);
-					}
-				}
-			}
-			else
-			{
-				foreach (var java in javaList)
-				{
-					if (java.Version.Contains("17"))
-					{
-						RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheSelectedJava", java.JavaPath, RegistryValueKind.String);
-						Log(false, ModuleList.IO, LogInfo.Info, "SodaCL 已选定了目标 MC 版本 " + TargetMcVersion + " 需要的 Java ，路径：" + java.JavaPath);
-					}
-				}
-			}
 		}
 
 		public static void SearchJavaInFolder(string targetDir, ref List<JavaModel> javaList)

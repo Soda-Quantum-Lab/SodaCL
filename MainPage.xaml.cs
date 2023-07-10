@@ -93,14 +93,6 @@ namespace SodaCL.Pages
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
 			Task.Run(() => { JavaFindingAndSelecting.AutoJavaFinding(); });
-			//Task.Run(() =>
-			//{
-			//	JavaSelectClass.JavaSelector(true, 1.17);
-			//});
-			JavaComboBoxResetter();
-			JavaComboBox.Items.Add("Java 8");
-			JavaComboBox.Items.Add("Java 11");
-			JavaComboBox.Items.Add("Java 17");
 		}
 
 		private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
@@ -215,50 +207,5 @@ namespace SodaCL.Pages
 		/// </summary>
 
 		#endregion 一言及问好处理
-
-		#region Java 选择处理
-
-		public void JavaComboBoxResetter()
-		{
-			JavaComboBox.Items.Clear();
-			JavaComboBox.Items.Add("自动选择 Java");
-		}
-
-		public void JavaComboBoxItemAdder(string javaVersion, bool is64Bit, string javaPath)
-		{
-			var bitString = "N/A 位";
-			try
-			{
-				if (is64Bit)
-				{
-					bitString = "64 位";
-				}
-				else
-				{
-					bitString = "32 位";
-				}
-			}
-			catch (Exception ex)
-			{
-				Log(false, ModuleList.IO, LogInfo.Warning, "SodaCL 无法确定 Java 位数，显示为 N/A ", ex);
-				throw;
-			}
-
-			JavaComboBox.SelectedIndex = 0;
-			JavaComboBox.Items.Add("Java " + javaVersion + ", " + bitString + ", 路径: " + javaPath);
-		}
-
-		private void JavaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			switch (JavaComboBox)
-			{
-				//case "Java 8":
-				//	{
-				//		break;
-				//	}
-			}
-		}
-
-		#endregion Java 选择处理
 	}
 }
