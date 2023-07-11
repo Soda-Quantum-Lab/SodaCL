@@ -14,7 +14,7 @@
     <s:String x:Key="Login_Microsoft_Error_AuthDeclined">你為什麼拒絕了授權請求，現在去授權頁面再試一次。</s:String>
     <s:String x:Key="Login_Microsoft_Error_ExpiredToken">登錄超時，寄</s:String>
     <s:String x:Key="Login_Microsoft_Error_NoXboxAccount">巨硬賬戶裡面沒有X盒子賬戶</s:String>
-    <s:String x:Key="Login_Microsoft_Error_XboxDisable">國家不給你用 X盒子在線</s:String>
+    <s:String x:Key="Login_Microsoft_Error_XboxDisable">國家不給你用X盒子在線</s:String>
     <s:String x:Key="Login_Microsoft_Error_NeedAdultAuth">請進行我不是屁孩驗證</s:String>
     <s:String x:Key="Login_Microsoft_Error_NeedJoiningInFamily">屁孩賬戶需要爸媽加入家庭</s:String>
     <s:String x:Key="Login_Microsoft_Error_NoGame">你沒正版你玩你媽呢？</s:String>

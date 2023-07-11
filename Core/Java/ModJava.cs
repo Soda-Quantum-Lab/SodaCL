@@ -89,7 +89,7 @@ namespace SodaCL.Core.Java
 
 				Log(false, ModuleList.IO, LogInfo.Info, "版本: " + java.Version.ToString() + "  64 位: " + java.Is64Bit.ToString() + " 路径: " + java.DirPath.ToString());
 			}
-			RegEditor.SetKeyValue(Registry.CurrentUser, @"Software\SodaCL", "CacheJavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
+			RegEditor.SetKeyValue(Registry.CurrentUser, "CacheJavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 		}
 
 		public static void SearchJavaInFolder(string targetDir, ref List<JavaModel> javaList)
