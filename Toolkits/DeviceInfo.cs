@@ -12,6 +12,7 @@ namespace SodaCL.Toolkits
 			var osMajorNum = Environment.OSVersion.Version.Major;
 			return osMajorNum;
 		}
+
 		/// <summary>
 		/// 返回 OS 修订版本号
 		/// </summary>

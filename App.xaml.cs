@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows;
-using SodaCL.Core.Java;
+﻿using SodaCL.Core.Java;
 using SodaCL.Launcher;
 using SodaCL.Toolkits;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL

@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using Microsoft.AppCenter;
+﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using System.Globalization;
 using static SodaCL.Toolkits.GetResources;
 
 namespace SodaCL.Toolkits

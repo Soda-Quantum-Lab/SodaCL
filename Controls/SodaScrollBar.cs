@@ -1,9 +1,8 @@
-﻿using System;
+﻿using SodaCL.Toolkits;
+using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Media.Animation;
-using SodaCL.Toolkits;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Controls

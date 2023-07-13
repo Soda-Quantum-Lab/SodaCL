@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace SodaCL.Core.Models
 {
@@ -20,10 +20,12 @@ namespace SodaCL.Core.Models
 
 		[JsonProperty("version")]
 		public string Version { get; set; }
+
 		public bool Equals(JavaModel other)
 		{
 			return DirPath == other.DirPath;
 		}
+
 		public override int GetHashCode()
 		{
 			return DirPath.GetHashCode();

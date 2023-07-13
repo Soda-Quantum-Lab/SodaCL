@@ -1,6 +1,5 @@
-﻿using System.IO;
-using SodaCL.Core.Models;
-using SodaCL.Launcher;
+﻿using SodaCL.Launcher;
+using System.IO;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Game

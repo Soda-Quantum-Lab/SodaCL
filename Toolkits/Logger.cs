@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AppCenter.Crashes;
+using SodaCL.Controls.Dialogs;
+using SodaCL.Launcher;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using Microsoft.AppCenter.Crashes;
-using SodaCL.Controls.Dialogs;
-using SodaCL.Launcher;
 
 namespace SodaCL.Toolkits
 {
