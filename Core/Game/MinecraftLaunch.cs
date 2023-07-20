@@ -96,6 +96,7 @@ namespace SodaCL.Core.Game
 			BasicArguments.Add(" -XX:+UseG1GC");
 			BasicArguments.Add(" -XX:-UseAdaptiveSizePolicy");
 			BasicArguments.Add(" -XX:-OmitStackTraceInFastThrow");
+			BasicArguments.Add(" -Dlog4j2.formatMsgNoLookups = true");
 			BasicArguments.Add($" -Dos.name=Windows {GetOsMajorNumber()} ");
 			BasicArguments.Add($" -Dminecraft.launcher.brand=SodaCL");
 			BasicArguments.Add($" -Dminecraft.launcher.version={Assembly.GetExecutingAssembly().GetName().Version.ToString()}");
