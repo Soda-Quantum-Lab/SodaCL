@@ -203,7 +203,8 @@ namespace SodaCL.Core.Java
 
 		public static string JavaAutoSelector(int TargetMcVersion)
 		{
-			
+			var javaJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList");
+			var javaList = JsonConvert.DeserializeObject<JavaModel>(javaJson);
 
 			if (TargetMcVersion >= 1.17)
 			{
