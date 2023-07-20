@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
+using SodaCL.Core.Java;
 using SodaCL.Core.Models;
 using SodaCL.Toolkits;
 using System;
@@ -78,9 +79,11 @@ namespace SodaCL.Core.Game
 
 		public static string SpliceBasicArguments()
 		{
-			//TODO:JavaPath
-			var javaPathJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList");
-			var javaPath = JsonConvert.DeserializeObject<JavaModel>(javaPathJson);
+			var javaPath = JavaFindingAndSelecting.JavaAutoSelector(_coreInfo.MajorVersion);
+			if (javaPath == "核心版本非法")
+			{
+				Logger.Log(false, Logger.ModuleList.IO, Logger.LogInfo.Warning, "核心版本非法，无法确定所需 Java ");
+			}
 
 			//TODO: Args Modify (内存修改, GC 回收器修改) 
 

@@ -21,6 +21,9 @@ namespace SodaCL.Core.Models
 		[JsonProperty("version")]
 		public string Version { get; set; }
 
+		[JsonProperty("majorVersion")]
+		public string MajorVersion { get; set; }
+
 		public bool Equals(JavaModel other)
 		{
 			return DirPath == other.DirPath;

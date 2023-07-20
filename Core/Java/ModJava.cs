@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Documents;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.Logger;
 
@@ -72,9 +73,12 @@ namespace SodaCL.Core.Java
 				var rg = new Regex("(?<=(version \"))[.\\s\\S]*?(?=(\"))", RegexOptions.Multiline | RegexOptions.Singleline);
 				var match = rg.Match(Output);
 
+				// Java 小版本号
+				java.Version = new Regex("(?<=(version \"))[.\\s\\S]*?(?=(\"))", RegexOptions.Multiline | RegexOptions.Singleline).Match(match.Value).ToString();
+
 				//获取 Java 大版本号
 				var majorVersion = new Regex(@"\d*(?=(\d*\.*\d*))", RegexOptions.Multiline | RegexOptions.Singleline).Match(match.Value);
-				java.Version = majorVersion.Value;
+				java.MajorVersion = majorVersion.Value;
 				java.Is64Bit = Output.Contains("64-Bit");
 
 				p.WaitForExit();
@@ -108,6 +112,7 @@ namespace SodaCL.Core.Java
 						JavawPath = DirConverter(targetDir) + "javaw.exe",
 					});
 				}
+				#region 磁盘遍历查找条件
 				foreach (var item in new DirectoryInfo(targetDir).EnumerateDirectories())
 				{
 					if (item.Attributes.HasFlag(FileAttributes.ReparsePoint))
@@ -159,6 +164,7 @@ namespace SodaCL.Core.Java
 							searchKey.Contains("minecraft") || searchKey.Contains("adoptium") || searchKey.Contains("lib"))
 						SearchJavaInFolder(item.FullName, ref javaList);
 				}
+				#endregion
 			}
 			catch (UnauthorizedAccessException ex)
 			{
@@ -181,28 +187,89 @@ namespace SodaCL.Core.Java
 
 			if (TargetMcVersion >= 1.17)
 			{
-				// 最少 Java 17
+				// 1.18 Pre2+ 至少 Java 17
+				// 1.17+ (21w19a+) 至少 Java 16
+				// 出于省事考虑直接最少 Java 17 ，除了 1.17 部分早期版本的 Forge 可能需要特殊处理 (Java 16)
+
+				foreach (var javaJsonSingle in javaList.ToString())
+				{
+					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
+					if (java.MajorVersion == "17")
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
+						return java.JavaPath;
+					}
+					break;
+				}
 			}
 			else if (TargetMcVersion >= 1.12)
 			{
 				// 最少 Java 8
-
 				// 如果是 1.12 加了 Forge 最高 Java 8
+
+				foreach (var javaJsonSingle in javaList.ToString())
+				{
+					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
+					if (java.MajorVersion == "8")
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
+						return java.JavaPath;
+					}
+					break;
+				}
 			}
 			else if (TargetMcVersion <= 1.11 && TargetMcVersion >= 1.8)
 			{
 				// 必须恰好 Java 8
+
+				foreach (var javaJsonSingle in javaList.ToString())
+				{
+					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
+					if (java.MajorVersion == "8")
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
+						return java.JavaPath;
+					}
+					break;
+				}
 			}
 			else if (TargetMcVersion <= 1.7)
 			{
 				// 最高 Java 8
+
+				foreach (var javaJsonSingle in javaList.ToString())
+				{
+					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
+					var javaMajorVersionInt = int.Parse(java.MajorVersion);
+					if (javaMajorVersionInt <= 8)
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
+						return java.JavaPath;
+					}
+					break;
+				}
 			}
 			else if (TargetMcVersion <= 1.5)
 			{
+				// 最高 Java 12
 
+				foreach (var javaJsonSingle in javaList.ToString())
+				{
+					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
+					var javaMajorVersionInt = int.Parse(java.MajorVersion);
+					if (javaMajorVersionInt <= 12)
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
+						return java.JavaPath;
+					}
+					break;
+				}
 			}
-
-			return "0";
+			else
+			{
+				return "核心版本非法";
+			}
+			return "核心版本非法";
 		}
 
 		#endregion

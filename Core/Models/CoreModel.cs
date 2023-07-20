@@ -7,6 +7,9 @@ namespace SodaCL.Core.Models
 		[JsonProperty("version")]
 		public string Version { get; set; }
 
+		[JsonProperty("majorVersion")]
+		public int MajorVersion { get; set; }
+
 		[JsonProperty("versionName")]
 		public string VersionName { get; set; }
 
