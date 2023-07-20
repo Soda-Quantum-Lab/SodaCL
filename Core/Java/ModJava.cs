@@ -16,9 +16,7 @@ namespace SodaCL.Core.Java
 {
 	public class JavaFindingAndSelecting
 	{
-		/// <summary>
-		/// 自动 Java 查找
-		/// </summary>
+		#region 自动 Java 查找
 
 		public static void AutoJavaFinding()
 		{
@@ -171,5 +169,42 @@ namespace SodaCL.Core.Java
 				Log(false, ModuleList.IO, LogInfo.Error, ex: ex);
 			}
 		}
+
+		#endregion
+
+		#region Java 自动选择
+
+		public static string JavaAutoSelector(int TargetMcVersion)
+		{
+			var javaJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList");
+			var javaList = JsonConvert.DeserializeObject<JavaModel>(javaJson);
+
+			if (TargetMcVersion >= 1.17)
+			{
+				// 最少 Java 17
+			}
+			else if (TargetMcVersion >= 1.12)
+			{
+				// 最少 Java 8
+
+				// 如果是 1.12 加了 Forge 最高 Java 8
+			}
+			else if (TargetMcVersion <= 1.11 && TargetMcVersion >= 1.8)
+			{
+				// 必须恰好 Java 8
+			}
+			else if (TargetMcVersion <= 1.7)
+			{
+				// 最高 Java 8
+			}
+			else if (TargetMcVersion <= 1.5)
+			{
+
+			}
+
+			return "0";
+		}
+
+		#endregion
 	}
 }

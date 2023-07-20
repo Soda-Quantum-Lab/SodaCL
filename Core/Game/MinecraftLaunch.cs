@@ -38,11 +38,11 @@ namespace SodaCL.Core.Game
 		{
 			_coreInfo = JsonConvert.DeserializeObject<CoreModel>(RegEditor.GetKeyValue(Registry.CurrentUser, "CurrentGameInfo"));
 			_assetInfo = JsonConvert.DeserializeObject<AssetModel>(_coreInfo.GameDir + "\\" + _coreInfo.VersionName);
-			SpliceArgumentsMain();
+			var StartArgs = SpliceArgumentsMain();
 
 			var p = new Process();
-			p.StartInfo.FileName = "C:\\Program Files\\Zulu\\zulu-17\\bin\\java.exe";  //小胡的 Java 选择器捏
-			p.StartInfo.Arguments = "11";  //TODO
+			p.StartInfo.FileName = "C:\\Program Files\\Zulu\\zulu-17\\bin\\java.exe";  // Java 选择器暂时还没搓
+			p.StartInfo.Arguments = StartArgs;
 			p.StartInfo.CreateNoWindow = false;
 			p.StartInfo.UseShellExecute = false;
 			p.StartInfo.RedirectStandardInput = true;
@@ -52,10 +52,12 @@ namespace SodaCL.Core.Game
 			p.Start();
 		}
 
-		public static void SpliceArgumentsMain()
+		public static string SpliceArgumentsMain()
 		{
 			switch (RegEditor.GetKeyValue(Registry.CurrentUser, "LoginType"))
 			{
+				// 后续离线账户可能默认用 Authlib-Injector 了
+
 				case "0":
 					_uuid = new Guid().ToString("N");
 					_userType = "legacy";
@@ -71,6 +73,7 @@ namespace SodaCL.Core.Game
 			var basicArguments = SpliceBasicArguments();
 			var libArguments = SpliceLibrariesArguments();
 			var mcArguments = SpliceMcArguments();
+			return basicArguments + libArguments + mcArguments;
 		}
 
 		public static string SpliceBasicArguments()
@@ -103,7 +106,13 @@ namespace SodaCL.Core.Game
 			foreach (var libraries in _assetInfo.Downloads.Client.Path)
 			{
 				var libProcessed = PathConverter(libraries.ToString());
-				LibrariesArguments.Add(SODA_MC_VERSIONS_DIR + "\\" + libProcessed + ";");
+				var libPath = SODA_MC_VERSIONS_DIR + "\\" + libProcessed;
+				if (!File.Exists(libPath))
+				{
+					Logger.Log(false, Logger.ModuleList.IO, Logger.LogInfo.Warning, "启动 Minecraft 所需的 Libraries 文件不存在: " + libPath);
+					// 这里应该需要一个自动下载的逻辑，但是多线程下载器鸽秋还不会用
+				}
+				LibrariesArguments.Add(libPath + ";");
 			}
 			return SplitListAndToString(LibrariesArguments, " ");
 		}
@@ -114,7 +123,7 @@ namespace SodaCL.Core.Game
 			McArguments.Add($"--username {RegEditor.GetKeyValue(Registry.CurrentUser, "UserName")}");
 			McArguments.Add($"--version {_coreInfo.VersionName}");
 			McArguments.Add($"--gameDir {DirConverter(_coreInfo.GameDir)}");
-			McArguments.Add($"--assetsDir " + SODA_MC_DIR);
+			McArguments.Add($"--assetsDir " + SODA_MC_DIR + "\\assets");
 			McArguments.Add($"--assetIndex " + _assetInfo.AssetIndex);
 			McArguments.Add($"--uuid {_uuid}");
 			McArguments.Add($"--accessToken {_accessToken}");
