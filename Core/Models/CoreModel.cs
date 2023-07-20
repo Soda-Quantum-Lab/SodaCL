@@ -7,13 +7,16 @@ namespace SodaCL.Core.Models
 		[JsonProperty("version")]
 		public string Version { get; set; }
 
+		[JsonProperty("versionName")]
+		public string VersionName { get; set; }
+
 		[JsonProperty("gameDir")]
 		public string GameDir { get; set; }
 
 		[JsonProperty("isForgeInstalled")]
 		public bool IsForgeInstalled { get; set; }
 
-		[JsonProperty("isOptifineInstalled")]
+		[JsonProperty("isOptiFineInstalled")]
 		public bool IsOptifineInstalled { get; set; }
 
 		[JsonProperty("isQuiltInstalled")]

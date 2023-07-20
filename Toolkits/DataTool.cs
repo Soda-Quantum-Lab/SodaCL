@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Text;
+using System.Web;
 using System.Windows.Media;
 
 namespace SodaCL.Toolkits
@@ -19,7 +20,7 @@ namespace SodaCL.Toolkits
 		/// <summary>
 		/// 为目录后增加 "//"
 		/// </summary>
-		/// <param name="rawDir">源路径</param>
+		/// <param name="rawDir">原目录</param>
 		/// <returns></returns>
 		public static string DirConverter(string rawDir)
 		{
@@ -29,6 +30,19 @@ namespace SodaCL.Toolkits
 				throw new System.Exception("目录格式非法");
 			else
 				return rawDir + "\\";
+		}
+
+		/// <summary>
+		/// 将路径中 "/" 改为 "\\"
+		/// </summary>
+		/// <param name="rawPath">原路径</param>
+		/// <returns></returns>
+		public static string PathConverter(string rawPath)
+		{
+			if (rawPath.EndsWith("\\"))
+				throw new System.Exception("文件路径非法");
+			else
+				return rawPath.Replace("/", "\\");
 		}
 
 		/// <summary>

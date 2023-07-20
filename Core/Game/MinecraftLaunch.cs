@@ -17,10 +17,12 @@ namespace SodaCL.Core.Game
 	public class MinecraftLaunch
 	{
 		private static CoreModel _coreInfo;
+		private static AssetModel _assetInfo;
 		private static string _uuid;
 		private static string _assetsDir;
 		private static string _assetsIndex;
 		private static string _accessToken;
+		private static string _xuid;
 		private static string _userType;
 		private static string _versionType;
 
@@ -35,6 +37,7 @@ namespace SodaCL.Core.Game
 		public static void LaunchGame()
 		{
 			_coreInfo = JsonConvert.DeserializeObject<CoreModel>(RegEditor.GetKeyValue(Registry.CurrentUser, "CurrentGameInfo"));
+			_assetInfo = JsonConvert.DeserializeObject<AssetModel>(_coreInfo.GameDir + "\\" + _coreInfo.VersionName);
 			SpliceArgumentsMain();
 
 			var p = new Process();
@@ -95,16 +98,12 @@ namespace SodaCL.Core.Game
 
 		public static string SpliceLibrariesArguments()
 		{
-			//TODO
-
-			var versionJsonFile = "E:\\Minecraft\\.minecraft\\versions\\1.20.1\\1.20.1.json";
-			var versionJson = JsonConvert.DeserializeObject<AssetModel>(versionJsonFile);
-
 			//LibrariesArguments.Add();
 			LibrariesArguments.Add(" -cp ");
-			foreach (var libraries in versionJson.Downloads.Client.Path)
+			foreach (var libraries in _assetInfo.Downloads.Client.Path)
 			{
-				LibrariesArguments.Add(SODA_MC_VERSIONS_DIR + "\\" + libraries + ";");
+				var libProcessed = PathConverter(libraries.ToString());
+				LibrariesArguments.Add(SODA_MC_VERSIONS_DIR + "\\" + libProcessed + ";");
 			}
 			return SplitListAndToString(LibrariesArguments, " ");
 		}
@@ -113,12 +112,19 @@ namespace SodaCL.Core.Game
 		{
 			//McArguments.Add();
 			McArguments.Add($"--username {RegEditor.GetKeyValue(Registry.CurrentUser, "UserName")}");
-			McArguments.Add($"--version {_coreInfo.Version}");
+			McArguments.Add($"--version {_coreInfo.VersionName}");
 			McArguments.Add($"--gameDir {DirConverter(_coreInfo.GameDir)}");
-			McArguments.Add($"--assetsDir {_assetsDir}");
-			McArguments.Add($"--assetIndex {_assetsIndex}");
+			McArguments.Add($"--assetsDir " + SODA_MC_DIR);
+			McArguments.Add($"--assetIndex " + _assetInfo.AssetIndex);
 			McArguments.Add($"--uuid {_uuid}");
 			McArguments.Add($"--accessToken {_accessToken}");
+
+			// 微软账户特有 xuid 处理
+			if (RegEditor.GetKeyValue(Registry.CurrentUser, "LoginType") == "1")
+			{
+				McArguments.Add($"--xuid {_xuid}");
+			}
+
 			McArguments.Add($"--userType {_userType}");
 			McArguments.Add($"--versionType {_versionType}");
 			McArguments.Add($"--width 854");
@@ -128,7 +134,7 @@ namespace SodaCL.Core.Game
 
 		public static void CreateLaunchScript(string script)
 		{
-			var targetPath = DirConverter(SODACL_FOLDER_PATH) + "LaunchBat.bat";
+			var targetPath = DirConverter(SODACL_FOLDER_PATH) + "Launch.bat";
 			File.CreateText(targetPath);
 			File.WriteAllText(targetPath, script);
 		}
