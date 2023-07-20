@@ -98,9 +98,14 @@ namespace SodaCL.Core.Game
 			//TODO
 
 			var versionJsonFile = "E:\\Minecraft\\.minecraft\\versions\\1.20.1\\1.20.1.json";
-			//var versionJson = JsonConvert.DeserializeObject<JavaModel>(javaPathJson);
+			var versionJson = JsonConvert.DeserializeObject<AssetModel>(versionJsonFile);
 
 			//LibrariesArguments.Add();
+			LibrariesArguments.Add(" -cp ");
+			foreach (var libraries in versionJson.Downloads.Client.Path)
+			{
+				LibrariesArguments.Add(SODA_MC_VERSIONS_DIR + "\\" + libraries + ";");
+			}
 			return SplitListAndToString(LibrariesArguments, " ");
 		}
 

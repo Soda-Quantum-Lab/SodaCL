@@ -36,6 +36,12 @@
 		/// </summary>
 		public MinecraftVersionState VersionState { get; set; }
 
+		/// <summary>
+		/// 核心状态
+		/// </summary>
+		public string CoreStatus { get; set; }
+
+
 		#endregion 属性
 	}
 }
