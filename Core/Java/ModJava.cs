@@ -180,10 +180,30 @@ namespace SodaCL.Core.Java
 
 		#region Java 自动选择
 
+		//public static string JavaMatcher(string JavaCondition, int TargetJavaVersion)
+		//{
+		//	var javaJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList");
+		//	var javaList = JsonConvert.DeserializeObject<JavaModel>(javaJson);
+
+		//	foreach (var javaJsonSingle in javaList.ToString())
+		//	{
+		//		var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
+		//		var javaMajorVersionInt = int.Parse(java.MajorVersion);
+
+		//		var javaCondition = javaMajorVersionInt + " " + JavaCondition + " " + TargetJavaVersion;
+
+		//		if (true)
+		//		{
+		//			RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
+		//			return java.JavaPath;
+		//		}
+		//	}
+		//	return "目标 Java 版本非法";
+		//}
+
 		public static string JavaAutoSelector(int TargetMcVersion)
 		{
-			var javaJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList");
-			var javaList = JsonConvert.DeserializeObject<JavaModel>(javaJson);
+			
 
 			if (TargetMcVersion >= 1.17)
 			{
