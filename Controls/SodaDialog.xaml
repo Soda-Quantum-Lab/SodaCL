@@ -9,18 +9,18 @@
              d:DesignHeight="530" d:DesignWidth="750">
     <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType= Grid}, Path=ActualWidth}"
           Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType= Grid}, Path=ActualHeight}">
-        <Rectangle Name="Rec_Background" Fill="{Binding ThemeColor}" Opacity="0.5" d:Fill="Transparent" />
+        <Rectangle Name="Rec_Background" Fill="{Binding ThemeBrush}" Opacity="0.5" d:Fill="Transparent" />
         <Border Name="Border_Dialog" Width="400" MaxHeight="250" CornerRadius="16" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Offset="0" Color="{Binding ThemeColor}" />
+                    <GradientStop Offset="0" Color="{Binding BackgroundColor}" />
                     <GradientStop Offset="0.2" Color="White" />
                 </LinearGradientBrush>
             </Border.Background>
             <Border.RenderTransform>
                 <ScaleTransform x:Name="Dialog_Border_Scale" />
             </Border.RenderTransform>
-            <Grid>
+            <Grid x:Name="Grid_Main">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10" />
                     <RowDefinition Height="2*" />
@@ -33,16 +33,16 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <Border Width="30" Height=" 30" CornerRadius="100" Background="{Binding ThemeColor}">
+                <StackPanel Name="StackPanel_Icon" Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <Border Width="30" Height=" 30" CornerRadius="100" Background="{Binding ThemeBrush}">
                         <Image Width="22" Height="22"  Source="{Binding Icon}" />
                     </Border>
-                    <TextBlock Text="{DynamicResource Dialog_Launcher_Error_Title}" Height="24" Margin="8,1,0,0" Style="{StaticResource Text_Bold}" />
+                    <TextBlock Name="Txb_Title" Text="DefaultTitle" Height="24" Margin="8,1,0,0" Style="{StaticResource Text_Bold}" />
                 </StackPanel>
-                <StackPanel Grid.Row="2" Grid.Column="1" Margin="37,0,0,0">
-                    <TextBlock Text="{DynamicResource Dialog_Launcher_Error_CatchError}" />
-                    <ScrollViewer Style="{DynamicResource ScrollViewerStyle1}" Background="{Binding BackgroundColor}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Foreground="Black">
-                        <TextBlock Name="Txb_ErrorMessage"></TextBlock>
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="36,0,0,0" HorizontalAlignment="Left">
+                    <TextBlock Name="Txb_SubTitle" Text="DefaultSubTitle" Padding="2,0,0,0" />
+                    <ScrollViewer Style="{DynamicResource ScrollViewerStyle1}" Background="{Binding BackgroundBrush}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Foreground="Black">
+                        <TextBlock Name="Txb_Message"></TextBlock>
                     </ScrollViewer>
                 </StackPanel>
                 <sc:SodaButton x:Name="Button" Width="80" Height="35" Grid.Row="3" Grid.Column="1" Text="{DynamicResource Button_OK}" ButtonType="Normal" HorizontalAlignment="Right" />

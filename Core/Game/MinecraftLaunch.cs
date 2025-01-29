@@ -12,7 +12,6 @@ using static SodaCL.Launcher.LauncherInfo;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.DeviceInfo;
 using static SodaCL.Toolkits.Logger;
-using static SodaCL.Core.Java.JavaProcess;
 
 namespace SodaCL.Core.Game {
 
@@ -109,8 +108,7 @@ namespace SodaCL.Core.Game {
 				var path = library.Downloads.Artifact.Path;
 				var libProcessed = PathConverter(path.ToString());
 				var libPath = SODA_MC_DIR + "\\libraries\\" + libProcessed;
-				if (libPath.Contains("macos") || libPath.Contains("linux") || libPath.Contains("arm64"))
-				{
+				if (libPath.Contains("macos") || libPath.Contains("linux") || libPath.Contains("arm64")) {
 					continue;
 				}
 				if (!File.Exists(libPath)) {
@@ -133,7 +131,7 @@ namespace SodaCL.Core.Game {
 			// McArguments.Add($"--version {_coreInfo.VersionName}");
 			//McArguments.Add($"--gameDir {DirConverter(_coreInfo.GameDir)}");
 			McArguments += $" --username SodaCLTest";
-			McArguments += $" --version 1.21.4"	;
+			McArguments += $" --version 1.21.4";
 			McArguments += $" --gameDir {SODA_MC_DIR}\\versions\\1.21.4";
 			McArguments += $" --assetsDir {SODA_MC_DIR}\\assets";
 			McArguments += $" --assetIndex {_assetInfo.AssetIndex.Id}";
@@ -152,6 +150,7 @@ namespace SodaCL.Core.Game {
 				case 0:
 					loginType = "legacy";
 					break;
+
 				case 1:
 					loginType = "msa";
 					break;

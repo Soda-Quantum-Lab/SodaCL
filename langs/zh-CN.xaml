@@ -10,7 +10,7 @@
     <s:String x:Key="ExceptionCatcher_Dialog_CatchedMessage_End">异常数据已上报至 AppCenter 分析</s:String>
 
     <s:String x:Key="Dialog_Launcher_Error_Title">发生错误</s:String>
-    <s:String x:Key="Dialog_Launcher_Error_CatchError">SodaCL 启动器发生错误</s:String>
+    <s:String x:Key="Dialog_Launcher_Error_SubTitle">SodaCL 启动器发生错误</s:String>
 
     <s:String x:Key="TitleBar_IssuesBtn_Tip">打开 SodaCL 的 Issues 页面以反馈 Bug</s:String>
 

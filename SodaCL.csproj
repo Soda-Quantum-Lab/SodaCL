@@ -37,7 +37,4 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\Dialogs\" />
-  </ItemGroup>
 </Project>

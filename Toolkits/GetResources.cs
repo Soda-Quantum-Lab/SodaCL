@@ -2,9 +2,15 @@
 using System.Windows.Media;
 
 namespace SodaCL.Toolkits {
+
 	public static class GetResources {
+
 		public static Brush GetBrush(string key) {
 			return (Brush)Application.Current.Resources[key];
+		}
+
+		public static Color GetColor(string key) {
+			return (Color)Application.Current.Resources[key];
 		}
 
 		public static Style GetStyle(string key) {

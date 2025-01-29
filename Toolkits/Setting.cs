@@ -30,7 +30,7 @@ namespace SodaCL.Toolkits {
 				}
 			}
 			catch {
-				var dE = new SodaDialog(SodaDialog.DialogType.Error, "读取配置文件出错，程序自动退出。");
+				var dE = new SodaDialog(SodaDialog.DialogType.Error, null, null, "读取配置文件出错，程序自动退出。");
 				dE.CloseEvent += () => {
 					App.Current.Shutdown();
 					return null;

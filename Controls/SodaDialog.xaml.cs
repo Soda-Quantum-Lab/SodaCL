@@ -32,39 +32,55 @@ namespace SodaCL.Controls.Dialogs {
 
 		#endregion 字段
 
-		public SodaDialog(DialogType type, string errorMessage) {
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="Title"></param>
+		/// <param name="h1"></param>
+		/// <param name="Message"></param>
+		/// <param name="isShowIcon"></param>
+		/// <param name="isSimpleMode"></param>
+		public SodaDialog(DialogType type, string Title = null, string h1 = null, string Message = null, bool isSimpleMode = false) {
 			var dialogData = new DialogData();
 			InitializeComponent();
 			switch (type) {
 				case DialogType.Info:
-					dialogData.ThemeColor = GetResources.GetBrush("Brush_Main");
-					dialogData.BackgroundColor = GetResources.GetBrush("Brush_Dialog_Info_Background");
+					dialogData.ThemeBrush = GetResources.GetBrush("Brush_Main");
+					dialogData.BackgroundColor = GetResources.GetColor("Color_Dialog_Info_Background");
+					dialogData.BackgroundBrush = GetResources.GetBrush("Brush_Dialog_Info_Background");
 					dialogData.Icon = GetResources.GetSvg("Svg_Information");
 					Button.ButtonType = SodaButton.ButtonTypes.Normal;
 					break;
 
 				case DialogType.Warning:
-					dialogData.ThemeColor = GetResources.GetBrush("Brush_Warning");
-					dialogData.BackgroundColor = GetResources.GetBrush("Brush_Dialog_Error_Background");
+					dialogData.ThemeBrush = GetResources.GetBrush("Brush_Warning");
+					dialogData.BackgroundColor = GetResources.GetColor("Color_Dialog_Warning_Background");
+					dialogData.BackgroundBrush = GetResources.GetBrush("Brush_Dialog_Warning_Background");
 					dialogData.Icon = GetResources.GetSvg("Svg_Error");
 					Button.ButtonType = SodaButton.ButtonTypes.Warning;
 					break;
 
 				case DialogType.Error:
-					dialogData.ThemeColor = GetResources.GetBrush("Brush_Error");
-					dialogData.BackgroundColor = GetResources.GetBrush("Brush_Dialog_Error_Background");
+					dialogData.ThemeBrush = GetResources.GetBrush("Brush_Error");
+					dialogData.BackgroundColor = GetResources.GetColor("Color_Dialog_Error_Background");
+					dialogData.BackgroundBrush = GetResources.GetBrush("Brush_Dialog_Error_Background");
 					dialogData.Icon = GetResources.GetSvg("Svg_Error");
+					Txb_Title.Text = GetResources.GetText("Dialog_Launcher_Error_Title");
+					Txb_SubTitle.Text = GetResources.GetText("Dialog_Launcher_Error_SubTitle");
 					Button.ButtonType = SodaButton.ButtonTypes.Error;
 					break;
 			}
-
+			if (isSimpleMode) {
+				Grid_Main.Visibility = System.Windows.Visibility.Hidden;
+			}
 			this.DataContext = dialogData;
-			Open(errorMessage);
+			Open(Message);
 		}
 
-		public void Open(string errorMessage) {
+		public void Open(string Message) {
 			GlobalVariable.IsDialogOpen = true;
-			Txb_ErrorMessage.Text = errorMessage;
+			Txb_Message.Text = Message;
 			MainWindow.mainWindow.TitleBar_SettingsBtn.IsEnabled = false;
 
 			var rectOpacAni = new DoubleAnimation(0, 0.15, OpacAniSpeed);
@@ -112,8 +128,9 @@ namespace SodaCL.Controls.Dialogs {
 	}
 
 	public class DialogData {
-		public Brush ThemeColor { get; set; }
-		public Brush BackgroundColor { get; set; }
+		public Color BackgroundColor { get; set; }
+		public Brush ThemeBrush { get; set; }
+		public Brush BackgroundBrush { get; set; }
 		public DrawingImage Icon { get; set; }
 		public SodaButton.ButtonTypes ButtonType { get; set; }
 	}
