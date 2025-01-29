@@ -1,10 +1,14 @@
-﻿using SodaCL.Launcher;
+﻿using Newtonsoft.Json;
+using SodaCL.Core.Models;
+using SodaCL.Launcher;
 using System.IO;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Game {
 
 	public class MinecraftVersion {
+
+		public AssetModel AssetModel { get; set; }
 
 		public static string[] GetVersionList() {
 			// 留着，以后有用
@@ -24,7 +28,11 @@ namespace SodaCL.Core.Game {
 				Log(false, ModuleList.IO, LogInfo.Info, "查找到 versions 文件夹内核心文件夹: ");
 				for (var i = 0; i < dir.Length; i++) {
 					names[i] = Path.GetFileName(dir[i]);
-					Log(false, ModuleList.IO, LogInfo.Info, names[i]);
+					var corePath = dir[i];
+					Log(false, ModuleList.IO, LogInfo.Info, corePath);
+					Log(false, ModuleList.IO, LogInfo.Info, $"{names[i]} 位于 {dir[i]}");
+					var json = File.ReadAllText($"{dir[i]}\\{names[i]}.json");
+					var coreAssetModel = JsonConvert.DeserializeObject<AssetModel>(json);
 				}
 				return names;
 			}
