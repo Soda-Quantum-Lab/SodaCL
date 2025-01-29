@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
-using SodaCL.Core.Models;
 using SodaCL.Launcher;
+using SodaCL.Models.Core.Game;
 using System.IO;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Game {
 
 	public class MinecraftVersion {
-
 		public AssetModel AssetModel { get; set; }
 
 		public static string[] GetVersionList() {

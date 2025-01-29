@@ -1,4 +1,4 @@
-﻿namespace SodaCL.Core.Models {
+﻿namespace SodaCL.Models.Core.Auth {
 	public abstract class AccountModel {
 		public System.Guid Uuid { get; set; }
 	}

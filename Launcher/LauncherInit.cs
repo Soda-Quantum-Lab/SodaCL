@@ -6,7 +6,9 @@ using System.IO;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Launcher {
+
 	public static class LauncherInit {
+
 		public static void DeleteTempFolder() {
 			if (Directory.GetFiles(LauncherInfo.SODACL_TEMP_FOLDER_PATH).Length > 0) {
 				var tempDir = new DirectoryInfo(LauncherInfo.SODACL_TEMP_FOLDER_PATH);
@@ -38,11 +40,11 @@ namespace SodaCL.Launcher {
 				if (!Directory.Exists(LauncherInfo.SODA_MC_VERSIONS_DIR))
 					Directory.CreateDirectory(LauncherInfo.SODA_MC_VERSIONS_DIR);
 
-				if (!Directory.Exists(LauncherInfo.appDataDir))
-					Directory.CreateDirectory(LauncherInfo.appDataDir);
+				if (!Directory.Exists(LauncherInfo.APP_DATA_DIR))
+					Directory.CreateDirectory(LauncherInfo.APP_DATA_DIR);
 
-				if (!File.Exists(LauncherInfo.SODACL_BASE_PATH))
-					File.Create(LauncherInfo.SODACL_BASE_PATH);
+				if (!File.Exists(LauncherInfo.SODACL_SETTINGS))
+					File.Create(LauncherInfo.SODACL_SETTINGS);
 
 				if (!Directory.Exists(LauncherInfo.SODACL_TEMP_FOLDER_PATH))
 					Directory.CreateDirectory(LauncherInfo.SODACL_TEMP_FOLDER_PATH);
@@ -81,6 +83,7 @@ namespace SodaCL.Launcher {
 		//	}
 		//}
 		public static void FirstSetup() {
+
 			#region 注册表
 
 			if (RegionInfo.CurrentRegion.Name == "CN")

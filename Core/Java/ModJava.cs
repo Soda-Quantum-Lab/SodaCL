@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
-using SodaCL.Core.Models;
+using SodaCL.Models.Core.Java;
 using SodaCL.Toolkits;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,9 @@ using static SodaCL.Toolkits.Logger;
 
 //Finish
 namespace SodaCL.Core.Java {
+
 	public class JavaFindingAndSelecting {
+
 		#region 自动 Java 查找
 
 		public static void AutoJavaFinding() {
@@ -98,7 +100,9 @@ namespace SodaCL.Core.Java {
 						JavawPath = DirConverter(targetDir) + "javaw.exe",
 					});
 				}
+
 				#region 磁盘遍历查找条件
+
 				foreach (var item in new DirectoryInfo(targetDir).EnumerateDirectories()) {
 					if (item.Attributes.HasFlag(FileAttributes.ReparsePoint))
 						continue;
@@ -149,7 +153,8 @@ namespace SodaCL.Core.Java {
 							searchKey.Contains("minecraft") || searchKey.Contains("adoptium") || searchKey.Contains("lib"))
 						SearchJavaInFolder(item.FullName, ref javaList);
 				}
-				#endregion
+
+				#endregion 磁盘遍历查找条件
 			}
 			catch (UnauthorizedAccessException ex) {
 				Log(false, ModuleList.IO, LogInfo.Warning, $"SodaCL 遇到没有权限访问的文件夹 {targetDir}", ex);
@@ -159,7 +164,7 @@ namespace SodaCL.Core.Java {
 			}
 		}
 
-		#endregion
+		#endregion 自动 Java 查找
 
 		#region Java 自动选择
 
@@ -259,6 +264,6 @@ namespace SodaCL.Core.Java {
 			return "核心版本非法";
 		}
 
-		#endregion
+		#endregion Java 自动选择
 	}
 }

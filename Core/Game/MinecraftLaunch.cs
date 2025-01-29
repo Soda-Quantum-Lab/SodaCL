@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using SodaCL.Core.Java;
-using SodaCL.Core.Models;
+using SodaCL.Models.Core.Game;
 using SodaCL.Toolkits;
 using System;
 using System.Collections.Generic;

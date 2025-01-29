@@ -3,13 +3,16 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace SodaCL.Core.Models {
+namespace SodaCL.Models.Core.Auth {
+
 	public class DisplayClaimsModel {
+
 		[JsonProperty("xui")]
 		public List<JObject> Xui { get; set; }
 	}
 
 	public class MicrosoftOAuth2ResModel {
+
 		[JsonProperty("device_code")]
 		public string DeviceCode { get; set; }
 
@@ -30,6 +33,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class MinecraftProfileResModel {
+
 		[JsonProperty("capes")]
 		public JArray Capes { get; set; }
 
@@ -44,6 +48,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class PollingPostResModel {
+
 		[JsonProperty("access_token")]
 		public string AccessToken { get; set; }
 
@@ -52,6 +57,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class SkinModel {
+
 		[JsonProperty("alias")]
 		public string Alias { get; set; }
 
@@ -69,6 +75,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class XboxXBLResModel {
+
 		[JsonProperty("DisplayClaims")]
 		public DisplayClaimsModel DisplayClaims { get; set; }
 
@@ -77,6 +84,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class XboxXSTSErrModel {
+
 		[JsonProperty("Identity")]
 		public string Identity { get; set; }
 
@@ -91,6 +99,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class XboxXSTSResModel {
+
 		[JsonProperty("DisplayClaims")]
 		public DisplayClaimsModel DisplayClaims { get; set; }
 

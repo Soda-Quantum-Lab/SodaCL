@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace SodaCL.Core.Models {
+namespace SodaCL.Models.Core.Java {
+
 	public class JavaModel : IEquatable<JavaModel> {
+
 		[JsonProperty("is64Bit")]
 		public bool Is64Bit { get; set; }
 

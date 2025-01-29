@@ -1,5 +1,5 @@
 ﻿using SodaCL.Controls.Dialogs;
-using SodaCL.Core.Models;
+using SodaCL.Models.Core.Auth;
 using SodaCL.Toolkits;
 
 namespace SodaCL.Core.Profile {

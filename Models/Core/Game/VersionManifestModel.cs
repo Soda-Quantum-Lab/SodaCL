@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace SodaCL.Core.Models {
+namespace SodaCL.Models.Core.Game {
+
 	/// <summary>
 	/// Minecraft 版本类型
 	/// </summary>
@@ -10,6 +11,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class VersionManifestModel {
+
 		/// <summary>
 		/// 最近的 Minecraft 版本号
 		/// </summary>
@@ -21,6 +23,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class LatestModel {
+
 		/// <summary>
 		/// 最近的 Minecraft 正式版版本号
 		/// </summary>
@@ -35,6 +38,7 @@ namespace SodaCL.Core.Models {
 	}
 
 	public class VersionModel {
+
 		/// <summary>
 		/// Minecraft 版本 Id
 		/// </summary>

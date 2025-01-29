@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SodaCL.Core.Models;
+using SodaCL.Models.Core.Auth;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using static SodaCL.Toolkits.Logger;
 
 namespace SodaCL.Core.Auth {
+
 	public class MicrosoftAuth {
 		private MinecraftProfileResModel _minecraftProfileResModel;
 
@@ -41,6 +42,7 @@ namespace SodaCL.Core.Auth {
 		private string OAuth2AccessToken { get; set; }
 
 		public async Task<MicrosoftAccount> StartAuthAsync(string clientId) {
+
 			#region 获取 DeviceCode
 
 			OpenWindows?.Invoke(this, (WindowsTypes.StartLogin, null));
