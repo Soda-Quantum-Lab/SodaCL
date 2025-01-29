@@ -8,19 +8,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Documents;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.Logger;
 
 //Finish
-namespace SodaCL.Core.Java
-{
-	public class JavaFindingAndSelecting
-	{
+namespace SodaCL.Core.Java {
+	public class JavaFindingAndSelecting {
 		#region 自动 Java 查找
 
-		public static void AutoJavaFinding()
-		{
+		public static void AutoJavaFinding() {
 			const string JAVA_EXE_NAME = "java.exe";
 			const string JAVAW_EXE_NAME = "javaw.exe";
 
@@ -28,11 +24,9 @@ namespace SodaCL.Core.Java
 			//查找环境变量中的 Java
 			var envPathOrigin = Environment.GetEnvironmentVariable("Path");
 			var envPathArray = envPathOrigin.Split(";");
-			foreach (var item in envPathArray)
-			{
+			foreach (var item in envPathArray) {
 				if (File.Exists(DirConverter(item) + "java.exe"))
-					javaList.Add(new JavaModel()
-					{
+					javaList.Add(new JavaModel() {
 						DirPath = item,
 						JavaPath = DirConverter(item) + JAVA_EXE_NAME,
 						JavawPath = DirConverter(item) + JAVAW_EXE_NAME
@@ -43,8 +37,7 @@ namespace SodaCL.Core.Java
 			SearchJavaInFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ref javaList);
 
 			//查找 Disk 中的 Java
-			foreach (var disk in DriveInfo.GetDrives())
-			{
+			foreach (var disk in DriveInfo.GetDrives()) {
 				if (disk.DriveType == DriveType.Fixed)
 					SearchJavaInFolder(disk.Name, ref javaList);
 			}
@@ -54,8 +47,7 @@ namespace SodaCL.Core.Java
 			Log(false, ModuleList.IO, LogInfo.Info, $"成功搜索到 {javaList.Count} 个 Java: ");
 
 			//获取 Java 版本
-			foreach (var java in javaList)
-			{
+			foreach (var java in javaList) {
 				var p = new Process();
 
 				p.StartInfo.FileName = java.JavaPath.ToString();
@@ -84,8 +76,7 @@ namespace SodaCL.Core.Java
 				p.WaitForExit();
 				p.Close();
 
-				if (string.IsNullOrEmpty(Output))
-				{
+				if (string.IsNullOrEmpty(Output)) {
 					Log(false, ModuleList.IO, LogInfo.Warning, "尝试运行该 Java 失败");
 				}
 
@@ -94,27 +85,21 @@ namespace SodaCL.Core.Java
 			RegEditor.SetKeyValue(Registry.CurrentUser, "CacheJavaList", JsonConvert.SerializeObject(javaList), RegistryValueKind.String);
 		}
 
-		public static void SearchJavaInFolder(string targetDir, ref List<JavaModel> javaList)
-		{
-			if (!Directory.Exists(targetDir))
-			{
+		public static void SearchJavaInFolder(string targetDir, ref List<JavaModel> javaList) {
+			if (!Directory.Exists(targetDir)) {
 				Log(false, ModuleList.IO, LogInfo.Warning, $"SodaCL 找不到文件夹 {targetDir}");
 				return;
 			}
-			try
-			{
-				if (File.Exists(DirConverter(targetDir) + "java.exe"))
-				{
-					javaList.Add(new JavaModel()
-					{
+			try {
+				if (File.Exists(DirConverter(targetDir) + "java.exe")) {
+					javaList.Add(new JavaModel() {
 						DirPath = targetDir,
 						JavaPath = DirConverter(targetDir) + "java.exe",
 						JavawPath = DirConverter(targetDir) + "javaw.exe",
 					});
 				}
 				#region 磁盘遍历查找条件
-				foreach (var item in new DirectoryInfo(targetDir).EnumerateDirectories())
-				{
+				foreach (var item in new DirectoryInfo(targetDir).EnumerateDirectories()) {
 					if (item.Attributes.HasFlag(FileAttributes.ReparsePoint))
 						continue;
 					var searchKey = item.Name.ToLower();
@@ -166,12 +151,10 @@ namespace SodaCL.Core.Java
 				}
 				#endregion
 			}
-			catch (UnauthorizedAccessException ex)
-			{
+			catch (UnauthorizedAccessException ex) {
 				Log(false, ModuleList.IO, LogInfo.Warning, $"SodaCL 遇到没有权限访问的文件夹 {targetDir}", ex);
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				Log(false, ModuleList.IO, LogInfo.Error, ex: ex);
 			}
 		}
@@ -201,93 +184,76 @@ namespace SodaCL.Core.Java
 		//	return "目标 Java 版本非法";
 		//}
 
-		public static string JavaAutoSelector(int TargetMcVersion)
-		{
+		public static string JavaAutoSelector(int TargetMcVersion) {
 			var javaJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList");
 			var javaList = JsonConvert.DeserializeObject<JavaModel>(javaJson);
 
-			if (TargetMcVersion >= 1.17)
-			{
+			if (TargetMcVersion >= 1.17) {
 				// 1.18 Pre2+ 至少 Java 17
 				// 1.17+ (21w19a+) 至少 Java 16
 				// 出于省事考虑直接最少 Java 17 ，除了 1.17 部分早期版本的 Forge 可能需要特殊处理 (Java 16)
 
-				foreach (var javaJsonSingle in javaList.ToString())
-				{
+				foreach (var javaJsonSingle in javaList.ToString()) {
 					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
-					if (java.MajorVersion == "17")
-					{
+					if (java.MajorVersion == "17") {
 						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
 						return java.JavaPath;
 					}
 					break;
 				}
 			}
-			else if (TargetMcVersion >= 1.12)
-			{
+			else if (TargetMcVersion >= 1.12) {
 				// 最少 Java 8
 				// 如果是 1.12 加了 Forge 最高 Java 8
 
-				foreach (var javaJsonSingle in javaList.ToString())
-				{
+				foreach (var javaJsonSingle in javaList.ToString()) {
 					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
-					if (java.MajorVersion == "8")
-					{
+					if (java.MajorVersion == "8") {
 						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
 						return java.JavaPath;
 					}
 					break;
 				}
 			}
-			else if (TargetMcVersion <= 1.11 && TargetMcVersion >= 1.8)
-			{
+			else if (TargetMcVersion <= 1.11 && TargetMcVersion >= 1.8) {
 				// 必须恰好 Java 8
 
-				foreach (var javaJsonSingle in javaList.ToString())
-				{
+				foreach (var javaJsonSingle in javaList.ToString()) {
 					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
-					if (java.MajorVersion == "8")
-					{
+					if (java.MajorVersion == "8") {
 						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
 						return java.JavaPath;
 					}
 					break;
 				}
 			}
-			else if (TargetMcVersion <= 1.7)
-			{
+			else if (TargetMcVersion <= 1.7) {
 				// 最高 Java 8
 
-				foreach (var javaJsonSingle in javaList.ToString())
-				{
+				foreach (var javaJsonSingle in javaList.ToString()) {
 					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
 					var javaMajorVersionInt = int.Parse(java.MajorVersion);
-					if (javaMajorVersionInt <= 8)
-					{
+					if (javaMajorVersionInt <= 8) {
 						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
 						return java.JavaPath;
 					}
 					break;
 				}
 			}
-			else if (TargetMcVersion <= 1.5)
-			{
+			else if (TargetMcVersion <= 1.5) {
 				// 最高 Java 12
 
-				foreach (var javaJsonSingle in javaList.ToString())
-				{
+				foreach (var javaJsonSingle in javaList.ToString()) {
 					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
 					var javaMajorVersionInt = int.Parse(java.MajorVersion);
-					if (javaMajorVersionInt <= 12)
-					{
+					if (javaMajorVersionInt <= 12) {
 						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
 						return java.JavaPath;
 					}
 					break;
 				}
 			}
-			else
-			{
+			else {
 				return "核心版本非法";
 			}
 			return "核心版本非法";

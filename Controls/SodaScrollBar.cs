@@ -5,13 +5,11 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
 using static SodaCL.Toolkits.Logger;
 
-namespace SodaCL.Controls
-{
-	public class SodaScrollBar : ScrollBar
+namespace SodaCL.Controls {
 
-	{
-		public SodaScrollBar()
-		{
+	public class SodaScrollBar : ScrollBar {
+
+		public SodaScrollBar() {
 			IsEnabledChanged += (sender, e) => { ScrollBar_ChangeColor(); };
 			GotMouseCapture += (sender, e) => { ScrollBar_ChangeColor(); };
 			LostMouseCapture += (sender, e) => { ScrollBar_ChangeColor(); };
@@ -20,32 +18,26 @@ namespace SodaCL.Controls
 			IsVisibleChanged += (sender, e) => { ScrollBar_ChangeColor(); };
 		}
 
-		public void ScrollBar_ChangeColor()
-		{
-			try
-			{
+		public void ScrollBar_ChangeColor() {
+			try {
 				string newColor;
 				double newOpacity, aniTime;
-				if (IsMouseCaptureWithin)
-				{
+				if (IsMouseCaptureWithin) {
 					newOpacity = 1;
 					newColor = "Brush_Main_Press";
 					aniTime = 0.05;
 				}
-				else if (IsMouseOver)
-				{
+				else if (IsMouseOver) {
 					newOpacity = 0.9;
 					newColor = "Brush_Main_Hover";
 					aniTime = 0.05;
 				}
-				else
-				{
+				else {
 					newOpacity = 0.5;
 					newColor = "Brush_Main";
 					aniTime = 0.18;
 				}
-				if (IsLoaded)
-				{
+				if (IsLoaded) {
 					var scrollBarSb = new Storyboard();
 
 					var scrollBarColorAni = new ColorAnimation(DataTool.BrushToColor(GetResources.GetBrush(newColor)), TimeSpan.FromSeconds(aniTime));
@@ -59,8 +51,7 @@ namespace SodaCL.Controls
 					scrollBarSb.Begin();
 				}
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				Log(false, ModuleList.Control, LogInfo.Warning, "SodaCL 滚动条颜色改变出错", ex);
 			}
 		}

@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="Langs\zh-TW.xaml" />
                 <ResourceDictionary Source="Langs\zh-Fuck.xaml" />
                 <ResourceDictionary Source="Token.xaml" />
-                <ResourceDictionary Source="Animations.xaml" />
+                <ResourceDictionary Source="Animation.xaml" />
                 <xf:XamlFlairResources />
             </ResourceDictionary.MergedDictionaries>
             <!--主题色-->

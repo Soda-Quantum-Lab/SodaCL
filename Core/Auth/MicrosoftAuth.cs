@@ -9,10 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using static SodaCL.Toolkits.Logger;
 
-namespace SodaCL.Core.Auth
-{
-	public class MicrosoftAuth
-	{
+namespace SodaCL.Core.Auth {
+	public class MicrosoftAuth {
 		private MinecraftProfileResModel _minecraftProfileResModel;
 
 		private XboxXSTSErrModel _xboxXSTSErrModel;
@@ -21,8 +19,7 @@ namespace SodaCL.Core.Auth
 
 		public event EventHandler<(WindowsTypes, string)> OpenWindows;
 
-		public enum MsAuthErrorTypes
-		{
+		public enum MsAuthErrorTypes {
 			AuthDeclined,
 			ExpiredToken,
 			NoXboxAccount,
@@ -32,8 +29,7 @@ namespace SodaCL.Core.Auth
 			NoGame,
 		}
 
-		public enum WindowsTypes
-		{
+		public enum WindowsTypes {
 			StartLogin,
 			OpenInBrowser,
 			GettingXboxXBLToken,
@@ -44,8 +40,7 @@ namespace SodaCL.Core.Auth
 
 		private string OAuth2AccessToken { get; set; }
 
-		public async Task<MicrosoftAccount> StartAuthAsync(string clientId)
-		{
+		public async Task<MicrosoftAccount> StartAuthAsync(string clientId) {
 			#region 获取 DeviceCode
 
 			OpenWindows?.Invoke(this, (WindowsTypes.StartLogin, null));
@@ -69,8 +64,7 @@ namespace SodaCL.Core.Auth
 			#region 获取 OAuth2 Access Token
 
 			OpenWindows?.Invoke(this, (WindowsTypes.OpenInBrowser, microsoftOAuth2ResModel.UserCode));
-			using HttpClient AccessTokenClient = new()
-			{
+			using HttpClient AccessTokenClient = new() {
 				BaseAddress = new Uri("https://login.microsoftonline.com/consumers/oauth2/v2.0/"),
 				Timeout = TimeSpan.FromSeconds(10)
 			};
@@ -82,25 +76,21 @@ namespace SodaCL.Core.Auth
 			};
 			var stopwatch = Stopwatch.StartNew();
 			Log(false, ModuleList.Login, LogInfo.Info, "开始轮询");
-			while (stopwatch.Elapsed < TimeSpan.FromSeconds(microsoftOAuth2ResModel.ExpiresIn))
-			{
+			while (stopwatch.Elapsed < TimeSpan.FromSeconds(microsoftOAuth2ResModel.ExpiresIn)) {
 				Pages.MainPage.mainPage.loginTsCancelSrc.Token.ThrowIfCancellationRequested();
 				await Task.Delay(microsoftOAuth2ResModel.Interval * 1000);
 
 				var pollingPostRes = await AccessTokenClient.PostAsync("token", new FormUrlEncodedContent(oAuthPostContent));
 				var pollingPostResStr = await pollingPostRes.Content.ReadAsStringAsync();
-				if (pollingPostRes.IsSuccessStatusCode)
-				{
+				if (pollingPostRes.IsSuccessStatusCode) {
 					var pollingPostResModel = JsonConvert.DeserializeObject<PollingPostResModel>(pollingPostResStr);
 					Log(false, ModuleList.Login, LogInfo.Info, "成功获取OAuth2Token");
 					OAuth2AccessToken = pollingPostResModel.AccessToken;
 					break;
 				}
-				else if (pollingPostRes.StatusCode == (System.Net.HttpStatusCode)401)
-				{
+				else if (pollingPostRes.StatusCode == (System.Net.HttpStatusCode)401) {
 					var errorCode = JObject.Parse(pollingPostResStr);
-					switch ((string)errorCode["error"])
-					{
+					switch ((string)errorCode["error"]) {
 						case "authorization_declined":
 							throw new MicrosoftAuthException(MsAuthErrorTypes.AuthDeclined);
 
@@ -117,8 +107,7 @@ namespace SodaCL.Core.Auth
 			#region 获取Xbox XBL Token
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXBLToken, null));
-			using HttpClient xboxXBLClient = new()
-			{
+			using HttpClient xboxXBLClient = new() {
 				Timeout = TimeSpan.FromSeconds(10)
 			};
 			var xblJsonContent = "{ \"Properties\": { \"AuthMethod\": \"RPS\", \"SiteName\": \"user.auth.xboxlive.com\", \"RpsTicket\": \"d=" + OAuth2AccessToken + "\"}, \"RelyingParty\": \"http://auth.xboxlive.com\", \"TokenType\": \"JWT\" }";
@@ -134,23 +123,19 @@ namespace SodaCL.Core.Auth
 			#region 获取 Xbox XSTS Token
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
-			using HttpClient xboxXSTSClient = new()
-			{
+			using HttpClient xboxXSTSClient = new() {
 				Timeout = TimeSpan.FromSeconds(10)
 			};
 			var xstsJsonContent = @"{""Properties"": { ""SandboxId"": ""RETAIL"", ""UserTokens"": [ """ + xboxXBLResModel.XboxXBLToken + @"""] }, ""RelyingParty"": ""rp://api.minecraftservices.com/"", ""TokenType"": ""JWT""}";
 			var xstsPostContent = new StringContent(xstsJsonContent, Encoding.UTF8, "application/json");
 			var xstsResponse = await xboxXSTSClient.PostAsync("https://xsts.auth.xboxlive.com/xsts/authorize", xstsPostContent);
-			if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)200)
-			{
+			if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)200) {
 				_xboxXSTSResModel = JsonConvert.DeserializeObject<XboxXSTSResModel>(await xstsResponse.Content.ReadAsStringAsync());
 				Log(false, ModuleList.Login, LogInfo.Info, "成功获取XstsToken");
 			}
-			else if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)401)
-			{
+			else if (xstsResponse.StatusCode == (System.Net.HttpStatusCode)401) {
 				_xboxXSTSErrModel = JsonConvert.DeserializeObject<XboxXSTSErrModel>(await xstsResponse.Content.ReadAsStringAsync());
-				switch (_xboxXSTSErrModel.XErr)
-				{
+				switch (_xboxXSTSErrModel.XErr) {
 					case string Err when Err.Equals("2148916233"):
 						throw new MicrosoftAuthException(MsAuthErrorTypes.NoXboxAccount);
 
@@ -174,8 +159,7 @@ namespace SodaCL.Core.Auth
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
 
-			using HttpClient mcClient = new()
-			{
+			using HttpClient mcClient = new() {
 				Timeout = TimeSpan.FromSeconds(10)
 			};
 
@@ -191,27 +175,23 @@ namespace SodaCL.Core.Auth
 			#region 获取 User Profile
 
 			OpenWindows?.Invoke(this, (WindowsTypes.GettingXboxXSTSToken, null));
-			using HttpClient userProfileClient = new()
-			{
+			using HttpClient userProfileClient = new() {
 				Timeout = TimeSpan.FromSeconds(10)
 			};
 			userProfileClient.DefaultRequestHeaders.Add("Authorization", "Bearer" + " " + mcAccessToken);
 			var userProfileRes = await userProfileClient.GetAsync("https://api.minecraftservices.com/minecraft/profile");
-			if (userProfileRes.IsSuccessStatusCode)
-			{
+			if (userProfileRes.IsSuccessStatusCode) {
 				_minecraftProfileResModel = JsonConvert.DeserializeObject<MinecraftProfileResModel>(await userProfileRes.Content.ReadAsStringAsync());
 				Log(false, ModuleList.Login, LogInfo.Info, "成功获取McToken");
 			}
-			else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound)
-			{
+			else if (userProfileRes.StatusCode == System.Net.HttpStatusCode.NotFound) {
 				OpenWindows?.Invoke(this, (WindowsTypes.GettingMcProfile, null));
 				throw new MicrosoftAuthException(MsAuthErrorTypes.NoGame);
 			}
 
 			#endregion 获取 User Profile
 
-			return new MicrosoftAccount
-			{
+			return new MicrosoftAccount {
 				AccessToken = mcAccessToken,
 				UserName = _minecraftProfileResModel.Name,
 				Uuid = Guid.Parse(_minecraftProfileResModel.Id),

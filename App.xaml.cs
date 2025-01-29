@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using static SodaCL.Toolkits.Logger;
 
-namespace SodaCL
-{
-	public partial class App : Application
-	{
-		protected override void OnStartup(StartupEventArgs e)
-		{
+namespace SodaCL {
+	public partial class App : Application {
+		protected override void OnStartup(StartupEventArgs e) {
 			StartExceptionCatcher();
-			foreach (var t in e.Args)
-			{
-				if (t == "--Langs")
-				{
+			foreach (var t in e.Args) {
+				if (t == "--Langs") {
 					//留个接口先
 					MessageBox.Show("您正处于翻译人员模式");
 					//bool isTranslator = true;
@@ -38,11 +33,9 @@ namespace SodaCL
 			Log(false, ModuleList.Main, LogInfo.Info, "加载语言文件");
 		}
 
-		private void StartExceptionCatcher()
-		{
+		private void StartExceptionCatcher() {
 			//Task线程内未捕获异常处理事件
-			TaskScheduler.UnobservedTaskException += (sender, e) =>
-			{
+			TaskScheduler.UnobservedTaskException += (sender, e) => {
 				var ex = e.Exception;
 				Log(true, ModuleList.Unknown, LogInfo.Unhandled,
 					GetResources.GetText("ExceptionCatcher_Dialog_CatchedMessage_Start") +
@@ -51,8 +44,7 @@ namespace SodaCL
 			};
 
 			//UI线程未捕获异常处理事件（UI主线程）
-			DispatcherUnhandledException += (sender, e) =>
-			{
+			DispatcherUnhandledException += (sender, e) => {
 				var ex = e.Exception;
 				Log(true, ModuleList.Unknown, LogInfo.Unhandled,
 					GetResources.GetText("ExceptionCatcher_Dialog_CatchedMessage_Start") +
@@ -61,8 +53,7 @@ namespace SodaCL
 			};
 
 			//非UI线程未捕获异常处理事件(例如自己创建的一个子线程)
-			AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
-			{
+			AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
 				var ex = e.ExceptionObject as Exception;
 				Log(true, ModuleList.Unknown, LogInfo.Unhandled,
 					GetResources.GetText("ExceptionCatcher_Dialog_CatchedMessage_Start") +

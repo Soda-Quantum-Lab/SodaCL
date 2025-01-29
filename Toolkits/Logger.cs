@@ -6,10 +6,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
-namespace SodaCL.Toolkits
-{
-	public static class Logger
-	{
+namespace SodaCL.Toolkits {
+	public static class Logger {
 		/// <summary>
 		/// Log文件夹
 		/// </summary>
@@ -26,8 +24,7 @@ namespace SodaCL.Toolkits
 		/// <summary>
 		/// 日志级别枚举
 		/// </summary>
-		public enum LogInfo
-		{
+		public enum LogInfo {
 			Info,
 			Warning,
 			Debug,
@@ -38,8 +35,7 @@ namespace SodaCL.Toolkits
 		/// <summary>
 		/// 模块位置枚举
 		/// </summary>
-		public enum ModuleList
-		{
+		public enum ModuleList {
 			Main,
 			Control,
 			Network,
@@ -48,17 +44,14 @@ namespace SodaCL.Toolkits
 			Unknown
 		}
 
-		public static int GetFileNum()
-		{
-			try
-			{
+		public static int GetFileNum() {
+			try {
 				var fileNum = 0;
 				foreach (var f in logDir.GetFiles())
 					fileNum++;
 				return fileNum;
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				Log(true, ModuleList.IO, LogInfo.Error, "Log 文件夹或文件异常", ex);
 				throw;
 			}
@@ -70,12 +63,10 @@ namespace SodaCL.Toolkits
 		/// <param name="module">写入Log的模块位置</param>
 		/// <param name="LogInfo">Log级别</param>
 		/// <param name="message ">需要写入的Log信息或自定义错误信息</param>
-		public static void Log(bool isOpenDialog, ModuleList module, LogInfo LogInfo, string message = null, Exception ex = null)
-		{
+		public static void Log(bool isOpenDialog, ModuleList module, LogInfo LogInfo, string message = null, Exception ex = null) {
 			string moduleText = null;
 			string logContent = null;
-			switch (module)
-			{
+			switch (module) {
 				case ModuleList.Main:
 					moduleText = "Main";
 					break;
@@ -96,66 +87,52 @@ namespace SodaCL.Toolkits
 					moduleText = "Login";
 					break;
 			}
-			if (ex != null)
-			{
-				if (message != null)
-				{
+			if (ex != null) {
+				if (message != null) {
 					logContent = $"发生错误： {message}";
 				}
-				else
-				{
+				else {
 					logContent = $"发生错误： {ex.Message}\n{ex.StackTrace}";
 				}
 				Crashes.TrackError(ex);
 			}
-			else
-			{
+			else {
 				logContent = message;
 			}
-			if (isOpenDialog)
-			{
-				if (ex != null)
-				{
+			if (isOpenDialog) {
+				if (ex != null) {
 					var dE = new SodaLauncherErrorDialog(logContent);
 					MainWindow.mainWindow.Grid_DialogArea.Children.Add(dE);
 				}
-				else
-				{
+				else {
 					MessageBox.Show(logContent);
 				}
 			}
 			Trace.WriteLine($"[{DateTime.Now}] [{moduleText}] [{LogInfo}] {logContent}");
 		}
 
-		public static void LogStart()
-		{
+		public static void LogStart() {
 			var fileNum = GetFileNum();
 			SortAsFileCreationTime(ref logFiles);
-			if (fileNum == 5)
-			{
+			if (fileNum == 5) {
 				File.Delete(logFiles[4].ToString());
 			}
-			if (fileNum > 5)
-			{
+			if (fileNum > 5) {
 				for (; fileNum >= 5; fileNum--)
 					File.Delete(logFiles[fileNum - 1].ToString());
 			}
-			try
-			{
+			try {
 				System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SODACL_LOG_FOLDER_PATH}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
 				Trace.AutoFlush = true;
 				Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				Log(true, ModuleList.IO, LogInfo.Error, "SodaCL无法访问Log文件夹，这可能是您打开多个SodaCL实例造成的", ex);
 			}
 		}
 
-		public static void SortAsFileCreationTime(ref FileInfo[] logFiles)
-		{
-			Array.Sort(logFiles, delegate (FileInfo x, FileInfo y)
-			{
+		public static void SortAsFileCreationTime(ref FileInfo[] logFiles) {
+			Array.Sort(logFiles, delegate (FileInfo x, FileInfo y) {
 				return y.CreationTime.CompareTo(x.CreationTime);
 			});
 		}

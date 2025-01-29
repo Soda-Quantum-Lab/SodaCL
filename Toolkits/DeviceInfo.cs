@@ -1,14 +1,11 @@
 ﻿using System;
 
-namespace SodaCL.Toolkits
-{
-	public static class DeviceInfo
-	{
+namespace SodaCL.Toolkits {
+	public static class DeviceInfo {
 		/// <summary>
 		/// 返回 OS 主版本号
 		/// </summary>
-		public static int GetOsMajorNumber()
-		{
+		public static int GetOsMajorNumber() {
 			var osMajorNum = Environment.OSVersion.Version.Major;
 			return osMajorNum;
 		}
@@ -17,8 +14,7 @@ namespace SodaCL.Toolkits
 		/// 返回 OS 修订版本号
 		/// </summary>
 		/// <returns></returns>
-		public static int GetOsRevisionNumber()
-		{
+		public static int GetOsRevisionNumber() {
 			var osRevisionNum = Environment.OSVersion.Version.Revision;
 			return osRevisionNum;
 		}

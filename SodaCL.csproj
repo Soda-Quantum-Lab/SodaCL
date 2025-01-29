@@ -27,6 +27,12 @@
     <None Remove="Resources\Images\Release.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Page Remove="Animation.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Animation.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Token.xaml" />
     <Resource Include="Resources\Images\Dev.ico" />
     <Resource Include="Resources\Images\Launcher-Bg.jpg" />

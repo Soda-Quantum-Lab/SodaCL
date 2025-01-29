@@ -8,21 +8,19 @@ using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.GetResources;
 using static SodaCL.Toolkits.Logger;
 
-namespace SodaCL.Controls
-{
+namespace SodaCL.Controls {
+
 	/// <summary>
 	/// SodaButton.xaml 的交互逻辑
 	/// </summary>
-	public partial class SodaButton : UserControl
-	{
+	public partial class SodaButton : UserControl {
 		private static SodaButton btn;
 		private CubicEase ce = new() { EasingMode = EasingMode.EaseOut };
 		private bool isMouseDown;
 
 		#region 枚举
 
-		public enum ButtonTypes
-		{
+		public enum ButtonTypes {
 			Main,
 			Normal,
 			Warning,
@@ -34,19 +32,15 @@ namespace SodaCL.Controls
 
 		public event RoutedEventHandler Click;
 
-		private void Btn_Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-		{
-			if (isMouseDown)
-			{
+		private void Btn_Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			if (isMouseDown) {
 				Log(false, ModuleList.Control, LogInfo.Info, $"按下按钮 \"{Text}\"");
 				Click?.Invoke(sender, e);
 			}
 		}
 
-		private void Border_Loaded(object sender, RoutedEventArgs e)
-		{
-			switch (ButtonType)
-			{
+		private void Border_Loaded(object sender, RoutedEventArgs e) {
+			switch (ButtonType) {
 				case ButtonTypes.Main:
 					Btn_Border.Background = (SolidColorBrush)GetBrush("Brush_Main");
 					break;
@@ -62,13 +56,10 @@ namespace SodaCL.Controls
 			}
 		}
 
-		public void Button_ChangeColor(object sender = null, MouseEventArgs e = null)
-		{
-			switch (this.ButtonType)
-			{
+		public void Button_ChangeColor(object sender = null, MouseEventArgs e = null) {
+			switch (this.ButtonType) {
 				case ButtonTypes.Main:
-					if (IsMouseOver)
-					{
+					if (IsMouseOver) {
 						var sb = new Storyboard();
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
 						ca.EasingFunction = ce;
@@ -77,8 +68,7 @@ namespace SodaCL.Controls
 						sb.Children.Add(ca);
 						sb.Begin();
 					}
-					else
-					{
+					else {
 						var sb = new Storyboard();
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main")), new Duration(TimeSpan.FromSeconds(0.2)));
 						ca.EasingFunction = ce;
@@ -90,8 +80,7 @@ namespace SodaCL.Controls
 					break;
 
 				case ButtonTypes.Normal:
-					if (IsMouseOver)
-					{
+					if (IsMouseOver) {
 						var sb = new Storyboard();
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
 						ca.EasingFunction = ce;
@@ -100,8 +89,7 @@ namespace SodaCL.Controls
 						sb.Children.Add(ca);
 						sb.Begin();
 					}
-					else
-					{
+					else {
 						var sb = new Storyboard();
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal")), new Duration(TimeSpan.FromSeconds(0.2)));
 						ca.EasingFunction = ce;
@@ -113,8 +101,7 @@ namespace SodaCL.Controls
 					break;
 
 				case ButtonTypes.Warning:
-					if (IsMouseOver)
-					{
+					if (IsMouseOver) {
 						var sb = new Storyboard();
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
 						ca.EasingFunction = ce;
@@ -123,8 +110,7 @@ namespace SodaCL.Controls
 						sb.Children.Add(ca);
 						sb.Begin();
 					}
-					else
-					{
+					else {
 						var sb = new Storyboard();
 						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning")), new Duration(TimeSpan.FromSeconds(0.2)));
 						ca.EasingFunction = ce;
@@ -137,16 +123,14 @@ namespace SodaCL.Controls
 			}
 		}
 
-		private void Btn_Border_MouseDown(object sender, MouseButtonEventArgs e)
-		{
+		private void Btn_Border_MouseDown(object sender, MouseButtonEventArgs e) {
 			isMouseDown = true;
 			var scX = new DoubleAnimation(0.95, TimeSpan.FromSeconds(0.1));
 			scX.EasingFunction = ce;
 			Btn_Border_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
 			var scY = new DoubleAnimation(0.95, TimeSpan.FromSeconds(0.1));
 			scY.EasingFunction = ce; Btn_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
-			switch (ButtonType)
-			{
+			switch (ButtonType) {
 				case ButtonTypes.Main:
 					var caM = new ColorAnimation(BrushToColor(GetBrush("Brush_Main_Press")), new Duration(TimeSpan.FromSeconds(0.1)));
 					caM.EasingFunction = ce;
@@ -167,10 +151,8 @@ namespace SodaCL.Controls
 			}
 		}
 
-		private void Btn_Border_MouseUp(object sender, MouseButtonEventArgs e)
-		{
-			if (isMouseDown)
-			{
+		private void Btn_Border_MouseUp(object sender, MouseButtonEventArgs e) {
+			if (isMouseDown) {
 				isMouseDown = false;
 				var scX = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
 				scX.EasingFunction = ce;
@@ -180,8 +162,7 @@ namespace SodaCL.Controls
 			}
 		}
 
-		private void Btn_Border_MouseLeave(object sender, MouseEventArgs e)
-		{
+		private void Btn_Border_MouseLeave(object sender, MouseEventArgs e) {
 			Button_ChangeColor();
 			var scX = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
 			scX.EasingFunction = ce;
@@ -201,36 +182,30 @@ namespace SodaCL.Controls
 		#region 依赖属性
 
 		public new static readonly DependencyProperty PaddingProperty =
-			DependencyProperty.Register("Padding", typeof(Thickness), typeof(SodaButton), new PropertyMetadata(new PropertyChangedCallback((d, e) =>
-			{
+			DependencyProperty.Register("Padding", typeof(Thickness), typeof(SodaButton), new PropertyMetadata(new PropertyChangedCallback((d, e) => {
 				if (btn != null)
 					btn.Btn_Txb.Padding = (Thickness)e.NewValue;
 			})));
 
 		public static readonly DependencyProperty TextProperty =
-			DependencyProperty.Register("Text", typeof(string), typeof(SodaButton), new PropertyMetadata(new PropertyChangedCallback((d, e) =>
-			{
+			DependencyProperty.Register("Text", typeof(string), typeof(SodaButton), new PropertyMetadata(new PropertyChangedCallback((d, e) => {
 				if (btn != null)
 					btn.Btn_Txb.Text = (string)e.NewValue;
 			})));
 
-		public new Thickness Padding
-		{
+		public new Thickness Padding {
 			get { return (Thickness)GetValue(PaddingProperty); }
 			set { SetValue(PaddingProperty, value); }
 		}
 
-		public string Text
-
-		{
+		public string Text {
 			get { return (string)GetValue(TextProperty); }
 			set { SetValue(TextProperty, value); }
 		}
 
 		#endregion 依赖属性
 
-		public SodaButton()
-		{
+		public SodaButton() {
 			InitializeComponent();
 			btn = this;
 		}

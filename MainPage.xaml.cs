@@ -14,14 +14,12 @@ using System.Windows.Media.Animation;
 using static SodaCL.Toolkits.HttpHelper;
 using static SodaCL.Toolkits.Logger;
 
-namespace SodaCL.Pages
-{
+namespace SodaCL.Pages {
 	/// <summary>
 	/// MainPage.xaml 的交互逻辑
 	/// </summary>
 
-	public partial class MainPage : Page
-	{
+	public partial class MainPage : Page {
 		public static MainPage mainPage;
 
 		//登录 Task 取消 Token
@@ -31,14 +29,12 @@ namespace SodaCL.Pages
 
 		#region 初始化
 
-		public MainPage()
-		{
+		public MainPage() {
 			InitializeComponent();
 			mainPage = this;
 		}
 
-		private async void Page_Loaded(object sender, RoutedEventArgs e)
-		{
+		private async void Page_Loaded(object sender, RoutedEventArgs e) {
 			SayHello();
 			TextAni();
 			await GetYiyanAsync();
@@ -50,8 +46,7 @@ namespace SodaCL.Pages
 
 		#region 动画
 
-		public void TextAni()
-		{
+		public void TextAni() {
 			var storyboard = new Storyboard();
 			var doubleAnimation = new DoubleAnimation(0.0, 1.0, TimeSpan.FromSeconds(0.8));
 			Storyboard.SetTarget(doubleAnimation, SayHelloUsernameTxb);
@@ -61,11 +56,9 @@ namespace SodaCL.Pages
 			Storyboard.SetTarget(doubleAnimation2, SayHelloTimeTxb);
 			Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath("Opacity"));
 			storyboard.Children.Add(doubleAnimation2);
-			var thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4))
-			{
+			var thicknessAnimation = new ThicknessAnimation(new Thickness(0.0, 0.0, 0.0, 0.0), TimeSpan.FromSeconds(0.4)) {
 				BeginTime = TimeSpan.FromSeconds(0.2),
-				EasingFunction = new CubicEase
-				{
+				EasingFunction = new CubicEase {
 					EasingMode = EasingMode.EaseInOut
 				}
 			};
@@ -79,20 +72,17 @@ namespace SodaCL.Pages
 
 		#region 事件
 
-		private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e)
-		{
+		private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e) {
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
 			Task.Run(() => { JavaFindingAndSelecting.AutoJavaFinding(); });
 		}
 
-		private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e)
-		{
+		private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e) {
 			Process.Start("explorer.exe", ".\\SodaCL\\logs");
 		}
 
-		private void StartBtn_Click(object sender, RoutedEventArgs e)
-		{
+		private void StartBtn_Click(object sender, RoutedEventArgs e) {
 			//MinecraftLaunch.LaunchGame();
 			//var dE = new SodaLauncherErrorDialog("笨蛋 xiaohu 还在搓天杀的控件，你先别急。人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n人活着哪有不疯的？硬撑罢了！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n妈的，忍不了，一拳把地球打爆！\r\n他奶奶的鸡蛋六舅的哈密瓜妹妹的大窝瓜爷爷的大鸡腿婶婶的大葡萄妈妈的黄瓜菜爸爸的大面包三舅姥爷的大李子二婶的桃子三叔的西瓜七舅姥爷的小荔枝二舅姥爷的火龙果姑姑的猕猴桃祖爷爷的车厘子祖姥爷的大菠萝祖奶奶的大榴莲二爷的小草莓他三婶姥姥的大白菜他哥哥的大面条妹妹的小油菜弟弟的西葫芦姐姐的大土豆姐夫的大青椒爷爷的大茄子嗯啊，杀杀杀！\r\n！\r\n好可怕杀杀杀杀杀杀上勾拳！\r\n下勾拳！\r\n左勾拳！\r\n右勾拳！\r\n扫堂腿！\r\n回旋踢！\r\n这是蜘蛛吃耳屎，这是龙卷风摧毁停车场！\r\n这是羚羊蹬，这是山羊跳！\r\n乌鸦坐飞机！\r\n老鼠走迷宫！\r\n大象踢腿！\r\n愤怒的章鱼！\r\n巨斧砍大树！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n杀！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n彻底疯狂！\r\n");
 
@@ -106,28 +96,22 @@ namespace SodaCL.Pages
 
 		#region 一言及问好处理
 
-		private async Task GetYiyanAsync()
-		{
+		private async Task GetYiyanAsync() {
 			string text;
-			try
-			{
-				if (yiYanText == null)
-				{
+			try {
+				if (yiYanText == null) {
 					Log(false, ModuleList.Network, LogInfo.Info, "正在获取一言");
-					do
-					{
+					do {
 						var jsonResponse = await GetStringResponseAsync("https://v1.hitokoto.cn/?c=c&c=a&encode=json&charset=utf-8&maxlength=10");
 						var jObj = JsonConvert.DeserializeObject<JObject>(jsonResponse);
 						var yiYan = (string)jObj["hitokoto"];
 						string space;
 						string endSpace;
-						if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！\r\n"))
-						{
+						if (yiYan.EndsWith("。") || yiYan.EndsWith("？") || yiYan.EndsWith("！\r\n")) {
 							space = "  ";
 							endSpace = "";
 						}
-						else
-						{
+						else {
 							space = "  ";
 							endSpace = "  ";
 						}
@@ -139,27 +123,22 @@ namespace SodaCL.Pages
 					yiYanText = YiYanTxb.Text;
 					Log(false, ModuleList.Network, LogInfo.Info, "一言获取成功");
 				}
-				else
-				{
+				else {
 					YiYanTxb.Text = yiYanText;
 				}
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				YiYanTxb.Text = "一言获取失败";
 				Log(false, ModuleList.Network, LogInfo.Warning, "一言获取失败", ex);
 			}
 		}
 
-		private void SayHello()
-		{
-			try
-			{
+		private void SayHello() {
+			try {
 				SayHelloUsernameTxb.Text = Environment.UserName;
 
 				var hour = DateTime.Now.Hour;
-				switch (hour)
-				{
+				switch (hour) {
 					case int n when (n >= 3 && n < 5):
 						SayHelloTimeTxb.Text = "凌晨好!";
 						break;
@@ -189,8 +168,7 @@ namespace SodaCL.Pages
 						break;
 				}
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				Log(true, ModuleList.IO, LogInfo.Error, ex: ex);
 			}
 		}

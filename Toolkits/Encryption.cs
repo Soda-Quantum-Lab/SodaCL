@@ -3,17 +3,13 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SodaCL.Toolkits
-{
-	public class Encryption
-	{
+namespace SodaCL.Toolkits {
+	public class Encryption {
 		public string machineSecret;
 
-		public Encryption()
-		{
+		public Encryption() {
 			machineSecret = RegEditor.GetKeyValue(Registry.CurrentUser, "MachineSecret");
-			if (machineSecret == null)
-			{
+			if (machineSecret == null) {
 				machineSecret = FingerPrint.Value();
 			}
 		}
@@ -24,13 +20,11 @@ namespace SodaCL.Toolkits
 		/// <param name="str">明文（待加密）</param>
 		/// <param name="key">密文</param>
 		/// <returns></returns>
-		public string AesEncrypt(string str)
-		{
+		public string AesEncrypt(string str) {
 			if (string.IsNullOrEmpty(str)) return null;
 			var toEncryptArray = Encoding.UTF8.GetBytes(str);
 
-			var rm = new RijndaelManaged
-			{
+			var rm = new RijndaelManaged {
 				Key = Encoding.UTF8.GetBytes(machineSecret),
 				Mode = CipherMode.ECB,
 				Padding = PaddingMode.PKCS7
@@ -47,13 +41,11 @@ namespace SodaCL.Toolkits
 		/// <param name="str">明文（待解密）</param>
 		/// <param name="key">密文</param>
 		/// <returns></returns>
-		public string AesDecrypt(string str)
-		{
+		public string AesDecrypt(string str) {
 			if (string.IsNullOrEmpty(str)) return null;
 			var toEncryptArray = Convert.FromBase64String(str);
 
-			var rm = new RijndaelManaged
-			{
+			var rm = new RijndaelManaged {
 				Key = Encoding.UTF8.GetBytes(machineSecret),
 				Mode = CipherMode.ECB,
 				Padding = PaddingMode.PKCS7

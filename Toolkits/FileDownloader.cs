@@ -7,10 +7,8 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SodaCL.Toolkits
-{
-	public class FileDownloader
-	{
+namespace SodaCL.Toolkits {
+	public class FileDownloader {
 		#region 字段
 
 		private object _locker = new object();
@@ -28,8 +26,7 @@ namespace SodaCL.Toolkits
 		/// <param name="fileUrl">文件网址</param>
 		/// <param name="savePath">保存的路径</param>
 		/// <param name="threadsNum">线程数 (可选）默认32)</param>
-		public FileDownloader(string fileUrl, string savePath, int threadsNum = 32)
-		{
+		public FileDownloader(string fileUrl, string savePath, int threadsNum = 32) {
 			this.ThreadsNum = threadsNum;
 			this.Threads = new Thread[threadsNum];
 			this.FileUrl = fileUrl;
@@ -55,24 +52,20 @@ namespace SodaCL.Toolkits
 
 		#endregion 属性
 
-		public async Task Start()
-		{
+		public async Task Start() {
 			using HttpClient hc = new();
 			var response = await hc.GetAsync(this.FileUrl);
-			if (response.IsSuccessStatusCode)
-			{
+			if (response.IsSuccessStatusCode) {
 				var content = response.Content;
 				var contentStream = await content.ReadAsStreamAsync();
 				this.FileSize = contentStream.Length;
 			}
-			else
-			{
+			else {
 				throw new FileNotFoundException();
 			}
 			var singleNum = (int)(FileSize / ThreadsNum);//平均分配
 			var remainder = (int)(FileSize % ThreadsNum);//获取剩余的
-			for (var i = 0; i < ThreadsNum; i++)
-			{
+			for (var i = 0; i < ThreadsNum; i++) {
 				var range = new List<int>
 				{
 					i * singleNum
@@ -92,14 +85,11 @@ namespace SodaCL.Toolkits
 		/// <summary>
 		/// 下载完成后合并文件块
 		/// </summary>
-		private void Complete()
-		{
+		private void Complete() {
 			var mergeFile = new FileStream(SavePath, FileMode.Create);
 			var AddWriter = new BinaryWriter(mergeFile);
-			foreach (var file in _tmpFiles)
-			{
-				using (var fs = new FileStream(file, FileMode.Open))
-				{
+			foreach (var file in _tmpFiles) {
+				using (var fs = new FileStream(file, FileMode.Open)) {
 					var TempReader = new BinaryReader(fs);
 					AddWriter.Write(TempReader.ReadBytes((int)fs.Length));
 					TempReader.Close();
@@ -109,11 +99,9 @@ namespace SodaCL.Toolkits
 			AddWriter.Close();
 		}
 
-		private void Download(object obj)
-		{
+		private void Download(object obj) {
 			Stream httpFileStream = null, localFileStram = null;
-			try
-			{
+			try {
 				var ran = obj as int[];
 				var tmpFileBlock = LauncherInfo.SODACL_TEMP_FOLDER_PATH + Thread.CurrentThread.Name + ".SodaTmp";
 				_tmpFiles.Add(tmpFileBlock);
@@ -124,11 +112,9 @@ namespace SodaCL.Toolkits
 				localFileStram = new FileStream(tmpFileBlock, FileMode.Create);
 				var by = new byte[5000];
 				var getByteSize = httpFileStream.Read(by, 0, (int)by.Length); //Read方法将返回读入by变量中的总字节数
-				while (getByteSize > 0)
-				{
+				while (getByteSize > 0) {
 					Thread.Sleep(20);
-					lock (_locker)
-					{
+					lock (_locker) {
 						DownloadSize += getByteSize;
 						DownloaderProgressChanged?.Invoke(this, ((float)DownloadSize / (float)FileSize) * 100);
 					}
@@ -137,17 +123,14 @@ namespace SodaCL.Toolkits
 				}
 				lock (_locker) _threadCompleteNum++;
 			}
-			catch (Exception)
-			{
+			catch (Exception) {
 				throw;
 			}
-			finally
-			{
+			finally {
 				if (httpFileStream != null) httpFileStream.Dispose();
 				if (localFileStram != null) localFileStram.Dispose();
 			}
-			if (_threadCompleteNum == ThreadsNum)
-			{
+			if (_threadCompleteNum == ThreadsNum) {
 				Complete();
 				DownloaderProgressFinished?.Invoke(this, null);
 				IsComplete = true;

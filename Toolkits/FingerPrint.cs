@@ -2,16 +2,12 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SodaCL.Toolkits
-{
-	public class FingerPrint
-	{
+namespace SodaCL.Toolkits {
+	public class FingerPrint {
 		private static string fingerPrint = string.Empty;
 
-		public static string Value()
-		{
-			if (string.IsNullOrEmpty(fingerPrint))
-			{
+		public static string Value() {
+			if (string.IsNullOrEmpty(fingerPrint)) {
 				fingerPrint = GetHash(
 					"CPU >> " + cpuId() +
 					"\nBIOS >> " + biosId() +
@@ -23,19 +19,16 @@ namespace SodaCL.Toolkits
 			return fingerPrint;
 		}
 
-		private static string GetHash(string s)
-		{
+		private static string GetHash(string s) {
 			MD5 sec = new MD5CryptoServiceProvider();
 			var enc = new ASCIIEncoding();
 			var bt = enc.GetBytes(s);
 			return GetHexString(sec.ComputeHash(bt));
 		}
 
-		private static string GetHexString(byte[] bt)
-		{
+		private static string GetHexString(byte[] bt) {
 			var s = string.Empty;
-			for (var i = 0; i < bt.Length; i++)
-			{
+			for (var i = 0; i < bt.Length; i++) {
 				var b = bt[i];
 				int n, n1, n2;
 				n = (int)b;
@@ -58,25 +51,19 @@ namespace SodaCL.Toolkits
 
 		//Return a hardware identifier
 		private static string identifier
-		(string wmiClass, string wmiProperty, string wmiMustBeTrue)
-		{
+		(string wmiClass, string wmiProperty, string wmiMustBeTrue) {
 			var result = "";
 			var mc = new ManagementClass(wmiClass);
 			var moc = mc.GetInstances();
-			foreach (ManagementObject mo in moc)
-			{
-				if (mo[wmiMustBeTrue].ToString() == "True")
-				{
+			foreach (ManagementObject mo in moc) {
+				if (mo[wmiMustBeTrue].ToString() == "True") {
 					//Only get the first one
-					if (result == "")
-					{
-						try
-						{
+					if (result == "") {
+						try {
 							result = mo[wmiProperty].ToString();
 							break;
 						}
-						catch
-						{
+						catch {
 						}
 					}
 				}
@@ -85,31 +72,25 @@ namespace SodaCL.Toolkits
 		}
 
 		//Return a hardware identifier
-		private static string identifier(string wmiClass, string wmiProperty)
-		{
+		private static string identifier(string wmiClass, string wmiProperty) {
 			var result = "";
 			var mc = new ManagementClass(wmiClass);
 			var moc = mc.GetInstances();
-			foreach (ManagementObject mo in moc)
-			{
+			foreach (ManagementObject mo in moc) {
 				//Only get the first one
-				if (result == "")
-				{
-					try
-					{
+				if (result == "") {
+					try {
 						result = mo[wmiProperty].ToString();
 						break;
 					}
-					catch
-					{
+					catch {
 					}
 				}
 			}
 			return result;
 		}
 
-		private static string cpuId()
-		{
+		private static string cpuId() {
 			//Uses first CPU identifier available in order of preference
 			//Don't get all identifiers, as it is very time consuming
 			var retVal = identifier("Win32_Processor", "UniqueId");
@@ -131,8 +112,7 @@ namespace SodaCL.Toolkits
 		}
 
 		//BIOS Identifier
-		private static string biosId()
-		{
+		private static string biosId() {
 			return identifier("Win32_BIOS", "Manufacturer")
 			+ identifier("Win32_BIOS", "SMBIOSBIOSVersion")
 			+ identifier("Win32_BIOS", "IdentificationCode")
@@ -142,8 +122,7 @@ namespace SodaCL.Toolkits
 		}
 
 		//Main physical hard drive ID
-		private static string diskId()
-		{
+		private static string diskId() {
 			return identifier("Win32_DiskDrive", "Model")
 			+ identifier("Win32_DiskDrive", "Manufacturer")
 			+ identifier("Win32_DiskDrive", "Signature")
@@ -151,8 +130,7 @@ namespace SodaCL.Toolkits
 		}
 
 		//Motherboard ID
-		private static string baseId()
-		{
+		private static string baseId() {
 			return identifier("Win32_BaseBoard", "Model")
 			+ identifier("Win32_BaseBoard", "Manufacturer")
 			+ identifier("Win32_BaseBoard", "Name")
@@ -160,15 +138,13 @@ namespace SodaCL.Toolkits
 		}
 
 		//Primary video controller ID
-		private static string videoId()
-		{
+		private static string videoId() {
 			return identifier("Win32_VideoController", "DriverVersion")
 			+ identifier("Win32_VideoController", "Name");
 		}
 
 		//First enabled network card ID
-		private static string macId()
-		{
+		private static string macId() {
 			return identifier("Win32_NetworkAdapterConfiguration",
 				"MACAddress", "IPEnabled");
 		}

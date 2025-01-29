@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 
-namespace SodaCL.Core.Models
-{
-	public class CoreModel
-	{
+namespace SodaCL.Core.Models {
+	public class CoreModel {
 		[JsonProperty("version")]
 		public string Version { get; set; }
 

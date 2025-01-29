@@ -1,11 +1,8 @@
 ﻿using Microsoft.Win32;
 
-namespace SodaCL.Toolkits
-{
-	public static class RegEditor
-	{
-		public enum RegDomain
-		{
+namespace SodaCL.Toolkits {
+	public static class RegEditor {
+		public enum RegDomain {
 		}
 
 		/// <summary>
@@ -13,8 +10,7 @@ namespace SodaCL.Toolkits
 		/// </summary>
 		/// <param name="targetDomain">目标主域</param>
 		/// <param name="targetSubKey">目标子项(目录格式)</param>
-		public static void CreateSubKey(RegistryKey targetDomain, string targetSubKey)
-		{
+		public static void CreateSubKey(RegistryKey targetDomain, string targetSubKey) {
 			var createSubKey = targetDomain.CreateSubKey(targetSubKey);
 			targetDomain.Close();
 			createSubKey.Close();
@@ -25,8 +21,7 @@ namespace SodaCL.Toolkits
 		/// </summary>
 		/// <param name="targetDomain">目标主域</param>
 		/// <param name="targetDomain">目标子项(目录格式)</param>
-		public static void DeleteKey(RegistryKey targetDomain, string targetSubKey)
-		{
+		public static void DeleteKey(RegistryKey targetDomain, string targetSubKey) {
 			targetDomain.DeleteSubKey(targetSubKey, true);
 			targetDomain.Close();
 		}
@@ -37,8 +32,7 @@ namespace SodaCL.Toolkits
 		/// <param name="targetDomain">目标主域</param>
 		/// <param name="targetSubKey">目标子项(目录格式)</param>
 		/// <param name="name">键名称</param>
-		public static void DeleteKeyValue(RegistryKey targetDomain, string targetSubKey, string name)
-		{
+		public static void DeleteKeyValue(RegistryKey targetDomain, string targetSubKey, string name) {
 			var regDomain = targetDomain.OpenSubKey(targetSubKey, true);
 			regDomain.DeleteValue(name, true);
 			targetDomain.Close();
@@ -52,8 +46,7 @@ namespace SodaCL.Toolkits
 		/// <param name="targetSubKey"></param>
 		/// <param name="name"></param>
 		/// <returns> <see langword="string"/> 格式的目标值 </returns>
-		public static string? GetKeyValue(RegistryKey regDomain, string name, string targetSubKey = @"Software\SodaCL")
-		{
+		public static string? GetKeyValue(RegistryKey regDomain, string name, string targetSubKey = @"Software\SodaCL") {
 			var openedSubKey = regDomain.OpenSubKey(targetSubKey);
 			var getValue = openedSubKey == null ? openedSubKey.GetValue(name).ToString() : null;
 			regDomain.Close();
@@ -69,8 +62,7 @@ namespace SodaCL.Toolkits
 		/// <param name="name">键名称</param>
 		/// <param name="value">设置的值</param>
 		/// <param name="valueKind">值的类别</param>
-		public static void SetKeyValue(RegistryKey targetDomain, string name, string value, RegistryValueKind valueKind, string targetSubKey = @"Software\SodaCL")
-		{
+		public static void SetKeyValue(RegistryKey targetDomain, string name, string value, RegistryValueKind valueKind, string targetSubKey = @"Software\SodaCL") {
 			var registryKey = targetDomain.OpenSubKey(targetSubKey, true);
 			registryKey.SetValue(name, value, valueKind);
 			targetDomain.Close();

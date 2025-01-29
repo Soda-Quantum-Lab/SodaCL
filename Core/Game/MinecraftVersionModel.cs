@@ -1,14 +1,11 @@
-﻿namespace SodaCL.Core.Game
-{
-	public class MinecraftVersionModel
-	{
+﻿namespace SodaCL.Core.Game {
+	public class MinecraftVersionModel {
 		#region 枚举
 
 		/// <summary>
 		/// Minecraft 版本类别枚举
 		/// </summary>
-		public enum MinecraftVersionState
-		{
+		public enum MinecraftVersionState {
 			Vanilla, //原版
 			Snapshot,//快照
 			Forge,

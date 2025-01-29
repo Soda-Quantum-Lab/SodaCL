@@ -1,18 +1,15 @@
 ﻿using Newtonsoft.Json;
 
-namespace SodaCL.Core.Models
-{
+namespace SodaCL.Core.Models {
 	/// <summary>
 	/// Minecraft 版本类型
 	/// </summary>
-	public enum VersionType
-	{
+	public enum VersionType {
 		Snapshot,
 		Release
 	}
 
-	public class VersionManifestModel
-	{
+	public class VersionManifestModel {
 		/// <summary>
 		/// 最近的 Minecraft 版本号
 		/// </summary>
@@ -23,8 +20,7 @@ namespace SodaCL.Core.Models
 		public VersionModel[] Versions { get; set; }
 	}
 
-	public class LatestModel
-	{
+	public class LatestModel {
 		/// <summary>
 		/// 最近的 Minecraft 正式版版本号
 		/// </summary>
@@ -38,8 +34,7 @@ namespace SodaCL.Core.Models
 		public string Snapshot { get; set; }
 	}
 
-	public class VersionModel
-	{
+	public class VersionModel {
 		/// <summary>
 		/// Minecraft 版本 Id
 		/// </summary>

@@ -8,15 +8,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Windows.Xps;
 using static SodaCL.Launcher.LauncherInfo;
 using static SodaCL.Toolkits.DataTool;
 using static SodaCL.Toolkits.DeviceInfo;
 
-namespace SodaCL.Core.Game
-{
-	public class MinecraftLaunch
-	{
+namespace SodaCL.Core.Game {
+
+	public class MinecraftLaunch {
 		private static CoreModel _coreInfo;
 		private static AssetModel _assetInfo;
 		private static string _uuid;
@@ -27,36 +25,33 @@ namespace SodaCL.Core.Game
 		private static string _userType;
 		private static string _versionType;
 
-		private MinecraftLaunch()
-		{
+		private MinecraftLaunch() {
 		}
 
 		private static List<string> BasicArguments { get; set; }
 		private static List<string> LibrariesArguments { get; set; }
 		private static List<string> McArguments { get; set; }
 
-		public static void LaunchGame()
-		{
+		public static void LaunchGame() {
 			_coreInfo = JsonConvert.DeserializeObject<CoreModel>(RegEditor.GetKeyValue(Registry.CurrentUser, "CurrentGameInfo"));
 			_assetInfo = JsonConvert.DeserializeObject<AssetModel>(_coreInfo.GameDir + "\\" + _coreInfo.VersionName);
 			var StartArgs = SpliceArgumentsMain();
 
 			var p = new Process();
-			p.StartInfo.FileName = "C:\\Program Files\\Zulu\\zulu-17\\bin\\java.exe";  // Java 选择器暂时还没搓
-			p.StartInfo.Arguments = StartArgs;
-			p.StartInfo.CreateNoWindow = false;
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardInput = true;
-			p.StartInfo.RedirectStandardOutput = true;
-			p.StartInfo.RedirectStandardError = true;
-
+			p.StartInfo = new ProcessStartInfo {
+				FileName = "C:\\Program Files\\Zulu\\zulu-17\\bin\\java.exe",
+				Arguments = StartArgs,
+				CreateNoWindow = false,
+				UseShellExecute = false,
+				RedirectStandardInput = true,
+				RedirectStandardOutput = true,
+				RedirectStandardError = true,
+			};
 			p.Start();
 		}
 
-		public static string SpliceArgumentsMain()
-		{
-			switch (RegEditor.GetKeyValue(Registry.CurrentUser, "LoginType"))
-			{
+		public static string SpliceArgumentsMain() {
+			switch (RegEditor.GetKeyValue(Registry.CurrentUser, "LoginType")) {
 				// 后续离线账户可能默认用 Authlib-Injector 了
 
 				case "0":
@@ -64,6 +59,7 @@ namespace SodaCL.Core.Game
 					_userType = "legacy";
 
 					break;
+
 				case "1":
 					_uuid = "111";  //TODO
 					_userType = "msa";
@@ -77,15 +73,13 @@ namespace SodaCL.Core.Game
 			return basicArguments + libArguments + mcArguments;
 		}
 
-		public static string SpliceBasicArguments()
-		{
+		public static string SpliceBasicArguments() {
 			var javaPath = JavaFindingAndSelecting.JavaAutoSelector(_coreInfo.MajorVersion);
-			if (javaPath == "核心版本非法")
-			{
+			if (javaPath == "核心版本非法") {
 				Logger.Log(false, Logger.ModuleList.IO, Logger.LogInfo.Warning, "核心版本非法，无法确定所需 Java ");
 			}
 
-			//TODO: Args Modify (内存修改, GC 回收器修改) 
+			//TODO: Args Modify (内存修改, GC 回收器修改)
 
 			//TODO: Natives 文件处理 (-Djava.library.path="E:\Minecraft\.minecraft\$natives")
 
@@ -103,16 +97,13 @@ namespace SodaCL.Core.Game
 			return SplitListAndToString(BasicArguments, " ");
 		}
 
-		public static string SpliceLibrariesArguments()
-		{
+		public static string SpliceLibrariesArguments() {
 			//LibrariesArguments.Add();
 			LibrariesArguments.Add(" -cp ");
-			foreach (var libraries in _assetInfo.Downloads.Client.Path)
-			{
+			foreach (var libraries in _assetInfo.Downloads.Client.Path) {
 				var libProcessed = PathConverter(libraries.ToString());
 				var libPath = SODA_MC_VERSIONS_DIR + "\\" + libProcessed;
-				if (!File.Exists(libPath))
-				{
+				if (!File.Exists(libPath)) {
 					Logger.Log(false, Logger.ModuleList.IO, Logger.LogInfo.Warning, "启动 Minecraft 所需的 Libraries 文件不存在: " + libPath);
 					// 这里应该需要一个自动下载的逻辑，但是多线程下载器鸽秋还不会用
 				}
@@ -121,8 +112,7 @@ namespace SodaCL.Core.Game
 			return SplitListAndToString(LibrariesArguments, " ");
 		}
 
-		public static string SpliceMcArguments()
-		{
+		public static string SpliceMcArguments() {
 			//McArguments.Add();
 			McArguments.Add($"--username {RegEditor.GetKeyValue(Registry.CurrentUser, "UserName")}");
 			McArguments.Add($"--version {_coreInfo.VersionName}");
@@ -133,8 +123,7 @@ namespace SodaCL.Core.Game
 			McArguments.Add($"--accessToken {_accessToken}");
 
 			// 微软账户特有 xuid 处理
-			if (RegEditor.GetKeyValue(Registry.CurrentUser, "LoginType") == "1")
-			{
+			if (RegEditor.GetKeyValue(Registry.CurrentUser, "LoginType") == "1") {
 				McArguments.Add($"--xuid {_xuid}");
 			}
 
@@ -145,12 +134,10 @@ namespace SodaCL.Core.Game
 			return SplitListAndToString(McArguments, " ");
 		}
 
-		public static void CreateLaunchScript(string script)
-		{
+		public static void CreateLaunchScript(string script) {
 			var targetPath = DirConverter(SODACL_FOLDER_PATH) + "Launch.bat";
 			File.CreateText(targetPath);
 			File.WriteAllText(targetPath, script);
 		}
-
 	}
 }

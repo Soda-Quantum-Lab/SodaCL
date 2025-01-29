@@ -1,19 +1,15 @@
 ﻿using System.Collections;
 using System.Text;
-using System.Web;
 using System.Windows.Media;
 
-namespace SodaCL.Toolkits
-{
-	public class DataTool
-	{
+namespace SodaCL.Toolkits {
+	public class DataTool {
 		/// <summary>
 		/// 将 <see cref="SolidColorBrush"/> 对象 转换为 <see cref="Color"/> 对象
 		/// </summary>
 		/// <param name="targetBrush">源对象</param>
 		/// <returns></returns>
-		public static Color BrushToColor(Brush targetBrush)
-		{
+		public static Color BrushToColor(Brush targetBrush) {
 			return ((SolidColorBrush)targetBrush).Color;
 		}
 
@@ -22,8 +18,7 @@ namespace SodaCL.Toolkits
 		/// </summary>
 		/// <param name="rawDir">原目录</param>
 		/// <returns></returns>
-		public static string DirConverter(string rawDir)
-		{
+		public static string DirConverter(string rawDir) {
 			if (rawDir.EndsWith("\\"))
 				return rawDir;
 			else if (string.IsNullOrEmpty(rawDir) || string.IsNullOrWhiteSpace(rawDir))
@@ -37,8 +32,7 @@ namespace SodaCL.Toolkits
 		/// </summary>
 		/// <param name="rawPath">原路径</param>
 		/// <returns></returns>
-		public static string PathConverter(string rawPath)
-		{
+		public static string PathConverter(string rawPath) {
 			if (rawPath.EndsWith("\\"))
 				throw new System.Exception("文件路径非法");
 			else
@@ -51,13 +45,10 @@ namespace SodaCL.Toolkits
 		/// <param name="targetList">源对象</param>
 		/// <param name="targetString">目标字符</param>
 		/// <returns><see langword="string"/> 拼接完成的对象</returns>
-		public static string SplitListAndToString(ICollection targetList, string targetString)
-		{
+		public static string SplitListAndToString(ICollection targetList, string targetString) {
 			var builder = new StringBuilder();
-			foreach (var item in targetList)
-			{
-				if (item != null)
-				{
+			foreach (var item in targetList) {
+				if (item != null) {
 					builder.Append(item + targetString);
 					break;
 				}

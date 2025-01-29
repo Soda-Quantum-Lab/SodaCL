@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 
-namespace SodaCL.Launcher
-{
-	public class LauncherInfo
-	{
+namespace SodaCL.Launcher {
+	public class LauncherInfo {
 		public static string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\SodaCL";
 		public static string currentDir = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
 		public static string SODA_MC_DIR = currentDir + @".minecraft";

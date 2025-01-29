@@ -5,18 +5,13 @@ using System.Globalization;
 using System.IO;
 using static SodaCL.Toolkits.Logger;
 
-namespace SodaCL.Launcher
-{
-	public static class LauncherInit
-	{
-		public static void DeleteTempFolder()
-		{
-			if (Directory.GetFiles(LauncherInfo.SODACL_TEMP_FOLDER_PATH).Length > 0)
-			{
+namespace SodaCL.Launcher {
+	public static class LauncherInit {
+		public static void DeleteTempFolder() {
+			if (Directory.GetFiles(LauncherInfo.SODACL_TEMP_FOLDER_PATH).Length > 0) {
 				var tempDir = new DirectoryInfo(LauncherInfo.SODACL_TEMP_FOLDER_PATH);
 				var tempFiles = tempDir.GetFiles();
-				foreach (var files in tempFiles)
-				{
+				foreach (var files in tempFiles) {
 					File.Delete(files.FullName);
 				}
 				Log(false, ModuleList.IO, LogInfo.Debug, "正在清空缓存");
@@ -26,10 +21,8 @@ namespace SodaCL.Launcher
 		/// <summary>
 		/// 新建Minecraft及启动器文件
 		/// </summary>
-		public static void Setup()
-		{
-			try
-			{
+		public static void Setup() {
+			try {
 				if (!Directory.Exists(LauncherInfo.SODACL_FOLDER_PATH))
 					Directory.CreateDirectory(LauncherInfo.SODACL_FOLDER_PATH);
 
@@ -57,13 +50,11 @@ namespace SodaCL.Launcher
 				if (Registry.CurrentUser.OpenSubKey(@"Software\SodaCL") == null)
 					RegEditor.CreateSubKey(Registry.CurrentUser, @"Software\SodaCL");
 
-				if (RegEditor.GetKeyValue(Registry.CurrentUser, "IsSetuped") != "True")
-				{
+				if (RegEditor.GetKeyValue(Registry.CurrentUser, "IsSetuped") != "True") {
 					FirstSetup();
 				}
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				Log(true, ModuleList.IO, LogInfo.Info, ex: ex);
 			}
 		}
@@ -89,8 +80,7 @@ namespace SodaCL.Launcher
 		//		}
 		//	}
 		//}
-		public static void FirstSetup()
-		{
+		public static void FirstSetup() {
 			#region 注册表
 
 			if (RegionInfo.CurrentRegion.Name == "CN")

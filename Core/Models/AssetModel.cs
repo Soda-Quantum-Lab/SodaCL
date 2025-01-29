@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
-namespace SodaCL.Core.Models
-{
-	public class AssetModel
-	{
+namespace SodaCL.Core.Models {
+	public class AssetModel {
 		//Minecraft 资源信息
 		[JsonProperty("assetIndex")]
 		public AssetIndexModel AssetIndex { get; set; }
@@ -51,8 +49,7 @@ namespace SodaCL.Core.Models
 		public string Type { get; set; }
 	}
 
-	public class AssetFileInfoModel
-	{
+	public class AssetFileInfoModel {
 		[JsonPropertyName("path")]
 		public string Path { get; set; }
 
@@ -66,8 +63,7 @@ namespace SodaCL.Core.Models
 		public string Url { get; set; }
 	}
 
-	public class AssetDownladModel
-	{
+	public class AssetDownladModel {
 		[JsonProperty("client")]
 		public AssetFileInfoModel Client { get; set; }
 
@@ -75,8 +71,7 @@ namespace SodaCL.Core.Models
 		public AssetFileInfoModel Server { get; set; }
 	}
 
-	public class AssetIndexModel
-	{
+	public class AssetIndexModel {
 		[JsonProperty("id")]
 		public string Id { get; set; }
 
@@ -95,8 +90,7 @@ namespace SodaCL.Core.Models
 		public string Url { get; set; }
 	}
 
-	public class AssetJavaVersionModel
-	{
+	public class AssetJavaVersionModel {
 		[JsonProperty("component")]
 		public string Component { get; set; }
 
@@ -104,8 +98,7 @@ namespace SodaCL.Core.Models
 		public short majorVersion { get; set; }
 	}
 
-	public class AssetLibraryModel
-	{
+	public class AssetLibraryModel {
 		[JsonProperty("downloads")]
 		public AssetLibraryDownloadModel Downloads { get; set; }
 
@@ -113,14 +106,12 @@ namespace SodaCL.Core.Models
 		public string Name { get; set; }
 	}
 
-	public class AssetLibraryDownloadModel
-	{
+	public class AssetLibraryDownloadModel {
 		[JsonProperty("artifact")]
 		public AssetFileInfoModel Artifact { get; set; }
 	}
 
-	public class AssetLoggingModel
-	{
+	public class AssetLoggingModel {
 		[JsonProperty("argument")]
 		public string Argument { get; set; }
 
