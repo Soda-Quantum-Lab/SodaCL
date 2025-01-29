@@ -14,7 +14,7 @@ using static SodaCL.Toolkits.Logger;
 //Finish
 namespace SodaCL.Core.Java {
 
-	public class JavaFindingAndSelecting {
+	public class JavaProcess {
 
 		#region 自动 Java 查找
 
@@ -189,11 +189,13 @@ namespace SodaCL.Core.Java {
 		//	return "目标 Java 版本非法";
 		//}
 
-		public static string JavaAutoSelector(int TargetMcVersion) {
+		public static string JavaAutoSelector(string TargetMcVersion) {
 			var javaJson = RegEditor.GetKeyValue(Registry.CurrentUser, "CacheJavaList");
 			var javaList = JsonConvert.DeserializeObject<JavaModel>(javaJson);
 
-			if (TargetMcVersion >= 1.17) {
+			var mcMajorVersion = int.Parse(TargetMcVersion.Split('.')[1]);
+
+			if (mcMajorVersion >= 17) {
 				// 1.18 Pre2+ 至少 Java 17
 				// 1.17+ (21w19a+) 至少 Java 16
 				// 出于省事考虑直接最少 Java 17 ，除了 1.17 部分早期版本的 Forge 可能需要特殊处理 (Java 16)
@@ -207,7 +209,7 @@ namespace SodaCL.Core.Java {
 					break;
 				}
 			}
-			else if (TargetMcVersion >= 1.12) {
+			else if (mcMajorVersion >= 12) {
 				// 最少 Java 8
 				// 如果是 1.12 加了 Forge 最高 Java 8
 
@@ -220,7 +222,7 @@ namespace SodaCL.Core.Java {
 					break;
 				}
 			}
-			else if (TargetMcVersion <= 1.11 && TargetMcVersion >= 1.8) {
+			else if (mcMajorVersion <= 11 && mcMajorVersion >= 8) {
 				// 必须恰好 Java 8
 
 				foreach (var javaJsonSingle in javaList.ToString()) {
@@ -232,7 +234,7 @@ namespace SodaCL.Core.Java {
 					break;
 				}
 			}
-			else if (TargetMcVersion <= 1.7) {
+			else if (mcMajorVersion <= 7) {
 				// 最高 Java 8
 
 				foreach (var javaJsonSingle in javaList.ToString()) {
@@ -245,7 +247,7 @@ namespace SodaCL.Core.Java {
 					break;
 				}
 			}
-			else if (TargetMcVersion <= 1.5) {
+			else if (mcMajorVersion <= 5) {
 				// 最高 Java 12
 
 				foreach (var javaJsonSingle in javaList.ToString()) {
