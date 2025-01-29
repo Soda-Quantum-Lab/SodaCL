@@ -1,47 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<UseWPF>true</UseWPF>
-		<ImplicitUsings>disable</ImplicitUsings>
-		<Product>Soda Craft Launcher</Product>
-		<AssemblyName>SodaCL</AssemblyName>
-		<AssemblyTitle>Soda Craft Launcher 启动器</AssemblyTitle>
-		<Description>一个清爽的 Minecraft 启动器</Description>
-		<Version>0.0.5.1</Version>
-		<FileVersion>0.0.5.1</FileVersion>
-		<Copyright>Copyright © 2022-2023 Soda Quantum Laboratory，All Rights Reserved.</Copyright>
-		<ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
-		<RootNamespace>SodaCL</RootNamespace>
-		<Nullable>disable</Nullable>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<NoWarn>1701;1702;SYSLIB0014</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<NoWarn>1701;1702;SYSLIB0014</NoWarn>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="Resources\Images\Dev.ico" />
-		<None Remove="Resources\Images\Launcher-Bg.jpg" />
-		<None Remove="Resources\Images\Release.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Resource Include="Token.xaml" />
-		<Resource Include="Resources\Images\Dev.ico" />
-		<Resource Include="Resources\Images\Launcher-Bg.jpg" />
-		<Resource Include="Resources\Images\Release.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.2" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	</ItemGroup>
-
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Product>Soda Craft Launcher</Product>
+    <AssemblyName>SodaCL</AssemblyName>
+    <AssemblyTitle>Soda Craft Launcher 启动器</AssemblyTitle>
+    <Description>一个清爽的 Minecraft 启动器</Description>
+    <Version>0.0.5.1</Version>
+    <FileVersion>0.0.5.1</FileVersion>
+    <Copyright>Copyright © 2022-2023 Soda Quantum Laboratory，All Rights Reserved.</Copyright>
+    <ApplicationIcon>Resources\Images\Dev.ico</ApplicationIcon>
+    <RootNamespace>SodaCL</RootNamespace>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;SYSLIB0014</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;SYSLIB0014</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Images\Dev.ico" />
+    <None Remove="Resources\Images\Launcher-Bg.jpg" />
+    <None Remove="Resources\Images\Release.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Token.xaml" />
+    <Resource Include="Resources\Images\Dev.ico" />
+    <Resource Include="Resources\Images\Launcher-Bg.jpg" />
+    <Resource Include="Resources\Images\Release.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.2" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
 </Project>

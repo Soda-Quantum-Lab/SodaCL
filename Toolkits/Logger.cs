@@ -142,7 +142,7 @@ namespace SodaCL.Toolkits
 			}
 			try
 			{
-				Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SODACL_LOG_FOLDER_PATH}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
+				System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener($"{LauncherInfo.SODACL_LOG_FOLDER_PATH}\\[{DateTime.Now.Month}.{DateTime.Now.Day}]SodaCL_Log.txt"));
 				Trace.AutoFlush = true;
 				Trace.WriteLine(" -------- SodaCL 程序日志记录开始 --------");
 			}
