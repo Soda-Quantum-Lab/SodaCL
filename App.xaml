@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sc="clr-namespace:SodaCL.Controls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -12,6 +13,8 @@
                 <ResourceDictionary Source="Langs\zh-TW.xaml" />
                 <ResourceDictionary Source="Langs\zh-Fuck.xaml" />
                 <ResourceDictionary Source="Token.xaml" />
+                <ResourceDictionary Source="Animations.xaml" />
+                <xf:XamlFlairResources />
             </ResourceDictionary.MergedDictionaries>
             <!--主题色-->
             <!-- 主按钮普通 -->
