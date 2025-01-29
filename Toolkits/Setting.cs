@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SodaCL.Controls.Dialogs;
+using SodaCL.Models.Launcher.Toolkits;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,16 +16,26 @@ namespace SodaCL.Toolkits {
 	/// </summary>
 	public class Setting {
 		/// <summary>
-		/// Ð´Èë配置
+		/// ð´èë配置
 		/// </summary>
-		/// <param name="key"></param>
-		/// <param name="value"></param>
-		//public static void WriteSetting(string key, string value) {
-		//	var settings = JsonConvert.DeserializeObject<>(File.ReadAllText(SODACL_SETTINGS));
-		//	if (File.Exists(SODACL_SETTINGS) || File.ReadAllText(SODACL_SETTINGS) == null) {
-		//		File.Create(SODACL_SETTINGS);
-		//		File.WriteAllLines(SODACL_SETTINGS, null);
-		//	}
-		//}
+
+		/// <private param name = "key" ></ param >
+		/// < param name="value"></param>
+
+		public static void WriteSetting(string key, string value) {
+			try {
+				var settings = JsonConvert.DeserializeObject<SodaSetting>(File.ReadAllText(SODACL_SETTINGS));
+				if (settings == null) {
+					throw new Exception();
+				}
+			}
+			catch {
+				var dE = new SodaDialog(SodaDialog.DialogType.Error, "读取配置文件出错，程序自动退出。");
+				dE.CloseEvent += () => {
+					App.Current.Shutdown();
+					return null;
+				};
+			}
+		}
 	}
 }

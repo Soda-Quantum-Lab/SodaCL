@@ -7,7 +7,9 @@ using System.IO;
 using System.Windows;
 
 namespace SodaCL.Toolkits {
+
 	public static class Logger {
+
 		/// <summary>
 		/// Log文件夹
 		/// </summary>
@@ -101,7 +103,7 @@ namespace SodaCL.Toolkits {
 			}
 			if (isOpenDialog) {
 				if (ex != null) {
-					var dE = new SodaLauncherErrorDialog(logContent);
+					var dE = new SodaDialog(SodaDialog.DialogType.Info, logContent);
 					MainWindow.mainWindow.Grid_DialogArea.Children.Add(dE);
 				}
 				else {

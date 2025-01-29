@@ -9,7 +9,7 @@ namespace SodaCL.Core.Profile {
 		public static void SaveProfile(AccountModel account) {
 			var enc = new Encryption();
 			var encryptionedProfile = enc.AesEncrypt(account.ToString());
-			var sodaMsg = new SodaLauncherErrorDialog(encryptionedProfile);
+			var sodaMsg = new SodaDialog(SodaDialog.DialogType.Info, encryptionedProfile);
 		}
 	}
 }

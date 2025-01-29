@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sc="clr-namespace:SodaCL.Controls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,8 +12,6 @@
                 <ResourceDictionary Source="Langs\zh-TW.xaml" />
                 <ResourceDictionary Source="Langs\zh-Fuck.xaml" />
                 <ResourceDictionary Source="Token.xaml" />
-                <ResourceDictionary Source="Animation.xaml" />
-                <xf:XamlFlairResources />
             </ResourceDictionary.MergedDictionaries>
             <!--主题色-->
             <!-- 主按钮普通 -->
@@ -38,19 +35,30 @@
             <!-- 普通按钮禁用 -->
             <SolidColorBrush x:Key="Brush_Normal_Disable" Color="#D0D4DD" />
             <!-- 警告按钮普通 -->
-            <SolidColorBrush x:Key="Brush_Warning" Color="#ED3737" />
+            <SolidColorBrush x:Key="Brush_Warning" Color="#F5C536" />
             <!-- 警告按钮悬浮 -->
-            <SolidColorBrush x:Key="Brush_Warning_Hover" Color="#E13434" />
+            <SolidColorBrush x:Key="Brush_Warning_Hover" Color="#e9bb33" />
             <!-- 警告按钮选中 -->
-            <SolidColorBrush x:Key="Brush_Warning_Select" Color="#D53131" />
+            <SolidColorBrush x:Key="Brush_Warning_Select" Color="#dcb130" />
             <!-- 警告按钮按下 -->
-            <SolidColorBrush x:Key="Brush_Warning_Press" Color="#DF3434" />
+            <SolidColorBrush x:Key="Brush_Warning_Press" Color="#e7b933" />
             <!-- 警告按钮禁用 -->
-            <SolidColorBrush x:Key="Brush_Warning_Disable" Color="#D45353" />
+            <SolidColorBrush x:Key="Brush_Warning_Disable" Color="#d9b853" />
+            <!-- 错误按钮普通 -->
+            <SolidColorBrush x:Key="Brush_Error" Color="#ED3737" />
+            <!-- 错误按钮悬浮 -->
+            <SolidColorBrush x:Key="Brush_Error_Hover" Color="#E13434" />
+            <!-- 错误按钮选中 -->
+            <SolidColorBrush x:Key="Brush_Error_Select" Color="#D53131" />
+            <!-- 错误按钮按下 -->
+            <SolidColorBrush x:Key="Brush_Error_Press" Color="#DF3434" />
+            <!-- 错误按钮禁用 -->
+            <SolidColorBrush x:Key="Brush_Error_Disable" Color="#D45353" />
             <!--Dialog-->
-            <Color x:Key="Color_Dialog_Main_Background">#EDF6FC</Color>
-            <SolidColorBrush x:Key="Brush_Dialog_Warning_Background" Color="{DynamicResource Color_Dialog_Warning_Background}" />
-            <Color x:Key="Color_Dialog_Warning_Background">#FBECEC</Color>
+            <Color x:Key="Color_Dialog_Info_Background">#EDF6FC</Color>
+            <SolidColorBrush x:Key="Brush_Dialog_Info_Background" Color="{DynamicResource Color_Dialog_Error_Background}" />
+            <Color x:Key="Color_Dialog_Error_Background">#FBECEC</Color>
+            <SolidColorBrush x:Key="Brush_Dialog_Error_Background" Color="{DynamicResource Color_Dialog_Error_Background}" />
             <!-- 边框 -->
             <SolidColorBrush x:Key="GlobalTxtColor" Color="Black" />
             <DrawingImage x:Key="Svg_Min">

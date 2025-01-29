@@ -5,7 +5,9 @@ using System.Globalization;
 using static SodaCL.Toolkits.GetResources;
 
 namespace SodaCL.Toolkits {
+
 	public static class AppCenterManager {
+
 		/// <summary>
 		/// 启动 AppCenter 服务
 		/// </summary>

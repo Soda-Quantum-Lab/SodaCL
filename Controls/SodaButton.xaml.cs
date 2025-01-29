@@ -24,6 +24,7 @@ namespace SodaCL.Controls {
 			Main,
 			Normal,
 			Warning,
+			Error,
 		}
 
 		#endregion 枚举
@@ -52,6 +53,10 @@ namespace SodaCL.Controls {
 
 				case ButtonTypes.Warning:
 					Btn_Border.Background = (SolidColorBrush)GetBrush("Brush_Warning");
+					break;
+
+				case ButtonTypes.Error:
+					Btn_Border.Background = (SolidColorBrush)GetBrush("Brush_Error");
 					break;
 			}
 		}
@@ -120,6 +125,27 @@ namespace SodaCL.Controls {
 						sb.Begin();
 					}
 					break;
+
+				case ButtonTypes.Error:
+					if (IsMouseOver) {
+						var sb = new Storyboard();
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Error_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
+						ca.EasingFunction = ce;
+						Storyboard.SetTarget(ca, Btn_Border);
+						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
+						sb.Children.Add(ca);
+						sb.Begin();
+					}
+					else {
+						var sb = new Storyboard();
+						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Error")), new Duration(TimeSpan.FromSeconds(0.2)));
+						ca.EasingFunction = ce;
+						Storyboard.SetTarget(ca, Btn_Border);
+						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
+						sb.Children.Add(ca);
+						sb.Begin();
+					}
+					break;
 			}
 		}
 
@@ -147,6 +173,12 @@ namespace SodaCL.Controls {
 					var caW = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning_Press")), new Duration(TimeSpan.FromSeconds(0.1)));
 					caW.EasingFunction = ce;
 					Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, caW);
+					break;
+
+				case ButtonTypes.Error:
+					var caE = new ColorAnimation(BrushToColor(GetBrush("Brush_Error_Press")), new Duration(TimeSpan.FromSeconds(0.1)));
+					caE.EasingFunction = ce;
+					Btn_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, caE);
 					break;
 			}
 		}
