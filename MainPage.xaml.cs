@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using static SodaCL.Core.Java.JavaProcess;
 using static SodaCL.Toolkits.HttpHelper;
 using static SodaCL.Toolkits.Logger;
 
@@ -76,7 +77,7 @@ namespace SodaCL.Pages {
 		private void EnvironmentCheckButtonClick(object sender, RoutedEventArgs e) {
 			MinecraftVersion.GetVersionList();
 			Log(false, ModuleList.IO, LogInfo.Info, "--------------------------------");
-			Task.Run(() => { JavaFindingAndSelecting.AutoJavaFinding(); });
+			Task.Run(() => { AutoJavaFinding(); });
 		}
 
 		private void LogFolderOpenerButtonClick(object sender, RoutedEventArgs e) {
@@ -89,7 +90,7 @@ namespace SodaCL.Pages {
 			//var sl = JsonConvert.DeserializeObject<AssetModel>(await GetStringResponseAsync("https://bmclapi2.bangbang93.com/mc/game/version_manifest_v2.json"));
 			//MessageBox.Show(sl.ToString());
 
-			RegEditor.SetKeyValue(Registry.CurrentUser, "LoginType", "0", RegistryValueKind.String);
+			// RegEditor.SetKeyValue(Registry.CurrentUser, "LoginType", "0", RegistryValueKind.String);
 		}
 
 		#endregion 事件
