@@ -28,15 +28,9 @@ namespace SodaCL.Controls
 		private static SodaCheckBox checkBox;
 		private CubicEase ce = new() { EasingMode = EasingMode.EaseOut };
 		private bool isMouseDown;
+		private bool isEnabled = false;
 
 		#region 枚举
-
-		public enum ButtonTypes
-		{
-			Main,
-			Normal,
-			Warning,
-		}
 
 		#endregion 枚举
 
@@ -48,9 +42,6 @@ namespace SodaCL.Controls
 		{
 			if (isMouseDown)
 			{
-				if (IsEnabled)
-				{
-				}
 				Log(false, ModuleList.Control, LogInfo.Info, $"切换复选框 \"{Text}\"");
 				Click?.Invoke(sender, e);
 			}
@@ -58,96 +49,38 @@ namespace SodaCL.Controls
 
 		private void Border_Loaded(object sender, RoutedEventArgs e)
 		{
-			switch (ButtonType)
-			{
-				case ButtonTypes.Main:
-					CheckBox_Border.Background = (SolidColorBrush)GetBrush("Brush_Main");
-					break;
+			// CheckBox_Border.Background = (SolidColorBrush)GetBrush("Brush_Main");
 
-				case ButtonTypes.Normal:
-					CheckBox_Border.Background = (SolidColorBrush)GetBrush("Brush_Normal");
-					// Btn_Txb.Foreground = Brushes.Black;
-					break;
+			CheckBox_Border.Background = new SolidColorBrush(BrushToColor(GetBrush("Brush_Main")));
+		}
 
-				case ButtonTypes.Warning:
-					CheckBox_Border.Background = (SolidColorBrush)GetBrush("Brush_Warning");
-					break;
-			}
+		public void Btn_MouseEnter(object sender, MouseEventArgs e)
+		{
+
 		}
 
 		public void Button_ChangeColor(object sender = null, MouseEventArgs e = null)
 		{
-			switch (this.ButtonType)
-			{
-				case ButtonTypes.Main:
-					if (IsMouseOver)
-					{
-						var sb = new Storyboard();
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
-						ca.EasingFunction = ce;
-						Storyboard.SetTarget(ca, CheckBox_Border);
-						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
-						sb.Children.Add(ca);
-						sb.Begin();
-					}
-					else
-					{
-						var sb = new Storyboard();
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main")), new Duration(TimeSpan.FromSeconds(0.2)));
-						ca.EasingFunction = ce;
-						Storyboard.SetTarget(ca, CheckBox_Border);
-						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
-						sb.Children.Add(ca);
-						sb.Begin();
-					}
-					break;
-
-				case ButtonTypes.Normal:
-					if (IsMouseOver)
-					{
-						var sb = new Storyboard();
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
-						ca.EasingFunction = ce;
-						Storyboard.SetTarget(ca, CheckBox_Border);
-						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
-						sb.Children.Add(ca);
-						sb.Begin();
-					}
-					else
-					{
-						var sb = new Storyboard();
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal")), new Duration(TimeSpan.FromSeconds(0.2)));
-						ca.EasingFunction = ce;
-						Storyboard.SetTarget(ca, CheckBox_Border);
-						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
-						sb.Children.Add(ca);
-						sb.Begin();
-					}
-					break;
-
-				case ButtonTypes.Warning:
-					if (IsMouseOver)
-					{
-						var sb = new Storyboard();
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
-						ca.EasingFunction = ce;
-						Storyboard.SetTarget(ca, CheckBox_Border);
-						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
-						sb.Children.Add(ca);
-						sb.Begin();
-					}
-					else
-					{
-						var sb = new Storyboard();
-						var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning")), new Duration(TimeSpan.FromSeconds(0.2)));
-						ca.EasingFunction = ce;
-						Storyboard.SetTarget(ca, CheckBox_Border);
-						Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
-						sb.Children.Add(ca);
-						sb.Begin();
-					}
-					break;
-			}
+			//if (IsMouseOver)
+			//{
+			//	var sb = new Storyboard();
+			//	var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main_Hover")), new Duration(TimeSpan.FromSeconds(0.2)));
+			//	ca.EasingFunction = ce;
+			//	Storyboard.SetTarget(ca, CheckBox_Border);
+			//	Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
+			//	sb.Children.Add(ca);
+			//	sb.Begin();
+			//}
+			//else
+			//{
+			//	var sb = new Storyboard();
+			//	var ca = new ColorAnimation(BrushToColor(GetBrush("Brush_Main")), new Duration(TimeSpan.FromSeconds(0.2)));
+			//	ca.EasingFunction = ce;
+			//	Storyboard.SetTarget(ca, CheckBox_Border);
+			//	Storyboard.SetTargetProperty(ca, new PropertyPath("(Border.Background).(SolidColorBrush.Color)"));
+			//	sb.Children.Add(ca);
+			//	sb.Begin();
+			//}
 		}
 
 		private void Btn_Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -156,27 +89,44 @@ namespace SodaCL.Controls
 			var scX = new DoubleAnimation(0.95, TimeSpan.FromSeconds(0.1));
 			scX.EasingFunction = ce;
 			CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
+			// CheckBox_BgBorder_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
 			var scY = new DoubleAnimation(0.95, TimeSpan.FromSeconds(0.1));
-			scY.EasingFunction = ce; CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
-			switch (ButtonType)
+			scY.EasingFunction = ce; 
+			CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
+			// CheckBox_BgBorder_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
+
+			if (isEnabled)
 			{
-				case ButtonTypes.Main:
-					var caM = new ColorAnimation(BrushToColor(GetBrush("Brush_Main_Press")), new Duration(TimeSpan.FromSeconds(0.1)));
-					caM.EasingFunction = ce;
-					CheckBox_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, caM);
-					break;
+				var caM = new ColorAnimation(BrushToColor(GetBrush("Brush_Main")), new Duration(TimeSpan.FromSeconds(0.3)));
+				caM.EasingFunction = ce;
+				CheckBox_BgBorder.Background.BeginAnimation(SolidColorBrush.ColorProperty, caM);
+				// CheckBox_BgBorder.Background.BeginAnimation(SolidColorBrush.ColorProperty, caM);
 
-				case ButtonTypes.Normal:
-					var caN = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal_Press")), new Duration(TimeSpan.FromSeconds(0.1)));
-					caN.EasingFunction = ce;
-					CheckBox_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, caN);
-					break;
+				var daM = new DoubleAnimation();
+				daM.From = 105;
+				daM.To = 125;
+				daM.Duration = TimeSpan.FromSeconds(0.1);
+				CheckBox_Border.BeginAnimation(WidthProperty, daM);
+				// CheckBox_BgBorder.Background.BeginAnimation(WidthProperty, daM);
+				// CheckBox_Border.Background = (SolidColorBrush)GetBrush("Brush_Main");
+				isEnabled = false;
+			}
+			else
+			{
 
-				case ButtonTypes.Warning:
-					var caW = new ColorAnimation(BrushToColor(GetBrush("Brush_Warning_Press")), new Duration(TimeSpan.FromSeconds(0.1)));
-					caW.EasingFunction = ce;
-					CheckBox_Border.Background.BeginAnimation(SolidColorBrush.ColorProperty, caW);
-					break;
+				var caM = new ColorAnimation(BrushToColor(GetBrush("Brush_Normal")), new Duration(TimeSpan.FromSeconds(0.3)));
+				caM.EasingFunction = ce;
+				CheckBox_BgBorder.Background.BeginAnimation(SolidColorBrush.ColorProperty, caM);
+				// CheckBox_BgBorder.Background.BeginAnimation(SolidColorBrush.ColorProperty, caM);
+
+				var daM = new DoubleAnimation();
+				daM.From = 125;
+				daM.To = 105;
+				daM.Duration = TimeSpan.FromSeconds(0.1);
+				CheckBox_Border.BeginAnimation(WidthProperty, daM);
+				// CheckBox_BgBorder.BeginAnimation(WidthProperty, daM);
+				// CheckBox_Border.Background = (SolidColorBrush)GetBrush("Brush_Normal");
+				isEnabled = true;
 			}
 		}
 
@@ -188,26 +138,31 @@ namespace SodaCL.Controls
 				var scX = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
 				scX.EasingFunction = ce;
 				CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
+				// CheckBox_BgBorder_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
 				var scY = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
-				scY.EasingFunction = ce; CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
+				scY.EasingFunction = ce; 
+				CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
+				// CheckBox_BgBorder_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
 			}
 		}
 
 		private void Btn_Border_MouseLeave(object sender, MouseEventArgs e)
 		{
-			Button_ChangeColor();
+			// Button_ChangeColor();
 			var scX = new DoubleAnimation(1, TimeSpan.FromSeconds(0.1));
 			scX.EasingFunction = ce;
 			CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
+			// CheckBox_BgBorder_Scale.BeginAnimation(ScaleTransform.ScaleXProperty, scX);
 			var scY = new DoubleAnimation(1, TimeSpan.FromSeconds(0.11));
-			scY.EasingFunction = ce; CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
+			scY.EasingFunction = ce; 
+			CheckBox_Border_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
+			// CheckBox_BgBorder_Scale.BeginAnimation(ScaleTransform.ScaleYProperty, scY);
 		}
 
 		#endregion 事件
 
 		#region 属性
 
-		public ButtonTypes ButtonType { get; set; } = ButtonTypes.Normal;
 
 		#endregion 属性
 
