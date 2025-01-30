@@ -15,6 +15,6 @@ namespace SodaCL.Launcher {
 
 		public static string SODACL_TEMP_FOLDER_PATH = Path.GetTempPath() + "SodaCL";
 
-		public static string SODACL_SETTINGS = CURRENT_DIR + @"SodaCL\Config.json";
+		public static string SODACL_SETTINGS = CURRENT_DIR + @"SodaCL\Config.xml";
 	}
 }

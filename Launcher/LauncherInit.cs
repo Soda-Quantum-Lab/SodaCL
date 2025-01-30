@@ -4,14 +4,15 @@ using System;
 using System.Globalization;
 using System.IO;
 using static SodaCL.Toolkits.Logger;
+using static SodaCL.Launcher.LauncherInfo;
 
 namespace SodaCL.Launcher {
 
 	public static class LauncherInit {
 
 		public static void DeleteTempFolder() {
-			if (Directory.GetFiles(LauncherInfo.SODACL_TEMP_FOLDER_PATH).Length > 0) {
-				var tempDir = new DirectoryInfo(LauncherInfo.SODACL_TEMP_FOLDER_PATH);
+			if (Directory.GetFiles(SODACL_TEMP_FOLDER_PATH).Length > 0) {
+				var tempDir = new DirectoryInfo(SODACL_TEMP_FOLDER_PATH);
 				var tempFiles = tempDir.GetFiles();
 				foreach (var files in tempFiles) {
 					File.Delete(files.FullName);
@@ -25,29 +26,29 @@ namespace SodaCL.Launcher {
 		/// </summary>
 		public static void Setup() {
 			try {
-				if (!Directory.Exists(LauncherInfo.SODACL_FOLDER_PATH))
-					Directory.CreateDirectory(LauncherInfo.SODACL_FOLDER_PATH);
+				if (!Directory.Exists(SODACL_FOLDER_PATH))
+					Directory.CreateDirectory(SODACL_FOLDER_PATH);
 
-				if (!Directory.Exists(LauncherInfo.SODA_MC_DIR))
-					Directory.CreateDirectory(LauncherInfo.SODA_MC_DIR);
+				if (!Directory.Exists(SODA_MC_DIR))
+					Directory.CreateDirectory(SODA_MC_DIR);
 
-				if (!Directory.Exists(LauncherInfo.SODACL_LOG_FOLDER_PATH))
-					Directory.CreateDirectory(LauncherInfo.SODACL_LOG_FOLDER_PATH);
+				if (!Directory.Exists(SODACL_LOG_FOLDER_PATH))
+					Directory.CreateDirectory(SODACL_LOG_FOLDER_PATH);
 
-				//if (!Directory.Exists(LauncherInfo.sodaCLFontsForderPath))
-				//	Directory.CreateDirectory(LauncherInfo.sodaCLFontsForderPath);
+				//if (!Directory.Exists(sodaCLFontsForderPath))
+				//	Directory.CreateDirectory(sodaCLFontsForderPath);
 
-				if (!Directory.Exists(LauncherInfo.SODA_MC_VERSIONS_DIR))
-					Directory.CreateDirectory(LauncherInfo.SODA_MC_VERSIONS_DIR);
+				if (!Directory.Exists(SODA_MC_VERSIONS_DIR))
+					Directory.CreateDirectory(SODA_MC_VERSIONS_DIR);
 
-				if (!Directory.Exists(LauncherInfo.APP_DATA_DIR))
-					Directory.CreateDirectory(LauncherInfo.APP_DATA_DIR);
+				if (!Directory.Exists(APP_DATA_DIR))
+					Directory.CreateDirectory(APP_DATA_DIR);
 
-				if (!File.Exists(LauncherInfo.SODACL_SETTINGS))
-					File.Create(LauncherInfo.SODACL_SETTINGS);
+				if (!File.Exists(SODACL_SETTINGS))
+					DataTool.ExtractFile("SodaCL.Resources.DefaultSetting.xml", SODACL_SETTINGS);
 
-				if (!Directory.Exists(LauncherInfo.SODACL_TEMP_FOLDER_PATH))
-					Directory.CreateDirectory(LauncherInfo.SODACL_TEMP_FOLDER_PATH);
+				if (!Directory.Exists(SODACL_TEMP_FOLDER_PATH))
+					Directory.CreateDirectory(SODACL_TEMP_FOLDER_PATH);
 
 				if (Registry.CurrentUser.OpenSubKey(@"Software\SodaCL") == null)
 					RegEditor.CreateSubKey(Registry.CurrentUser, @"Software\SodaCL");
@@ -64,15 +65,15 @@ namespace SodaCL.Launcher {
 		//TODO:做不做捏？
 		//public static async Task InitMiSansFonts()
 		//{
-		//	if (new DirectoryInfo(LauncherInfo.sodaCLFontsForderPath).GetFiles().Length != 11)
+		//	if (new DirectoryInfo(sodaCLFontsForderPath).GetFiles().Length != 11)
 		//	{
 		//		try
 		//		{
-		//			var zipPath = LauncherInfo.sodaCLFontsForderPath + "\\MiSans.zip";
+		//			var zipPath = sodaCLFontsForderPath + "\\MiSans.zip";
 		//			var md = new FileDownloader("https://cdn.cnbj1.fds.api.mi-img.com/vipmlmodel/font/MiSans/MiSans.zip", zipPath);
 		//			md.DownloaderProgressFinished += (sender, e) =>
 		//			{
-		//				ZipFile.ExtractToDirectory(zipPath, LauncherInfo.sodaCLFontsForderPath);
+		//				ZipFile.ExtractToDirectory(zipPath, sodaCLFontsForderPath);
 		//			};
 		//			await md.Start();
 		//		}

@@ -85,7 +85,7 @@ namespace SodaCL.Pages {
 
 		private void StartBtn_Click(object sender, RoutedEventArgs e) {
 			//MinecraftLaunch.LaunchGame();
-			var dE = new SodaDialog(SodaDialog.DialogType.Error, null, null, null, true);
+			var dE = new SodaDialog(SodaDialog.DialogType.Error, null, null, null);
 			//var sl = JsonConvert.DeserializeObject<AssetModel>(await GetStringResponseAsync("https://bmclapi2.bangbang93.com/mc/game/version_manifest_v2.json"));
 			//MessageBox.Show(sl.ToString());
 

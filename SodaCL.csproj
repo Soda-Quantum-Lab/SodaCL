@@ -22,11 +22,13 @@
     <NoWarn>1701;1702;SYSLIB0014</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\DefaultSetting.xml" />
     <None Remove="Resources\Images\Dev.ico" />
     <None Remove="Resources\Images\Launcher-Bg.jpg" />
     <None Remove="Resources\Images\Release.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\DefaultSetting.xml" />
     <Resource Include="Token.xaml" />
     <Resource Include="Resources\Images\Dev.ico" />
     <Resource Include="Resources\Images\Launcher-Bg.jpg" />

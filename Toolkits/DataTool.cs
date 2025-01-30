@@ -1,10 +1,41 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Media;
 
 namespace SodaCL.Toolkits {
+
 	public class DataTool {
+
 		/// <summary>
+		/// 释放内嵌资源至指定位置
+		/// </summary>
+		/// <param name="resource">嵌入的资源，此参数写作：命名空间.文件夹名.文件名.扩展名</param>
+		/// <param name="path">释放到位置</param>
+		public static void ExtractFile(string resource, string path) {
+			try {
+				var assembly = Assembly.GetExecutingAssembly();
+				var res = assembly.GetManifestResourceStream(resource);
+				var input = new BufferedStream(res);
+				var output = new FileStream(path, FileMode.Create);
+				byte[] data = new byte[1024];
+				int lengthEachRead;
+				while ((lengthEachRead = input.Read(data, 0, data.Length)) > 0) {
+					output.Write(data, 0, lengthEachRead);
+				}
+				output.Flush();
+				output.Close();
+			}
+			catch (Exception ex) {
+				Logger.Log(false, Logger.ModuleList.IO, Logger.LogInfo.Error, "释放资源文件失败。", ex);
+				throw ex;
+			}
+		}
+
+		/// <summary>
+
 		/// 将 <see cref="SolidColorBrush"/> 对象 转换为 <see cref="Color"/> 对象
 		/// </summary>
 		/// <param name="targetBrush">源对象</param>
