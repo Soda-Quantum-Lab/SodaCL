@@ -8,8 +8,8 @@
              d:DesignHeight="40" d:DesignWidth="125" Loaded="Border_Loaded" VerticalAlignment="Center" HorizontalAlignment="Center">
     <Border Name="CheckBox_BgBorder" d:Background="Black" CornerRadius="22" RenderTransformOrigin="{Binding ElementName=CheckBox_Border, Path=RenderTransformOrigin}" Background="{Binding ElementName=CheckBox_Border, Path=Background}" Width="{Binding ElementName=CheckBox_Border, Path=ActualWidth}" Height="{Binding ElementName=CheckBox_Border, Path=ActualHeight}" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Name="CheckBox_Border" CornerRadius="20" RenderTransformOrigin="0.5,0.5" Height="40" Width="125"
-        Background="{DynamicResource Brush_Main}" BorderBrush="{DynamicResource Brush_Main}" BorderThickness="4"
-        MouseLeftButtonUp="Btn_Border_MouseLeftButtonUp" MouseEnter="Btn_MouseEnter" MouseLeave="Btn_Border_MouseLeave" MouseDown="Btn_Border_MouseDown" MouseUp="Btn_Border_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
+            Background="{DynamicResource Brush_Main}" BorderBrush="{DynamicResource Brush_Main}" BorderThickness="4"
+            MouseLeftButtonUp="Btn_Border_MouseLeftButtonUp" MouseEnter="Btn_MouseEnter" MouseLeave="Btn_Border_MouseLeave" MouseDown="Btn_Border_MouseDown" MouseUp="Btn_Border_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border.RenderTransform>
                 <ScaleTransform x:Name="CheckBox_Border_Scale" />
             </Border.RenderTransform>

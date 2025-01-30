@@ -194,8 +194,27 @@ namespace SodaCL.Core.Java {
 			var javaList = JsonConvert.DeserializeObject<JavaModel>(javaJson);
 
 			var mcMajorVersion = int.Parse(TargetMcVersion.Split('.')[1]);
+			int mcMinorVersion;
+			if (TargetMcVersion.Split('.').Length > 2)
+				mcMinorVersion = int.Parse(TargetMcVersion.Split('.')[2]);
+			else
+				mcMinorVersion = 0;
 
-			if (mcMajorVersion >= 17) {
+			if ((mcMajorVersion == 20 && mcMinorVersion >= 4) || mcMajorVersion >= 21) {
+				// 1.20.4+ 至少 Java 21，快照版本暂时未确定
+				foreach (var javaJsonSingle in javaList.ToString())
+				{
+					var java = JsonConvert.DeserializeObject<JavaModel>(javaJsonSingle.ToString());
+					if (java.MajorVersion == "21")
+					{
+						RegEditor.SetKeyValue(Registry.CurrentUser, "CacheTargetJavaPath", java.JavaPath, RegistryValueKind.String);
+						return java.JavaPath;
+					}
+					break;
+				}
+				return null;
+			}
+			else if (mcMajorVersion >= 17) {
 				// 1.18 Pre2+ 至少 Java 17
 				// 1.17+ (21w19a+) 至少 Java 16
 				// 出于省事考虑直接最少 Java 17 ，除了 1.17 部分早期版本的 Forge 可能需要特殊处理 (Java 16)
@@ -208,6 +227,7 @@ namespace SodaCL.Core.Java {
 					}
 					break;
 				}
+				return null;
 			}
 			else if (mcMajorVersion >= 12) {
 				// 最少 Java 8
@@ -221,6 +241,7 @@ namespace SodaCL.Core.Java {
 					}
 					break;
 				}
+				return null;
 			}
 			else if (mcMajorVersion <= 11 && mcMajorVersion >= 8) {
 				// 必须恰好 Java 8
@@ -233,6 +254,7 @@ namespace SodaCL.Core.Java {
 					}
 					break;
 				}
+				return null;
 			}
 			else if (mcMajorVersion <= 7) {
 				// 最高 Java 8
@@ -246,6 +268,7 @@ namespace SodaCL.Core.Java {
 					}
 					break;
 				}
+				return null;
 			}
 			else if (mcMajorVersion <= 5) {
 				// 最高 Java 12
@@ -259,6 +282,7 @@ namespace SodaCL.Core.Java {
 					}
 					break;
 				}
+				return null;
 			}
 			else {
 				return "核心版本非法";

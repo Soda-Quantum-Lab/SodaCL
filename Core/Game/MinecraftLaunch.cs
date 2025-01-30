@@ -26,19 +26,26 @@ namespace SodaCL.Core.Game {
 		private static string _userType;
 		private static string _versionType;
 
+		private static string coreName = "1.21.4";
+		private static string coreVersion = "1.21.4";
+		private static string username = "SodaCLTest";
+		private static int memoryMax = 4096;
+		private static int memoryMin = 2048;
+
 		private MinecraftLaunch() {
 		}
 
 		public static void LaunchGame() {
 			// _coreInfo = JsonConvert.DeserializeObject<CoreModel>(RegEditor.GetKeyValue(Registry.CurrentUser, "CurrentGameInfo"));
 			// _assetInfo = JsonConvert.DeserializeObject<AssetModel>(_coreInfo.GameDir + "\\" + _coreInfo.VersionName);
-			var json = File.ReadAllText($"{SODA_MC_DIR}\\versions\\1.21.4\\1.21.4.json");
+			var json = File.ReadAllText($"{SODA_MC_VERSIONS_DIR}\\{coreName}\\{coreName}.json");
 			_assetInfo = JsonConvert.DeserializeObject<AssetModel>(json);
 			var StartArgs = SpliceArgumentsMain();
 			Log(false, ModuleList.IO, LogInfo.Info, StartArgs);
 
 			var javaPath = "";
 			// javaPath = JavaAutoSelector("1.21.4");
+			// Java 自动选择
 			javaPath = "C:\\Program Files\\Zulu\\zulu-21\\bin\\java.exe";
 
 			var p = new Process();
@@ -88,9 +95,9 @@ namespace SodaCL.Core.Game {
 			//TODO: Natives 文件处理 (-Djava.library.path="E:\Minecraft\.minecraft\$natives")
 
 			var BasicArguments = "";
-			BasicArguments += $" -Xmx2048M";
-			BasicArguments += $" -Xms2048M";
-			BasicArguments += $" -Xmn256M";
+			BasicArguments += $" -Xmx{memoryMax}M";
+			BasicArguments += $" -Xms{memoryMin}M";
+			BasicArguments += $" -Xmn256M"; // 之后可能需要斟酌一下数值，似乎会影响性能
 			BasicArguments += " -XX:+UseG1GC";
 			BasicArguments += " -XX:-UseAdaptiveSizePolicy";
 			BasicArguments += " -XX:-OmitStackTraceInFastThrow";
@@ -117,7 +124,7 @@ namespace SodaCL.Core.Game {
 				}
 				LibrariesArguments += libPath + ";";
 			}
-			LibrariesArguments += "E:\\Code\\SodaCL\\bin\\Debug\\net8.0-windows\\.minecraft\\versions\\1.21.4\\1.21.4.jar";
+			LibrariesArguments += $"{SODA_MC_VERSIONS_DIR}\\{coreName}\\{coreName}.jar";
 			return LibrariesArguments;
 		}
 
@@ -130,9 +137,9 @@ namespace SodaCL.Core.Game {
 			//McArguments += $" --username {RegEditor.GetKeyValue(Registry.CurrentUser, "UserName")}";
 			// McArguments.Add($"--version {_coreInfo.VersionName}");
 			//McArguments.Add($"--gameDir {DirConverter(_coreInfo.GameDir)}");
-			McArguments += $" --username SodaCLTest";
-			McArguments += $" --version 1.21.4";
-			McArguments += $" --gameDir {SODA_MC_DIR}\\versions\\1.21.4";
+			McArguments += $" --username {username}";
+			McArguments += $" --version {coreVersion}";
+			McArguments += $" --gameDir {SODA_MC_VERSIONS_DIR}\\{coreName}";
 			McArguments += $" --assetsDir {SODA_MC_DIR}\\assets";
 			McArguments += $" --assetIndex {_assetInfo.AssetIndex.Id}";
 			//McArguments += $" --uuid {_uuid}";
