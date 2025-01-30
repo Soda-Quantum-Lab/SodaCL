@@ -20,7 +20,7 @@ namespace SodaCL.Toolkits {
 				var res = assembly.GetManifestResourceStream(resource);
 				var input = new BufferedStream(res);
 				var output = new FileStream(path, FileMode.Create);
-				byte[] data = new byte[1024];
+				var data = new byte[1024];
 				int lengthEachRead;
 				while ((lengthEachRead = input.Read(data, 0, data.Length)) > 0) {
 					output.Write(data, 0, lengthEachRead);
@@ -30,7 +30,7 @@ namespace SodaCL.Toolkits {
 			}
 			catch (Exception ex) {
 				Logger.Log(false, Logger.ModuleList.IO, Logger.LogInfo.Error, "释放资源文件失败。", ex);
-				throw ex;
+				throw;
 			}
 		}
 

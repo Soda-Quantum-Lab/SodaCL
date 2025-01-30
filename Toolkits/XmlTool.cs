@@ -19,7 +19,7 @@ namespace SodaCL.Toolkits {
 			}
 			catch (XmlException ex) {
 				Logger.Log(false, Logger.ModuleList.IO, Logger.LogInfo.Error, null, ex);
-				throw ex;
+				throw;
 			}
 		}
 

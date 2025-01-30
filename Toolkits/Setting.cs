@@ -31,8 +31,8 @@ namespace SodaCL.Toolkits {
 				var xml = new XmlTool(SODACL_SETTINGS);
 				xml.CreateNode("Settings");
 			}
-			catch (Exception ex) {
-				throw ex;
+			catch {
+				throw;
 			}
 		}
 
